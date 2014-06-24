@@ -1,0 +1,123 @@
+\documentclass{acm_proc_article-sp}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[english, french]{babel}
+\usepackage[babel=true]{csquotes}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\usepackage{draftwatermark}
+\SetWatermarkText{DRAFT}
+\SetWatermarkLightness{0.5}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepgfplotslibrary{external} 
+\tikzexternalize
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=0.8pt] (char) {#1};}}
+
+
+\usepackage[hyperref=true,%
+            url=false,%
+            isbn=false,%
+            style=numeric,%
+            maxcitenames=3,%
+            maxbibnames=100,%
+            block=none]{biblatex}
+
+\bibliography{../src/bib/OS.bib}
+\bibliography{../src/bib/Flow-Based Programming.bib}
+\bibliography{../src/bib/Functional Programming-Functional Reactive Programming.bib}
+\bibliography{../src/bib/Stream.bib}
+\bibliography{../src/bib/Dataflow.bib}
+\bibliography{../src/bib/Web & Social Networks.bib}
+\bibliography{../src/bib/Others.bib}
+\bibliography{../src/bib/Actor model.bib}
+\bibliography{../src/bib/Misc.bib}
+\bibliography{../src/bib/Parallelisation.bib}
+\bibliography{../src/bib/Others.bib}
+\bibliography{../src/bib/Distributed Systems.bib}
+\bibliography{../src/bib/sigproc.bib}
+
+% \bibliographystyle{abbrv}
+% \bibliography{../src/bib/OS.bib,../src/bib/Flow-Based Programming.bib,../src/bib/Functional Programming-Functional Reactive Programming.bib,../src/bib/Stream.bib,../src/bib/Dataflow.bib,../src/bib/Web & Social Networks.bib,../src/bib/Others.bib,../src/bib/Actor model.bib,../src/bib/Misc.bib,../src/bib/Parallelisation.bib,../src/bib/Others.bib,../src/bib/Distributed Systems.bib}
+
+\input{_todos}
+% \input{alias}
+\input{code}
+
+
+% Document starts
+\begin{document}
+
+% Title portion
+\title{
+  From interruption to promises : a state of the art
+}
+\subtitle{
+
+}
+
+\numberofauthors{4}
+\author{
+% 1st. author
+\alignauthor
+Etienne Brodu\\
+  \email{\textsf{\normalsize{etienne.brodu@insa-lyon.fr}}}\\
+  \affaddr{\textsf{\small{IXXI – ENS Lyon}}}\\
+  \affaddr{\textsf{\small{15 parvis René Descartes – BP 7000}}}\\
+  \affaddr{\textsf{\small{69342 Lyon Cedex 07  FRANCE}}}
+% 2nd. author
+\alignauthor
+Stéphane Frénot\\
+  \email{\textsf{\normalsize{stephane.frenot@insa-lyon.fr}}}\\
+  \affaddr{\textsf{\small{IXXI – ENS Lyon}}}\\
+  \affaddr{\textsf{\small{15 parvis René Descartes – BP 7000}}}\\
+  \affaddr{\textsf{\small{69342 Lyon Cedex 07  FRANCE}}}
+% 3rd. author
+\alignauthor
+Fabien Cellier\\
+  \email{\textsf{\normalsize{fabien.cellier@worldline.com}}}\\
+  \affaddr{\textsf{\small{Worldline}}}\\
+  \affaddr{\textsf{\small{107-109 boulevard Vivier Merle}}}\\
+  \affaddr{\textsf{\small{69438 Lyon Cedex 03}}}
+\and  % use '\and' if you need 'another row' of author names
+% 4th. author
+\alignauthor
+Frédéric Oblé\\
+  \email{\textsf{\normalsize{frederic.oble@worldline.com}}}\\
+  \affaddr{\textsf{\small{Worldline}}}\\
+  \affaddr{\textsf{\small{107-109 boulevard Vivier Merle}}}\\
+  \affaddr{\textsf{\small{69438 Lyon Cedex 03}}}
+}
+
+\maketitle
+
+\input{abstract}
+
+
+% A category with the (minimum) three required fields
+% \category{H.4}{Information Systems Applications}{Miscellaneous}
+%A category including the fourth, optional field follows...
+% \category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+
+% \category{Software and its engineering}{Software notations and tools}{Compilers}[Runtime environments]
+
+% \terms{Compilation}
+
+% \keywords{Flow programming, Web, Javascript} % NOT required for Proceedings
+
+\input{introduction}
+\input{section}
+\input{related_works}
+\input{conclusion}
+
+\printbibliography[]
+% \input{appendix}
+
+\end{document}
