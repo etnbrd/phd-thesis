@@ -1,0 +1,79 @@
+\section{Threads and events}
+
+% Our demonstration target only highly concurrent web applications.
+Web applications are highly concurrent systems.
+There are two broad models to design such system, threads and events.
+A thread conveniently encapsulates the logic and the associated data.
+% In the thread model, the application is neatly contained a thread.
+% A thread is a container for instructions and the associated stack.
+While the event model scatters the logic in handlers be queued and processed efficiently.
+% While events scatter the logic to be queued and processed efficiently.
+% the logic is scattered in multiple handlers reacting to events.
+Each of this two models is advanced as the most suitable solution for concurrency by fervent partisans \cite{Ousterhout1996, Behren2003}.
+% J. Ousterhout gave the talk about \textit{Why threads are a bad idea (for most purposes)} .
+% E. Brewer \textit{et. al.} wrote the article about \textit{Why events are a bad idea (for high-concurrency servers)} .
+
+Almost 40 years ago, Lauer and Needham proposed an equivalence between the two models \cite{Lauer1979}, later refined by Adya \textit{et. al.} \cite{Adya2002}.
+The latter stated that the advantages revendicated by both parties are applicable on both models.
+% Namely, the cooperative task management and the automatic state management.
+The \textbf{cooperative task management}, associated with the event model, relieves of the synchronization burden.
+Procedures yields whenever their execution finishes.
+On a mono core architecture, every execution becomes atomic, and conserves the invariants of the state.
+% The \textbf{automatic state management} is associated with the thread model.
+But the state of computation is lost when yielding.
+The developer needs to store the state before yielding, and retrieving it afterward.
+The \textbf{automatic state management}, associated with the thread model, relives this burden.
+
+Now, both models benefits of these two advantages.
+The distinction barely holds anymore on a single core CPU.
+However, a single core CPU is not enough for web applications.
+
+\subsection{Scalability}
+
+% Web services are high concurrence systems, and require high scalability.
+The load of a web services varies dynamically, with high peaks for certain events%
+% \ftnt{https://medium.com/message/how-paper-magazines-web-engineers-scaled-kim-kardashians-back-end-sfw-6367f8d37688}%
+.
+Scalability is achieved through commutativity which itself bring concurrency \cite{Clements2013a}.
+Commutativity implies all the operation to be steateless, which is often impracticable.
+Concurrency occurs, for example, when the execution of multiple threads are interleaved on the same core.
+But because the frequency of a machine is limited, scalability is only achievable through parallelism.
+Parallelism occurs when multiple threads of execution progress simultaneously.
+
+\subsection{Parallelism for thread and events}
+
+When scaled on a highly parallel architecture, the two models reveal a third difference addressed by Adya \textit{et. al.} : Data partitioning \cite{Adya2002}.
+The state of a distributed application, is either shared in a common place, or partitioned.
+A database is commonly in charge of holding such shared states and resolving access conflicts.
+% The CAP theorem shows that while designing such a system, one needs to choose between consistency, and availability.
+On the other hand, partitioning the application and its data is a delicate operation.
+It tends to limit evolutions of the application.
+
+We argue that threads and events are two complementary models.
+The event model reflects more the reality of execution, while the thread model reflects the mental model of computation.
+Behren \textit{et. al.} stated that \textit{it is a mistake to attempt high concurrency without help from the compiler} \cite{Behren2003}.
+We argue that it is possible to transform a single event-loop based program into a distributed architecture.
+
+\section{Compilation}
+
+\subsection{Execution partitioning}
+
+As Lauer and Needham stated, thread and event are syntactically interchangeable \cite{Lauer1979}.
+However, a difference remains between the two models.
+We use this difference to distribute the execution.
+
+Threads conserve their variable stack, and their call stack to resume execution.
+On the other hand, when events uses closures, they only conserve the variable stack.
+Because events handlers are unable to returns, the need to continue the execution by calling other handlers.
+The call stack is effectively contained in the source.
+
+Because an event handler can never returns, it is impossible for an asynchronous operation to be encapsulated inside a synchronous operation.
+Considering only execution, there is no dependency between one event handler and the subsequent handler.
+If the causality is conserved, one event handler could executes on a different machine than its subsequent handler.
+
+\subsection{Data partitioning}
+
+To effectively distribute the different handlers, the shared memory needs to be accessible by all handlers.
+As stated above, there is two solutions for data partitioning, shared or partitioned.
+We chose to statically analyze the source to automatically partition the memory needed for each handler.
+These handlers then communicate by message to exchange the shared states through a one way flow of messages.

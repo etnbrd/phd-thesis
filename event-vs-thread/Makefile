@@ -18,7 +18,7 @@ import:
 	rsync -r ~/Documents/PhD/Bib ./src/bib
 
 open:
-	open ${NAME}.pdf
+	xdg-open ${NAME}.pdf
 
 _pre:
 	${PDFLATEX}
