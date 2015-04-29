@@ -1,0 +1,120 @@
+\section{Scalability}
+
+% TODO introduction to this chapter
+
+
+We define a web service as a computer program whose main interface is based on web protocols, such as HTTP.
+Such a service uses resources allocated on a network of computers.
+Scalability defines the ability of the service to use a certain quantity of resource to meet a desired performance.
+We call system the association of the computer program and the available resources. 
+The performance of this system is measured by its latency and throughput.
+
+\subsection{Latency and throughput}
+
+Latency is the time elapsed between the reception of a request, and the sent of the reply.
+It includes the time waiting for resources to be free to process the request, and the time to process the request.
+
+Throughput is the number of requests processed by the system by unit of time.
+
+Latency and throughput are linked in a certain way.
+If a modification of the web service reduces its mean latency to a half, then the throughput doubles immediately.
+It takes half the time to process a request, therefore, the service can process more requests in the same time.
+However, if throughput augment, the latency doesn't necessarily decrease.
+
+\subsection{Scalability granularity}
+
+We define a computer program as a set of operations.
+In the case of a web service, these operations can be directly requested by the user through the interface.
+An operation can cause any other operation to execute.
+
+Because both the resources used and the operations executed are discrete : not infinitely divisible, scalability is inherently discrete.
+
+
+% TODO scalability granularity ? 
+Scalability granularity is the increment of resources.
+How the input data can be split up ?
+How the program can be deployed on many machines ?
+
+
+
+
+
+
+We call system the association of the computer program with the resources
+
+
+\subsection{Horizontal and vertical scaling}
+
+There is two ways to augment the resources of the system.
+Enhance the nodes in the computer network - vertical scaling.
+Or add more nodes to the computer network - horizontal scaling.
+
+
+% TODO how to apply these theory to highly concurrent servers ?
+% How does it modify the theories ?
+
+There are three theories, from the most restrictive, to the most general.
+
+
+% TODO define scalability
+Scalability is the property of a computer program to occupy available resources to meet a needed performance.
+EIther in Latency, or in throughput.
+
+
+
+
+
+
+
+\subsection{Linear scalability}
+
+Clements et. al. \cite{Clements2013a} prove that a computer program scale linearly if all its operations are commutative.
+% Commutative is not parallel. How to go from commutative to parallel ?
+Two operations are said to be commutative if they can be executed in any orders, and the same initial state will result in the same final state.
+Commutativity implies the two operations to be memory-conflict free, or independent, which is equivalent to say that they can be executed in parallel.
+
+Therefore, to achieve linear scalability, a computer program must be composed of a set of operations that commutes.
+Thus, all the operations are parallel, they can be executed simultaneously, on any number of machines as required.
+
+The size of the operations sets the scalability granularity.
+
+However, commutativity is not achievable in real applications.
+Even sv6, the operating system resulting from the work on commutative scalability only has 99\% commutativity.
+For real application, in the best case, the granularity is coarse, in the worst case, there is no possible commutativity because of shared resources (like a product inventory, or a friend graph).
+
+% TODO continue
+
+\subsection{Limited scalability}
+
+Amdahl introduced in 1967 a law to predict the limitation of speedup a computer program can achieve if a fraction of its code is sequential.
+Amdahl worked at increasing the speed of computer clock, while the scientific community was working on improving parallelism of computing machines.
+
+In a set of operations, even if one is non-commutative, it cannot be executed in parallel of any others, the scalability is limited by this operation.
+
+There is a difference if the operation is non-commutative with itself, or only with others.
+In the first case, it impose a queuing, while in the second case, it only increase the granularity : you can regroup the non-commutative operation with its subsequents, and form a bigger commutative operation.
+
+% TODO continue
+
+\subsection{Negative scalability}
+
+Gunther generalized Amdahl's law into the Universal Scalability Law.
+It includes the parallelization of non-independent operations with the use of synchronization.
+
+It models the negative return on scalability from sharing resources observed in many real world applications.
+
+% TODO continue by explaining the different area of scalability.
+
+
+
+\subsection{Eventual Consistency}
+
+To overpass the scalability limits set by the previous rules, it is possible to abandon consistency.
+It simply tolerate incoherences between multiple replicas.
+The output of an operation can be false while its state is synchronized with the other replicas.
+
+% It is similar to the propagation of sound, light or gravity.
+% When an explosion happens, not everybody hears it at the same time : there is inconsistency in the experience.
+
+
+% TODO continue
