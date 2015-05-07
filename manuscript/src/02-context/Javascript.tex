@@ -8,7 +8,6 @@ Javascript was created by Brendan Eich in 10 days in May 1995, while he was work
 The inital name of the project was Mocha, and then switched to LiveScript when released to the public in September 1995.
 The name Javascript was later adopter to leverage the trend around Java.
 Indeed, Java was considered the new hot web programming language at this time.
-% TODO citations : Oreilly Javascript the definitive guide
 % TODO read Javascript the good parts
 
 Microsoft released a concurrent implementation of Javascript in June 1996 in their browser Internet Explorer 3.
@@ -24,26 +23,62 @@ By opposition to Java or C++, which target professional developers.
 
 \subsubsection{Rising of the unpopular language}
 
-Language popularity
+Javascript started as a programming language to animate web pages.
+It was used as a script language to implement short interactions.
+The main usage was for validate form on the client, avoiding unnecessary calls to the server.
 
-Indexes : 
-PYPL PopularitY of Programming Languages - Trends on Language + tutorial on google trends
-http://pypl.github.io/PYPL.html
+In 2005 James Jesse Garrett released Ajax: A New Approach to Web Applications, a white paper coining the term Ajax. \cite{Garrett2005}
+Ajax, consists in using Javascript to dynamically request and refresh the content of a web page.
+This paper point the trend in using this technique, and explain the consequences on user experience.
+Indeed, an application able to react to the user without completely refreshing the page, is bringing the web closer to a native application.
+At the time, some important web application started using this technique.
+The most important being Gmail, the google mail client.
 
-TIOBE - trends on Language + programming on a lot of search engine.
-http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html
-(Javascript is on the wall of fame for 2014, it has the most important rising in the given year)
+At roughly the same time famous Javascript libraries were released with the goal to fill the differences between browsers implementations of Javascript.
 
-
-Stack overflow tags
-http://makingdataeasy.com/stackoverflow-trends?tc=relative-button
-
-
-Github repo
-http://adambard.com/blog/top-github-languages-2014/
-https://bigquery.cloud.google.com/table/githubarchive:github.timeline?pli=1
+% TODO there is probably a lot more to write about this transition :
+% - Google used a lot of Ajax in its sites (gmail, google maps, orkut and so on ...)
+% - jquery / prototype ... all the famous library that helped Javascript gain in popularity
+% - ... ?
 
 \subsubsection{Current situation : complete world domination}
+
+All modern web browsers now include a Javascript interpreter, making Javascript the most ubiquitous runtime in history. \cite{Flanagan2006}
+
+But the fact that Javascript is the language of the web, also made it famous in the open source communities.
+Javascript is the language counting the most repository on github, and is the most tagged language in StackOverflow.
+
+Languages like Java and C/C++ are in active use in the software industry.
+Javascript on the other hand, is rising from the open source community and is slowly taking over the software industry as well.
+
+With the release of HTML5, the importance of Javascript was completely acknowledged.
+It marked the consideration of the web as viable alternative for desktop clients.
+And with the mobile trends, most products are now released as a mobile apps, and a web application.
+
+The web is now the norm.
+It is the application platform.
+And because Javascript is programming language of the web, it is \textit{de facto} the language of choice to develop technologies.\ftnt{http://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/}
+
+Some might consider HTML5 is not yet ready to build complete application on mobile, where condition in terms of performance, and accessibility are not as good as on the desktop.
+But even in these cases, Javascript seems to remain the language of choice, as proven with React Native\ftnt{https://facebook.github.io/react-native/}, from Facebook, who prone the "learn once, write anywhere", in opposition to the "develop once deploy everywhere of the web".
+
+
+\paragraph{Isomorphic Javascript}
+
+https://www.meteor.com/
+
+https://facebook.github.io/flux/
+
+\paragraph{Reactive}
+
+http://facebook.github.io/react/
+
+Code reuse.
+Why it never worked ?
+
+
+
+
 
 https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript
 
@@ -69,33 +104,154 @@ http://techcrunch.com/2015/04/14/popular-javascript-package-manager-npm-raises-8
 % ... and so on
 % >>> the conclusion is : Javascript is now a major language, and it is more than worth the consideration we are giving it in this PhD thesis.
 
-\paragraph{Isomorphic Javascript}
-
-https://www.meteor.com/
-
-https://facebook.github.io/flux/
-
-
-\paragraph{Reactive}
-
-http://facebook.github.io/react/
-
-Code reuse.
-Why it never worked ?
 
 
 \subsection{Overview of the language}
 
-\subsubsection{Higher-order functions}
+Javascript was released in a hurry, without a strong and directive philosophy.
+During its evolution, it snowballed with different features to accommodate the community, and the usage it was made on the web. As a result Javascript contains various, and sometimes conflicting, programming paradigms.
+It borrow its syntax from a procedural language, like C, and the object notation from an object-oriented language, like Java, but it provides a different inheritance mechanism, based on prototypes. Most of the implementation adopt an event-based paradigm, like the DOM\ftnt{http://www.w3.org/DOM/} and node.js\ftnt{https://nodejs.org/}.
+And finally, event though it is not purely functional like Haskel, Javascript borrows some concepts from functional programming.
 
+In this section, we focus on the last two programming paradigm, functional programming and event-based programming.
+Javascript exposes two features from functional programming.
+Namely, it treats functions as first-class citizen, and allows them to close on their defining context, to become closures.
+We will explain these two features in details, and see how they are highly attractive to program in an event-based paradigm.
 
+\subsubsection{Functions as First-Class citizens}
+
+\cit{All problems in computer science can be solved by another level of indirection}{Butler Lampson}
+
+Javascript treats function as first-class citizens.
+One can manipulate functions like any other type (number, string ...).
+She can store functions in variables or object properties, pass functions as arguments to other functions, and write functions that return functions.
+
+The most common usage examples of these features, are the methods \texttt{Map}, \texttt{Reduce} and \texttt{filter}.
+In the example below, the method \texttt{map} expect a function to apply on all the element of an array to modify its content, and output a modified array.
+A function expecting a function as a parameter is considered to be a higher-order function. \texttt{Map}, \texttt{Reduce} and \texttt{Filter} are higher-order functions.
+
+\begin{code}
+  [4, 8, 15, 16, 23, 42].map(function firstClassFunction(element) {
+    return element + 1;
+  });
+  // -> [5, 9, 16, 16, 24, 43]
+\end{code}
+
+Higher-order functions provide a new level of indirection, allowing abstractions over functions.
+To understand this new level of abstraction, let's briefly summarize the different abstractions on the execution flow offered by programming paradigms.
+In imperative programming, the control structures allow to modify the control flow. That is, for example, to execute different instructions depending on the state of the program.
+Procedural programming introduces procedures, or functions. That is the possibility to group instructions together to form functions.
+They can be applied in different contexts, thus allowing a new abstraction over the execution flow.
+% It encourages to abstract program states so that the same function can be applied in different places to apply its behavior.
+
+So, higher-order functions add another level of abstraction.
+It allows to dynamically modify the control of the execution flow.
+The ability to manipulate functions like any other value allows to abstract over functions, and behavior.
+% TODO continue this, there is a lot to say about HOF
+
+Higher-order functions replace the needs for some Object oriented programming design patterns.\ftnt{http://stackoverflow.com/a/5797892/933670} Though object oriented programming doesn't exclude higher-order functions.
+
+They are particularly interesting when the behavior of the program implies to react to inputs provided during the runtime, as we will see later.
+Web servers, or graphical user interfaces, for examples, interact with external events of various types.
+
+% TODO transition : higher-order functions makes use of closure to implement the lexical scope in mutable programming languages. (reformulate)
 
 \subsubsection{Closures}
 
-A closure is a function associated with the environment in which it was declared.
-It is used in languages with higher-order functions, such as Javascript, to have lexical scoping.
+\cit{An object is data with functions. A closure is a function with data.}{John D. Cook}
+
+In purely functional programming languages functions are stateless. They are independent from any state, and process their result purely from their inputs.
+In non-purely programming languages, however, functions depends on a context containing variables.
+Most languages defines the scope of this context using code blocks as boundaries.
+That is known as lexical scoping, or static scoping.
+Any variable declared in a block as well as all the enclosing blocks are available from within this block.
+It represent the lexical context of this block, commonly named scope.
+Javascript implement lexical scoping with function definitions as boundaries, instead of code blocks.
+The code below show a simple example of lexical scoping in Javascript.
+
+\begin{code}
+  var a = 4;
+  var c = 6;
+  function f() {
+    var b = 5;
+    var c = 0;
+    // a and b are accessible here.
+    return a + b + c;
+  }
+
+  f(); // -> 9
+
+  // b is not accessible here :
+  a + b + c; // -> ReferenceError: b is not defined
+\end{code}
+
+A closure is the association of a first-class function with its context.
+When a function is passed as an argument to an higher-order function, she closes over its context to become a closure.
+When a closure is called, it still has access to the context in which it was defined.
+The code below show a simple example of a closure in Javascript.
+The function \texttt{g} is defined inside the scope of \texttt{f}, so it has access to the variable \texttt{b}.
+When \texttt{f} return \texttt{g} to be assigned in \texttt{h}, it becomes a closure.
+The variable \texttt{h} holds a closure referencing the function \texttt{g}, as well as its context, containing the variable \texttt{b}.
+The closure \texttt{h} has access to the variable \texttt{b} even outside the scope of the function \texttt{f}.
+
+\begin{code}
+  function f() {
+    var b = 4;
+    return function g(a) {
+      return a + b;
+    }
+  }
+
+  var h = f();
+  // b is not accessible here :
+  b; // -> ReferenceError: b is not defined
+
+  // h is the function g with a closure over b :
+  h(5) // -> 9
+\end{code}
+
+
+% TODO continue with closure
+
+
+% TODO transition, Higher-order functions and closures are very handy in turn-based programming
+
 
 \subsection{Turn-based programming}
+
+Javascript, like most programming languages, is synchronous and non-concurrent. The specification doesn't provide mechanism to write concurrent execution of Javascript.
+Concurrency is supported and provided by the execution engine, the JVM in the case of Java, or the operating system in the case of C/C++.
+These languages were mostly used to design CPU intensive applications.
+The concurrency model for such application is driven by the need for computing power.
+The best concurrency model is the threading model.
+It allows to run multiple executions simultaneously to leverage the potential of parallel architectures, and execute faster.
+Execution engine provide thread libraries to allow concurrency, like pthreads\ftnt{https://computing.llnl.gov/tutorials/pthreads/} for POSIX operating systems, and the \texttt{Thread}\ftnt{https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html} class for Java.
+But, as we will see in a next chapter, threads are known to be very difficult to manipulate.
+It is lucky that Javascript was not seen early as a language to build CPU intensive applications, so it can adopt a different concurrency model.
+
+Indeed, Javascript was used from the beginning to build graphical user interfaces.
+Since user interfaces evolved from a simple and sequential user prompt to a full interactive graphical space, the programs behind such interface need to display and process concurrent events.
+
+
+
+
+As the graphical space to render an application is inehrently concurrent, GUIs need to react to multiple events occurring concurrently.
+% TODO find a good example here
+The concurrency need is completely different than for CPU intensive applications, and so is the concurrency model.
+Graphical user interfaces often use an event-loop.
+
+
+% http://www.w3.org/TR/workers/
+
+
+As said above, most implementations of Javascript feature an event-based programming paradigm.
+The DOM\ftnt{http://www.w3.org/DOM/} and node.js\ftnt{https://nodejs.org/} are the most famous examples.
+
+
+HOF allows Continuation Passing Style, which is particularly useful in a turn-based programming language such as node.js javascript.
+% TODO continue to say a lot about CPS
+
+
 
 \subsubsection{the Javascript event-loop}
 

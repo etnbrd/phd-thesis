@@ -2,12 +2,6 @@
 
 % ## Turn-based programming.
 
-
-
-
-
-
-
 % (see presentation on Dues)
 % -> single-thread, no wait, no block and so on
 % Shared heap -> no mutex, no synchronization, so it is good scalability
@@ -62,3 +56,12 @@
 
 % In promises, because the heap is not shared, things are less restrictive.
 % Multiple stages can read and write the same variable, because the propagation of modification is instantaneous, due to the shared heap.
+
+
+
+
+
+% TODO write about what it implies to detect continuation in variable, or other expressions.
+
+% Why can we only detect continuations declared in situ.
+% If a continuation is passed as a variable, we don't know for sure what is the function associated with, and the closure of that function.
