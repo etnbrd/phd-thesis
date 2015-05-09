@@ -156,16 +156,33 @@ Web servers, or graphical user interfaces, for examples, interact with external 
 
 % TODO transition : higher-order functions makes use of closure to implement the lexical scope in mutable programming languages. (reformulate)
 
-\subsubsection{Closures}
+\subsubsection{Closure}
 
 \cit{An object is data with functions. A closure is a function with data.}{John D. Cook}
 
-In purely functional programming languages functions are stateless. They are independent from any state, and process their result purely from their inputs.
-In non-purely programming languages, however, functions depends on a context containing variables.
+Closures are indissociable from the concept of lexical environment.
+To understand the former, it is important to understand the latter first.
+
+\paragraph{Lexical environment}
+
+A variable is the very first level of indirection provided by programming languages and mathematics.
+It is is a binding between a name and a value.
+Mutable like in imperative programming to represent the reality of memory cells, or immutable like in mathematics and functional programming.
+These bindings are created and modified during the execution.
+They form a context in which the execution takes place.
+To compartmentalize the execution, a context is also compartmentalized.
+A certain context can be accessed only by a precise portion of code.
 Most languages defines the scope of this context using code blocks as boundaries.
 That is known as lexical scoping, or static scoping.
-Any variable declared in a block as well as all the enclosing blocks are available from within this block.
-It represent the lexical context of this block, commonly named scope.
+The variables declared inside a block represent the lexical environment of this block.
+These lexical environments are organized following the textual hierarchy of code blocks.
+The context available from a certain block of code, that is set of accessible variable, is formed as a cascade of the current lexical environment and all the parent lexical environment, up to the global lexical environment.
+
+% TODO draw the schema for a lexical environment here
+
+\paragraph{Javascript lexical environment}
+\ftnt{http://www.ecma-international.org/ecma-262/5.1/\#sec-10.2}
+
 Javascript implement lexical scoping with function definitions as boundaries, instead of code blocks.
 The code below show a simple example of lexical scoping in Javascript.
 
@@ -184,6 +201,13 @@ The code below show a simple example of lexical scoping in Javascript.
   // b is not accessible here :
   a + b + c; // -> ReferenceError: b is not defined
 \end{code}
+
+Lexical scoping, or statical scoping, implies that the lexical environment are known statically, at compile time for example.
+But Javascript is a dynamic language, it doesn't truly provide lexical scoping.
+In Javascript, the lexical environments can be dynamically modified using two statements : \texttt{with} and \texttt{eval}.
+We explain in details the Javascript lexical scope in section \ref{??? Compiler stuff}
+
+\paragraph{Closure}
 
 A closure is the association of a first-class function with its context.
 When a function is passed as an argument to an higher-order function, she closes over its context to become a closure.
@@ -220,8 +244,11 @@ The closure \texttt{h} has access to the variable \texttt{b} even outside the sc
 \subsection{Turn-based programming}
 
 Javascript, like most programming languages, is synchronous and non-concurrent. The specification doesn't provide mechanism to write concurrent execution of Javascript.
-Concurrency is supported and provided by the execution engine, the JVM in the case of Java, or the operating system in the case of C/C++.
-These languages were mostly used to design CPU intensive applications.
+There is no reference to \texttt{setTimeout} nor \texttt{setInterval}.
+These two well-known instructions to asynchronously post-pone execution are provided by the DOM.
+Indeed, like for many languages, concurrency is supported and provided by the execution engine.
+For example the JVM in the case of Java, or the operating system in the case of C/C++.
+These last two languages were mostly used to design CPU intensive applications.
 The concurrency model for such application is driven by the need for computing power.
 The best concurrency model is the threading model.
 It allows to run multiple executions simultaneously to leverage the potential of parallel architectures, and execute faster.
@@ -230,18 +257,35 @@ But, as we will see in a next chapter, threads are known to be very difficult to
 It is lucky that Javascript was not seen early as a language to build CPU intensive applications, so it can adopt a different concurrency model.
 
 Indeed, Javascript was used from the beginning to build graphical user interfaces.
-Since user interfaces evolved from a simple and sequential user prompt to a full interactive graphical space, the programs behind such interface need to display and process concurrent events.
-
-
-
-
-As the graphical space to render an application is inehrently concurrent, GUIs need to react to multiple events occurring concurrently.
+Since user interfaces evolved from a simple and sequential user prompt to a full interactive graphical space, the user interacts in a non-sequential way.
+The interface needs to display and react to multiple streams of interaction.
 % TODO find a good example here
+
 The concurrency need is completely different than for CPU intensive applications, and so is the concurrency model.
 Graphical user interfaces often use an event-loop.
 
+When an event-loop is used as the concurrency model, it creates what Douglas Crockford called turn-based programming\ftnt{https://youtu.be/dkZFtimgAcM?t=1852}.
 
-% http://www.w3.org/TR/workers/
+As event-loop was never used in CPU intensive applications, there was no need to extend to the multi-thread.
+An event-loop is single-threaded, therefore, it always has exclusive access to its memory.
+The concurrency is in a time-sliced fashion, each turn has an exclusive access on the memory by design.
+And it is never preempted.
+The event-loop let each event execute until it yield execution.
+The event-loop provide concurrency without the need for synchronization on the form of mutual exclusions, and locks.
+% TODO reformulate this paragraph, it is currently badly written.
+
+However, it has a cost.
+Each turn needs to be executed fast, so as to avoid the event-queue to congest on events waiting for their turn.
+
+
+% TODO GUIs hardly ever congest the event-loop, because if the programmer is not so bad, event are fast, and there is usually not so much event : the graphical space is often limited to the attention of a single user.
+% However, in the case of web application, there is a lot much more events to process.
+% So much in fact, that the congestion of a single event-queue (see USL) is often impacting the latency, and the reactivity of the application.
+% At this point, it is interesting to split into multiple event-queue.
+% Continue integrating the scalability / concurrency, and follow to the problematic.
+
+
+Now the browser has a thread-like concurrency model as well, on the form of web workers\ftnt{http://www.w3.org/TR/workers/}.
 
 
 As said above, most implementations of Javascript feature an event-based programming paradigm.
