@@ -67,27 +67,38 @@ In the meantime, since 2004, the WHATWG\ftnt{https://whatwg.org/} was working on
 This new version provide new capabilities to web browsers, and a better integration with the native environment.
 It features geolocation, file API, web storage, canvas drawing element, audio and video capabilities, drag and drop, browser history manipulation, and many mores
 It gave Javascript the missing pieces to become a true language for developing rich application.
-With these two releases, ECMAScript 5 and HTML5, Web-based technologies are considered as equally capable, if not more, than native rich applications.
+With these two releases, ECMAScript 5 and HTML5, Web-based technologies are considered as equally capable, if not more, than native rich applications on the desktop.
+And Javascript became the \textit{de facto} programming language of this rising application platform.
 
-\subsubsection{Complete world domination}
+However, HTML5 is not yet widely accepted as ready to build complete application on mobile, where performance and design are crucial.
+Indeed web-technologies expose sometimes better performance than native technologies, but often worse.
+Even in these cases, Javascript seems to be a language of choice.
+An example is the React Native Framework\ftnt{https://facebook.github.io/react-native/} from Facebook, which allow to use Javascript to develop native mobile applications.
+They prone the motiv "learn once, write anywhere", in opposition to the usual motiv of the web "develop once deploy everywhere".
+Another example is Gnome-shell. It uses Javascript to build its interface, and extensions.
 
-\cit{JavaScript is the world's most ubiquitous computing runtime.}{John Lam}
+\subsubsection{Current situation}
 
-All modern web browsers now include a Javascript interpreter, making Javascript the most ubiquitous runtime in history \cite{Flanagan2006}.
+\cit{When JavaScript was first introduced, I dismissed it as being not worth my attention. Much later, I took another look at it and discovered that hidden in the browser was an excellent programming language.}{Douglas Crockford}
 
-The success of Javascript is due to many factors.
-One I still didn't address, is the view source menu\ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
-This menu was like github, before github.
+% \cit{JavaScript is the world's most ubiquitous computing runtime.}{John Lam}
 
-When you provide a tool as simple to use as Javascript, and you distribute it as widely as the scale of the web, with free tool to analyze every piece of code, reproduce, and experiment.
-When you do so in the time span in which the largest communication network in history took off, and allowed the largest, and widest collaboration, disregarding previous barriers such as distance, language, culture and so on ...
-You instill inside a generation the ability to build, and share the best tools they can.
-And these tools, are sometimes, better than the tools built by close group of professionals developers, but always winning because they are widely distributed, used, and constantly improved.
-% TODO rewrite that paragraph.
+The success of Javascript is due to many factors ; I mentioned previously the standardization, Ajax libraries, and finally the release of HTML5.
+Another factor, maybe the most important, is the View Source menu that reveal the complete source code of any web application.
+\textit{The view source menu is the ultimate form of open source}\ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
+It is the vector of the dissemination of source code to the community, which picks, emphasizes and reproduces the best techniques.
+This is collaborative development before github.
+Moreover, all modern web browsers now include a Javascript interpreter, making Javascript the most ubiquitous runtime in history \cite{Flanagan2006}.
+Every browser include development tools for Javascript, making it the most ubiquitous development environment, as well.
+
+When a language like Javascript is distributed freely with the tools to reproduce and experiment on every piece of code.
+When this distribution is carried during the expansion of the largest communication network in history.
+Then an entire generation seizes this opportunity to incrementally build and share the best tools they can.
+This collaboration is the reason for the success of Javascript.
+
 % I want to say that Javascript took off because it was carried by the open source community.
 % The goal is to introduce the following facts : JS is widely used in the open source community.
 % I need to find the argument saying that open source is taking over closed sources : Javascript / open source is taking over Java / closed source.
-
 
 % TO READ :
 % http://www.javaworld.com/article/2077224/learn-java/is-javascript-here-to-stay-.html
@@ -95,27 +106,63 @@ And these tools, are sometimes, better than the tools built by close group of pr
 % http://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/
 % http://shaver.off.net/diary/2007/05/10/the-high-cost-of-some-free-tools/
 
+This success is obvious on the web and the open source communities, but it starts to also infiltrate in many other fields of IT.
 
-% Some facts :
-Javascript is the language counting the most repository on github, and is the most tagged language in StackOverflow.
+It is hard to choose the right metrics to measure programming language popularity.
+I detail here some metrics and index used.
+More detailed informations are available section \ref{appendix:langpop}.
 
-Languages like Java and C/C++ are in active use in the software industry.
-% See the jobs position from indeed, monsters and so on ...
-Javascript on the other hand, is rising from the open source community and is slowly taking over the software industry as well.
+The TIOBE Programming Community index is a monthly indicator of the popularity of programming languages.
+It uses the number of results on many search engines as a measure of the popularity of a programming language.
+Javascript ranks 6th on this index, as of April 2015, and it was the most rising language in 2014.
+However, the measure used by the TIOBE is controversial.
 
-With the mobile trends, most products are now released as a mobile apps, and a web application.
-
-The web is now the norm.
-It is the application platform.
-And because Javascript is programming language of the web, it is \textit{de facto} the language of choice to develop technologies.\ftnt{http://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/}
-
-Some might consider HTML5 is not yet ready to build complete application on mobile, where condition in terms of performance, and accessibility are not as good as on the desktop.
-But even in these cases, Javascript seems to remain the language of choice, as proven with React Native\ftnt{https://facebook.github.io/react-native/}, from Facebook, who prone the "learn once, write anywhere", in opposition to the "develop once deploy everywhere of the web".
+Another index is the PYPL, it is based on Google trends to analyze the activity around a programming language.
+Javascript ranks 7th on this index, as of May 2015.
 
 
 
-\subsubsection{Current trends}
+Github is the most important collaborative development platform, with around 9 millions users.
+Javascript is the most used language on github since mid-2011, with more than 320 000 repositories.
+The second language is Java with more than 220 000 repositories.
 
+\comment{TODO : Github repositories graph}
+
+StackOverflow, is the most important Q\&A platform for developers.
+It is a good representation of the activity around a language.
+Javascript is the second language showing the most activity on StackOverflow, with 843902 questions.
+The first one is Java with 851008 questions.
+
+
+Black Duck knowledgebase analyzes 1 million repositories over various forges, and collaborative platform to produce an index of the usage of programming language in open source communities.
+Javascript ranks second.
+C is first, and C++ third.
+Along with Java, the four first languages represent about 75\% of programming language usage.
+% TODO redo this graph, it is ugly.
+\includegraphics[width=\linewidth]{../../data/js-trends/black-duck-15}
+
+All these metrics are representing the visible activity about programming language.
+But not the entire software industry is open source, and the activity is rather opaque.
+To get a hint on the popularity of programming languages used in the software industry, let's look at the job offerings.
+Indeed provide some insightful trends.
+Javascript developers ranked at the third position, right after SQL developers and Java developers.
+Then come C\# and C developers.
+% TODO redo this graph, it is ugly.
+\includegraphics[width=\linewidth]{../../data/js-trends/jobgraph}
+
+All these metrics represent different faces of the current situation of Javascript adoption.
+We can safely say that Javascript is one of most important language of this decade, along with Java, C/C++.
+It is widely used in open source projects, and everywhere on the web.
+But it is also trending, and maybe slowly replacing languages like Java.
+% TODO continue this
+
+\subsubsection{Trends}
+
+\comment{TODO}
+
+\paragraph{em-scripten}
+
+https://github.com/kripken/emscripten
 
 \paragraph{Isomorphic Javascript}
 
