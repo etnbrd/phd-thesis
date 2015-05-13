@@ -7,7 +7,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{graphicx}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{svg}
 
 \usepackage{tikz}
@@ -48,7 +48,8 @@
 
 \begin{document}
 
-\title{Operating Systems mutations, how and why integrate the user in the digital era ?\\\comment{TODO change title ?}}
+%\title{Operating Systems mutations, how and why integrate the user in the digital era ?\\\comment{TODO change title ?}}
+\title{Automatic pipeline distribution for monolithic web applications : Toward a better compromise between development scalability and performance scalability \comment{not definitive}}
 \author{Etienne Brodu}
 
 \maketitle
@@ -60,33 +61,53 @@
 \input{01-introduction/main}
 \input{02-context/main}
 
-\chapter{State of the Art}
-  \section{Flow-programming}
-    \subsection{Functional reactive programming}
-    \subsection{Flow-Based programming}
-  \section{Event-based distributed middlewares}
-    \subsection{Micro-batch processing}
-    \subsection{Stream Processing}
-    \subsection{\comment{TODO} Other ?}
-  \section{Parallelizing compilers}
-    \subsection{\comment{TODO}}
-
-
 % \input{03-proposition/main}
 
-\chapter{A framework for parallel web applications}
-  \section{Fluxions}
+%\chapter{A framework for parallel web applications}
+ % \section{Fluxions}
 
-\chapter{A compiler toward parallel web application}
-  \section{Callback Identification}
-    \subsection{Dues}
-    \subsection{\comment{TODO}}
-  \section{Callback Isolation}
-    \subsection{Scope identification}
-      \subsubsection{Scope leaking}
-    \subsection{Execution propagation}
+
+\chapter{Distributed web applications}
+
+  \section{Framworks for web application distribution \comment{(State of the art)}}
+    \subsection{Micro-batch processing}
+    \subsection{Stream Processing}
+
+  \section{Fluxionnal execution model \comment{(Contribution)}}
+    \subsection{Fluxion encapsulation}
+      \subsubsection{Execution}
+      \subsubsection{Name}
+      \subsubsection{Memory}
+    \subsection{Messaging system}
+
+\chapter{Pipeline parallelism for web applications}
+
+  \section{Languages and compilers \comment{(State of the art)}}
+    \subsection{Flow-programming}
+      \subsubsection{Functional reactive programming}
+      \subsubsection{Flow-Based programming}
+    \subsection{Parallelizing compilers}
+      %\subsubsection{\comment{TODO}}
+
+  \section{Fluxionnal Compiler \comment{(Contribution)}}
+    \subsection{Identification}
+      \subsubsection{Continuation and listeners}
+      \subsubsection{Dues}
+    \subsection{Isolation}
+      \subsubsection{Scope identification}
+        \comment{Scope leaking}
+      \subsubsection{Execution and variable propagation}
+    \subsection{distribution}
+
+
 
 \chapter{Evaluation}
+
+  \section{Due compiler}
+
+  \section{Fluxionnal compiler}
+
+  \section{Fluxionnal execution model}
 
 \input{90-conclusion/main}
 \input{91-appendix/main}
