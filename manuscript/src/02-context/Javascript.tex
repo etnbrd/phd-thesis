@@ -176,42 +176,41 @@ But it is also trending, and maybe slowly replacing languages like Java.
 
 \comment{TODO}
 
-\comment{em-scripten}
-
-https://github.com/kripken/emscripten
-
-\comment{Isomorphic Javascript}
-
-https://www.meteor.com/
-
-https://facebook.github.io/flux/
-
-\comment{Reactive}
-
-http://facebook.github.io/react/
-
 Code reuse.
 Why it never worked ?
 
 
 
 
+\comment{em-scripten}
 
+https://github.com/kripken/emscripten
+Javascript is a target language for LLVM, therefor everything can compile to Javascript : JS is the assembler of the web.
+
+\comment{Isomorphic Javascript}
+
+Server-side Javascript
+
+https://www.meteor.com/
+https://facebook.github.io/flux/
+Javascript can be executed both on the client and the server.
+That allow use-cases never possible before (server pre-rendering, same team ...)
+
+\comment{Reactive}
+
+http://facebook.github.io/react/
+Javascript is used to model the flow of propagation of state in a web application
+
+
+
+---
+
+Some facts to include :
 https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript
-
 The Atom editor is written in Javascript node.js.
-
-
-
 Now, major PaaS (which one) support node.js by default.
-
 Heroku support Python, Java, Ruby, Node.js, PHP, Clojure and Scala
-
 Amazon Lambda Web service support node.js in priority.
-
-
->>> News :
-
 npm raises 8m.
 http://techcrunch.com/2015/04/14/popular-javascript-package-manager-npm-raises-8m-launches-private-modules/
 
@@ -221,8 +220,6 @@ http://techcrunch.com/2015/04/14/popular-javascript-package-manager-npm-raises-8
 % ... and so on
 % >>> the conclusion is : Javascript is now a major language, and it is more than worth the consideration we are giving it in this PhD thesis.
 
-
-
 \subsection{Overview of the language}
 
 Javascript was released in a hurry, without a strong and directive philosophy.
@@ -231,9 +228,10 @@ It borrow its syntax from a procedural language, like C, and the object notation
 And finally, event though it is not purely functional like Haskel, Javascript borrows some concepts from functional programming.
 
 In this section, we focus on the last two programming paradigm, functional programming and event-based programming.
-Javascript exposes two features from functional programming.
+Javascript exposes two features from functional programming that are particularly adapted for event-based programming.
 Namely, it treats functions as first-class citizen, and allows them to close on their defining context, to become closures.
-We will explain these two features in details, and see how they are highly attractive to program in an event-based paradigm.
+% TODO In the next section, we explain this two features
+% TODO and in the second section, we explain event-based programming and why these two features are good for event-based programming
 
 \subsubsection{Functions as First-Class citizens}
 
@@ -274,12 +272,6 @@ Web servers, or graphical user interfaces, for examples, interact with external 
 % TODO transition : higher-order functions makes use of closure to implement the lexical scope in mutable programming languages. (reformulate)
 
 \subsubsection{Lexical Scoping}
-
-\comment{TODO : most of this section is already written in the next section}
-
-\subsubsection{Closure}
-
-\cit{An object is data with functions. A closure is a function with data.}{John D. Cook}
 
 Closures are indissociable from the concept of lexical environment.
 To understand the former, it is important to understand the latter first.
@@ -328,7 +320,9 @@ But Javascript is a dynamic language, it doesn't truly provide lexical scoping.
 In Javascript, the lexical environments can be dynamically modified using two statements : \texttt{with} and \texttt{eval}.
 We explain in details the Javascript lexical scope in section \ref{??? Compiler stuff}
 
-\paragraph{Closure}
+\subsubsection{Closure}
+
+\cit{An object is data with functions. A closure is a function with data.}{John D. Cook}
 
 A closure is the association of a first-class function with its context.
 When a function is passed as an argument to an higher-order function, she closes over its context to become a closure.
@@ -364,88 +358,109 @@ The closure \texttt{h} has access to the variable \texttt{b} even outside the sc
 
 \subsection{Turn-based programming}
 
-Javascript, like most programming languages, is synchronous and non-concurrent. The specification doesn't provide mechanism to write concurrent execution of Javascript.
+Javascript, like most programming languages, is synchronous and non-concurrent. The specification doesn't provide any mechanism to write asynchronous nor concurrent execution of Javascript.
 There is no reference to \texttt{setTimeout} nor \texttt{setInterval}.
 These two well-known instructions to asynchronously post-pone execution are provided by the DOM.
 Indeed, like for many languages, concurrency is supported and provided by the execution engine.
 For example the JVM in the case of Java, or the operating system in the case of C/C++.
 These last two languages were mostly used to design CPU intensive applications.
 The concurrency model for such application is driven by the need for computing power.
-The best concurrency model is the threading model.
+A concurrency model well adapted for such applications is the threading model.
 It allows to run multiple executions simultaneously to leverage the potential of parallel architectures, and execute faster.
 Execution engine provide thread libraries to allow concurrency, like pthreads\ftnt{https://computing.llnl.gov/tutorials/pthreads/} for POSIX operating systems, and the \texttt{Thread}\ftnt{https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html} class for Java.
 But, as we will see in a next chapter, threads are known to be very difficult to manipulate.
-It is lucky that Javascript was not seen early as a language to build CPU intensive applications, so it can adopt a different concurrency model.
+It is lucky that Javascript was not seen as a language to build CPU intensive applications, so it remained free of this concurrency model, and can adopt a different concurrency model.
+% TODO reformulate this sentence : Javascript was mainly used to build graphical interfaces, and not CPU intensive applications.
 
 Indeed, Javascript was used from the beginning to build graphical user interfaces.
 Since user interfaces evolved from a simple and sequential user prompt to a full interactive graphical space, the user interacts in a non-sequential way.
 The interface needs to display and react to multiple streams of interaction.
-% TODO find a good example here
+% TODO reformulate that and find a good example here
 
 The concurrency need is completely different than for CPU intensive applications, and so is the concurrency model.
 Graphical user interfaces often use an event-loop.
+% TODO explain what is the common point between a GUI and a real-time web server -> lots of I/O, very few computations.
 
-When an event-loop is used as the concurrency model, it creates what Douglas Crockford called turn-based programming\ftnt{https://youtu.be/dkZFtimgAcM?t=1852}.
-
-As event-loop was never used in CPU intensive applications, there was no need to extend to the multi-thread.
-An event-loop is single-threaded, therefore, it always has exclusive access to its memory.
-The concurrency is in a time-sliced fashion, each turn has an exclusive access on the memory by design.
-And it is never preempted.
-The event-loop let each event execute until it yield execution.
-The event-loop provide concurrency without the need for synchronization on the form of mutual exclusions, and locks.
-% TODO reformulate this paragraph, it is currently badly written.
-
-However, it has a cost.
-Each turn needs to be executed fast, so as to avoid the event-queue to congest on events waiting for their turn.
-
-
-% TODO GUIs hardly ever congest the event-loop, because if the programmer is not so bad, event are fast, and there is usually not so much event : the graphical space is often limited to the attention of a single user.
-% However, in the case of web application, there is a lot much more events to process.
-% So much in fact, that the congestion of a single event-queue (see USL) is often impacting the latency, and the reactivity of the application.
-% At this point, it is interesting to split into multiple event-queue.
-% Continue integrating the scalability / concurrency, and follow to the problematic.
-
-
-Now the browser has a thread-like concurrency model as well, on the form of web workers\ftnt{http://www.w3.org/TR/workers/}.
-
+When an event-loop is used as the concurrency model for a partially functional language like Javascript, it creates what Douglas Crockford called turn-based programming\ftnt{https://youtu.be/dkZFtimgAcM?t=1852}.
+% TODO then explain why Javascript is a good choice for this ()
 
 As said above, most implementations of Javascript feature an event-based programming paradigm.
 The DOM\ftnt{http://www.w3.org/DOM/} and node.js\ftnt{https://nodejs.org/} are the most famous examples.
+% TODO Place this accordingly
 
-
-HOF allows Continuation Passing Style, which is particularly useful in a turn-based programming language such as node.js javascript.
-% TODO continue to say a lot about CPS
-
-
+Now the browser has a thread-like concurrency model as well, on the form of web workers\ftnt{http://www.w3.org/TR/workers/}.
+% TODO place this accordingly, it might be only a footnote
 
 \subsubsection{Event-loop}
 
-Web pages are graphical environment offering multiple area of interaction for the user.
-Because of this multiplicity, the traditional linear programing model doesn't hold anymore.
-Graphical systems switched from this linear programming model to a different programming model focused on events.
+% As event-loop was never used in CPU intensive applications, there was no need to extend to the multi-thread.
 
-Javascript uses higher-order functions.
-It is the ability for a language to manipulate functions like any other value.
-This ability is used to register a function to trigger after an event occurred.
-An event might be the click on an element of the page, for example.
+An event-loop answer a particular need of concurrency.
+It is designed to adapt a reduced number of resources (namely one thread of execution) to a various, and growing number of thread of logical execution.
+% TODO spearate well the two notions : thread of execution -> physical, and logical thread of execution -> a suite of instructions to execute.
 
-Such a function is named a callback, a handler, a listener ...
-And it shift the programming paradigm from synchronous to asynchronous, which is a big deal.
+The event-loop concurrency model is based around a queue of message, named the event-queue, and a thread of execution to process these messages, named the event-loop.
+The event-loop process the messages queued on the event-queue one after the other, each during a turn.
+A turn consists of the event-loop pulling a message from the event-queue, and executing the callback associated with this message until it yield the execution when finished.
+The execution of the callback is never preempted.
 
-In synchronous programming, the computation step are executed sequentially, one after the other.
-The program execution follows perfectly the program layout written in a linear textual file.
+An event-loop is single-threaded, callbacks are executed one after the other on the same CPU.
+The concurrency is time-sliced.
+During the execution of a callback, there is no other simultaneous execution.
+Therefor, each callback has an exclusive access to the memory.
 
-On the other hand, asynchronous programming allows a step back from this linearity.
+Because each callback has exclusive access to the memory, and is never preempted, it can consider the invariant.
+% TODO I don't know yet what exactly is an invariant, so please check.
+The event-loop provide concurrency without the need for synchronization on the form of mutual exclusions, and locks.
+It is often said that the event-loop provide atomic execution / de facto exclusion ... whatever, because of this pattern.
+
+However, there is a limitation to this concurrency model.
+Because all callback are executed on the same core, if one takes two much time to complete, the other can't executes, and the program seems to freeze.
+Therefore, each turn needs to be executed fast, so as to avoid the event-queue to congest on events waiting for their turn.
+
+GUIs hardly ever congest the event-loop, because if the programmer is not so bad, event are fast, and there is usually not so much event : the graphical space is often limited to the attention of a single user.
+However, in the case of web applications, there is a lot much more events to process.
+When there is too many concurrent events to process, the event-loop become congested, and the latency of the application increase.
+% TODO therefore, it is interesting to split into multiple event-queue.
+% TODO only make a point here : start to build the problematic.
+
+% TODO continue about how to program in an event-loop, and why it is so interesting to have HOF.
+
+HOF allows Continuation Passing Style, which is particularly useful in a turn-based programming language such as node.js javascript.
+% TODO continue to say a lot about CPS
+% CPS leads all the way to Promises \o/
 
 
-A multi-threaded system allows the developer to explicitly express the parallelism in the application.
-A GOTO statement allows the developer to explicitly express the control flow in the application.
 
 
-Asynchronous programming allows the program to manage the concurrency of the execution.
-Unlike a linear layout of an imperative program, it allows to express more finely the dependencies between instructions.
 
-% James Coglan speak about Promises and the abstraction they allow on the control flow. much interesting, especially at the end.
+
+% Web pages are graphical environment offering multiple area of interaction for the user.
+% Because of this multiplicity, the traditional linear programing model doesn't hold anymore.
+% Graphical systems switched from this linear programming model to a different programming model focused on events.
+
+% Javascript uses higher-order functions.
+% It is the ability for a language to manipulate functions like any other value.
+% This ability is used to register a function to trigger after an event occurred.
+% An event might be the click on an element of the page, for example.
+
+% Such a function is named a callback, a handler, a listener ...
+% And it shift the programming paradigm from synchronous to asynchronous, which is a big deal.
+
+% In synchronous programming, the computation step are executed sequentially, one after the other.
+% The program execution follows perfectly the program layout written in a linear textual file.
+
+% On the other hand, asynchronous programming allows a step back from this linearity.
+
+
+% A multi-threaded system allows the developer to explicitly express the parallelism in the application.
+% A GOTO statement allows the developer to explicitly express the control flow in the application.
+
+
+% Asynchronous programming allows the program to manage the concurrency of the execution.
+% Unlike a linear layout of an imperative program, it allows to express more finely the dependencies between instructions.
+
+% James Coglan speak about Promises and the abstraction they allow on the control flow. very interesting, especially at the end.
 % https://blog.jcoglan.com/2013/03/30/callbacks-are-imperative-promises-are-functional-nodes-biggest-missed-opportunity/
 
 % >>> I want to say that Javascript is the first language broadly used with this asynchronous paradigm.

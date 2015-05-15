@@ -134,6 +134,31 @@ The memory is accessed at a coarser scale : the property scale.
 
 \subsubsection{Propagation of execution and variables}
 
+For the execution of each callback / stage, the corresponding part of the state is local, and the rest is remote, and inaccessible.
+We are going to explain why it must remain inaccessible.
+
+While a callback is executing a request, the previous callback (the up stream callback) is executing the next request.
+The next request will arrive at the current callback some time in the future.
+The modification done in the state of the upstream callback will propagate only later in the current callback.
+The state of the upstream callback is in a different time frame than the state of the current callback.
+
+To really understand that, we need to compare this execution with the execution on a unique event-loop.
+If the current callback executes, then the upstream callback might have, or might not have started to execute the next request.
+But as soon as the current callback executes, the modifications done on the states, are immediatly propagated, so that the upstream callback can take them into account for the next request.
+
+However, if the two callbacks are distant, then the modification of the current callback will not immediatly propagate to the upstream callback.
+During the propagation, the upstream callback might execute requests than would not be aware of the state modification from the current callback (from downstream).
+That is why we say the upstream callback and the current callback are in two different time frame.
+Propagating the state modification upstream is like going backward in time, it is impossible.
+That is why the execution, and the state modification propagation must always flow downstream.
+
+As a note, I must add that if an upstream and a downstream callbacks are on the same event-loop, then this doesn't apply. it is like a loop in the time : the modification immediatly propagate from downstream to upstream.
+
+
+
+
+
+
 % The execution progress downstream, following the message stream.
 % TODO state very clearly this proposition, it is the second core of my thesis (and I love the idea, it relates directly to reality, graivity, and the fabric of the universe <3).
 
