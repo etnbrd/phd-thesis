@@ -1,31 +1,28 @@
 \section{Concurrency}
 
 Javascript, like most programming languages, is synchronous and non-concurrent. The specification doesn't provide any mechanism to write asynchronous nor concurrent execution of Javascript.
-There is no reference to \texttt{setTimeout} nor \texttt{setInterval}.
-These two well-known instructions to asynchronously post-pone execution are provided by the DOM.
-Indeed, like for many languages, concurrency is supported and provided by the execution engine.
-For example the JVM in the case of Java, or the operating system in the case of C/C++.
-We explore in this section, the different model to provide concurrency.
-\comment{when there is the need for concurrency in a system (so the components are somewhat dependent on each others : causal relation, or state sharing), there is a need for synchronization.
-If there is no need for synchronization, then there is two independent systems.
-So concurrency is first a topology and synchronization (communication?) problem.}
+There is no reference to \texttt{setTimeout} nor \texttt{setInterval}, two well-known instructions to asynchronously post-pone execution.
+Indeed, like for many languages, concurrency is supported and provided by the host environment.
+For example, the DOM for Javascript, the JVM for Java, or the operating system for C/C++.
+These three examples provide different models for concurrency.
+We explore in this section, the two different models and their evolutions.
 % TODO continue this introduction
 
-\subsection{Two concurrency model}
+\subsection{Two known concurrency model}
 
 We distinguish two types of concurrent models, tailored for two types of applications, CPU bound applications, and I/O bound applications.
-An example of CPU bound application is a scientific application, like a physics simulation. Such applications rely heavily on the CPU to do calculation on a fixed set of data.
-CPU bound applications need concurrency to augment the computing power.
+An example of CPU bound application is a scientific application, like a physics simulation. Such applications rely heavily on the CPU to do demanding calculations.
+CPU bound applications need concurrency to increase the computing power and deliver a result faster.
 On the other hand, an example of I/O bound application is graphical user interface.
 % Since user interfaces evolved from a simple and sequential user prompt to a full interactive graphical space, the user interacts in a non-sequential way.
 It needs to display and react to multiple concurrent streams of interaction.
 Another example is a web server, it needs to react to multiple concurrent requests.
 I/O bound applications need concurrency to keep track of concurrent control flows in multiple contexts.
-The difference between the two needs is thin enough for one to be mistaken with the other.
+The difference between these two needs is thin enough for one to be mistaken with the other.
 The two well-known models for concurrency are threads and events.
-It is know broadly admitted that threads are the better solution for CPU bound applications, while events are the better solution for I/O bound applications.
-However, this distinction is not as clearly defined as it seems.
-In the next section I explain what characterizes these two models, what are the differences between the two, and how should they be used.
+It is now broadly admitted that threads are the better solution for CPU bound applications, while events are the better solution for I/O bound applications.
+However, this distinction is very blurry, because of a lack of precise definitions for both models.
+In the next section I explain what characterizes these two models and what are the differences between the two.
 
 % Particularly, with the massive introduction of parallel architecture, things got a lot more confusing.
 % In the next sections I explain the concurrency model for one core, and for multi-core.
@@ -37,7 +34,7 @@ In the next section I explain what characterizes these two models, what are the 
 % And multi-threading is actually concurrency on multiple core, in certain cases, its called multi-threading, in other cases, its called message passing.
 % Exactly, multi-threading is lock synchronization, while message passing is share nothing.
 
-\subsubsection{Threads and events}
+% TODO remove that \subsubsection{Threads and events}
 
 % TODO transition
 
@@ -46,45 +43,173 @@ In the next section I explain what characterizes these two models, what are the 
 % both events, and threads can be used on single, or multi-core architecture, for I/O or CPU bound applications.
 % The final transition should be about what exactly drive the choice between all this : preemptive task management (for long concurrent computations) versus cooperative task management (for a lot of small concurrent computations).
 
-Threads-based system and event-based system evolved significantly over the last half century.
-These evolutions were fueled by the long-running debate about which design is better.
-% We try to succinctly and roughly retrace theses evolutions to understand the positions of each community.
+% Threads-based system and event-based system evolved significantly over the last half century.
+% These evolutions were fueled by the long-running debate about which design is better to express concurrent system.
+% We try to succinctly and roughly retrace these evolutions to understand the positions of each community.
 % This demonstration show that thread and events are two faces of the same reality.
 
-\paragraph{Thread}
-
-A thread is the smallest representation/embodiment/...? of the execution of a sequence of instructions on a computing core.
-It is characterized by a set of registers on this computing core representing the state of the computation.
-It is the smallest ... manipulable by a scheduler.
 
 
+\comment{when there is the need for concurrency in a system (so the components are somewhat dependent on each others : causal relation, or state sharing), there is a need for coordination.
+If there is no need for coordination, then there is two independent systems.
+So concurrency is first a topology and coordination (communication?) problem.
+Synchronization is a type of coordination, asynchronous messaging is another type of coordination.}
+% TODO place this accordingly
+
+% The real distinction between thread-based and event-based concurrency model lies in the coordination strategy.
+% Threads share their memory, while events are independent.
+% TODO there is two differences : memory sharing, and programming paradigm sync / async.
+% lead to these tow differences.
 
 
-\paragraph{Event}
+\subsubsection{Thread}
+
+A thread is the lightest representation of a sequence of instructions executed on a computing core.
+Multiple threads can be executed concurrently.
+Threads are not to be mistaken with processes.
+A process always contain at least one thread, sometimes more.
+Multiple threads share the same memory, while multiple processes don't.
+% TODO precise the distinction of processes and threads.
+% Maybe even start with process, as a mean for multi-tasking, leading then to threads.
+The thread is a very broad concept, it generalize kernel threads, green threads or user threads and fibers\cite{Adya2002}.
+
+A kernel thread is a set of registers on a computing core representing the state of a computation\ftnt{http://stackoverflow.com/a/5201879/933670}.
+One of these registers being the instruction pointers, which is manipulated by the control flow, a thread indeed represent the execution of a sequence of instructions on this computing core.
+It is the smallest execution unit manipulable by the kernel scheduler.
+C/C++ uses kernel threads provided by the operating system.
+
+A green thread, or user thread, is the implementation of a thread in user level, instead of kernel level.
+Java uses green threads provided by the JVM.
+
+Threads, and particularly kernel threads are often preemptively scheduled.
+A fiber, on the other hand, is a thread non preemptively scheduled but cooperatively scheduled.
+I address in the next section exactly what is a preemptive or cooperative scheduler.
+
+\subsubsection{Event}
+
+\textit{An event is a significant change in the [application] state}\cite{Chandy2006}.
+In an event-based system, the concurrent executions are independent, they don't share any memory.
+To coordinate the execution, they exchange messages representing the occurrence of events impacting the execution at a larger scale than the local concurrent execution.
+
+% TODO continue this.
+
+The actors model is an example of an event-based concurrent model for Artificial Intelligence purposes \cite{Hewitt1973a}.
+
+\subsubsection{Orthogonal concepts}
+
+Threads doesn't indicate anything about synchronization, but focus solely on execution.
+Events doesn't indicate anything about execution, but focus solely on synchronization.
+They are orthogonal concepts.
+It is completely pointless to compare them.
+
+There is two differences between threads and events.
+The memory sharing, and the programming style.
+Threads share memory, while events don't, so threads needs synchronization to coordinate.
+Threads use synchronous programming, while events use asynchronous programming.
+
+Events with shared memory is an event-loop : there is no parallelism.
 
 
-% TODO 
 
 
-\paragraph{Thread and Event are not opposed}
 
-% TODO 
+Lauer and Needham \cite{Lauer1979} presented an equivalence between Procedure-oriented Systems and Message-oriented Systems.
 
 
-Lauer and Needham \cite{Lauer1979} presented an equivalence between Procedure-oriented Systems and a Message-oriented Systems.
+
 
 Adya \textit{et. al.} analyzed this debate and presented fives categories through which to present the problem \cite{Adya2002}.
-These two categories were often associated with thread-based systems and event-based systems.
-% TODO not very clear
 Their advantages and drawbacks were mistaken with those of thread and events.
 Adya \textit{et. al.} explain in details two of these categories that are most representative, Task management and Stack management.
+These two categories were often associated with thread-based systems and event-based systems.
 We paraphrase these explanations.
+% TODO not very clear
+
+Multi-process programming use Inter Process Communications (IPC).
+IPC regroups both shared memory(?) coordination, and message passing(?) coordination.
+Semaphore, shared memory, and files are shared-memory coordination mechanisms, while pipe, streams and message queues, are message passing coordination mechanisms.
+% TODO Place this accordingly
+
+Time-slicing is used when there is more threads than cores
+Multi-threading is used when there is multiple cores.
+These cases are not exclusive.
+In each cases, there is different problematics.
+% TODO place this accordingly
+
+
+\subsection{Differentiating characteristics}
+
+Automatic stack management is as bad as preemptive scheduling : you don't know when the preemption happens.
+It is in reality impracticable to use cooperative task management with automatic stack management.
+Ayda said it : with closure, the problem of stack management disappear.
+It remains only the difference between sync / async programming : the control flow is broken in multiple handlers (async) or appear to be continuous (sync).
+It is linked with the task management.
+Cooperative task management provides a known invariant.
+While preemptive task management hides the invariant.
+Actually, it is neither task management, nor stack management, it is knowing yielding points, to know the invariant.
+% TODO develop this, and place accordingly, it is very important
+% TODO talk about exactly why threads are bad -> preemptive scheduling -> because it impose synchronization, which is hard to program
+% This blog post explain why synchronous programming fails at designing concurrent systems -> you don't know when it yields, so you need to synchronize everything (be reentrant ?)
+% https://glyph.twistedmatrix.com/2014/02/unyielding.html
+
+\subsubsection{Scheduling}
+
+\subsubsection{Coordination strategy}
+
+\subsection{Turn-based programming}
+
+When an event-loop is used as the concurrency model for a partially functional language like Javascript, it creates what Douglas Crockford called turn-based programming\ftnt{https://youtu.be/dkZFtimgAcM?t=1852}.
+% TODO then explain why Javascript is a good choice for this ()
+
+\subsubsection{Event-loop}
+
+\subsubsection{Promises}
+
+% Douglas Crowford on Promises
+% https://www.youtube.com/watch?v=dkZFtimgAcM
+
+% The web is polluted with dumb, simple Promises tutorial for Javascript
+% It is hard to find the relevant information about how Promises change the programmation paradigm.
+
+\subsubsection{Generators}
+
+\comment{Generators might be used to implement synchronous programming on top of an event-loop (asynchronous programming), a bit like fibers}
+Generators use the yield keyword, which is good stuff.
+The long term goal would be to have asynchronous yield as rupture points.
+
+However, one very important thing, is that yield block the execution.
+And if it is a good thing for programmers to know when the execution is leaving the atomicity (yield vs fibers), I want to explore how it might reduce the concurrency expressiveness.
+yield impose a linear programming style, while promises keep the tree programming style.
+
+
+\subsection{\comment{Message-passing / pipeline parallelism -> DataFlow programming ?}}
+
+
+\cit{One early vision was that the right computer language would make parallel programming straightforward. There have been hundreds—if not thousands—of attempts at developing such languages ... Some made parallel programming easier, but none has made it as fast, efficient, and flexible as traditional sequential programming. Nor has any become as popular as the languages invented primarily for sequential programming.}{David Patterson}
+
+% \subsubsection{An impossible goal}
+
+\subsubsection{\comment{TODO}}
+
+
+%-----------------------------------------------------------------------------%
+                                    \endinput
+%-----------------------------------------------------------------------------%
+
+
+
+
+
+
 
 
 \subsubsection{Time-slicing}
 
 
 Time-slicing is the technique used by both threads and event based system when they can dispose only of one computing core to achieve concurrency.
+
+% TODO Task management, and Stack management goes to the state of the art.
+% Here, I reformulate them as scheduling and coordination (which I find more precise and clear)
 
 \paragraph{Task management}
 
@@ -135,45 +260,36 @@ It implies to rip the call stack in two functions; one to initiate the operation
 This is what is commonly called asynchronously programming.
 
 
+
+
+
 \subsubsection{Multi-Threading}
 
 Multi-threading is the technique used both by threads and events-based system to achieve concurrency when there is multiple computation core.
 
-  \paragraph{Synchronization}
-
-  \paragraph{Eventual Consistency}
-
-  \paragraph{Event-based multi-threading}
-  % Transition to the next subsection : 
-  % The event-loop makes use of the two concurrency model : multi-threads for I/O and time-slicing for Computation
 
 
-\subsection{Event-loop}
+In a multi-thread application, each thread can be executed on a different core, to execute the application faster.
+However, threads share the same address space, that is they share their memory.
+
+
+\paragraph{Synchronization}
 
 
 
+\paragraph{Eventual Consistency}
+
+\paragraph{Event-based multi-threading}
+% Transition to the next subsection : 
+% The event-loop makes use of the two concurrency model : multi-threads for I/O and time-slicing for Computation
 
 
 
-\subsection{Turn-based programming}
-When an event-loop is used as the concurrency model for a partially functional language like Javascript, it creates what Douglas Crockford called turn-based programming\ftnt{https://youtu.be/dkZFtimgAcM?t=1852}.
-% TODO then explain why Javascript is a good choice for this ()
 
 
-\subsubsection{Promises}
 
-% Douglas Crowford on Promises
-% https://www.youtube.com/watch?v=dkZFtimgAcM
-
-% The web is polluted with dumb, simple Promises tutorial for Javascript
-% It is hard to find the relevant information about how Promises change the programmation paradigm.
-
-\comment{TODO}
-
-\subsubsection{Generators}
-
-\comment{Generators are a way to implement synchronous programming on top of an event-loop (asynchronous programming), like fibers}
-
+% TODO Talk about SEDA
+% Event-loop is a non-distributed version of SEDA (sort-of)
 
 
 
@@ -475,4 +591,4 @@ One could argue that instead of switching to thread systems, we should build too
 Software evolution substantially magnifies the problem of function ripping: when a function evolves from being compute-only to potentially yielding, all functions, along every path from the function whose concurrency semantics have changed to the root of the call graph may potentially have to be ripped in two. (More precisely, all functions up a branch of the call graph will have to be ripped until a function is encountered that already makes its call in continuation-passing form.) We call this phenomenon ``stack ripping'' and see it as the primary drawback to manual stack management. Note that, as with all global evolutions, functions on the call graph may be maintained by different parties, making the change difficult. 
 >> Stack ripping is what I am talking about.
    While the stack are joined, it is not possible to distribute.
-   If they say that stack ripping is necessary, that means it is not possible to encapsulate asynchronous function into synchronous function.
+   If they say that stack ripping is necessary, that means it is not possible to encapsulate asynchronous function into synchronous function.l
