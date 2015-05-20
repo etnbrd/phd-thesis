@@ -350,6 +350,50 @@ The closure \texttt{h} has access to the variable \texttt{b} even outside the sc
 \end{code}
 
 
+\endinput
+
+\subsubsection{About closures and an alternative to the fluxionnal execution model}
+% From a loose file, somewhere in one of my repositories
+
+A closure is a function associated with an environment.
+In Javascript it is declared like this :
+
+
+\begin{code}
+function closureCreator(env) {
+  return function closure() {
+    console.log('my environement is ' + env);
+  }
+}
+
+closureCreator('dynamically generated')();
+\end{code}
+
+The same function can lead to multiple closures.
+
+\begin{code}
+closureCreator('privately enclosed')();
+closureCreator('multiple time privately enclosed')();
+\end{code}
+
+In Javascript, a callback is very often a closure.
+It allows to share a scope between the caller and the callee in an asynchronous operation, as it's not always possible to pass custom parameters to callback functions.
+A callback is kind of a fluxion.
+It is executed when it receives a message, and can send more messages (asynchronous operation)
+
+But one function can lead to multiple closures, as seen above.
+While a fluxion is a one-one assciation between a scope and a function.
+Therefore, there must be one fluxion per closure.
+
+
+
+The alternative version of closure we studied a few months ago proposes a one-n association between fluxion and context.
+Therefore, allowing the same association as the function for closures.
+
+A fluxion can have multiple contexts, identified by an identifier.
+Depending on the message the fluxion receives, the context presented to the fluxion is not the same.
+This has the advantage of presenting a *group by* mechanism.
+
 % TODO continue with closure
 
 
