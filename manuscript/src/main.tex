@@ -59,7 +59,33 @@
 \tableofcontents
 
 \input{01-introduction/main}
-\input{02-context/main}
+% \input{02-context/main}
+
+\chapter{Context \& Objectives}
+  \section{The Web as a platform}
+
+    % Before Javascript, there was Java, and then Ruby.
+    % What is different with Javascript ?
+
+    \subsection{Explosion of Javascript popularity}
+      \subsubsection{In the beginning}
+      \subsubsection{Rising of the unpopular language}
+      \subsubsection{Current situation}
+
+      % Success stories about Javascript / Node.js
+
+  \section{Objectives}
+
+    \subsection{Problem : the pivot}
+
+      \subsubsection{Development \& Performance Scalability}
+      \subsubsection{A difficult compromise}
+    \subsection{Proposal and Hypothesis}
+
+      \subsubsection{LiquidIT}
+      \subsubsection{Pipeline parallelism for event-loop}
+      \subsubsection{Parallelization and distribution of web applications}
+
 
 % \input{03-proposition/main}
 
@@ -67,6 +93,38 @@
  % \section{Fluxions}
 
 \chapter{\comment{State of the art}}
+
+  \section{Javascript}
+    \subsection{Overview of the language}
+      \subsubsection{Functions as First-Class citizens}
+      \subsubsection{Lexical Scoping}
+      \subsubsection{Closure}
+
+  \section{Concurrency}
+    \subsection{Two known concurrency model}
+      \subsubsection{Thread}
+      \subsubsection{Event}
+      \subsubsection{Orthogonal concepts}
+    \subsection{Differentiating characteristics}
+      \subsubsection{Scheduling}
+      \subsubsection{Coordination strategy}
+    \subsection{Turn-based programming}
+      \subsubsection{Event-loop}
+      \subsubsection{Promises}
+      \subsubsection{Generators}
+    \subsection{\comment{Message-passing / pipeline parallelism -> DataFlow programming ?}}
+
+  \section{Scalability}
+    \subsection{Theories}
+      \subsubsection{Linear Scalability}
+      \subsubsection{Limited Scalability}
+      \subsubsection{Negative Scalability}
+        \comment{Conclusion : scalability = concurrency + not sharing the resources that grows with the scale}
+    \subsection{Scalability outside computer science (only if I have time)}
+        \comment{
+          If I have time, I would like to try to explain why scalability is at the core of material engagement and information theory,
+          and is at the core of our universe : the propagation of Gravity wave is an example : it is impossible to scale
+          }
 
   \section{Framworks for web application distribution}
     \subsection{Micro-batch processing}
