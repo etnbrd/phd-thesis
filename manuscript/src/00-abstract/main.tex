@@ -1,48 +1,47 @@
 \begin{abstract}
-\comment{TODO 1p, translate from below}
+\comment{TODO translate from below when ready}
 \end{abstract}
 
 \begin{otherlanguage}{french}
 \begin{abstract}
 
-\comment{TODO reduce to 1p}
-Le web permet à chacun de mettre un service à disposition d'une audience sans précédent.
+Internet étend l'économie à une échelle spatiale et temporelle sans précédent.
+Il permet à chacun de mettre un service à disposition de milliards d'utilisateurs, en seulement quelques heures.
 La plupart des grands services actuels ont commencés comme de simples applications créées dans un garage par une poignée de personnes.
-C'est cette facilité à l'entrée qui a permis une telle croissance sur le web.
+C'est cette facilité à l'entrée qui a permis jusqu'à maintenant une telle croissance sur le web.
 Google, Facebook ou Twitter en sont les exemples les plus flagrants.
-Au début du développement d'une telle application, il est important d'aller le plus vite possible afin de vérifier rapidement si le service peut rencontrer une audience.
-Le développement est guidé principalement par les fonctionnalités à fournir.
-C'est pourquoi ces projets commencent avec des langages faciles à développer, tel que Ruby ou Java qui ont pris une  ampleur importante ces dernières années en se positionnant comme les langages du web.
+Pendant le développement d'une application, il est important de suivre cette croissance, au risque de se faire rattraper par la concurrence.
+Le développement est guidé par les besoins en terme de fonctionnalités, afin de vérifier rapidement si le service peut satisfaire l'audience.
+Des langages tel que Ruby ou Java se sont imposés comme les languages du web, justement parce qu'ils permettent d'intégrer facilement de nouvelles fonctionnalités.
 
-Si cette application répond correctement à un besoin, elle atteindra de manière virale un nombre important d'utilisateurs.
+Si une application répond correctement aux besoins, elle atteindra de manière virale un nombre important d'utilisateurs.
 Son audience peut prendre plusieurs ordres de grandeurs en quelques jours seulement, ou même en quelques heures suivant comment elle est relayée.
 Une application est dites scalable si elle peut absorber ces augmentations d'audience.
 Or il est difficile pour une application dont le développement est guidé par les fonctionnalités d'être scalable.
 
 Au moment où l'audience commence à devenir trop importante, il est nécessaire de modifier l'approche de développement de l'application.
-Dans la plupart des cas, cela implique de la réécrire complètement.
-Le plus souvent en passant par des infrastructures scalables qui imposent des modèles de programmation et des API spécifiques.
+Le plus souvent cela implique de la réécrire complètement en utilisant des infrastructures scalables qui imposent des modèles de programmation et des API spécifiques.
 Cela représente une charge de travail conséquente et incertaine.
-Une fois le changement fait, l'équipe de développement doit concilier deux objectifs: l'augmentation en fonctionnalité et l'optimisation de l'infrastructure scalable.
-Pour toutes ces raisons, ce changement est un risque pour l'évolution de l'application.
-Tout cela dans un cadre économique qui est souvent instable, comme c'est le cas dans la plupart des start-up.
-Mais ce risque est tout autant présent dans de plus grandes structures.
+De plus, l'équipe de développement dois concilier cette nouvelle approche de développement scalable, avec la demande en fonctionnalités.
+Aucun langage n'a clairement réussi le compromis entre ces deux objectifs.
 
-Ma thèse se base sur l'observation suivante.
+Pour ces raisons, ce changement est un risque pour la pérennité de l'application.
+D'autant plus que le cadre économique accorde peu de marges d'erreurs, comme c'est le cas dans la plupart des start-up, mais également dans de plus grandes structures.
+
+Mon travail consiste à tenter d'écarter ce risque dans une certaine mesure.
+Ma thèse se base sur les deux observations suivantes.
 D'une part, Javascript est un langage qui a énormément gagné en popularité ces dernières années.
-Il était déjà omniprésent sur les clients, et avec Node.js il s'impose également de plus en plus sur les serveurs.
-Il représente une communauté de developpeur importante.
-Il se place maintenant comme le langage principal du web, détrônant ruby ou Java.
-D'autre part, Javascript a la particularité de ressembler à un pipeline, car il est exécuté sur une boucle événementielle.
-L'execution d'un programme Javascript réagis à un évenement en invoquant une fonction.
-Cette fonction s’exécute, et envoie un évenement à une autre fonction pour qu'elle s’exécute à la suite etc .., 
-On observe ici le même flux que dans un pipeline.
+Il est omniprésent sur les clients, et commence à s'imposer également sur les serveurs avec Node.js.
+Il a accumulé une communauté de développeur importante, et est l'environnement d’exécution le plus largement déployé.
+De ce fait, il se place comme le langage principal du web, détrônant Ruby ou Java.
+D'autre part, l'execution de Javascript a la particularité de ressembler à un pipeline.
+La boucle événementielle de Javascript est un pipeline qui s’exécute sur un seul cœur pour profiter d'une mémoire globale.
+On observe le même flux de messages traversant cette boucle événementielle que dans un pipeline.
 
-L'objectif de ma thèse est de permettre à des applications développées en Javascript d'être automatiquement transformées vers un pipeline d'execution reparti.
-Je construis un compilateur permettant d'identifier les fonctions de Javascript et de les isoler dans ce que j'appelle des Fluxions.
-Quelque chose qui serait à la fois une fonction et un flux.
-Un conteneur qui peut exécuter du code à la réception d'un message, et envoyer des messages pour continuer le flux vers d'autres fluxions.
-L’intérêt est que les fluxions sont complètement indépendantes, et qu'elles peuvent être déplacées d'une machine à l'autre.
+L'objectif de ma thèse est de permettre à des applications développées en Javascript d'être automatiquement transformées vers un pipeline d’exécutions repartis.
+Nous construisons un compilateur permettant d'identifier les fonctions de Javascript et de les isoler dans ce que nous appelons des Fluxions.
+Un conteneur qui peut exécuter une fonction à la réception d'un message, et envoyer des messages pour continuer le flux vers d'autres fluxions.
+Les fluxions étant indépendantes, elles peuvent être déplacées d'une machine à l'autre.
 En transformant automatiquement un programme Javascript en Fluxions, on le rend scalable, sans effort.
 
 \end{abstract}

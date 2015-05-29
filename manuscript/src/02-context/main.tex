@@ -1,5 +1,105 @@
-\chapter{Context and Objectives}
-\input{02-context/Javascript}
-\input{02-context/Concurrency}
-\input{02-context/Scalability}
-\input{02-context/Objectives}
+\chapter{Context and objectives}
+
+\input{02-context/Web-as-a-platform}
+
+\section{The pivot \comment{Problem}}
+
+But many large company replaced the initial languages of the web with scalable solutions.
+Twitter : Ruby -> Storm
+Facebook : PHP -> HHVM / Flux ...
+Google : MapReduce, Kubernetes, Borg ...
+
+\subsection{Development \& Performance Scalability}
+
+I explain exactly what I mean by Development scalability (I should change the term, it is misleading and not explicit enough), and Performance scalability.
+
+\subsection{A difficult compromise}
+
+I explain why the two are difficult to merge together.
+It is difficult to design a language for parallel programming which is simple enough, and scalable enough.
+Either it is scalable, or it has wide adoption (because it is simple enough)
+
+\section{Proposal and Hypothesis}
+
+\subsection{LiquidIT}
+
+A general definition of Liquid IT.
+And more specifically the focus on dev and perf scalability.
+Liquid IT should try to bring a solution to this compromise leveraging the particular position of Javascript and its event-loop.
+
+
+\subsection{Parallelization and distribution of web applications}
+% \subsection{Pipeline parallelism for event-loop}
+
+
+\subsection{\comment{Hypothesis and Thesis}}
+
+Languages with parallel execution features are not mainstream, because it is difficult to provide a good way for the developer to coordinate betweent the different parallel executions.
+The two main current designs for this coordination are synchronization mechanims for threads, or isolation for processes.
+Both are pretty difficult to manage.
+It is known that synchronization is difficult. \comment{TODO Develop this further, with arguments}
+And as we see from many parallel languages or frameworks, isolation-based coordination never really took off. Probably because it is too difficult for most programmers to efficiently manage both the isolation, and the features organization.
+\comment{TODO a better explanation is needed here (inspiration from the abstract), and some solid arguments}
+
+These two methods assure to the developer the invariance in the memory.
+If we step back from parallelism, into all concurrency, we have three methods to assure this invariance :
+\begin{itemize}
+\item Synchronization mechanisms are used by threads to assure that no other threads is using a common memory region : it assure the invariance of this memory region during the execution. But it is known to be difficult to develop scalable applications with such mechanisms.
+\comment{TODO develop this with arguments, maybe merge with above}
+\item Isolation is another way to assure the invariance : each process is sure to have exclusive access to its memory, and therefore, it assure the invariance.
+It is used by parallel frameworks, but it require the developer to think both at feature modularization and isolation.
+We suppose that the two are not easily conciliable, and that is why we observe that isolation-based languages and frameworks never really took off.
+\comment{TODO arguments}
+\item Exclusive atomic execution is a third way to assure invariance. It is used by the Javascript event-loop. It assure that a) each execution is atomic until it yield b) the developer is aware of this yielding, and acknowledge the invariance between the yields.
+But as the execution is localized to keep a global memory, it is not parallel and therefore, not scalable.
+\end{itemize}
+
+There is two different levels here.
+The developer point of view seems inconsiliable with the performance point of view.
+
+From the developer end, the best way for developer to easily acknowledge this invariance in a concurrent execution seems to be through sequential atomic and exclusive executions : Cooperative scheduling, like used by the event loop.
+But this cooperative scheduling must remain managed by the developer (at least for the moment), therefore, it is important to keep keyword like yield, and so, and not rush into the green thread paradigm \comment{see the article unyielding on deciphering glyph's blog}.
+The memory is global (to assure coordination), but accessed in turns.
+
+From the performance end, the best way to assure scalability is through a parallelism based on isolation, and message-passing.
+The memory is splitted in isolated and exclusive portions, with messages to assure the coordination.
+\comment{TODO argue why it is the best way}
+
+Therefore, to have both performance through parallelism and still attract a large developer community, we need to find an equivalence between the developer point of view on the invariance, and the performance point of view on parallelism.
+
+So the hypothesis is : by providing a tool to transform the invariance of cooperative scheduling into isolation and message-passing, it should be possible to provide a developer-friendly scalable paradigm.
+\comment{I don't know if hypothesis is the right term for this assumption}
+
+This transformation is done by isolating the memory use by each atomic execution of the event-loop (the callbacks).
+But this isolation is not possible for every kind of application.
+Applications could be classified in the level of coordination necessary in their design. (See below for a classification from Gunther's Universal Scalability Law)
+At a very end of the spectrum, there is static content servers, where there is no coordination, everything is parallel.
+At the very other end of this spectrum, there are consistent databases, where the coordination require the application to be highly sequential.
+
+Web applications that are designed in a certain way (flow-based web applications -> no retropropagation) are in the middle of this spectrum.
+We advance as the thesis that it is possible for these types of web applications to isolate the memory for each atomic execution of the event-loop (the callbacks).
+
+
+
+The different kind of applciations, from Gunther's Universal Scalability Law (USL) :
+Application classes for the USL model.
+
+\begin{tabular}{c|l} \hline
+
+\multirow{4}{*}{A} & \textbf{Ideal concurrency} ($\alpha, \beta = 0$)      \\
+                   & Single-threaded tasks                                 \\
+                   & Parallel text search                                  \\
+                   & Read-only queries                                     \\ \hline
+\multirow{4}{*}{B} & \textbf{Contention-limited} ($\alpha > 0, \beta = 0$) \\
+                   & Tasks requiring locking or sequencing                 \\
+                   & Message-passing protocols                             \\
+                   & Polling protocols (e.g., hypervisors)                 \\ \hline
+\multirow{3}{*}{C} & \textbf{Coherency-limited} ($\alpha = 0, \beta > 0$)  \\
+                   & SMP cache pinging                                     \\
+                   & Incoherent application state between cluster nodes    \\ \hline
+\multirow{4}{*}{D} & \textbf{Worst case} ($\alpha, \beta > 0$)             \\
+                   & Tasks acting on shared-writable data                  \\
+                   & Online reservation systems                            \\
+                   & Updating database records                             \\ \hline
+\end{tabular}
+\\~\\

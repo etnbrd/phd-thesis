@@ -1,0 +1,185 @@
+\section{Javascript}
+
+\subsection{Overview of the language}
+
+Javascript was released in a hurry, without a strong and directive philosophy.
+During its evolution, it snowballed with different features to accommodate the community, and the usage it was made on the web. As a result Javascript contains various, and sometimes conflicting, programming paradigms.
+It borrow its syntax from a procedural language, like C, and the object notation from an object-oriented language, like Java, but it provides a different inheritance mechanism, based on prototypes. Most of the implementation adopt an event-based paradigm, like the DOM\ftnt{http://www.w3.org/DOM/} and node.js\ftnt{https://nodejs.org/}.
+And finally, event though it is not purely functional like Haskel, Javascript borrows some concepts from functional programming.
+
+In this section, we focus on the last two programming paradigm, functional programming and event-based programming.
+Javascript exposes two features from functional programming that are particularly adapted for event-based programming.
+Namely, it treats functions as first-class citizen, and allows them to close on their defining context, to become closures.
+% TODO In the next section, we explain this two features
+% TODO and in the second section, we explain event-based programming and why these two features are good for event-based programming
+
+\subsubsection{Functions as First-Class citizens}
+
+\cit{All problems in computer science can be solved by another level of indirection}{Butler Lampson}
+
+Javascript treats function as first-class citizens.
+One can manipulate functions like any other type (number, string ...).
+She can store functions in variables or object properties, pass functions as arguments to other functions, and write functions that return functions.
+
+The most common usage examples of these features, are the methods \texttt{Map}, \texttt{Reduce} and \texttt{filter}.
+In the example below, the method \texttt{map} expect a function to apply on all the element of an array to modify its content, and output a modified array.
+A function expecting a function as a parameter is considered to be a higher-order function. \texttt{Map}, \texttt{Reduce} and \texttt{Filter} are higher-order functions.
+
+\begin{code}
+  [4, 8, 15, 16, 23, 42].map(function firstClassFunction(element) {
+    return element + 1;
+  });
+  // -> [5, 9, 16, 16, 24, 43]
+\end{code}
+
+Higher-order functions provide a new level of indirection, allowing abstractions over functions.
+To understand this new level of abstraction, let's briefly summarize the different abstractions on the execution flow offered by programming paradigms.
+In imperative programming, the control structures allow to modify the control flow. That is, for example, to execute different instructions depending on the state of the program.
+Procedural programming introduces procedures, or functions. That is the possibility to group instructions together to form functions.
+They can be applied in different contexts, thus allowing a new abstraction over the execution flow.
+% It encourages to abstract program states so that the same function can be applied in different places to apply its behavior.
+
+So, higher-order functions add another level of abstraction.
+It allows to dynamically modify the control of the execution flow.
+The ability to manipulate functions like any other value allows to abstract over functions, and behavior.
+% TODO continue this, there is a lot to say about HOF
+
+Higher-order functions replace the needs for some Object oriented programming design patterns.\ftnt{http://stackoverflow.com/a/5797892/933670} Though object oriented programming doesn't exclude higher-order functions.
+
+They are particularly interesting when the behavior of the program implies to react to inputs provided during the runtime, as we will see later.
+Web servers, or graphical user interfaces, for examples, interact with external events of various types.
+
+% TODO transition : higher-order functions makes use of closure to implement the lexical scope in mutable programming languages. (reformulate)
+
+\subsubsection{Lexical Scoping}
+
+Closures are indissociable from the concept of lexical environment.
+To understand the former, it is important to understand the latter first.
+
+\paragraph{Lexical environment}
+
+A variable is the very first level of indirection provided by programming languages and mathematics.
+It is is a binding between a name and a value.
+Mutable like in imperative programming to represent the reality of memory cells, or immutable like in mathematics and functional programming.
+These bindings are created and modified during the execution.
+They form a context in which the execution takes place.
+To compartmentalize the execution, a context is also compartmentalized.
+A certain context can be accessed only by a precise portion of code.
+Most languages defines the scope of this context using code blocks as boundaries.
+That is known as lexical scoping, or static scoping.
+The variables declared inside a block represent the lexical environment of this block.
+These lexical environments are organized following the textual hierarchy of code blocks.
+The context available from a certain block of code, that is set of accessible variable, is formed as a cascade of the current lexical environment and all the parent lexical environment, up to the global lexical environment.
+
+% TODO draw the schema for a lexical environment here
+
+\paragraph{Javascript lexical environment}
+\ftnt{http://www.ecma-international.org/ecma-262/5.1/\#sec-10.2}
+
+Javascript implement lexical scoping with function definitions as boundaries, instead of code blocks.
+The code below show a simple example of lexical scoping in Javascript.
+
+\begin{code}
+  var a = 4;
+  var c = 6;
+  function f() {
+    var b = 5;
+    var c = 0;
+    // a and b are accessible here.
+    return a + b + c;
+  }
+
+  f(); // -> 9
+
+  // b is not accessible here :
+  a + b + c; // -> ReferenceError: b is not defined
+\end{code}
+
+Lexical scoping, or statical scoping, implies that the lexical environment are known statically, at compile time for example.
+But Javascript is a dynamic language, it doesn't truly provide lexical scoping.
+In Javascript, the lexical environments can be dynamically modified using two statements : \texttt{with} and \texttt{eval}.
+We explain in details the Javascript lexical scope in section \ref{??? Compiler stuff}
+
+\subsubsection{Closure}
+
+\cit{An object is data with functions. A closure is a function with data.}{John D. Cook}
+
+A closure is the association of a first-class function with its context.
+When a function is passed as an argument to an higher-order function, she closes over its context to become a closure.
+When a closure is called, it still has access to the context in which it was defined.
+The code below show a simple example of a closure in Javascript.
+The function \texttt{g} is defined inside the scope of \texttt{f}, so it has access to the variable \texttt{b}.
+When \texttt{f} return \texttt{g} to be assigned in \texttt{h}, it becomes a closure.
+The variable \texttt{h} holds a closure referencing the function \texttt{g}, as well as its context, containing the variable \texttt{b}.
+The closure \texttt{h} has access to the variable \texttt{b} even outside the scope of the function \texttt{f}.
+
+\begin{code}
+  function f() {
+    var b = 4;
+    return function g(a) {
+      return a + b;
+    }
+  }
+
+  var h = f();
+  // b is not accessible here :
+  b; // -> ReferenceError: b is not defined
+
+  // h is the function g with a closure over b :
+  h(5) // -> 9
+\end{code}
+
+
+\endinput
+
+\subsubsection{About closures and an alternative to the fluxionnal execution model}
+% From a loose file, somewhere in one of my repositories
+
+A closure is a function associated with an environment.
+In Javascript it is declared like this :
+
+
+\begin{code}
+function closureCreator(env) {
+  return function closure() {
+    console.log('my environement is ' + env);
+  }
+}
+
+closureCreator('dynamically generated')();
+\end{code}
+
+The same function can lead to multiple closures.
+
+\begin{code}
+closureCreator('privately enclosed')();
+closureCreator('multiple time privately enclosed')();
+\end{code}
+
+In Javascript, a callback is very often a closure.
+It allows to share a scope between the caller and the callee in an asynchronous operation, as it's not always possible to pass custom parameters to callback functions.
+A callback is kind of a fluxion.
+It is executed when it receives a message, and can send more messages (asynchronous operation)
+
+But one function can lead to multiple closures, as seen above.
+While a fluxion is a one-one assciation between a scope and a function.
+Therefore, there must be one fluxion per closure.
+
+
+
+The alternative version of closure we studied a few months ago proposes a one-n association between fluxion and context.
+Therefore, allowing the same association as the function for closures.
+
+A fluxion can have multiple contexts, identified by an identifier.
+Depending on the message the fluxion receives, the context presented to the fluxion is not the same.
+This has the advantage of presenting a *group by* mechanism.
+
+% TODO continue with closure
+
+
+% TODO transition, Higher-order functions and closures are very handy in turn-based programming.
+% Turn based programming is the programming model of the event-loop, which is the concurrent model for I/O bound applications.
+
+
+% TODO Promises ? where are you ?
+% http://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html
