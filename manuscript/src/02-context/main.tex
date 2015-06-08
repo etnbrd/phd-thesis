@@ -1,23 +1,147 @@
 \chapter{Context and objectives}
 
+\minitoc
+
 \input{02-context/Web-as-a-platform}
 
 \section{The pivot \comment{Problem}}
 
-But many large company replaced the initial languages of the web with scalable solutions.
-Twitter : Ruby -> Storm
-Facebook : PHP -> HHVM / Flux ...
-Google : MapReduce, Kubernetes, Borg ...
+% But many large company replaced the initial languages of the web with scalable solutions.
+% Twitter : Ruby -> Storm
+% Facebook : PHP -> HHVM / Flux ...
+% Google : MapReduce, Kubernetes, Borg ...
 
-\subsection{Development \& Performance Scalability}
+\subsection{Separation of concerns}
 
-I explain exactly what I mean by Development scalability (I should change the term, it is misleading and not explicit enough), and Performance scalability.
 
-\subsection{A difficult compromise}
+% I see a trend here.
+% http://pchiusano.blogspot.fr/2010/01/actors-are-not-good-concurrency-model.html
 
-I explain why the two are difficult to merge together.
-It is difficult to design a language for parallel programming which is simple enough, and scalable enough.
-Either it is scalable, or it has wide adoption (because it is simple enough)
+The languages presented in the last section all have large developing community. Some are functional, others are object-oriented. 
+But they all provide some ways to apply the separation of concerns principle.
+
+It assure that the behavior of a module is completly contained in this module, and does not depends on external parts.
+Splitting a large program into many modules allow developers to safely modify a module only by understanding itself, and its interface.
+It is the divide and conquer strategy, applied to computer science.
+% Separation of concerns. TODO read these :
+% - http://en.wikipedia.org/wiki/Separation_of_concerns
+% - http://deviq.com/separation-of-concerns/
+% - http://stackoverflow.com/questions/98734/what-is-separation-of-concerns
+% - http://c2.com/cgi/wiki?SeparationOfConcerns
+
+The separation of concerns principle incites to design simple, generic, reusable modules. 
+Some modules can provide more complex behavior, by relying on, and composing with other modules.
+The separation of concern impose a module to be generic.
+It must be independent from where, and how it is used, to be able to be reused.
+De facto, a module is meant to be disseminated through the code base of the program.
+Implying that if the module holds state, this state is available in a global memory, and that there is no concurent access.
+
+This principle allows to quickly develop, and maintain an application.
+For a new web application to meet the requirements of its user community, it is crucial to be able to quickly modify its codebase.
+% Moreover, it is possible to increase the development team, as the code base is divided into independant parts communicating via well-defined interfaces,
+And that is why the development of most, if not all, web applications starts using language allowing with modularity.
+
+
+\subsection{Performance Scalability}
+
+% \comment{TODO I explain exactly what I mean by Development scalability (I should change the term, it is misleading and not explicit enough), and Performance scalability.}
+
+% How to measure refactoring ease ?
+
+Yet, because of the global memory used to centralize module state, while disseminating the module methods, it is difficult for this first approach to scale.
+Indeed, scalability is known to come from parallelism, which is incompatible global, shared memory space.
+\comment{TODO explain these shortcuts}
+\comment{TODO I completly skip the point about invariance. The developer provides insight about parallelization by manipulating the points where invariance of the state is assured. Isolation, locks, or yields}.
+
+At some point, the development team discard this first approach, for a distributed execution model.
+Such model distribute the execution onto different computers communicating by messages.
+\comment{To simplify the argument, I called these isolated computers, actors.}
+To maximize the organization possibilities network of actors, it is important that an actor can send a message to any other actor.
+The essence of an actor is to have only one execution thread, to be able to isolate its state.
+And if its state is isolated, there is no need to reduce the scope of this actor to reach other actors.
+\comment{TODO this argument is not strong enough}
+
+Because actors are not composable the way modules are.
+It is not possible to use an actor in different contexts.
+An actor executes its function, and then sends a message to another actor.
+
+
+\subsection{The holy graal}
+
+
+\comment{TODO assure transition, explain more about this argument}
+Therefore, it is important to decouple the physical resources used during the execution, and the modularity used to develop the application.
+
+
+
+
+Functional programming isolates the scope of effects for the program to be more readable -> it is roughly separation of concern.
+Parallelism needs isolation to avoid race conditions and state corruption.
+
+You want to isolate a module to be able to understand it, only by looking at its code, and not the whole codebase. But you want it to be reused in many places in the code.
+
+You want to isolate an actor so that it can have exclusive access to its state.
+But you want it to be able to reach any other actor.
+
+Are the two compatible ? Is it possible for a module to also be an actor ?
+I argue that it is not possible.
+
+
+
+
+\comment{TODO why ?}
+
+
+The transposition from the module organization, to the actor organization is a tedious process, and should be handled by a compiler.
+Therefore, to have both performance through parallelism and still attract a large developer community, we need to find an equivalence between the module organization, and the performance point of view on parallelism.
+
+So the hypothesis is : by providing a tool to transform the invariance of cooperative scheduling into isolation and message-passing, it should be possible to provide a developer-friendly scalable paradigm.
+\comment{I don't know if hypothesis is the right term for this assumption}
+
+This transformation is done by isolating the memory use by each atomic execution of the event-loop (the callbacks).
+But this isolation is not possible for every kind of application.
+Applications could be classified in the level of coordination necessary in their design. (See below for a classification from Gunther's Universal Scalability Law)
+At a very end of the spectrum, there is static content servers, where there is no coordination, everything is parallel.
+At the very other end of this spectrum, there are consistent databases, where the coordination require the application to be highly sequential.
+
+Web applications that are designed in a certain way (flow-based web applications -> no retropropagation) are in the middle of this spectrum.
+We advance as the thesis that it is possible for these types of web applications to isolate the memory for each atomic execution of the event-loop (the callbacks).
+
+
+
+The different kind of applciations, from Gunther's Universal Scalability Law (USL) :
+Application classes for the USL model.
+
+\begin{tabular}{c|l} \hline
+
+\multirow{4}{*}{A} & \textbf{Ideal concurrency} ($\alpha, \beta = 0$)      \\
+                   & Single-threaded tasks                                 \\
+                   & Parallel text search                                  \\
+                   & Read-only queries                                     \\ \hline
+\multirow{4}{*}{B} & \textbf{Contention-limited} ($\alpha > 0, \beta = 0$) \\
+                   & Tasks requiring locking or sequencing                 \\
+                   & Message-passing protocols                             \\
+                   & Polling protocols (e.g., hypervisors)                 \\ \hline
+\multirow{3}{*}{C} & \textbf{Coherency-limited} ($\alpha = 0, \beta > 0$)  \\
+                   & SMP cache pinging                                     \\
+                   & Incoherent application state between cluster nodes    \\ \hline
+\multirow{4}{*}{D} & \textbf{Worst case} ($\alpha, \beta > 0$)             \\
+                   & Tasks acting on shared-writable data                  \\
+                   & Online reservation systems                            \\
+                   & Updating database records                             \\ \hline
+\end{tabular}
+\\~\\
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Proposal and Hypothesis}
 
@@ -34,7 +158,54 @@ Liquid IT should try to bring a solution to this compromise leveraging the parti
 
 \subsection{\comment{Hypothesis and Thesis}}
 
-Languages with parallel execution features are not mainstream, because it is difficult to provide a good way for the developer to coordinate betweent the different parallel executions.
+
+
+
+%-----------------------------------------------------------------------------%
+                                    \endinput
+%-----------------------------------------------------------------------------%
+
+
+
+Some chunks I might find useful later :
+---------------------------------------
+
+\cit{No matter how great the talent or efforts, some things just take time. You can't produce a baby in one month by getting nine women pregnant.}
+{Warren Buffett}
+
+A good example of declarative sentence in everyday world : in case of fire, 
+the elevators don't work -> you understand that you need to take the stairs.
+
+The purpose of explicit synchronization is to manage the timing of side-effects in the presence of parallelism. 
+
+A function is side-effect free if it is referentially transparent.
+
+
+
+
+Why is that cooking recipe are inehrently and easily parallel, while it is a lot more difficult to write parallel programs ?
+
+The intuitive understandings of the scope of side-effects.
+In a recipe, it is easy to understand what each steps do, and how it might interfere with others, or which are required by others.
+With the naivete of computers, every interaction needs to be explicitely defined to avoid conflict.
+And with the size of programs, it is important to keep these interactions to a minimum.
+
+While in a computer program, it is a lot more difficult.
+It boils down to have boundaries in your system, and coordination to articulate the parts.
+
+The two extremes are functional programming, message passing, actor model, multi-process, with statelessness, side-effects free, referential transparency ...
+\comment{TODO there is HUGE differences between all these concepts. The common point is isolation of memory in space (rather than time with the following solution), but in terms of composition, functional programming and every other, are completly different. FP allows composition (the same point handle call and returns, a single point of connection), which is not true to message passing and so on ...}
+And Shared memory multi-threading, with locks, transaction memory ...
+Which basically isolate memory in time.
+
+
+
+
+
+The original explanation :
+--------------------------
+
+Languages with parallel execution features are not mainstream, because it is difficult to provide a good way for the developer to coordinate between the different parallel executions.
 The two main current designs for this coordination are synchronization mechanims for threads, or isolation for processes.
 Both are pretty difficult to manage.
 It is known that synchronization is difficult. \comment{TODO Develop this further, with arguments}
