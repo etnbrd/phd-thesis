@@ -17,8 +17,9 @@
 % I see a trend here.
 % http://pchiusano.blogspot.fr/2010/01/actors-are-not-good-concurrency-model.html
 
-The languages presented in the last section all have large developing community. Some are functional, others are object-oriented. 
-But they all provide some ways to apply the separation of concerns principle.
+The languages presented in the last section all have large developing community. Some are functional, others are object-oriented.
+But they all provide some ways to apply the separation of concerns principle : modules.
+Think of a module as an object in OOP, or a monad(?) in FP.
 
 It assure that the behavior of a module is completly contained in this module, and does not depends on external parts.
 Splitting a large program into many modules allow developers to safely modify a module only by understanding itself, and its interface.
@@ -55,36 +56,51 @@ Indeed, scalability is known to come from parallelism, which is incompatible glo
 
 At some point, the development team discard this first approach, for a distributed execution model.
 Such model distribute the execution onto different computers communicating by messages.
-\comment{To simplify the argument, I called these isolated computers, actors.}
-To maximize the organization possibilities network of actors, it is important that an actor can send a message to any other actor.
+\comment{To simplify the argument, I called these isolated computers, actors. TODO change that name.}
+% To maximize the organization possibilities network of actors, it is important that an actor can send a message to any other actor.
 The essence of an actor is to have only one execution thread, to be able to isolate its state.
 And if its state is isolated, there is no need to reduce the scope of this actor to reach other actors.
 \comment{TODO this argument is not strong enough}
 
-Because actors are not composable the way modules are.
-It is not possible to use an actor in different contexts.
-An actor executes its function, and then sends a message to another actor.
+Actors are not composable the way modules are.
+The different functions of a module are used in the call / return fashionn while actors are used in the fire-and-forget fashion.
+An actor sends its result to another actor, than the one which sent the initial message.
+It is not possible to compose an actor, like it is possible for a module.
+That is, it is not possible to use an actor in different contexts.
 
 
 \subsection{The holy graal}
 
+% \comment{TODO assure transition, explain more about this argument}
+% Therefore, it is important to decouple the physical resources used during the execution, and the modularity used to develop the application.
 
-\comment{TODO assure transition, explain more about this argument}
-Therefore, it is important to decouple the physical resources used during the execution, and the modularity used to develop the application.
+Is it still possible to combine the advantages of modules, with the advantages of actors ?
+Is it possible for an actor to be the boundary for some modules ?
+Or is it possible for a module to be composed of actors ?
+
+To answer the first question.
+If a module is limited inside an actor, then the reusability of the module is te be questioned.
+It loses its point as a generic component, reusable through the codebase.
+Or it is stateless.
+Or its state is boundable by the actor.
+
+To answer the second question.
+For a module to be composed of actors, means that the messages the actors receive contains somehow information about the context they are executed.
+That is, at least, the actors to get the result back.
+
+So, in some extents, it is possible to establish an equivalence between modules and actors. However, the transition is too tedious to be done manually.
+That is why most web applications neglect the module approach to adopt the actor approach, when true scalability is needed.
+At the lost of the development ease.
 
 
+% Functional programming isolates the scope of effects for the program to be more readable -> it is roughly separation of concern.
+% Parallelism needs isolation to avoid race conditions and state corruption.
 
+% You want to isolate a module to be able to understand it, only by looking at its code, and not the whole codebase. But you want it to be reused in many places in the code.
 
-Functional programming isolates the scope of effects for the program to be more readable -> it is roughly separation of concern.
-Parallelism needs isolation to avoid race conditions and state corruption.
+% You want to isolate an actor so that it can have exclusive access to its state.
+% But you want it to be able to reach any other actor.
 
-You want to isolate a module to be able to understand it, only by looking at its code, and not the whole codebase. But you want it to be reused in many places in the code.
-
-You want to isolate an actor so that it can have exclusive access to its state.
-But you want it to be able to reach any other actor.
-
-Are the two compatible ? Is it possible for a module to also be an actor ?
-I argue that it is not possible.
 
 
 
@@ -94,6 +110,8 @@ I argue that it is not possible.
 
 The transposition from the module organization, to the actor organization is a tedious process, and should be handled by a compiler.
 Therefore, to have both performance through parallelism and still attract a large developer community, we need to find an equivalence between the module organization, and the performance point of view on parallelism.
+
+\comment{TODO now talk about the limitations of this transition. you mention earlier that actors need to receive information about their context, and that modules needs to be stateless, or that their states needs to be bounded by the actor.}
 
 So the hypothesis is : by providing a tool to transform the invariance of cooperative scheduling into isolation and message-passing, it should be possible to provide a developer-friendly scalable paradigm.
 \comment{I don't know if hypothesis is the right term for this assumption}
