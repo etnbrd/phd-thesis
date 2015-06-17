@@ -1,34 +1,86 @@
 \section{The Web as a platform}
 
-\subsection{From OS to Web platform}
+\subsection{From operating systems to the web}
 
-The focus of the software industry switched from native desktop applications to mobile and web applications.
-In this 
-\comment{TODO continue here}
+\begin{wrapfigure}{r}{0.2\textwidth}
+  \vspace{-27pt}
+  \begin{center}
+    \includegraphics[width=0.18\textwidth]{../ressources/Mac-PC.png}
+  \end{center}
+  \vspace{-20pt}
+\end{wrapfigure}
+
+\comment{TODO this subsection needs reviews, it is poorly written. The vocabulary is very imprecise.}
+Hardware is of no use without software.
+With the emergence of home computer, appeared the market for software applications.
+Operating systems were the platform on which these software were released.
+Like with all the platform, a bigger user share attracts more provider, which in turns attract users with more diversity, and so on.
+Operating systems battled over the user shares.
+
+Home computers allowed to release economic products at unprecedented scale.
+Software are virtual products.
+With one initial development phase, they can be sent infinitely.
+This is about increasing the market to release products on larger scale.
+It is all about economics.
+
+However, the medium to distribute copies of software are still bounded to the unvirtual world.
+It still takes time to burn a CD, or a floppy, and to bring it to the consummer's home.
+Sir Tim Berners Lee invented the world wide web in 1989.
+It was designed to share documents.
+But it replaced the medium to distribute software.
+The web can release software on larger scales than Discs.
+And it is a serious concurrent to the operating system platform.
+Now that everything is done in a web browser, the choice of an operating system doesn't really matter anymore for the user to access applications.
+And with the standardization of the web, the choice of a web browser doesn't really matter as well.
+The web is the platform for every application, no matter the browser used.
+
+\paragraph{side note}
+\comment{TODO has this paragraph its place in this subsection ?}
+With web services, the economy completely shifted.
+The distribution medium of software product is so transparent that owning a product to have an easier access is no longer relevant.
+It is shifting from owning to accessing, and this shift is cascading downward to every strates of our everyday lives.
 
 \subsection{The languages of the web}
+\comment{TODO This subsection needs reviews, it is poorly written.}
 
-\comment{TODO This paragraph needs a lot of rewritting}
-Python(1993), Javascript(1995), Ruby(1993), PHP(1995) and Java(1994) were all created around the same time, in the early 90's.
-Java imposes itself early as the language of the web, and never really decreased. It is a solid, professional language used by most of the industry.
-But it is too big, and too slow growing for the exact same reason.
-\comment{TODO precise this, too big and too slow are not precise enough. Maybe cite some comment about this}
+In the early 90's, at the same time the web started developing, most of the more popular programming langauges were released.
+Python(1991), Ruby(1993), Java(1994), PHP(1995) and  Javascript(1995).
 
-Python is older (1991), and was always seen as a general purpose language.
-It is only in 2003, with the Django framworks that Python start to be seen as a web language.
+Java, propulsed by Sun Microsystems, imposes itself early as a language of choice and never really decreased.
+The language is executed on a virtual machine, allowing to write an application once, and to deploy it an heterogeneous machines.
+Additionally, it presents many hardware abstractions, such as memory garbage collection, and references, instead of manual memory allocation and pointers.
+For these reasons, it is easier to develop with, but shows slower performance than lower level languages like C/C++.
+With Moore's law, the industry realized that the performances is increasing exponentially, so that development time is more expensive than hardware.
+It quickly replaced C++ as the software industry standard.
+And became the language the most used to build web applications.
+It is currently the most used language on StackOverflow, and the second on Github.
+It is generally in the first place of all the language popularity indexes.
 
-PHP short-lived as the easy-to-use scripting language, it is now backed by facebook, but is on the decline.
-\comment{TODO precise this, why is php on the decline ? numbers and arguments please}
+However, the software industry wants stable and safe solutions.
+It slows down Java evolution.
+\comment{TODO More arguments needed here. Java is too verbose, it is not dynamic enough : OOP is outdated, and it lacks lambdas, and so on ...}
+Some languages 
 
-Ruby took-off in 2005 with Rails, and is still in active use.
-But it seems it is going to be eclipsed by Javascript.
-\comment{TODO precise this, again, with arguments and numbers}
+Some of the more popular languages are interesting alternatives to build web applications.
 
-Since a few years, Javascript is in a constant rise as the main language of the web, because of Ajax first, and then Node.js
-What is so different with Javascript ?
-It is omnipresent, from every browser, to the server.
-And it is a target for LLVM.
-Because of this position, it became fast (V8, ASM.js ...) and usable (ES6, ES7).
+\textit{Python is the second best language for everything.}
+It is a general purpose language, currently quite popular for data science.
+In 2003, the release of the Django web framworks allows to develop web application in python.
+
+Ruby was confined in Japan and almost unknown to the world until the release of Rails in 2005.
+With the release of this web framework, Ruby took-off and is still in active use.
+
+PHP was designed for web since the beginning.
+It is probably one of the easiest solution to start web development.
+However, according to several language popularity indexes, it is on a slow decline since a few years.
+% PHP short-lived as the easy-to-use scripting language, it is now backed by facebook, but is on the decline.
+% \comment{TODO precise this, why is php on the decline ? numbers and arguments please}
+
+Since a few years, Javascript is imposing itself as the main language of the web.
+It is omnipresent.
+It is included in every browser, and is now available on the server as well because of Node.js.
+Because of this unavoidable position, it became fast (V8, ASM.js ...) and usable (ES6, ES7).
+Additionally, it is a target for LLVM, allowing many languages to compile to Javascript, strengthening again its omnipresent position.
 
 \subsection{Explosion of Javascript popularity}
 
@@ -203,59 +255,3 @@ We can safely say that Javascript is one of most important language of this deca
 It is widely used in open source projects, and everywhere on the web.
 But it is also trending, and maybe slowly replacing languages like Java.
 % TODO continue this
-
-\paragraph{Future trends}
-
-\comment{TODO}
-
-Code reuse.
-Why it never worked ?
-
-
-
-
-\comment{em-scripten}
-
-https://github.com/kripken/emscripten
-Javascript is a target language for LLVM, therefor everything can compile to Javascript : JS is the assembler of the web.
-
-\comment{Isomorphic Javascript}
-
-Server-side Javascript
-
-https://www.meteor.com/
-https://facebook.github.io/flux/
-Javascript can be executed both on the client and the server.
-That allow use-cases never possible before (server pre-rendering, same team ...)
-
-\comment{Reactive}
-
-http://facebook.github.io/react/
-Javascript is used to model the flow of propagation of state in a web application
-
-
-
----
-
-Some facts to include :
-https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript
-The Atom editor is written in Javascript node.js.
-Now, major PaaS (which one) support node.js by default.
-Heroku support Python, Java, Ruby, Node.js, PHP, Clojure and Scala
-Amazon Lambda Web service support node.js in priority.
-npm raises 8m.
-http://techcrunch.com/2015/04/14/popular-javascript-package-manager-npm-raises-8m-launches-private-modules/
-
-% >>> I want to say that Javascript is now broadly used.
-% Let's just look at the numbers : Javascript is the most popular language on Github, and npm has more package than any other package manager.
-% Javascript has the more broadly deployed runtime.
-% ... and so on
-% >>> the conclusion is : Javascript is now a major language, and it is more than worth the consideration we are giving it in this PhD thesis.
-
-With numbers from Worldline about Java and Javascript usages.
-
-It ends with some success stories with Javascript (Paypal, Linkedin and so on ...).
-
--> There is a growing mass of developers for Javascript.
-And even for those who don't program in Javascript, there is transpilers.
-Javascript is here to stay : http://www.javaworld.com/article/2077224/learn-java/is-javascript-here-to-stay-.html (an article from 1996, where Java was still the hot new language)

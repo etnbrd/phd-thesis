@@ -1,15 +1,241 @@
 \chapter{Context and objectives}
-
 \minitoc
+\eject
 
 \input{02-context/Web-as-a-platform}
 
-\section{The pivot \comment{Problem}}
+Transition : the observation shows that most web applications are written in imperative languages, while the important web applications are written in a scalable ways.
+
+\section{The problem}
+
+\subsection{Technological shift}
+
+Performance problem.
+The used imperative programming languages are not scalable.
+And the scalable programming languages are not largely used.
+
+There is a shift of technology between the two.
+
+
+The problem highlighted by this shift is that scalability requires parallelism, which requires isolation of memory, while developers are more effective with a global memory.
+
+\subsection{Abstract representation of computing machines}
+
+Multiple execution are difficult to manage, only because it implies to manage the coordination of state.
+Either via isolation and messages, or sharing and locking.
+\comment{Here I explain what is the invariant}
+
+
+Why developers needs a global memory ?
+- encapsulation
+- Separation of concerns
+- loose coupling
+???
+All these seems to point to use isolated processes.
+So why do they need a global memory ?
+
+One argument is (but it is not convincing enough, yet) :
+Because the granularity of the machine is not the same as the granularity of the program.
+You hardly have the same number of request as the number of processors.
+The developer wants to be presented with an abstract machine.
+
+
+---
+
+\subsection{Compilation from abstract representation}
+
+So the solution seems to be to transform the global memory into isolated processes.
+
+If the processes are cleanly isolated, they can share their memory to increase communication time when few resources are needed, or be distributed on multiple node when more resources are needed.
+
+From USL, there are different kinds of components in applications, with different coupling (from stateless, to state-full)
+We target application that can be written in a stream fashion.
+
+Web applications are now written more in a stream fashion (the event loop is executed like a pipeline, react is kind of a pipeline as well)
+
+
+We believe that web application can be expressed as a pipeline of stream.
+And that states is not heavily shared between the stages of this pipeline.
+
+
+
+\endinput
+
+
+
+
+
+
+
+
+
+
+
+
 
 % But many large company replaced the initial languages of the web with scalable solutions.
 % Twitter : Ruby -> Storm
 % Facebook : PHP -> HHVM / Flux ...
 % Google : MapReduce, Kubernetes, Borg ...
+
+
+
+
+
+
+I think, there is not a decisive difference between the infrastructure and the language, Node.js, or the DOM are what placed Javascript where it is now.
+And Erlang is a language, not an infrastructure, and yet, it suffers from the same problems than most infrastructures.
+These corner cases make me believe the difference is not between language and infrastructure, but holds in two characteristics at the core of the interfaces proposed by languages or infrastructures.
+
+The first characteristic is how the machine is represented by the language.
+This characteristic, is indeed really close to the difference language infrastructure, as language tends to abstract the machine, while infrastructure tends to provide direct accesses for the developer.
+Does the developer manipulate concrete representation of the underlying machine, like execution containers process, thread, actors, and so on ...
+Or does it manipulate abstract representation, like a global key values store,memory, references, functions and so on ...
+
+Are these representations continuous, or discrete ?
+
+\paragraph{The representation of the execution}
+A pool of thread is discrete, there is a finite number of thread.
+While in a functional language, the number of function is more continuous.
+Specifically, the number of functions / modules, depends only on the structure of the program and the needs of the developer.
+A program can contains as many functions / modules as it needs, it doesn't impact the performance.
+While the developer is more limited in the number of threads, because it directly impact the performances, or has incentives to deal with threads to augment the performance.
+
+Concurrency is an abstract representation, it doesn't imply specifically that there are parallel executions, or time-sliced executions.
+It simply express the dependencies between different steps in the execution.
+Parallelism on the other hand tends to be a more concrete representation as it is intended to be executed simultaneously.
+
+\paragraph{The representation of the memory}
+
+
+
+
+
+
+
+Performances comes from one factor : parallelism.
+The only factor that comes in play, is how a language / infrastructure present this parallelism to the developer.
+Most choose to give direct access to the developer : actors, threads, process ... mostly infrastructures and erlang.
+Other choose to give no access, at the cost of completely loosing parallelism : imperative languages without the infrastructure.
+
+This parallelism needs to exploit tow aspects.
+- execution representation : unique, multiple.
+How the dependencies are expressed between operations.
+- memory representation : global, isolated.
+How the executions depends on the memory.
+
+Unique execution, global memory : imperative
+
+Multiple execution, global memory : threads
+
+Unique execution, isolated memory : OOP ?
+
+Multiple execution, isolated memory : Actors / process ...
+
+
+We see that multiple executions are mostly a fail.
+So the developer needs to have an abstract representation of an unique  execution, that will be split at compilation or execution.
+See about the continuity (scalability) of the execution model.
+
+To allow the split of execution, we needs hints about the dependencies between operations, both in term of causality, and in term of memory share.
+
+Cooperative scheduling successfully allow to represent the dependencies between operations.
+
+However, as soon as the developer is not aware anymore of the invariance, it fails, because it needs explicit synchronization (locks), which are a pain to manage.
+
+Instead, I think the sweet spot is in letting the developer provide the invariance via cooperative scheduling.
+
+"                               IMPORTANT                                     "
+Multiple execution are difficult to manage, only because it implies to manage the coordination of state.
+Either via isolation and messages, or sharing and locking.
+"                                                                             "
+
+\paragraph{The invariance}
+
+The invariance, is how the language let the developer know the integrity of the memory, while still letting her choose points of rupture to allow parallelism.
+
+There is a scale between explicit synchronization of variables (locks) and implicit atomicity of execution on the global memory (cooperative scheduling).
+The granularity is not the same, in terms of execution and memory :
+
+          execution                      memory
+        ---------------------------------------------------------------
+lock :    small granularity (region)     small granularity (variable)
+coop :    large granularity (event)      large granularity (global memory)
+
+what about the two other kind
+
+          small granularity              large granularity     ->    ?
+          large granularity (actor)      small granularity     ->  actors
+
+
+
+
+Threads are pre-emptive.
+Fibers, green threads and so on are pre-emptive. (they are cooperatively scheduled, but they don't let the developer know when they are cooperatively scheduled)
+The event-loop is not.
+
+Global memory :
+
+The fundamental difference is in the control they allow to the developer.
+The event-loop abstract some stuffs (to define, but basically the threads, or the scheduling), and gives access to other stuffs : the pre-emption.
+The threads, green threads and so on abstract the pre-emption, while they give access to the granularity of parallel executions.
+
+Because of this pre-emption, to assure the invariance, threads provided the solution of locks.
+But it is difficult to manage and leads to deadlock.
+It is a degenerated version of the solution of atomic execution provided by the event-loop : you have complete access on the memory, and you won't be pre-empted.
+
+Isolated memory :
+
+Actors and processes, like the threads, allow you to split the execution 
+
+ gives you another kind of control on the memory
+
+
+
+
+
+
+How the developer needs to protect the memory invariant from pre-emption in different concurrency models ?
+  event-loop  |  thread  |   process
+     none     |  locks   |  isolation
+
+-> So when developers are in control of the pre-emption, they manage it safely.
+(compared to when they have to assure locks, or isolation)
+
+
+How parallelizable is the model ? So how scalable is it ?
+  event-loop  |  thread  |   process
+       0      |     +    |     +++
+
+-> So isolated process are the way to go for parallelism.
+(It is the only true parallelism indeed)
+
+So the sweet spot is a compiler from event-loop to process.
+
+
+Event-loop is perfect for real-time web application.
+Application processing stream of data.
+So it is possible to compile real time web application using-event loops into chain of processes.
+
+
+
+Explosion of Javascript popularity
+
+Turn-based programming
+  -> Javascript is turn based, it is a better solution than threads, and process for concurrency.
+
+
+
+
+
+
+\begin{center}
+\rule{4cm}{0.4pt}\\
+old stuffs\\
+\rule{4cm}{0.4pt}
+\end{center}
+
+
 
 \subsection{Separation of concerns}
 
@@ -18,6 +244,23 @@
 % http://pchiusano.blogspot.fr/2010/01/actors-are-not-good-concurrency-model.html
 
 The languages presented in the last section all have large developing community. Some are functional, others are object-oriented.
+
+To answer the first question.
+If a module is limited inside an actor, then the reusability of the module is te be questioned.
+It loses its point as a generic component, reusable through the codebase.
+Or it is stateless.
+Or its state is boundable by the actor.
+
+To answer the second question.
+For a module to be composed of actors, means that the messages the actors receive contains somehow information about the context they are executed.
+That is, at least, the actors to get the result back.
+
+So, in some extents, it is possible to establish an equivalence between modules and actors. However, the transition is too tedious to be done manually.
+That is why most web applications neglect the module approach to adopt the actor approach, when true scalability is needed.
+At the lost of the development ease.
+
+
+% Functional programming isolates the scope of effects for the program to be 
 But they all provide some ways to apply the separation of concerns principle : modules.
 Think of a module as an object in OOP, or a monad(?) in FP.
 
@@ -134,7 +377,7 @@ We advance as the thesis that it is possible for these types of web applications
 
 
 
-The different kind of applciations, from Gunther's Universal Scalability Law (USL) :
+The different kind of applications, from Gunther's Universal Scalability Law (USL) :
 Application classes for the USL model.
 
 \begin{tabular}{c|l} \hline
@@ -190,6 +433,12 @@ Liquid IT should try to bring a solution to this compromise leveraging the parti
                                     \endinput
 %-----------------------------------------------------------------------------%
 
+
+Some links I NEED to put :
+--------------------------
+
+https://glyph.twistedmatrix.com/2014/02/unyielding.html
+http://calculist.org/blog/2011/12/14/why-coroutines-wont-work-on-the-web/
 
 
 Some chunks I might find useful later :
