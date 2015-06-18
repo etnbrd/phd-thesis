@@ -6,57 +6,134 @@
 
 Transition : the observation shows that most web applications are written in imperative languages, while the important web applications are written in a scalable ways.
 
-\section{The problem}
+\section{High concurrency web servers}
+
+\subsection{Scalability}
+
+Scalability is the ability for a web application to adapt its load to the demand in a reasonable time.
+
+\subsection{Concurrency}
+
+The web needs high concurrency servers, because there is a lot of simultaneous connections.
+As examples, the C10K problem, and now the C10M problem.
+
+\comment{It is important here to see a web service as a stream of requests. See Real Time Web services (last paragraph)}
+
+Concurrency is a superset including different fashion.
+TIme-slicing and parallelism.
+
+\subsection{The different compromises}
+
+To attain concurrency there is different alternatives.
+- isolation in processes 
+- thread share with lock
+- global memory event loop concurrency
+
+The first two are parallel, and can stretch on multiple cores, as well as be restrained on one.
+However, the last one, because of the global memory, is restrained on one core.
+Yet, we show that this model is easier to develop because of this global memory.
 
 \subsection{Technological shift}
 
-Performance problem.
-The used imperative programming languages are not scalable.
-And the scalable programming languages are not largely used.
+\subsubsection{Power wall}
 
-There is a shift of technology between the two.
+Because of the power wall, time-slicing is a limited option.
+The only viable option for high concurrency is parallelism.
+
+\subsubsection{Rupture}
+
+There is a performance problem with languages about concurrency.
+The used imperative programming languages are difficulty parallel.
+And the highly parallel programming languages are not largely used.
+
+There is a technological rupture between the two.
+
+\subsubsection{Economical consequences}
+
+This problem imposes the development team of a web application to take risk to shift from one technology to the other.
 
 
-The problem highlighted by this shift is that scalability requires parallelism, which requires isolation of memory, while developers are more effective with a global memory.
+\subsection{A problem of memory}
 
-\subsection{Abstract representation of computing machines}
+The problem highlighted by this shift is that parallelism requires isolation of memory, while developers are more effective with a global memory.
 
-Multiple execution are difficult to manage, only because it implies to manage the coordination of state.
-Either via isolation and messages, or sharing and locking.
-\comment{Here I explain what is the invariant}
+Parallelism is difficult for developers only because it implies to manage the coordination of state, either via isolation and messages, or sharing and locking.
+And not because spawning threads is difficult, or that coordination between threads is difficult.
+
+There is a need for a language that exposes the right abstraction to the developer, so that it is easy to develop, and yet parallelizable.
+
+\subsubsection{Invariance}
+
+We explore here the different ways to coordinate the state.
+Particularly, what we call the invariance : how a developer is assured that its state is not corrupted by coordination.
+
+For every of these compromises, the developer needs to know the invariance of the memory.
+For isolated processes, it is trivial, the memory is exclusive.
+For thread with locks, the invariance needs to be explicit for every piece of shared state. It is painful, and inefficient.
+For event-loop, the invariant is assured because of the cooperative scheduling.
+
+We show here that the different coordination mechanism are hard for the developer.
+
+The previous attempt to provide such a language ignored the fact that developers needs a global memory. \comment{TODO argumentation please.}
+We argue that it should be the other way around.
+That the language should adapt to the developer, so that they can meet in a usable, yet efficient compromise.
 
 
-Why developers needs a global memory ?
+\subsection{The case for global memory}
+
+\subsubsection{Familiarity}
+
+Developers are more familiar with a global memory.
+\comment{TODO I need a strong argument here, or merge with another}
+
+\subsubsection{Separation of concern}
+
+Software craftmanship advocate a different kind of memory isolation.
+There is a difference in that this isolation is not about coordination, but about separation of concerns.
 - encapsulation
 - Separation of concerns
 - loose coupling
-???
-All these seems to point to use isolated processes.
-So why do they need a global memory ?
+The problem to avoid is concurrent conflicting accesses on one hand, spaghetti code on the other.
 
-One argument is (but it is not convincing enough, yet) :
-Because the granularity of the machine is not the same as the granularity of the program.
+\subsubsection{Granularity of abstraction}
+
+Finally, the difference of memory isolation is the result of two different granularity of abstraction.
+
+The granularity of the machine is not the same as the granularity of the program.
 You hardly have the same number of request as the number of processors.
 The developer wants to be presented with an abstract machine.
 
+We argue that, provided the compiler to split the memory, an event-loop is a good fit for this abstract machine.
+This abstract machine being the `good` representation for the developer of the underlying machine.
 
----
 
 \subsection{Compilation from abstract representation}
 
-So the solution seems to be to transform the global memory into isolated processes.
+We propose to study how to transform an event loop into isolated processes communicating by messages.
 
 If the processes are cleanly isolated, they can share their memory to increase communication time when few resources are needed, or be distributed on multiple node when more resources are needed.
 
-From USL, there are different kinds of components in applications, with different coupling (from stateless, to state-full)
-We target application that can be written in a stream fashion.
+\subsubsection{Real-time web services}
 
 Web applications are now written more in a stream fashion (the event loop is executed like a pipeline, react is kind of a pipeline as well)
+Web services can be seen as pipelines processing streams of requests.
+We target application that can be written in a stream fashion.
 
+From USL, there are different kinds of dependencies in applications, with different coupling (from stateless, to state-full), leading to different kind of parallelism.
 
-We believe that web application can be expressed as a pipeline of stream.
+We believe that web applications can be expressed as a pipeline of stream.
 And that states is not heavily shared between the stages of this pipeline.
+Meaning, the global memory holding the states can be isolated into stages.
 
+\subsubsection{State and Data}
+
+See flx-paper
+
+
+\section{Proposition}
+
+
+\comment{TODO}
 
 
 \endinput
@@ -65,7 +142,29 @@ And that states is not heavily shared between the stages of this pipeline.
 
 
 
+\subsubsection{Performance reason}
+Global memory increase performances when there is single threads.
+Functional languages with immutability exists since a long time.
+It allows a good memory isolation, and thus, parallelism.
+But, if it is conceptually elegant \comment{please argument here}, it needs deep copies which is bad for performances.
+The argument here is that when there is no parallelism, a global memory is better.
+So the isolation of the memory should be driven by the need for actual parallelism, not potential parallelism.
+So, the loss of performance due to copying, or wire transfer, is compensated by the parallelism.
 
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Liquid IT}
+
+The goal of Liquid IT is to hide the technical complexity of scalability to the developer, so he can focus solely on business logic.
 
 
 
