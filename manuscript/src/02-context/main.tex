@@ -4,54 +4,111 @@
 
 \input{02-context/Web-as-a-platform}
 
-Transition : the observation shows that most web applications are written in imperative languages, while the important web applications are written in a scalable ways.
-
 \section{High concurrency web servers}
-
-\subsection{Scalability}
-
-Scalability is the ability for a web application to adapt its load to the demand in a reasonable time.
 
 \subsection{Concurrency}
 
-The web needs high concurrency servers, because there is a lot of simultaneous connections.
-As examples, the C10K problem, and now the C10M problem.
+\subsubsection{Scalability}
 
-\comment{It is important here to see a web service as a stream of requests. See Real Time Web services (last paragraph)}
+The internet allows interconnection at an unprecedented scale.
+There is currently more than 16 billions devices connected to the internet, and it is growing exponentially\ftnt{http://blogs.cisco.com/news/cisco-connections-counter}.
+This massively interconnected network gives the ability for a web applications to be reached at the largest scale.
+A large web application like google search receive about 40 000 requests per seconds.
+That is about 3.5 billions requests a day\ftnt{http://www.internetlivestats.com/google-search-statistics/}.
+This traffic is huge, but it remains sensibly stable because the position of Google is assured.
 
-Concurrency is a superset including different fashion.
-TIme-slicing and parallelism.
+% To handle such amount of traffic, Google deploys specific infrastructures, and software.
 
-\subsection{The different compromises}
+However, the traffic at the beginning of a web application is much more uncertain.
+If the service propose a good service, it might become viral at some point because it is efficiently relayed in the media.
+As a concrete example, when a web application appears in the evening news, it might expect a huge spike in traffic.
+But most of the time, the spikes are unpredictable.
 
-To attain concurrency there is different alternatives.
-- isolation in processes 
-- thread share with lock
-- global memory event loop concurrency
+A young web application needs to follow the growth of its audience.
+This growth might be steady enough to be planned, or it might be unexpected and challenging to meet.
+Scalability is the ability for a web application to adapt its load to the demand in a reasonable time.
 
-The first two are parallel, and can stretch on multiple cores, as well as be restrained on one.
-However, the last one, because of the global memory, is restrained on one core.
-Yet, we show that this model is easier to develop because of this global memory.
+Scalability mainly holds on the ability of a web application to requests many concurrent requests.
+For this thesis, we reduce scalability to concurrency.
+A server is highly scalable if it is highly concurrent.
+\comment{TODO better explanation of this simplification}
+A highly concurrent server is able to manage a large number of simultaneous request.
+It represent an uninterrupted flow of requests, with a growing throughput.
+With the growing number of connected devices on the internet, concurrency is a very important property in the design of web servers.
+As examples, around the year 2000, Dan Kegel wrote about the C10K\ftnt{http://www.kegel.com/c10k.html} problem.
+How to handles 10K simultaneous connection on a web server.
+More recently, in 2013, Robert Graham wrote about the C10M\ftnt{http://c10m.robertgraham.com/p/manifesto.html} problem.
+
+\subsubsection{Different compromises for concurrency}
+
+There is a scale of strategies for web servers to handles concurrent requests.
+On one end of the scale, there is parallelism.
+The server handles multiple request at the same time.
+On the other end, there is sequentiality.
+The server handles one request at a time.
+This scale translates into many different design implementation.
+We present here three representative alternatives.
+
+\paragraph{Multi-thread} %  // Data parallelism
+
+In the multi-thread paradigm, each request is mapped onto a thread to be executed independently.
+On a multi-core architecture, multiple thread can progress at the same time.
+However, if they need the same resources, they need to share them.
+To assure there is no concurrent access on these resources, they lock the resources while they use them to disallow other threads to modify them.
+However, when there is a large amount of requests, this locking strategy is counterproductive.
+
+\paragraph{Pipeline} %  // Task parallelism
+
+The pipeline paradigm split the processing of a request into many stages.
+These stages are independent, they don't share anything, so they can be executed in parallel without lock.
+However, it imposes the developer to write its application as a sequence of isolated stages.
+
+\paragraph{Event-loop}
+
+An event-loop process requests sequentially.
+% which allows to keep a global memory.
+As only one request is executed at once, it has exclusive access to the memory.
+Therefore, it allows to share state across the application without lock mechanism.
+
+
+The first two leverage parallelism.
+They can stretch the execution on multiple cores.
+The last one is sequential, and is restrained on one core.
+Yet, we show that this last model is easier to develop because of this global memory.
 
 \subsection{Technological shift}
 
 \subsubsection{Power wall}
 
-Because of the power wall, time-slicing is a limited option.
-The only viable option for high concurrency is parallelism.
+Because of the power wall, since the beginning of 2000, the frequency of CPU chips stalled at 3GHz.
+Additionally, the ILP wall is a limit at finding parallelism inside the stream of instruction executed by a processor.
+Because of these limitations, a processor is limited in the number of instruction per second it can execute.
+Therefore, parallelism is the only option to achieve high concurrency.
 
 \subsubsection{Rupture}
 
-There is a performance problem with languages about concurrency.
-The used imperative programming languages are difficulty parallel.
-And the highly parallel programming languages are not largely used.
+Between the early development, and the mature development of a web application, its needs are radically different.
+In its early development, a web application needs to quickly get feedback from its users.
+The first reason of startup failures is the lack of market need\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}.
+The development team quickly releases a Minimum Viable Product as to get these feedbacks.
+\textit{``Release early, release often''}, and \textit{``Fail fast''} are the punchlines of the web entrepreneurial community.
+The development speed is crucial.
+But as the application matures and its audience grows, the focus shift from the development speed to the concurrency of the application.
+The ability of the application to handle a large amount of simultaneous request.
 
-There is a technological rupture between the two.
+\comment{TODO this paragraph needs to be completely rewritten}
+From this shift derives two problems.
+The first is that this shift is a risk for the future of the application.
+The shift is a risk as it usually implies for the development team to rewrite most the code base to adapt it to a completely different paradigm, with imposed interfaces.
+The number two and three reasons for startup failures are running out of cash, and missing the right competences.
+The second is that after this shift, the development pace is different.
+The development team cannot react as quickly to user feedbacks as with the first paradigm.
 
-\subsubsection{Economical consequences}
+% There is a performance problem with languages about concurrency.
+% The used imperative programming languages are difficulty parallel.
+% And the highly parallel programming languages are not largely used.
 
-This problem imposes the development team of a web application to take risk to shift from one technology to the other.
-
+% There is a technological rupture between the two.
 
 \subsection{A problem of memory}
 
@@ -168,6 +225,17 @@ The goal of Liquid IT is to hide the technical complexity of scalability to the 
 
 
 
+
+-------
+They require only a few machines.
+As a comparison, a smartphone, or a laptop could suffice.
+The technologies to start developing an application are available to anyone, and require reasonable knowledge.
+There is numerous resourceson the internet to learn the languages detailed in the previous section, and start releasing a web application.
+
+Between the infrastructure needed, and the technologies to grasp, there is a huge technological contrast between the beginning of a web application, and its massive success.
+
+With virtualization of servers it is possible to ...
+--------
 
 
 
