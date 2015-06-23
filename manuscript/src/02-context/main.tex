@@ -4,7 +4,7 @@
 
 \input{02-context/Web-as-a-platform}
 
-\section{High concurrency web servers}
+\section{Highly concurrent web servers}
 
 \subsection{Concurrency}
 
@@ -39,51 +39,67 @@ As examples, around the year 2000, Dan Kegel wrote about the C10K\ftnt{http://ww
 How to handles 10K simultaneous connection on a web server.
 More recently, in 2013, Robert Graham wrote about the C10M\ftnt{http://c10m.robertgraham.com/p/manifesto.html} problem.
 
-\subsubsection{Different compromises for concurrency}
+\subsubsection{Tow faces of concurrency}
 
-There is a scale of strategies for web servers to handles concurrent requests.
-On one end of the scale, there is parallelism.
-The server handles multiple request at the same time.
-On the other end, there is sequentiality.
-The server handles one request at a time.
-This scale translates into many different design implementation.
-We present here three representative alternatives.
+Concurrency is the ability for an application to make progress on several tasks at the same time.
+It can be achieved either by parallelism, or by time-slicing concurrency.
 
-\paragraph{Multi-thread} %  // Data parallelism
+The term Parallelism refers to techniques to make programs faster by performing several computations in parallel. This requires hardware with multiple processing units. Such hardware is nowadays omnipresent.
+\ftnt{https://wiki.haskell.org/Parallelism_vs._Concurrency}
 
-In the multi-thread paradigm, each request is mapped onto a thread to be executed independently.
-On a multi-core architecture, multiple thread can progress at the same time.
-However, if they need the same resources, they need to share them.
-To assure there is no concurrent access on these resources, they lock the resources while they use them to disallow other threads to modify them.
-However, when there is a large amount of requests, this locking strategy is counterproductive.
+However, concurrency can be achieved on a single processing unit as well.
+The executions of the different tasks are interleaved in time.
+As an example, it is used to give multi-tasking ability to operating systems. 
 
-\paragraph{Pipeline} %  // Task parallelism
+Concurrency allows to stretch the computation on one, or many cores.
+It enables scalability.
+\comment{TODO review that}.
 
-The pipeline paradigm split the processing of a request into many stages.
-These stages are independent, they don't share anything, so they can be executed in parallel without lock.
-However, it imposes the developer to write its application as a sequence of isolated stages.
+Parallelism improves performances for computation at a price.
+It is necessary for the concurrent tasks to be independent.
+Otherwise, two tasks could modify a shared state simultaneously resulting in a corrupted state.
 
-\paragraph{Event-loop}
+In time-slicing concurrency, the concurrent tasks can more or less benefit of a shared state, depending on the scheduling strategy.
+In this thesis we focus on the cooperative scheduling used in the event-loop.
+It allows for a truly global memory and seems to be the easiest way for developers to write concurrent programs efficiently.
 
-An event-loop process requests sequentially.
-% which allows to keep a global memory.
-As only one request is executed at once, it has exclusive access to the memory.
-Therefore, it allows to share state across the application without lock mechanism.
-
-
-The first two leverage parallelism.
-They can stretch the execution on multiple cores.
-The last one is sequential, and is restrained on one core.
-Yet, we show that this last model is easier to develop because of this global memory.
+The other main scheduling strategy is preemptive scheduling.
+This other strategy hides the invariance to the developer.
+So the developer needs to assure the invariance himself with coordination mechanisms, like locks, mutex and so on.
+These mechanisms are known to be hard to manage, and should be avoided except when true concurrency is needed in concert with true shared state.
+We don't dwell on this precise kind of application, but they seems rather limited.
+Shared state could probably always be emulated with isolated memory and message passing.
 
 \subsection{Technological shift}
 
 \subsubsection{Power wall}
 
-Because of the power wall, since the beginning of 2000, the frequency of CPU chips stalled at 3GHz.
-Additionally, the ILP wall is a limit at finding parallelism inside the stream of instruction executed by a processor.
+Around 2004, the so-called Power Wall was reached.
+The clock of CPU is stuck at 3GHz because of the inability to dissipate the heat generated for higher frequencies.
+Additionally, the parallelism inside the stream of instructions is limited.
 Because of these limitations, a processor is limited in the number of instruction per second it can execute.
 Therefore, parallelism is the only option to achieve high concurrency.
+And with parallelism, the isolation of the memory of each independent task.
+
+\subsubsection{The case for global memory}
+
+The best practice in software development advocates to design a software into isolated modules.
+By following the best practice, the code base is split into modules.
+Modularity allows to understand each module of the application by itself, without an understanding of the rest.
+And to understand the application as the interconnections between modules.
+The principles are encapsulation, a module contains the data, and the functions to manipulate this data ; separation of concerns, each module should have a clear scope of action, and it should not overlap with other scopes ; and loose coupling, each module should require no, or as little as possible knowledge about the definition of other modules.
+The main goal followed by these principles, is to help the developer to develop and maintain a large code-base.
+
+Modularity is intended to avoid a different problem than the isolation required by parallelism.
+The former intends to avoid unintelligible spaghetti code.
+While the latter avoids conflicting memory accesses resulting in corrupted state.
+The two goals are overlapping in the design of the application.
+Therefore, any language needs to provide a compromise between these two goals.
+
+We argue that the more accessible, hence popular programming languages choose to provide modularity over isolation.
+They provide a global memory at the sacrifice of the performance of provided by parallelism.
+The more efficient languages sacrifice the readability and maintainability, to provide a model closer to parallelism, to allow better performances.
+\comment{TODO here I use language in both cases, it would be better to use a more generic term to refer to language or infrastructure}
 
 \subsubsection{Rupture}
 
@@ -93,8 +109,11 @@ The first reason of startup failures is the lack of market need\ftnt{https://www
 The development team quickly releases a Minimum Viable Product as to get these feedbacks.
 \textit{``Release early, release often''}, and \textit{``Fail fast''} are the punchlines of the web entrepreneurial community.
 The development speed is crucial.
-But as the application matures and its audience grows, the focus shift from the development speed to the concurrency of the application.
+Therefore, the development team opt for a popular, and accessible language.
+
+As the application matures and its audience grows, the focus shift from the development speed to the scalability of the application.
 The ability of the application to handle a large amount of simultaneous request.
+The development team then shift for a language providing 
 
 \comment{TODO this paragraph needs to be completely rewritten}
 From this shift derives two problems.
@@ -136,33 +155,6 @@ We argue that it should be the other way around.
 That the language should adapt to the developer, so that they can meet in a usable, yet efficient compromise.
 
 
-\subsection{The case for global memory}
-
-\subsubsection{Familiarity}
-
-Developers are more familiar with a global memory.
-\comment{TODO I need a strong argument here, or merge with another}
-
-\subsubsection{Separation of concern}
-
-Software craftmanship advocate a different kind of memory isolation.
-There is a difference in that this isolation is not about coordination, but about separation of concerns.
-- encapsulation
-- Separation of concerns
-- loose coupling
-The problem to avoid is concurrent conflicting accesses on one hand, spaghetti code on the other.
-
-\subsubsection{Granularity of abstraction}
-
-Finally, the difference of memory isolation is the result of two different granularity of abstraction.
-
-The granularity of the machine is not the same as the granularity of the program.
-You hardly have the same number of request as the number of processors.
-The developer wants to be presented with an abstract machine.
-
-We argue that, provided the compiler to split the memory, an event-loop is a good fit for this abstract machine.
-This abstract machine being the `good` representation for the developer of the underlying machine.
-
 
 \subsection{Compilation from abstract representation}
 
@@ -184,7 +176,13 @@ Meaning, the global memory holding the states can be isolated into stages.
 
 \subsubsection{State and Data}
 
-See flx-paper
+In a stream processing, there is roughly two kinds of usage of the global memory : data and state \cite{Fernandez2014a}.
+Naively, the data represent a communication channel between different point in the application space, and the state represents a communication channel between different instant in time.
+The data flow from stage to stage through the pipeline, and are never stored on any fluxion. In the source application, it is stored in the heap, only as a buffer between the different callbacks.
+The state, on the other hand, remains in the memory to impact the future behaviors of the application.
+State might be shared by several parts of the application.
+So, the identification of rupture points is not enough for a fluxion to be isolated, and its execution parallelized.
+The compiler also needs to analyze the memory accesses to identify which part of the state is needed by each fluxion, and allow their coordination.
 
 
 \section{Proposition}
@@ -195,6 +193,18 @@ See flx-paper
 
 \endinput
 
+
+
+\subsubsection{Granularity of abstraction}
+
+Finally, the difference of memory isolation is the result of two different granularity of abstraction.
+
+The granularity of the machine is not the same as the granularity of the program.
+You hardly have the same number of request as the number of processors.
+The developer wants to be presented with an abstract machine.
+
+We argue that, provided the compiler to split the memory, an event-loop is a good fit for this abstract machine.
+This abstract machine being the `good` representation for the developer of the underlying machine.
 
 
 
@@ -212,7 +222,35 @@ So, the loss of performance due to copying, or wire transfer, is compensated by 
 
 
 
+This scale translates into many different design implementation.
+We present here three representative alternatives.
 
+\paragraph{Multi-thread} %  // Data parallelism
+
+In the multi-thread paradigm, each request is mapped onto a thread to be executed independently.
+On a multi-core architecture, multiple thread can progress at the same time.
+However, if they need the same resources, they need to share them.
+To assure there is no concurrent access on these resources, they lock the resources while they use them to disallow other threads to modify them.
+However, when there is a large amount of requests, this locking strategy is counterproductive.
+
+\paragraph{Pipeline} %  // Task parallelism
+
+The pipeline paradigm split the processing of a request into many stages.
+These stages are independent, they don't share anything, so they can be executed in parallel without lock.
+However, it imposes the developer to write its application as a sequence of isolated stages.
+
+\paragraph{Event-loop}
+
+An event-loop process requests sequentially.
+% which allows to keep a global memory.
+As only one request is executed at once, it has exclusive access to the memory.
+Therefore, it allows to share state across the application without lock mechanism.
+
+
+The first two leverage parallelism.
+They can stretch the execution on multiple cores.
+The last one is sequential, and is restrained on one core.
+Yet, we show that this last model is easier to develop because of this global memory.
 
 
 
