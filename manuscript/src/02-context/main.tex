@@ -29,7 +29,7 @@ This growth might be steady enough to be planned, or it might be unexpected and 
 Scalability is the ability for a web application to adapt its load to the demand in a reasonable time.
 
 Scalability mainly holds on the ability of a web application to requests many concurrent requests.
-For this thesis, we reduce scalability to concurrency.
+For this thesis, I reduce scalability to concurrency.
 A server is highly scalable if it is highly concurrent.
 \comment{TODO better explanation of this simplification}
 A highly concurrent server is able to manage a large number of simultaneous request.
@@ -60,14 +60,13 @@ It is necessary for the concurrent tasks to be independent.
 Otherwise, two tasks could modify a shared state simultaneously resulting in a corrupted state.
 
 In time-slicing concurrency, the concurrent tasks can more or less benefit of a shared state, depending on the scheduling strategy.
-In this thesis we focus on the cooperative scheduling used in the event-loop.
-It allows for a truly global memory and seems to be the easiest way for developers to write concurrent programs efficiently.
+In this thesis I focus on the cooperative scheduling used in the event-loop.
+It allows for a truly global memory and seems to be one of the easiest way for developers to write concurrent programs efficiently.
+Indeed, I presented in the previous section the popularity of Javascript, which uses this scheduling strategy.
 
 The other main scheduling strategy is preemptive scheduling.
-This other strategy hides the invariance to the developer.
-So the developer needs to assure the invariance himself with coordination mechanisms, like locks, mutex and so on.
-These mechanisms are known to be hard to manage, and should be avoided except when true concurrency is needed in concert with true shared state.
-We don't dwell on this precise kind of application, but they seems rather limited.
+It is used in most execution environment in conjunction with multi-threading.
+However, it is known to be hard to manage, and should be avoided except when true concurrency is needed in concert with true shared state.
 Shared state could probably always be emulated with isolated memory and message passing.
 
 \subsection{Technological shift}
@@ -96,7 +95,7 @@ While the latter avoids conflicting memory accesses resulting in corrupted state
 The two goals are overlapping in the design of the application.
 Therefore, any language needs to provide a compromise between these two goals.
 
-We argue that the more accessible, hence popular programming languages choose to provide modularity over isolation.
+I argue that the more accessible, hence popular programming languages choose to provide modularity over isolation.
 They provide a global memory at the sacrifice of the performance of provided by parallelism.
 The more efficient languages sacrifice the readability and maintainability, to provide a model closer to parallelism, to allow better performances.
 \comment{TODO here I use language in both cases, it would be better to use a more generic term to refer to language or infrastructure}
@@ -106,21 +105,22 @@ The more efficient languages sacrifice the readability and maintainability, to p
 Between the early development, and the mature development of a web application, its needs are radically different.
 In its early development, a web application needs to quickly get feedback from its users.
 The first reason of startup failures is the lack of market need\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}.
-The development team quickly releases a Minimum Viable Product as to get these feedbacks.
-\textit{``Release early, release often''}, and \textit{``Fail fast''} are the punchlines of the web entrepreneurial community.
 The development speed is crucial.
 Therefore, the development team opt for a popular, and accessible language.
+The development team quickly releases a Minimum Viable Product as to get these feedbacks.
+\textit{``Release early, release often''}, and \textit{``Fail fast''} are the punchlines of the web entrepreneurial community.
 
 As the application matures and its audience grows, the focus shift from the development speed to the scalability of the application.
 The ability of the application to handle a large amount of simultaneous request.
-The development team then shift for a language providing 
+The development team then shift for a language providing parallelism.
 
-\comment{TODO this paragraph needs to be completely rewritten}
 From this shift derives two problems.
 The first is that this shift is a risk for the future of the application.
-The shift is a risk as it usually implies for the development team to rewrite most the code base to adapt it to a completely different paradigm, with imposed interfaces.
-The number two and three reasons for startup failures are running out of cash, and missing the right competences.
-The second is that after this shift, the development pace is different.
+It usually implies for the development team to rewrite the code base to adapt it to a completely different paradigm, with imposed interfaces.
+It is hard for the development team to find the time, hence the money, or the competences to operate this shift.
+Indeed, the number two and three reasons for startup failures are running out of cash, and missing the right competences.
+The second problem is that after this shift, the development pace is different.
+Parallel languages are incompatible with the commonly learned design principles.
 The development team cannot react as quickly to user feedbacks as with the first paradigm.
 
 % There is a performance problem with languages about concurrency.
@@ -129,70 +129,77 @@ The development team cannot react as quickly to user feedbacks as with the first
 
 % There is a technological rupture between the two.
 
+The technological rupture operated during the evolution of a web application is the demonstration that economically, there is a need for a language that exposes a more sustainable abstraction.
+An abstraction that it is easy to develop with, like in the beginning of a web application development, and yet parallelizable, so as to be scalable when the application matures.
+
 \subsection{A problem of memory}
 
-The problem highlighted by this shift is that parallelism requires isolation of memory, while developers are more effective with a global memory.
+The problem I focus on is the coordination of state between the concurrent execution in concurrent programming.
+Precisely, I focus on a solution to leverage parallelism while keeping the global memory for developers.
 
-Parallelism is difficult for developers only because it implies to manage the coordination of state, either via isolation and messages, or sharing and locking.
-And not because spawning threads is difficult, or that coordination between threads is difficult.
+I presented earlier the three main strategies to manage the memory in concurrent programming.
+The main difference for the developer is how each model exposes the assurance of an invariance in the memory state.
+I call invariance the assurance given to the developer that the global state of the application is not corrupted by the coordination between the concurrent executions.
 
-There is a need for a language that exposes the right abstraction to the developer, so that it is easy to develop, and yet parallelizable.
+In applications composed of multiple parallel processes, the memory of each processes is exclusive.
+The developer is aware that only the process can modify its memory.
+The processes propagate a modification to the state of the application by sending messages.
+Each process treat these messages one after the other.
+There is no risk of corrupted state by simultaneous, conflicting accesses.
+The invariance is explicit because the memory is isolated inside each process.
 
-\subsubsection{Invariance}
+In applications composed of multiple parallel threads, the memory is shared between all the threads.
+The developer is aware that because of the preemptive scheduling strategy, the shared memory states of the application can be modified at any time by any thread.
+To prevent conflicting accesses on the memory, the developer locks every shared memory state during a modification.
+The developer assures itself the invariance of the memory.
 
-We explore here the different ways to coordinate the state.
-Particularly, what we call the invariance : how a developer is assured that its state is not corrupted by coordination.
+In application using cooperative scheduling on an event-loop, like Javascript, the memory is global.
+All the events are executed sequentially, so there is no possible simultaneous memory access.
+The developer is aware of the points where the scheduler switches from one concurrent execution to the other, so it can manage its state in atomic modification.
 
-For every of these compromises, the developer needs to know the invariance of the memory.
-For isolated processes, it is trivial, the memory is exclusive.
-For thread with locks, the invariance needs to be explicit for every piece of shared state. It is painful, and inefficient.
-For event-loop, the invariant is assured because of the cooperative scheduling.
+The invariance exposed by the isolated processes and the event-loop are similar.
+The developer defines sequence of instructions with atomic access to the memory.
+And in both paradigms, these sequences communicate by sending messages to each other.
+The difference lies in the isolation of this memory.
+\comment{TODO this paragraph needs review}
 
-We show here that the different coordination mechanism are hard for the developer.
+I argue that the language should adapt to the developer and expose a concurrent paradigm with a global memory.
+Then a compiler, or the execution engine, can isolate the memory so as to parallelize the concurrent executions.
+So as to provide to the developer a usable, yet efficient compromise.
 
-The previous attempt to provide such a language ignored the fact that developers needs a global memory. \comment{TODO argumentation please.}
-We argue that it should be the other way around.
-That the language should adapt to the developer, so that they can meet in a usable, yet efficient compromise.
+\section{Compilation}
 
+We propose to find an equivalence between an event loop and a network of isolated processes.
+This equivalence should allow a compiler to transform an event loop into several parallel processes communicating by messages.
 
+With this compiler, it would be possible to express an application with a global, so as to follow the design principles of software development.
+And yet, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
 
-\subsection{Compilation from abstract representation}
+This equivalence intend not to be universal.
+It focuses on a precise class of applications : real-time Web applications processing stream of requests from users.
 
-We propose to study how to transform an event loop into isolated processes communicating by messages.
+\subsection{Real-time web services}
 
-If the processes are cleanly isolated, they can share their memory to increase communication time when few resources are needed, or be distributed on multiple node when more resources are needed.
-
-\subsubsection{Real-time web services}
-
-Web applications are now written more in a stream fashion (the event loop is executed like a pipeline, react is kind of a pipeline as well)
+Web applications are now written in a stream fashion.
+Indeed, as I showed previously, the event loop is executed like a pipeline.
 Web services can be seen as pipelines processing streams of requests.
-We target application that can be written in a stream fashion.
 
-From USL, there are different kinds of dependencies in applications, with different coupling (from stateless, to state-full), leading to different kind of parallelism.
-
-We believe that web applications can be expressed as a pipeline of stream.
-And that states is not heavily shared between the stages of this pipeline.
-Meaning, the global memory holding the states can be isolated into stages.
-
-\subsubsection{State and Data}
-
-In a stream processing, there is roughly two kinds of usage of the global memory : data and state \cite{Fernandez2014a}.
+In a stream processing application, there is roughly two kinds of usage of the global memory : data and state.
 Naively, the data represent a communication channel between different point in the application space, and the state represents a communication channel between different instant in time.
-The data flow from stage to stage through the pipeline, and are never stored on any fluxion. In the source application, it is stored in the heap, only as a buffer between the different callbacks.
+The data flow from stage to stage through the pipeline, and are never stored on any fluxion.
 The state, on the other hand, remains in the memory to impact the future behaviors of the application.
 State might be shared by several parts of the application.
-So, the identification of rupture points is not enough for a fluxion to be isolated, and its execution parallelized.
-The compiler also needs to analyze the memory accesses to identify which part of the state is needed by each fluxion, and allow their coordination.
 
-
-\section{Proposition}
-
-
-\comment{TODO}
-
+There are different kinds of state dependencies in applications components leading to different kinds of parallelism.
+In this thesis I argue that it is possible to parallelize a real-time web applications written on an event-loop because the strong dependencies mainly remains within a closed number of concurrent executions.
 
 \endinput
 
+
+
+\subsubsection{Learning curve}
+
+Because the compiler intend to warn the developer about shared states, it would be a great tool for beginner to progressively adapt to the flow programming model and best practices.
 
 
 \subsubsection{Granularity of abstraction}
@@ -260,6 +267,12 @@ Yet, we show that this last model is easier to develop because of this global me
 \subsection{Liquid IT}
 
 The goal of Liquid IT is to hide the technical complexity of scalability to the developer, so he can focus solely on business logic.
+
+
+
+
+TODO Talk about the annotations used by many parallel languages.
+
 
 
 
