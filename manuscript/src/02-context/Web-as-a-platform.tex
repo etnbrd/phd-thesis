@@ -10,77 +10,89 @@
   \vspace{-20pt}
 \end{wrapfigure}
 
-\comment{TODO this subsection needs reviews, it is poorly written. The vocabulary is very imprecise.}
-Hardware is of no use without software.
-With the emergence of home computer, appeared the market for software applications.
-Operating systems were the platform on which these software were released.
-Like with all the platform, a bigger user share attracts more provider, which in turns attract users with more diversity, and so on.
-Operating systems battled over the user shares.
+With the invention of electronic computing machine, appeared the market for software applications.
+This market is not limited by marginal production cost ; software being a virtual product, the production and distribution cost for another unit is virtually null.
+The market is limited by the platform a software can be deployed on.
+The bigger the platform, the wider the market.
+It is interesting economically both for the provider, and for the consumer to standardize and widen the platform.
+For the provider because it can increase its revenue by reaching more consumers.
+And for the consumers, because of the competition between providers feeding innovation.
 
-Home computers allowed to release economic products at unprecedented scale.
-Software are virtual products.
-With one initial development phase, they can be sent infinitely.
-This is about increasing the market to release products on larger scale.
-It is all about economics.
-
-However, the medium to distribute copies of software are still bounded to the unvirtual world.
+However, the first platforms for software started as products.
+The first commodity computers and the operating systems are economic products.
+It made sense for their manufacturer to increase their market share, so as to increase their revenue.
+The economical incentive.
+Microsoft successfully took over the market of operating system in the 90s, and cross the border of the monopoly more than once.
+% Eventually this fragmented market of platform was reunited with the specification of high-level, inter-OS programming languages.
+% Applications could be developed, and run on any operating system.
+However, before the internet, the distribution of software copies is still limited by physical medium.
 It still takes time to burn a CD, or a floppy, and to bring it to the consummer's home.
-Sir Tim Berners Lee invented the world wide web in 1989.
-It was designed to share documents.
-But it replaced the medium to distribute software.
-The web can release software on larger scales than Discs.
-And it is a serious concurrent to the operating system platform.
-Now that everything is done in a web browser, the choice of an operating system doesn't really matter anymore for the user to access applications.
-And with the standardization of the web, the choice of a web browser doesn't really matter as well.
-The web is the platform for every application, no matter the browser used.
 
-\paragraph{side note}
-\comment{TODO has this paragraph its place in this subsection ?}
-With web services, the economy completely shifted.
-The distribution medium of software product is so transparent that owning a product to have an easier access is no longer relevant.
-It is shifting from owning to accessing, and this shift is cascading downward to every strates of our everyday lives.
+Sir Tim Berners Lee invented the world wide web in 1989.
+It was initially intended to share scientific documents and results.
+But it eventually became the distribution medium of choice for virtual products, software included.
+And pushed the scalability of software distribution.
+
+Similarly to operating systems, Web browsers are products.
+They exposed innovative features to try to increase their market share.
+Among these features is the ability to run scripts directly inside the browser.
+Browsers partially replaced operating system as the platform to run software.
+But these heterogeneity in features between web browsers worsen the user experience on the web.
+Eventually, web technologies became specification to be respected by all browsers, so as to assure an homogeneous experience across the web.
+The web became the platform.
+It allows to deploy and run software at unprecedented scales.
+With web services, or Software as a Service, the distribution medium of software is so transparent that owning a product to have an easier access is no longer relevant.
+
+The browser and the operating system are only the foundation.
+The specifications assure the unification of the web as a platform.
+We explore now the different language to write and deploy applications on the web.
+\comment{TODO This subsection needs reviews. The message is still not clear.}
+
 
 \subsection{The languages of the web}
 \comment{TODO This subsection needs reviews, it is poorly written.}
 
 In the early 90's, at the same time the web started developing, most of the more popular programming langauges were released.
 Python(1991), Ruby(1993), Java(1994), PHP(1995) and  Javascript(1995).
+With Moore's law predicting exponential increase in hardware performance, the industry realized that development time is more expensive than hardware.
+Low-level language were replaced by higher-level language with worse performance, but easier to develop with, to decrease the development time.
 
-Java, propulsed by Sun Microsystems, imposes itself early as a language of choice and never really decreased.
-The language is executed on a virtual machine, allowing to write an application once, and to deploy it an heterogeneous machines.
+Java, developed by Sun Microsystems, imposes itself early as a language of choice and never really decreased.
+The language is executed on a virtual machine, allowing to write an application once, and to deploy it on heterogeneous machines.
 Additionally, it presents many hardware abstractions, such as memory garbage collection, and references, instead of manual memory allocation and pointers.
 For these reasons, it is easier to develop with, but shows slower performance than lower level languages like C/C++.
-With Moore's law, the industry realized that the performances is increasing exponentially, so that development time is more expensive than hardware.
-It quickly replaced C++ as the software industry standard.
-And became the language the most used to build web applications.
-It is currently the most used language on StackOverflow, and the second on Github.
+The software industry quickly adopted it as its main development language.
+It is currently the most cited language on StackOverflow, and the second used on Github.
 It is generally in the first place of all the language popularity indexes.
-
 However, the software industry wants stable and safe solutions.
-It slows down Java evolution.
-\comment{TODO More arguments needed here. Java is too verbose, it is not dynamic enough : OOP is outdated, and it lacks lambdas, and so on ...}
-Some languages 
-
-Some of the more popular languages are interesting alternatives to build web applications.
+This prudence generally slows down Java evolution.
+\comment{TODO More arguments needed here. Java is overengineered, overtooled, too verbose, it is not dynamic enough : OOP is outdated, and it lacks lambdas, and so on ...}
 
 \textit{Python is the second best language for everything.}
 It is a general purpose language, currently quite popular for data science.
-In 2003, the release of the Django web framworks allows to develop web application in python.
+In 2003, the release of the Django web framworks brought the language to the web development scene.
 
 Ruby was confined in Japan and almost unknown to the world until the release of Rails in 2005.
 With the release of this web framework, Ruby took-off and is still in active use.
+\comment{TODO why Ruby could have replaced Java ? dynamic language, functional paradigm}
 
-PHP was designed for web since the beginning.
-It is probably one of the easiest solution to start web development.
+PHP stands for Personal Home Page Tools.
+It was designed to design web pages since its beginning.
+It is probably one of the easiest language to start web development.
 However, according to several language popularity indexes, it is on a slow decline since a few years.
+Because of its simplicity, it often fail to grow projects to industrial size, and is being replaced by languages that succeed at bringing a prototype to industrial standards, like Java, Ruby or Python.
+
 % PHP short-lived as the easy-to-use scripting language, it is now backed by facebook, but is on the decline.
 % \comment{TODO precise this, why is php on the decline ? numbers and arguments please}
 
-Since a few years, Javascript is imposing itself as the main language of the web.
-It is omnipresent.
-It is included in every browser, and is now available on the server as well because of Node.js.
-Because of this unavoidable position, it became fast (V8, ASM.js ...) and usable (ES6, ES7).
+Since a few years, Javascript is slowly becoming the main language for web development.
+It is everywhere.
+It is present in every browser, and on the server as well with Node.js.
+Because of this unavoidable position, it became fast (V8, ASM.js) and usable (ES6, ES7).
 Additionally, it is a target for LLVM, allowing many languages to compile to Javascript, strengthening again its omnipresent position.
+I argue in this thesis, that Javascript is the language of choice to bring a prototype to industrial standards.
+\comment{TODO un peu rapide ici}
+\comment{TODO I should note the distinction between Javascript client and server side. There is no choice on the client, while there is a choice on the server. So the popularity on the client is not as significant than on the server. However, as I said, Javascript unavoidable position made its success and its performance.}
 
 \subsection{Explosion of Javascript popularity}
 
@@ -88,91 +100,34 @@ Additionally, it is a target for LLVM, allowing many languages to compile to Jav
 
 Javascript was created by Brendan Eich at Netscape around May 1995, and released to the public in September.
 The initial name of the project was Mocha, then LiveScript, the name Javascript was finally adopted to leverage the trend around Java.
-The latter was considered the hot new web programming language at this time.
-It was quickly adopted as the main language for web servers, and everybody was betting on pushing Java to the client as well.
+Indeed, Java was considered the hot new web programming language at this time.
+It was quickly adopted as default language for web servers development, and everybody was betting on pushing Java to the client as well.
 The history proved them wrong.
 % Javascript slowly took over the client, and is now pushing toward the server.
 % But that was not a calm and linear journey.
 
-In 1995, when Javascript was released, the world wide web started its wide adoption.\ftnt{http://www.internetlivestats.com/internet-users/}
+When Javascript was released in 1995, the world wide web was on the rise.\ftnt{http://www.internetlivestats.com/internet-users/}
 Browsers were emerging, and started a battle to show off the best features and user experience to attract the wider public.\footnote{to get an idea of the web in 1997 : \url{http://1x-upon.com/}}
+Javascript was released to be one of these features.
 Microsoft released their browser Internet Explorer 3 in June 1996 with a concurrent implementation of Javascript.
 They changed the name to JScript, to avoid trademark conflict with Oracle Corporation, who owns the name Javascript.
 The differences between the two implementations made difficult for a script to be compatible to both.
-At the time, signs started to appear on web pages to warn the user about the ideal web browser to use for the best experience on this page.
+At the time, banners and signs started to appear on web pages to inform the user about the ideal web browser to use for the best experience.
 This competition was fragmenting the web.
 % and the overall user experience could be improved by /// according the technology ///.
 
-To stop this fragmentation, Netscape submitted Javascript to Ecma International for standardization in November 1996.
+Netscape submitted Javascript to Ecma International for standardization in November 1996 to stop this fragmentation.
 In June 1997, ECMA International released ECMA-262, the first specification of ECMAScript, the standard for Javascript.
 A standard to which all browser should refer for their implementations.
 % TODO more on the Ecma specification ?
 
-The base for this specification was designed in a rush. The version released in 1995 was finished within 10 days.
+The initial release for this specification was designed in a rush. The version released in 1995 was finished within 10 days.
 Because of this precipitation, the language has often been considered poorly designed and unattractive.
 Moreover, Javascript was intended to be simple enough to attract unexperienced developers, by opposition to Java or C++, which targeted professional developers.
 For these reasons, Javascript started with a poor reputation among the developer community.
 
 But things evolved drastically since.
-When a language is released, available freely at a world wide scale, and simple enough to be handled by a generation of teenager inspired by the technology hype, it produce an effervescent community around what is now one of the most popular and widely used programming language.
-
-\subsubsection{Rising of the unpopular language}
-
-\comment{TODO why is Javascript unpopular ? cite some blog post like : https://wiki.theory.org/YourLanguageSucks\#JavaScript\_sucks\_because and add many blog posts titles in a mozaïc}
-
-Javascript started as a programming language to implement short interactions on web pages.
-The best usage example was to validate some forms on the client before sending the request to the server.
-This situation hugely improved since the beginning of the language.
-So much that web-based, Javascript applications are currently now favored instead of rich, native desktop applications.
-
-ECMA International released several version in the few years following the creation of Javascript.
-The first and second version, released in 1997 and 1998, brought minor revisions to the initial draft.
-However, the third version, released in the late 1999, contributed to give Javascript a more complete and solid foundation as a programming language.
-From this point on, the consideration for Javascript keep improving.
-
-An important reason for this reconsideration started in 2005.
-James Jesse Garrett released \textit{Ajax: A New Approach to Web Applications}, a white paper coining the term Ajax \cite{Garrett2005}.
-This paper point the trend in using this technique, and explain the consequences on user experience.
-Ajax stands for Asynchronous Javascript And XML.
-It consists of using Javascript to dynamically request and refresh the content of a web page.
-The advantage is that it avoids to request a full page from the server.
-Javascript is not anymore confined to the realm of small user interactions on a terminal, it can be proactive and responsible for a bigger part in the system spanning from the server to the client.
-Indeed, this ability to react instantly to the user started to narrow the gap between web and native applications.
-%, while keeping all the advantages of web-based applications.
-At the time, the first web applications to use Ajax were Gmail, and Google maps\footnote{A more in-depth analysis of the history of Ajax, given by late Aaron Swartz \url{http://www.aaronsw.com/weblog/ajaxhistory}}.
-
-Around this time, the Javascript community started to emerge.
-The third version of ECMAScript had been released, and the support for Javascript was somewhat homogeneous on the browsers but far from perfect.
-Moreover, Javascript is only a small piece in the architecture of a web-based client application.
-The DOM, and the \texttt{XMLHttpRequest} method, two components on which AJAX relies, still present heterogeneous interfaces among browsers.
-To leverage the latent capabilities of Ajax, and more generally of the web, Javascript framework were released with the goal to straighten the differences between browsers implementations.
-Prototype\ftnt{http://prototypejs.org/} and DOJO\ftnt{https://dojotoolkit.org/} are early famous examples, and later jQuery\ftnt{https://jquery.com/} and underscore\ftnt{http://underscorejs.org/}.
-These frameworks are responsible in great part to the wide success of Javascript and of the web technologies.
-
-In the meantime, in 2004, the Web Hypertext Application Technology Working Group\ftnt{https://whatwg.org/} formed to work on the fifth version of the HTML standard.
-This new version provide new capabilities to web browsers, and a better integration with the native environment.
-It features geolocation, file API, web storage, canvas drawing element, audio and video capabilities, drag and drop, browser history manipulation, and many mores
-It gave Javascript the missing pieces to become a true language for developing rich application.
-The first public draft of HTML 5 was released in 2008, and the fifth version of ECMAScript was released in 2009.
-With these two releases, ECMAScript 5 and HTML5, it is a next step toward the consideration of Web-based technologies as equally capable, if not more, than native rich applications on the desktop.
-Javascript became the programming language of this rising application platform.
-
-However, if web applications are overwhelmingly adopted for the desktop, HTML5 is not yet widely accepted as ready to build complete application on mobile, where performance and design are crucial.
-Indeed web-technologies are often not as capable, and well integrated as native technologies.
-But even for native development, Javascript seems to be a language of choice.
-An example is the React Native Framework\ftnt{https://facebook.github.io/react-native/} from Facebook, which allow to use Javascript to develop native mobile applications.
-They prone the philosophy \textit{"learn once, write anywhere"}, in opposition to the usual slogan \textit{"write once, run everywhere"}.\footnote{Used firstly by Sun for Java, but then stolen by many others}
-% Another example is Gnome-shell. It uses Javascript to build its interface, and extensions.
-% PhoneGap (Cordova) is a huge effort toward bringing web technologies to the mobile. 
-
-\subsubsection{Current situation}
-
-\cit{When JavaScript was first introduced, I dismissed it as being not worth my attention. Much later, I took another look at it and discovered that hidden in the browser was an excellent programming language.}{Douglas Crockford}
-
-% \cit{JavaScript is the world's most ubiquitous computing runtime.}{John Lam}
-
-The success of Javascript is due to many factors ; I mentioned previously the standardization, Ajax libraries and HTML5.
-Another factor, maybe the most important, is the View Source menu that reveals the complete source code of any web application.
+The success of Javascript is due to many factors ; maybe the most important of all is the View Source menu that reveals the complete source code of any web application.
 \textit{The view source menu is the ultimate form of open source}\ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
 It is the vector of the quick dissemination of source code to the community, which picks, emphasizes and reproduces the best techniques.
 This brought open source and collaborative development before github. \comment{TODO neither open source nor collaborative development are the correct terms}
@@ -183,6 +138,70 @@ When a language like Javascript is distributed freely with the tools to reproduc
 When this distribution is carried during the expansion of the largest communication network in history.
 Then an entire generation seizes this opportunity to incrementally build and share the best tools they can.
 This collaboration is the reason for the popularity of Javascript on the Web.
+% When a language is released, available freely at a world wide scale, and simple enough to be handled by a generation of teenager inspired by the technology hype, it produce an effervescent community around what is now one of the most popular and widely used programming language.
+
+\subsubsection{Rising of the unpopular language}
+
+\comment{TODO why is Javascript unpopular ? cite some blog post like : https://wiki.theory.org/YourLanguageSucks\#JavaScript\_sucks\_because and add many blog posts titles in a mozaïc}
+
+Javascript started as a programming language to implement short interactions on web pages.
+The best usage example was to validate some forms on the client before sending the request to the server.
+This situation hugely improved since the beginning of the language.
+Nowadays, there is a lot of web-based application replacing desktop applications, like mail client, word processor, music player, graphics editor.
+
+There is now more software services released to the public as web-based application compared to desktop clients.
+
+ECMA International released several version in the few years following the creation of Javascript.
+The first and second version, released in 1997 and 1998, brought minor revisions to the initial draft.
+However, the third version, released in the late 1999, contributed to give Javascript a more complete and solid foundation as a programming language.
+From this point on, the consideration for Javascript kept improving.
+
+%An important reason for this reconsideration started in 2005.
+In 2005, James Jesse Garrett released \textit{Ajax: A New Approach to Web Applications}, a white paper coining the term Ajax \cite{Garrett2005}.
+This paper points the trend in using this technique, and explain the consequences on user experience.
+Ajax stands for Asynchronous Javascript And XML.
+It consists of using Javascript to dynamically request and refresh the content inside a web page.
+It has the advantage to avoid requesting a full page from the server.
+Javascript is not anymore confined to the realm of small user interactions on a terminal.
+It can be proactive and responsible for a bigger part in the whole system spanning from the server to the client.
+Indeed, this ability to react instantly to the user gave to developer the feature to develop richer applications inside the browser.
+%, while keeping all the advantages of web-based applications.
+At the time, the first web applications to use Ajax were Gmail, and Google maps\footnote{A more in-depth analysis of the history of Ajax, given by late Aaron Swartz \url{http://www.aaronsw.com/weblog/ajaxhistory}}.
+
+Around this time, the Javascript community started to emerge.
+The third version of ECMAScript had been released, and it was homogeneously supported in the browsers.
+However, the DOM, and the \texttt{XMLHttpRequest} method, two components on which AJAX relies, still present heterogeneous interfaces among browsers.
+Javascript framework were released with the goal to straighten the differences between browsers implementations.
+Prototype\ftnt{http://prototypejs.org/} and DOJO\ftnt{https://dojotoolkit.org/} are early famous examples, and later jQuery\ftnt{https://jquery.com/} and underscore\ftnt{http://underscorejs.org/}.
+These frameworks are responsible in great part to the wide success of Javascript and of the web technologies.
+
+In the meantime, in 2004, the Web Hypertext Application Technology Working Group\ftnt{https://whatwg.org/} was formed to work on the fifth version of the HTML standard.
+This new version provide new capabilities to web browsers, and a better integration with the native environment.
+It features geolocation, file API, web storage, canvas drawing element, audio and video capabilities, drag and drop, browser history manipulation, and many mores.
+It gave Javascript the missing interfaces to become a rich environment to develop rich application in the browser.
+The first public draft of HTML 5 was released in 2008, and the fifth version of ECMAScript was released in 2009.
+These two releases, ECMAScript 5 and HTML5, represent a mile-stone in the development of web-based applications.
+Javascript became the programming language of this rising application platform.
+
+Javascript, and web technologies are also used outside the web.
+NW.js\ftnt{https://github.com/nwjs/nw.js} and electron\ftnt{https://github.com/atom/electron} are two solutions to deploy application built with web technologies.
+They use Node.js and Chromium.
+The Atom text editor\ftnt{https://atom.io/}, Popcorn Time\ftnt{https://popcorntime.io/} and Light Table\ftnt{http://lighttable.com/} are example of such applications.
+However, if web applications are common choice for web service client on the desktop, HTML5 is not yet widely accepted as ready to build complete application on mobile, where performance and design are crucial.
+Indeed web-technologies are often not as capable, and well integrated as native technologies.
+But even for native development, Javascript seems to be a language of choice.
+An example is the React Native Framework\ftnt{https://facebook.github.io/react-native/} from Facebook, which allow to use Javascript to develop native mobile applications.
+They prone the philosophy \textit{"learn once, write anywhere"}, in opposition to the usual slogan \textit{"write once, run everywhere"}.\footnote{Used firstly by Sun for Java, but then stolen by many others}
+% Another example is Gnome-shell. It uses Javascript to build its interface, and extensions.
+% PhoneGap (Cordova) is a huge effort toward bringing web technologies to the mobile.
+
+\subsubsection{Current situation}
+
+\cit{When JavaScript was first introduced, I dismissed it as being not worth my attention. Much later, I took another look at it and discovered that hidden in the browser was an excellent programming language.}{Douglas Crockford}
+
+% \cit{JavaScript is the world's most ubiquitous computing runtime.}{John Lam}
+
+
 
 % I want to say that Javascript took off because it was carried by the open source community.
 % The goal is to introduce the following facts : JS is widely used in the open source community.
@@ -196,28 +215,35 @@ This collaboration is the reason for the popularity of Javascript on the Web.
 
 
 % This success is obvious on the web and in the open source communities.
-It seems to also infiltrate many other fields of IT, but it is hard to give an accurate picture of the situation.
-There is no right metrics to measure programming language popularity.
-In the following paragraphs, I report some popular metrics and indexes available on the net.
+The rise of Javascript is obvious on the web and particularly the open source communities.
+It also seems to be rising in the software industry.
+However, it is harder to give an accurate picture of the situation.
+The software industry is not as clear and open as the web.
+Moreover, there is no right metrics to accurately and directly measure programming language popularity.
+In the following paragraphs, I report some of the best metrics and indexes available freely on the web to try to represent the situation, both in the open source community and in the more opaque software industry.
 More detailed informations are available section \ref{appendix:langpop}.
 
-\paragraph{Search engines}
+\paragraph{Available resources}
 
 The TIOBE Programming Community index is a monthly indicator of the popularity of programming languages.
-It uses the number of results on many search engines as a measure of the activity of a programming language.
 Javascript ranks 6th on this index, as of April 2015, and it was the most rising language in 2014.
-However, the measure used by the TIOBE is controversial.
-Some says that the measure is not representative.
+It uses the number of results on many search engines as a measure of the popularity of a programming language.
+The results contains learning and training resources, forums logs, books and many other traces of the activity of a the community around the language.
+However, the measure used by the TIOBE is controversial, and might not be representative.
 It is a lagging indicator, and the number of pages doesn't represent the number of readers.
 
-On the other hand, the PYPL index is based on Google trends to measure the activity of a programming language.
+Alternatively, the PYPL index is based on Google trends to measure the number of requests on a programming language.
 Javascript ranks 7th on this index, as of May 2015.
+This index seems to be more accurate, as it depicts the actual interest of the community for a language.
+However, it is not representative as it only takes Google search into account.
 
 From these indexes, the major programming languages are Java, C/C++ and C\#.
 The three languages are still the most widely taught, and used to write softwares.
-But Javascript is rising to become one of these important languages.
+But Javascript is rising to become an important language as well.
 
 \paragraph{Developers collaboration platforms}
+
+An indicator of the popularity and usage of a language is the number of developers and projects using it.
 
 Github is the most important collaborative development platform, with around 9 millions users.
 Javascript is the most used language on github since mid-2011, with more than 320 000 repositories.
@@ -230,7 +256,8 @@ It is a good representation of the activity around a language.
 Javascript is the second language showing the most activity on StackOverflow, with more than 840 000 questions.
 The first one is Java with more than 850 000 questions.
 
-Black Duck knowledgebase analyzes 1 million repositories over various forges, and collaborative platforms to produce an index of the usage of programming language in open source communities.
+Black Duck Software helps companies streamline, safeguard, and manage their use of open source.
+For its activity, it analyzes 1 million repositories over various forges, and collaborative platforms to produce an index of the usage of programming language in open source communities.
 Javascript ranks second.
 C is first, and C++ third.
 Along with Java, the four first languages represent about 80\% of all programming language usage.
@@ -238,20 +265,84 @@ Along with Java, the four first languages represent about 80\% of all programmin
 \comment{TODO redo this graph, it is ugly.}
 \includegraphics[width=0.9\linewidth]{../../data/js-trends/black-duck-15}
 
+% \begin{figure}[h!]
+% \begin{tikzpicture}
+% [
+%     pie chart,
+%     slice type={c}{gray1},
+%     slice type={js}{red},
+%     slice type={cpp}{gray2},
+%     slice type={java}{gray3},
+%     slice type={php}{gray4},
+%     slice type={autoconf}{gray5},
+%     slice type={python}{gray6},
+%     slice type={ruby}{gray1},
+%     slice type={xml}{gray2},
+%     slice type={sh}{gray3},
+%     slice type={asm}{gray4},
+%     slice type={sql}{gray5},
+%     slice type={make}{gray6},
+%     slice type={perl}{gray1},
+%     slice type={csharp}{gray2},
+%     pie values/.style={font={\small}},
+%     scale=2
+% ]
+
+% \pie{}{%
+%   34.80/c,%
+%   15.45/js,%
+%   15.13/cpp,%
+%   14.02/java,%
+%   2.87/php,%
+%   2.65/autoconf,%
+%   2.15/python,%
+%   1.77/ruby,%
+%   1.73/xml,%
+%   1.18/sh,%
+%   1.16/asm,%
+%   1.07/sql,%
+%   0.94/make,%
+%   0.92/perl,%
+%   0.90/csharp,%
+% }
+
+% \legend[shift={(1.3cm,0.9cm)}]{%
+%   {C}/c,%
+%   {Javascript}/js,%
+%   {C++}/cpp,%
+%   {Java}/java,%
+%   {PHP}/php,%
+%   {Autoconf}/autoconf,%
+%   {Python}/python,%
+%   {Ruby}/ruby,%
+%   {XML Schema}/xml,%
+%   {Shell}/sh,%
+%   {Assembler}/asm,%
+%   {SQL}/sql,%
+%   {Make}/make,%
+%   {Perl}/perl,%
+%   {C\#}/csharp,%
+% }
+% \end{tikzpicture}
+% \caption{Compilation results distribution}
+% \end{figure}
+
 \paragraph{Jobs}
 
-All these metrics are representing the visible activity about programming language.
-But not the entire software industry is open source, and the activity is rather opaque.
-To get a hint on the popularity of programming languages used in the software industry, let's look at the job offerings.
-Indeed provide some insightful trends.
-Javascript developers ranked at the third position, right after SQL developers and Java developers.
+The software industry is rather closed sourced, and its activity is rather opaque.
+All these previous metrics are representing the visible activity about programming language, but are not representative of the software industry.
+%To get a hint on the popularity of programming languages used in the software industry, the trends on job propositions are insightful.
+The trends on job openings gives an hint of the direction the software industry is heading towards.
+\textit{Indeed} provide some trends over its database of job propositions.
+Javascript developers ranked at the third position, right after SQL and Java developers.
 Then come C\# and C developers.
+This position means that Javascript might finally be on the edge to become a major language in the software industry, and become as important as Java and C/C++.
 
 \comment{TODO redo this graph, it is ugly.}
 \includegraphics[width=0.9\linewidth]{../../data/js-trends/jobgraph}
 
-All these metrics represent different faces of the current situation of Javascript adoption.
-We can safely say that Javascript is one of most important language of this decade, along with Java, C/C++.
-It is widely used in open source projects, and everywhere on the web.
-But it is also trending, and maybe slowly replacing languages like Java.
-% TODO continue this
+
+
+All these metrics in this section represent different faces of the current situation of Javascript adoption.
+With the rise of web applications, we can safely say that Javascript is one of most important language of this decade, alongside with Java and C/C++.
+It is widely used in open source projects, and everywhere on the web, as well as in the software industry.
