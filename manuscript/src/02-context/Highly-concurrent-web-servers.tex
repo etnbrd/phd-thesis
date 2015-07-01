@@ -10,18 +10,18 @@ There is currently more than 16 billions devices connected to the internet, and 
 This massively interconnected network gives the ability for a web applications to be reached at the largest scale.
 A large web application like google search receives about 40 000 requests per seconds.
 That is about 3.5 billions requests a day\ftnt{http://www.internetlivestats.com/google-search-statistics/}.
-This traffic is huge, but it remains sensibly stable because the position of Google is assured.
+This traffic is huge, but it remains roughly stable because the position of Google is popular and regularly used by a huge community of users.
+The spike of activity are hidden in the mass of average use.
 
 % To handle such amount of traffic, Google deploys specific infrastructures, and software.
 
-However, the traffic at the beginning of a web application is much more uncertain.
-If the web application fits the market need, it might become viral at some point because it is efficiently relayed in the media.
+However, the traffic of an unknown web application is much more uncertain.
+If the web application fits the market need, it might become viral when it is efficiently relayed in the media.
 As a concrete example, when a web application appears in the evening news, it might expect a huge spike in traffic.
 But most of the time, the spikes are unpredictable.
 
-A young web application needs to follow the growth of its audience.
-With the growth of its audience, the load on the resources increase.
-This growth might be steady enough to be planned, or it might be unexpected and challenging to meet.
+An unknown web application needs resources to follow the growth of its audience.
+This growth in resources might be steady enough to be planned, or it might be unexpected and challenging to meet.
 Scalability is the ability for a web application to adapt its load to the demand in a reasonable time.
 More precisely, an application is scalable, if the growth of its audience is proportional to the increase of its load on the resources.
 
@@ -31,34 +31,32 @@ A server is highly scalable if it is highly concurrent.
 \comment{TODO better explanation of this simplification}
 A highly concurrent server is able to manage a large number of simultaneous request.
 %It represents an uninterrupted flow of requests, with a growing throughput.
-In the 2000s, the problem was to process 10 thousands simultaneous connections\ftnt{http://www.kegel.com/c10k.html}.
-Nowadays, in the 2010s, the problem is to process 10 millions simultaneous connections \ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
+In the 2000s, the limit to reach was to process 10 thousands simultaneous connections with a single commodity machine\ftnt{http://www.kegel.com/c10k.html}.
+Nowadays, in the 2010s, the limit is set at 10 millions simultaneous connections at roughly the same price\ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
 With the growing number of connected devices on the internet, concurrency is a very important property in the design of web servers.
 
 \subsubsection{Tow faces of concurrency}
 
 Concurrency is the ability for an application to make progress on several tasks at the same time.
-It can be achieved either by parallelism, or by time-slicing concurrency.
+It can be achieved either with parallelism, or with time-slicing concurrency.
 
 The term Parallelism refers to techniques to make programs faster by performing several computations in parallel. This requires hardware with multiple processing units. Such hardware is nowadays omnipresent.
 \ftnt{https://wiki.haskell.org/Parallelism_vs._Concurrency}
-
-However, concurrency can be achieved on a single processing unit as well.
-The executions of the different tasks are interleaved in time.
-As an example, it is used to give a multi-tasking ability to operating systems.
-
-Concurrency allows to stretch the computation on one, or many cores.
-It enables scalability.
-\comment{TODO review that}.
-
 Parallelism improves performances for computation.
 However, it is necessary for the parallel tasks to rely on independent states.
 Otherwise, two tasks could modify a shared state simultaneously resulting in its corruption.
 
-In time-slicing concurrency, the concurrent tasks can benefit of a shared state with different compromise depending on the scheduling strategy.
+Concurrency can be achieved with a single processing unit as well.
+The executions of the different tasks are interleaved in time.
+As an example, it is used to give a multi-tasking ability to operating systems.
+It allows to stretch the computation on one, or many cores.
+It enables scalability.
+\comment{TODO review that}.
+
+In time-slicing concurrency, the concurrent tasks can benefit of a shared state with different compromises depending on the scheduling strategy.
 In this thesis I focus on the cooperative scheduling used in the event-loop.
 It allows for a truly global memory and seems to be one of the easiest way for developers to write concurrent programs efficiently.
-Indeed, I presented in the previous section the popularity of Javascript, which uses this scheduling strategy.
+Indeed, I presented in the previous section the popularity of Javascript, which is often implemented on top of this scheduling strategy (DOM, Node.js).
 
 The other main scheduling strategy is preemptive scheduling.
 It is used in most execution environment in conjunction with multi-threading.
@@ -71,38 +69,34 @@ Shared state could probably always be emulated with isolated memory and message 
 
 Around 2004, the so-called Power Wall was reached.
 The clock of CPU is stuck at 3GHz because of the inability to dissipate the heat generated at higher frequencies.
-Additionally, the parallelism inside the low-level stream of instructions is limited.
+Additionally, the instruction-level parallelism is limited.
 Because of these limitations, a processor is limited in the number of instruction per second it can execute.
-Therefore, the language-level parallelism previously presented is the only option to achieve high concurrency.
+Therefore, a coarser level of parallelism, like the task-level parallelism previously presented is the only option to achieve high concurrency.
 This parallelism requires the isolation of the memory of each independent task.
-As we will see, this isolation is in contradiction with the best practices of software development.
-It creates a rupture between performance, and usability.
+This isolation is in contradiction with the best practices of software development.
+It creates a rupture between performance and development accessibility.
 
 \subsubsection{The case for global memory}
 
-The best practice in software development advocates to design a software into isolated modules.
-By following the best practice, the code base is split into modules.
-Modularity allows to understand each module of the application by itself, without an understanding of the rest.
+The best practices in software development advocate to design a software into isolated modules.
+By following the best practices, the code base is split into modules.
+This modularity allows to understand each module of the application by itself, without an understanding of the rest.
 The understanding of the whole application emerges from the interconnections between the different modules.
-Modularity advocates three principles : encapsulation, a module contains the data, and the functions to manipulate this data ; separation of concerns, each module should have a clear scope of action, and it should not overlap with other scopes ; and loose coupling, each module should require no, or as little as possible knowledge about the definition of other modules.
+Modularity advocates three principles : encapsulation, a module contains the data, as well as the functions to manipulate this data ; separation of concerns, each module should have a clear scope of action, and it should not overlap with other scopes ; and loose coupling, each module should require no, or as little as possible knowledge about the definition of other modules.
 The main goal followed by these principles, is to help the developer to develop and maintain a large code-base.
 
 Modularity is intended to avoid a different problem than the isolation required by parallelism.
 The former intends to avoid unintelligible spaghetti code ; while the latter avoids conflicting memory accesses resulting in corrupted state.
 The two goals are overlapping in the design of the application.
-Therefore, every language needs to provide a compromise between these two goals.
-
-I argue that the more accessible, hence popular programming languages choose to provide modularity over isolation.
-They provide a global memory at the sacrifice of the performance provided by parallelism.
-Moreover, the more efficient languages sacrifice the readability and maintainability, to provide a model closer to parallelism, to allow better performances.
+Therefore, every language needs to provide a compromise between these two goals, and specialized in specific type of applications.
 \comment{TODO here I use language in both cases, it would be better to use a more generic term to refer to language or infrastructure}
 
 \subsubsection{Rupture}
 
-Between the early development, and the mature development of a web application, its needs are radically different.
-In its early development, a web application needs to quickly get feedback from its users.
+Between the early development, and the maturation of a web application, the development needs are radically different.
+In its early development, a web application needs to quickly iterate over feedback from its users.
 The first reason of startup failures is the lack of market need\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}.
-The development speed is crucial.
+The development reactivity is crucial.
 Therefore, the development team opt for a popular, and accessible language.
 The development team quickly releases a Minimum Viable Product as to get these feedbacks.
 \textit{``Release early, release often''}, and \textit{``Fail fast''} are the punchlines of the web entrepreneurial community.
@@ -126,19 +120,50 @@ The development team cannot react as quickly to user feedbacks as with the first
 
 % There is a technological rupture between the two.
 
-This technological rupture is the demonstration that there is economically a need for a language that exposes a more sustainable abstraction.
-An abstraction that it is easy to develop with, like in the beginning of a web application development, and yet parallelizable, so as to be scalable when the application matures.
+This technological rupture is the demonstration that there is economically a need for a language that exposes a more sustainable paradigm to follow the evolution of a web application.
+A paradigm that it is easy to develop with, like in the beginning of a web application development, and yet parallelizable, so as to be scalable when the application matures.
+Such a paradigm would allow to develop with a global memory, so as to follow the best practices of software development, and be able to isolate the state of each concurrent tasks to parallelize them.
+\comment{Review this paragraph, the tow last sentences are almost equivalent, might need to merge them.}
 
 \subsection{A problem of memory}
 
-The problem I focus on is the coordination of state between the concurrent execution in concurrent programming.
-Precisely, I focus on a solution to leverage parallelism while keeping the global memory for developers.
+It is easier to understand the possible parallelism of a cooking recipe than a computer program.
+That is because the modifications to the state are trivial in the cooking recipe, hence the interdependencies between operations.
+It is easy to understand that preheating the oven is independent from whipping up egg whites.
+While the interdependencies are not immediately obvious in a computer program.
+\comment{TODO is this metaphor useful here ? if yes, continue to a transition}
 
-I presented earlier the three main strategies to manage the memory in concurrent programming.
-The main difference for the developer is how each model assures an invariance in the memory state.
+\subsubsection{Event-loop and multi-processes paradigms}
+
+We draw the similarity and differences between the event-loop and multi-processes paradigms.
+
+The event-loop paradigm split the execution of a program into sequentially executed callbacks.
+% Each event triggers the execution of a callback.
+% This callback can at its turn send events to triggers callbacks.
+All callbacks are executed sequentially so that each callback as an exclusive access to the global memory storing the state of the application.
+
+An application following the multi-processes paradigm splits the execution of a program into parallel processes.
+Each process has an exclusive access to its own memory to store a fraction of the state of the application.
+It uses message-passing to coordinate the state of the application at the global level, and to stream data from one process to the other.
+
+Both paradigms encapsulate the execution, in callbacks or processes.
+Those containers are assured to have an exclusive access to the memory.
+The difference between these paradigms lies in the choice of exclusivity for the access to the state, and in the coordination of the state between the concurrent executions.
+
+% I focus on a solution to leverage parallelism while keeping the global memory for developers.
+I focus on the coordination of state between the concurrent executions in concurrent programming.
+% I presented earlier the three main strategies to manage the memory in concurrent programming.
+The main difference for the developer is how each paradigm assures to the developer the invariance in the memory state.
+
+\comment{TODO it is not universal, but multi-process paradigms are also oriented around event-loops. An Event-loop is a multi-process on one machine. A multi-process is multiple event-loop running different part of the same program.}
+
+\subsubsection{Invariance}
+
 I call invariance the assurance given to the developer that the global state of the application is not corrupted by the coordination between the concurrent executions.
 By corruption, I mean a modification of the state which was not intended by the developer.
+\comment{TODO not very clear}
 
+\comment{TODO the two following paragraphs might be better placed in the previous subsubsection}
 In applications composed of multiple parallel processes, the memory of each processes is exclusive.
 The developer is aware that only the process can modify its memory.
 The processes propagate a modification to the state of the application by sending messages.
@@ -146,21 +171,37 @@ Each process treat these messages one after the other.
 There is no risk of corrupted state by simultaneous, conflicting accesses.
 The invariance is explicit because the memory is isolated inside each process.
 
+In application using cooperative scheduling on an event-loop, like Javascript, the memory is global.
+All the tasks, called events, are executed sequentially, so there is no possible simultaneous memory access.
+The developer is aware of the points in the code where the scheduler switches from one concurrent execution to the other, so it can manage its state in atomic modification.
+
+\comment{TODO the following paragraph is out of scope, either introduce it to say so, or remove it}
+\comment{Actually, threads are already a compromise in the invariance, but it is a bad one, as it imposes the developer to annotate the program for possible parallelism (locks and so on)}
 In applications composed of multiple parallel threads, the memory is shared between all the threads.
 The developer is aware that because of the preemptive scheduling strategy, the shared memory states of the application can be modified at any time by any thread.
 To prevent conflicting accesses on the memory, the developer locks every shared memory state during a modification.
 The developer assures itself the invariance of the memory.
 
-In application using cooperative scheduling on an event-loop, like Javascript, the memory is global.
-All the tasks, called events, are executed sequentially, so there is no possible simultaneous memory access.
-The developer is aware of the points in the code where the scheduler switches from one concurrent execution to the other, so it can manage its state in atomic modification.
-
 The invariance exposed by the isolated processes and the event-loop are similar.
 The developer defines sequence of instructions with atomic access to the memory.
 And in both paradigms, these sequences communicate by sending messages to each other.
 The difference lies in the isolation of this memory.
+\comment{TODO we already said the two were similar, get deeper into this similarity for the invariance}
 \comment{TODO this paragraph needs review}
 
-I argue that the language should adapt to the developer and expose a concurrent paradigm with a global memory.
-Then a compiler, or the execution engine, can isolate the memory so as to parallelize the concurrent executions.
-So as to provide to the developer a usable, yet efficient compromise.
+\comment{TODO Insert this : the event-loop isolate the memory in different time slots, while parallelism isolate the memory in different space slots.}
+
+\comment{TODO lack some steps and a proper transition}
+
+\endinput
+
+
+\comment{TODO move this argument to the right place}
+I argue that the more accessible, hence popular programming languages choose to provide modularity over isolation.
+They provide a global memory at the sacrifice of the performance provided by parallelism.
+Moreover, the more efficient languages sacrifice the readability and maintainability, to provide a model closer to parallelism, to allow better performances.
+
+
+
+
+We translate the definition of the invariance in time by an invariance in space.

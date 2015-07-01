@@ -1,25 +1,47 @@
-\section{Compilation}
+\section{Equivalence}
 
-We propose to find an equivalence between an event loop and a network of isolated processes.
-This equivalence should allow a compiler to transform an event loop into several parallel processes communicating by messages.
-
-With this compiler, it would be possible to express an application with a global, so as to follow the design principles of software development.
-And yet, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
-
-This equivalence intend not to be universal.
-It focuses on a precise class of applications : real-time Web applications processing stream of requests from users.
+I argue that the language should propose to the developer an abstraction to encourage the best practices of software development.
+Then a compiler, or the execution engine, can adapt this abstraction so as to leverage parallel architectures. 
+So as to provide to the developer a usable, yet efficient compromise.
+We propose to find an equivalence between the invariance proposed by the event loop paradigm and the invariance proposed by the multi-processes paradigm.
 
 \subsection{Real-time web services}
 
+This equivalence intend not to be universal.
+It focuses on a precise class of applications : real-time Web applications processing stream of requests from users.
 Web applications are now written in a stream fashion.
 Indeed, as I showed previously, the event loop is executed like a pipeline.
 Web services can be seen as pipelines processing streams of requests.
 
 In a stream processing application, there is roughly two kinds of usage of the global memory : data and state.
 Naively, the data represent a communication channel between different point in the application space, and the state represents a communication channel between different instant in time.
-The data flow from stage to stage through the pipeline, and are never stored on any fluxion.
+The data flow from stage to stage through the pipeline, and are never stored on any parts.
 The state, on the other hand, remains in the memory to impact the future behaviors of the application.
 State might be shared by several parts of the application.
 
 There are different kinds of state dependencies in applications components leading to different kinds of parallelism.
 In this thesis I argue that it is possible to parallelize a real-time web applications written on an event-loop because the strong dependencies mainly remains within a closed number of concurrent executions.
+
+\subsection{Transformation}
+
+The equivalence between the invariance of the event-loop paradigm and the invariance of the multi-process paradigm involves two steps.
+The first step is to isolate the different regions 
+
+
+Second the coordination of these regions by message-passing.
+
+
+
+
+
+
+
+
+This equivalence should allow a compiler to transform an event loop into several parallel processes communicating by messages.
+
+With this compiler, it would be possible to express an application with a global, so as to follow the design principles of software development.
+And yet, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
+
+
+
+
