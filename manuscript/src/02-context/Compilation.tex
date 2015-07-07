@@ -1,11 +1,34 @@
 \section{Equivalence}
 
+
+
+
+
 I argue that the language should propose to the developer an abstraction to encourage the best practices of software development.
 Then a compiler, or the execution engine, can adapt this abstraction so as to leverage parallel architectures. 
 So as to provide to the developer a usable, yet efficient compromise.
-We propose to find an equivalence between the invariance proposed by the event loop paradigm and the invariance proposed by the multi-processes paradigm.
+We propose to find an equivalence between the invariance proposed by the cooperative scheduling paradigm and the invariance proposed by the multi-processes paradigm, to be applied between the event-loop execution engine and the pipline architecture.
+
+
+\nt{Define event-loop and pipeline architecture, from cooperative scheduling and multi-process, and then continue with the equivalence}
+
+
+\subsection{Architecture}
+
+
+\subsubsection{Event-loop}
+
+\subsubsection{PIpeline}
+
+
+\subsubsection{Rupture point}
+
+
+
 
 \subsection{Real-time web services}
+
+\nt{The need for invariance in the streaming applications : it can be emulated by message passing. Indeed the data flows from one processing step to the other, with few retroprogation of state (don't mention retro-propagation yet)}
 
 This equivalence intend not to be universal.
 It focuses on a precise class of applications : real-time Web applications processing stream of requests from users.
@@ -45,3 +68,47 @@ And yet, the execution engine could adapt itself to any parallelism of the compu
 
 
 
+
+
+
+\nt{TODO I whould talk about the event-loop, rupture points, and the invariance. Continue this.}
+
+
+
+\endinput
+
+
+We translate the definition of the invariance in time by an invariance in space.
+
+
+
+\subsubsection{Event-loop and multi-processes paradigms}
+
+\nt{TODO merge this section with time-slicing and parallelism}
+
+We draw the similarity and differences between the event-loop and multi-processes paradigms.
+
+The event-loop paradigm split the execution of a program into sequentially executed callbacks.
+% Each event triggers the execution of a callback.
+% This callback can at its turn send events to triggers callbacks.
+It uses the cooperative scheduling strategy so that each callback as an exclusive access to the global memory storing the state of the application.
+All the tasks, called events, are executed sequentially, so there is no possible simultaneous memory access.
+For this reason, it imposes the application to be executed on a single processing unit.
+In application using cooperative scheduling on an event-loop, like Javascript, the memory is global.
+
+An application following the multi-processes paradigm splits the execution of a program into parallel processes.
+Each process has an exclusive access to its own memory to store a fraction of the state of the application.
+The developer is aware that only the process can modify its memory.
+It uses message-passing to coordinate the state of the application at the global level, and to stream data from one process to the other.
+Each process treat these messages one after the other.
+
+Both paradigms encapsulate the execution, in callbacks or processes.
+Those containers are assured to have an exclusive access to the memory.
+The difference between these paradigms lies in the choice of exclusivity for the access to the state, and in the coordination of the state between the concurrent executions.
+
+% I focus on a solution to leverage parallelism while keeping the global memory for developers.
+I focus on the coordination of state between the concurrent executions in concurrent programming.
+% I presented earlier the three main strategies to manage the memory in concurrent programming.
+The main difference for the developer is how each paradigm assures to the developer the invariance in the memory state.
+
+\nt{TODO it is not universal, but multi-process paradigms are also oriented around event-loops. An Event-loop is a multi-process on one machine. A multi-process is multiple event-loop running different part of the same program.}
