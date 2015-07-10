@@ -11,8 +11,9 @@ A large web application like google search receives about 40 000 requests per se
 That is about 3.5 billions requests a day\ftnt{http://www.internetlivestats.com/google-search-statistics/}.
 Such a web application needs to be highly concurrent to manage a large number of simultaneous request.
 Concurrency is the ability for an application to make progress on several tasks at the same time.
-For example to respond to several simultaneous requests.
+For example to respond to several simultaneous requests, a task is a part in the response to a request. \nt{TOOD define more clearly what is a task}
 %It represents an uninterrupted flow of requests, with a growing throughput.
+
 In the 2000s, the limit to reach was to process 10 thousands simultaneous connections with a single commodity machine\ftnt{http://www.kegel.com/c10k.html}.
 Nowadays, in the 2010s, the limit is set at 10 millions simultaneous connections at roughly the same price\ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
 With the growing number of connected devices on the internet, concurrency is a very important property in the design of web applications.
