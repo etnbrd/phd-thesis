@@ -15,7 +15,7 @@ clean:
 	rm -rf .tmp; rm -rf src/main-figure*
 
 import:
-	rsync -r ~/Documents/PhD/Bib ./src/bib
+	rsync -r ~/Documents/PhD/Bib/* ./src/bib
 
 open:
 	xdg-open ${NAME}.pdf

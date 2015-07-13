@@ -2,6 +2,17 @@
 
 \subsection{From operating systems to the web}
 
+
+With the invention of electronic computing machine, appeared the market for software applications.
+This market is not limited by marginal production cost ; software being a virtual product, the production and distribution cost for another unit is virtually null.
+The market is limited by the platform a software can be deployed on.
+The bigger the platform, the wider the market.
+There is an economically incentive to standardize and widen the platform, both for the provider, and for the consumer.
+The first platforms started as products, in competition with other products.
+Their manufacturers had economical incentive to increase their market share.
+Microsoft successfully took over the market of operating system in the 90s, and was on the edge of monopoly more than once.
+But eventually, the product is standardized, and becomes the platform.
+
 \begin{wrapfigure}{r}{0.2\textwidth}
   \vspace{-27pt}
   \begin{center}
@@ -10,143 +21,126 @@
   \vspace{-20pt}
 \end{wrapfigure}
 
-With the invention of electronic computing machine, appeared the market for software applications.
-This market is not limited by marginal production cost ; software being a virtual product, the production and distribution cost for another unit is virtually null.
-The market is limited by the platform a software can be deployed on.
-The bigger the platform, the wider the market.
-It is interesting economically both for the provider, and for the consumer to standardize and widen the platform.
-For the provider because it can increase its revenue by reaching more consumers.
-And for the consumers, because of the competition between providers feeding innovation.
-
-However, the first platforms for software started as products.
-The first commodity computers and the operating systems are economic products.
-It made sense for their manufacturer to increase their market share, so as to increase their revenue.
-The economical incentive.
-Microsoft successfully took over the market of operating system in the 90s, and cross the border of the monopoly more than once.
-% Eventually this fragmented market of platform was reunited with the specification of high-level, inter-OS programming languages.
-% Applications could be developed, and run on any operating system.
-However, before the internet, the distribution of software copies is still limited by physical medium.
-It still takes time to burn a CD, or a floppy, and to bring it to the consummer's home.
-
+Before the internet, this market was limited for distribution by the physical medium.
+It takes time to burn a CD, or a floppy, and to bring it to the consummer's home.
 Sir Tim Berners Lee invented the world wide web in 1989.
 It was initially intended to share scientific documents and results.
-But it eventually became the distribution medium of choice for virtual products, software included.
-And pushed the scalability of software distribution.
+And it eventually became the distribution medium of choice for every virtual products, software included.
+It pushed the scalability of software distribution.
 
-Similarly to operating systems, Web browsers are products.
+Similarly to operating systems, Web browsers started as software products.
 They exposed innovative features to try to increase their market share.
-Among these features is the ability to run scripts directly inside the browser.
-Browsers partially replaced operating system as the platform to run software.
-But these heterogeneity in features between web browsers worsen the user experience on the web.
-Eventually, web technologies became specification to be respected by all browsers, so as to assure an homogeneous experience across the web.
-The web became the platform.
+Among others is the ability to run scripts.
 It allows to deploy and run software at unprecedented scales.
-With web services, or Software as a Service, the distribution medium of software is so transparent that owning a product to have an easier access is no longer relevant.
+The web became the platform.
+Now, with web services, or Software as a Service (SaaS), the distribution medium of software is so transparent that owning a software product to have an easier access is no longer relevant.
+We explore now the different languages to write and deploy applications on the web.
 
-The browser and the operating system are only the foundation.
-The specifications assure the unification of the web as a platform.
-We explore now the different language to write and deploy applications on the web.
-\nt{TODO This subsection needs reviews. The message is still not clear.}
+\subsection{The languages of the web}
 
-
-\subsection{The languages of the web}\nt{TODO This subsection needs reviews, it is poorly written.}
-
-In the early 90's, at the same time the web started developing, most of the more popular programming langauges were released.
+In the early 90's, during the web early development, most of the now popular programming languages were released.
 Python(1991), Ruby(1993), Java(1994), PHP(1995) and  Javascript(1995).
 With Moore's law predicting exponential increase in hardware performance, the industry realized that development time is more expensive than hardware.
-Low-level language were replaced by higher-level language with worse performance, but easier to develop with, to decrease the development time.
+Low-level languages were replaced by higher-level language, trading performance for accessibility.
+The economical gain in development time compensated the worsen performances of these languages.
 
 Java, developed by Sun Microsystems, imposes itself early as a language of choice and never really decreased.
 The language is executed on a virtual machine, allowing to write an application once, and to deploy it on heterogeneous machines.
-Additionally, it presents many hardware abstractions, such as memory garbage collection, and references, instead of manual memory allocation and pointers.
-For these reasons, it is easier to develop with, but shows slower performance than lower level languages like C/C++.
 The software industry quickly adopted it as its main development language.
-It is currently the most cited language on StackOverflow, and the second used on Github.
-It is generally in the first place of all the language popularity indexes.
+It is currently the second most cited language on StackOverflow, and used on Github.
+And is in the first place of many language popularity indexes.
 However, the software industry wants stable and safe solutions.
 This prudence generally slows down Java evolution.
-\nt{TODO More arguments needed here. Java is overengineered, overtooled, too verbose, it is not dynamic enough : OOP is outdated, and it lacks lambdas, and so on ...}
+The language struggled to keep up with the latest trends in software development.
 
 \textit{Python is the second best language for everything.}
-It is a general purpose language, currently quite popular for data science.
+It is a general purpose language, currently popular for data science.
 In 2003, the release of the Django web framworks brought the language to the web development scene.
 
 Ruby was confined in Japan and almost unknown to the world until the release of Rails in 2005.
 With the release of this web framework, Ruby took-off and is still in active use.
-\nt{TODO why Ruby could have replaced Java ? dynamic language, functional paradigm}
+It meets the latest trends in software development.
+And it might had replaced Java if the latter had not been so well adopted in the software industry.
 
 PHP stands for Personal Home Page Tools.
-It was designed to design web pages since its beginning.
-It is probably one of the easiest language to start web development.
+It was initially designed to build personal web pages.
+It might be one of the easiest language to start web development.
 However, according to several language popularity indexes, it is on a slow decline since a few years.
-Because of its simplicity, it often fail to grow projects to industrial size, and is being replaced by languages that succeed at bringing a prototype to industrial standards, like Java, Ruby or Python.
-
-% PHP short-lived as the easy-to-use scripting language, it is now backed by facebook, but is on the decline.
-% \comment{TODO precise this, why is php on the decline ? numbers and arguments please}
+It is generally unfit to grow projects to industrial size.
 
 Since a few years, Javascript is slowly becoming the main language for web development.
-It is everywhere.
-It is present in every browser, and on the server as well with Node.js.
+It is the only choice in the browser.
 Because of this unavoidable position, it became fast (V8, ASM.js) and usable (ES6, ES7).
-Additionally, it is a target for LLVM, allowing many languages to compile to Javascript, strengthening again its omnipresent position.
+It is a target for LLVM, allowing many languages to compile to Javascript, strengthening again its omnipresent position.
+Additionally, it is present on the server as well with Node.js
+It is everywhere.
 I argue in this thesis, that Javascript is the language of choice to bring a prototype to industrial standards.
-\nt{TODO un peu rapide ici}
-\nt{TODO I should note the distinction between Javascript client and server side. There is no choice on the client, while there is a choice on the server. So the popularity on the client is not as significant than on the server. However, as I said, Javascript unavoidable position made its success and its performance.}
 
 \subsection{Explosion of Javascript popularity}
 
 \subsubsection{In the beginning}
 
 Javascript was created by Brendan Eich at Netscape around May 1995, and released to the public in September.
-The initial name of the project was Mocha, then LiveScript, the name Javascript was finally adopted to leverage the trend around Java.
-Indeed, Java was considered the hot new web programming language at this time.
-It was quickly adopted as default language for web servers development, and everybody was betting on pushing Java to the client as well.
+At the time, Java was quickly adopted as default language for web servers development, and everybody was betting on pushing Java to the client as well.
 The history proved them wrong.
-% Javascript slowly took over the client, and is now pushing toward the server.
-% But that was not a calm and linear journey.
 
 When Javascript was released in 1995, the world wide web was on the rise.\ftnt{http://www.internetlivestats.com/internet-users/}
 Browsers were emerging, and started a battle to show off the best features and user experience to attract the wider public.\footnote{to get an idea of the web in 1997 : \url{http://1x-upon.com/}}
-Javascript was released to be one of these features.
+Javascript was released to be one of these features on Netscape navigator.
 Microsoft released their browser Internet Explorer 3 in June 1996 with a concurrent implementation of Javascript.
-They changed the name to JScript, to avoid trademark conflict with Oracle Corporation, who owns the name Javascript.
-The differences between the two implementations made difficult for a script to be compatible to both.
-At the time, banners and signs started to appear on web pages to inform the user about the ideal web browser to use for the best experience.
+At the time, because of the differences between the two implementations, web pages had to be designed for a specific browser.
 This competition was fragmenting the web.
-% and the overall user experience could be improved by /// according the technology ///.
 
 Netscape submitted Javascript to Ecma International for standardization in November 1996 to stop this fragmentation.
 In June 1997, ECMA International released ECMA-262, the first specification of ECMAScript, the standard for Javascript.
 A standard to which all browser should refer for their implementations.
 % TODO more on the Ecma specification ?
 
-The initial release for this specification was designed in a rush. The version released in 1995 was finished within 10 days.
-Because of this precipitation, the language has often been considered poorly designed and unattractive.
-Moreover, Javascript was intended to be simple enough to attract unexperienced developers, by opposition to Java or C++, which targeted professional developers.
-For these reasons, Javascript started with a poor reputation among the developer community.
+The initial release of Javascript was designed in a rush. The version released in 1995 was finished within 10 days.
+And, it was intended to be simple enough to attract unexperienced developers.
+For these reasons, the language was considered poorly designed and unattractive by the developer community.
 
 But things evolved drastically since.
-The success of Javascript is due to many factors ; maybe the most important of all is the View Source menu that reveals the complete source code of any web application.
+The success of Javascript is due to many factors ; maybe the most important of all is the \textit{View Source} menu that reveals the complete source code of any web application.
 \textit{The view source menu is the ultimate form of open source}\ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
 It is the vector of the quick dissemination of source code to the community, which picks, emphasizes and reproduces the best techniques.
-This brought open source and collaborative development before github. \nt{TODO neither open source nor collaborative development are the correct terms}
-Moreover, all modern web browsers now include a Javascript interpreter, making Javascript the most ubiquitous runtime in history \cite{Flanagan2006}.
+It brought open source and collaborative development to the web.
+Moreover, all web browsers include a Javascript interpreter, making Javascript the most ubiquitous runtime in history \cite{Flanagan2006}.
 % Every browser include development tools for Javascript, making it the most ubiquitous development environment, as well.
 
-When a language like Javascript is distributed freely with the tools to reproduce and experiment on every piece of code.
-When this distribution is carried during the expansion of the largest communication network in history.
+When such a language is distributed freely with the tools to reproduce and experiment on every piece of code.
+And its distribution is carried during the expansion of the largest communication network in history.
 Then an entire generation seizes this opportunity to incrementally build and share the best tools they can.
 This collaboration is the reason for the popularity of Javascript on the Web.
 % When a language is released, available freely at a world wide scale, and simple enough to be handled by a generation of teenager inspired by the technology hype, it produce an effervescent community around what is now one of the most popular and widely used programming language.
 
 \subsubsection{Rising of the unpopular language}
 
-\nt{TODO why is Javascript unpopular ? cite some blog post like : https://wiki.theory.org/YourLanguageSucks\#JavaScript\_sucks\_because and add many blog posts titles in a mozaïc}
+\begin{figure}[h!]
+{\fontfamily{phv}\fontseries{l}
+\fontsize{10pt}{10pt}\selectfont
+Why does Javascript suck?\ftnt{http://whydoesitsuck.com/why-does-javascript-suck/}
+
+Is Javascript here to stay?\ftnt{http://www.javaworld.com/article/2077224/learn-java/is-javascript-here-to-stay-.html}
+
+Why Javascript Is Doomed.\ftnt{http://simpleprogrammer.com/2013/05/06/why-javascript-is-doomed/}
+
+Why JavaScript Makes Bad Developers.\ftnt{https://thorprojects.com/blog/Lists/Posts/Post.aspx?ID=1646}
+
+JavaScript: The World's Most Misunderstood Programming Language\ftnt{http://www.crockford.com/javascript/javascript.html}
+
+Why Javascript Still Sucks\ftnt{http://www.boronine.com/2012/12/14/Why-JavaScript-Still-Sucks/}
+
+10 things we hate about JavaScript\ftnt{http://www.infoworld.com/article/2606605/javascript/146732-10-things-we-hate-about-JavaScript.html}
+
+Why do so many people seem to hate Javascript?\ftnt{https://www.quora.com/Why-do-so-many-people-seem-to-hate-JavaScript}
+}
+\end{figure}
 
 Javascript started as a programming language to implement short interactions on web pages.
 The best usage example was to validate some forms on the client before sending the request to the server.
 This situation hugely improved since the beginning of the language.
-Nowadays, there is a lot of web-based application replacing desktop applications, like mail client, word processor, music player, graphics editor.
+Nowadays, there is a lot of web-based application replacing desktop applications, like mail client, word processor, music player, graphics editor…
 
 There is now more software services released to the public as web-based application compared to desktop clients.
 
