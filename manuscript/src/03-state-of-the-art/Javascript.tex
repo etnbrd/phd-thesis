@@ -1,7 +1,5 @@
 \section{Javascript}
 
-\subsection{Overview of the language}
-
 Javascript was released in a hurry, without a strong and directive philosophy.
 During its evolution, it snowballed with different features to accommodate the community, and the usage it was made on the web. As a result Javascript contains various, and sometimes conflicting, programming paradigms.
 It borrow its syntax from a procedural language, like C, and the object notation from an object-oriented language, like Java, but it provides a different inheritance mechanism, based on prototypes. Most of the implementation adopt an event-based paradigm, like the DOM\ftnt{http://www.w3.org/DOM/} and node.js\ftnt{https://nodejs.org/}.
@@ -13,7 +11,7 @@ Namely, it treats functions as first-class citizen, and allows them to close on 
 % TODO In the next section, we explain this two features
 % TODO and in the second section, we explain event-based programming and why these two features are good for event-based programming
 
-\subsubsection{Functions as First-Class citizens}
+\subsection{Functions as First-Class citizens}
 
 \cit{All problems in computer science can be solved by another level of indirection}{Butler Lampson}
 
@@ -51,12 +49,12 @@ Web servers, or graphical user interfaces, for examples, interact with external 
 
 % TODO transition : higher-order functions makes use of closure to implement the lexical scope in mutable programming languages. (reformulate)
 
-\subsubsection{Lexical Scoping}
+\subsection{Lexical Scoping}
 
 Closures are indissociable from the concept of lexical environment.
 To understand the former, it is important to understand the latter first.
 
-\paragraph{Lexical environment}
+\subsubsection{Lexical environment}
 
 A variable is the very first level of indirection provided by programming languages and mathematics.
 It is is a binding between a name and a value.
@@ -73,7 +71,7 @@ The context available from a certain block of code, that is set of accessible va
 
 % TODO draw the schema for a lexical environment here
 
-\paragraph{Javascript lexical environment}
+\subsubsection{Javascript lexical environment}
 \ftnt{http://www.ecma-international.org/ecma-262/5.1/\#sec-10.2}
 
 Javascript implement lexical scoping with function definitions as boundaries, instead of code blocks.
@@ -100,7 +98,7 @@ But Javascript is a dynamic language, it doesn't truly provide lexical scoping.
 In Javascript, the lexical environments can be dynamically modified using two statements : \texttt{with} and \texttt{eval}.
 We explain in details the Javascript lexical scope in section \ref{??? Compiler stuff}
 
-\subsubsection{Closure}
+\subsection{Closure}
 
 \cit{An object is data with functions. A closure is a function with data.}{John D. Cook}
 
@@ -130,9 +128,43 @@ The closure \texttt{h} has access to the variable \texttt{b} even outside the sc
 \end{code}
 
 
+\subsection{Current and Future trends}
+
+\paragraph{ES6 / 7}
+
+\comment{TODO}
+
+Code reuse.
+Why it never worked ?
+
+
+
+
+\comment{em-scripten}
+
+https://github.com/kripken/emscripten
+Javascript is a target language for LLVM, therefor everything can compile to Javascript : JS is the assembler of the web.
+
+\comment{Isomorphic Javascript}
+
+Server-side Javascript
+
+https://www.meteor.com/
+https://facebook.github.io/flux/
+Javascript can be executed both on the client and the server.
+That allow use-cases never possible before (server pre-rendering, same team ...)
+
+\comment{Reactive}
+
+http://facebook.github.io/react/
+Javascript is used to model the flow of propagation of state in a web application
+
+
+
+
 \endinput
 
-\subsubsection{About closures and an alternative to the fluxionnal execution model}
+\subsection{About closures and an alternative to the fluxionnal execution model}
 % From a loose file, somewhere in one of my repositories
 
 A closure is a function associated with an environment.
@@ -183,41 +215,6 @@ This has the advantage of presenting a *group by* mechanism.
 
 % TODO Promises ? where are you ?
 % http://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html
-
-
-
-
-
-
-\paragraph{Future trends}
-
-\comment{TODO}
-
-Code reuse.
-Why it never worked ?
-
-
-
-
-\comment{em-scripten}
-
-https://github.com/kripken/emscripten
-Javascript is a target language for LLVM, therefor everything can compile to Javascript : JS is the assembler of the web.
-
-\comment{Isomorphic Javascript}
-
-Server-side Javascript
-
-https://www.meteor.com/
-https://facebook.github.io/flux/
-Javascript can be executed both on the client and the server.
-That allow use-cases never possible before (server pre-rendering, same team ...)
-
-\comment{Reactive}
-
-http://facebook.github.io/react/
-Javascript is used to model the flow of propagation of state in a web application
-
 
 
 ---
