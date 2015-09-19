@@ -1,33 +1,311 @@
-\chapter{\comment{State of the art}}
+\chapter{Software system modularity} \label{chapter3}
+\minitoc
+\eject
 
-\input{03-state-of-the-art/Javascript}
-\input{03-state-of-the-art/Concurrency}
-\input{03-state-of-the-art/Scalability}
+\section{Introduction}
 
-\section{Framworks for web application distribution}
-\subsection{Micro-batch processing}
-\subsection{Stream Processing}
+In this thesis, we are interested in the evolution of the development of web applications, constrained by an economical context.
+In this chapter, we present a broader view on the development of software systems.
+We present different fields of work related to ours, to finally refine the scope of our research on the subject of our interest.
 
-\section{Flow programming}
-\subsection{Functional reactive programming}
-\subsection{Flow-Based programming}
+% \cit{It is becoming increasingly important to the data-processing industry to be able to produce more programming systems and produce them with fewer errors, at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. P. Stevens, G. J. Myers, L. L. Constantine \cite{Stevens1974}}.
 
-\section{Parallelizing compilers}
-\comment{OpenMP and so on}
-%\subsubsection{\comment{TODO}}
+Since the beginning of the software development discipline, the best practices advocate to organize the code into independent units.
+It was called modular programming\cite{Parnas1972}, structured design\cite{Stevens1974}, hierarchical structure\cite{Dijkstra1968}, object-oriented programming among other names.
+Each of these names represent slightly different approaches on the construction and composition of these units.
+One recurring principle, though, is that the units are to be as loosely coupled as possible.
+We are going to explain these approaches focused on improving the maintainability, and the growth of the software.
 
-\section{\comment{Synthesis}}
-\comment{There is no compiler focusing on event-loop based applications}
+% http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en
+% \textit{OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. It can be done in Smalltalk and in LISP. There are possibly other systems in which this is possible, but I'm not aware of them.
 
+% Cheers,
+
+% Alan}
+
+The focus of the software industry was to improve the development process.
+The Moore's law\cite{Moore1965} assured an exponential evolution of the processing power, hence the execution speed was never to be a problem.
+Until the clock speed of processors could not be increased.
+The increasing number of transistors predicted by Moore's law were to be reorganized as several execution units into the same processor.
+
+With multiple execution unit to coordinate, the decomposition of software system in modules have now two goals.
+The growth of the software, as well as the decomposition of execution on the several execution units.
+As Parnas famously showed in 1972\cite{Parnas1972}, these two approaches to decomposition are incompatible.
+It seems impossible to develop a software following a decomposition that satisfies both the growth, and an efficient parallel execution. \nt{TODO more on that}
+
+With the incentive to leverage the execution power of parallel architecture, many work followed aimed at providing tools and model to organize the execution on multiple execution units.
+For example distributed systems, single instruction multiple data, among others.\nt{TODO not really good examples}
+
+There has been many attempts at reconciling the two approaches.
+But none seems really convincing enough to be widely adopted.
+Throughout this chapter, I will classify different works from the community in one of these three category : focus on development growth, focus on parallel execution, or reconciliation of the two.
+
+My objective in this thesis, as previously stated, is to find an equivalence between these two approaches in the case of streaming web applications.
+
+
+\input{03-state-of-the-art/Growth}
+\input{03-state-of-the-art/Parallelism}
+\input{03-state-of-the-art/Reconciliation}
 
 %-----------------------------------------------------------------------------%
                                     \endinput
 %-----------------------------------------------------------------------------%
 
 
+\section{Introduction}
+
+In this section I analyze the current solutions to provide concurrency for web servers.
+The criterion for this analysis are :
+
+\begin{itemize}
+\item how the solution (language) exposes the memory to the developer.
+\item how the solution (language) exposes the invariance on this memory. These two language choices should be representative of the ease for a developer to develop with this language.
+\item how the solution (infrastructure) finally extract parallelism based on the memory and its invariance (annotations or not, and how well ).
+\item The expected ratio of parallelism over the total execution. and the ratio of communcation over the total state. These two ratios should be representative of the expected speedup in function of the resources made available.
+\end{itemize}
+
+We argue that the best solution is to provide a global memory to support software development practices, to provide an implicit invariance that the developer doesn't need to explictely define, like in transactional memory, lock, and so on ...
+But yet provide parallelism for the execution to be scalable, with only a minimum of communication.
+
+To lay the base for this analysis, I fisrtly present in more precision what is concurrency and scalability, and how it is studied in the litterature.
+Then I analyze different solution to provide concurrency for web-applications.
+
+\comment{The different solutions are roughly multi-process with message passing, multi-threading and the event-loop. I will detail this solution in greater details later.}
+
+We analyze Javascript as an exammple in a class of higher-order languages using an event-loop with continuation passing style, for asynchronous programming.
+
+% Section \ref{chapter3:javascript}
+% Section \ref{chapter3:concurrency}
+% Section \ref{chapter3:scalability}
+
+% \input{03-state-of-the-art/Javascript}
+% \input{03-state-of-the-art/Concurrency}
+% \input{03-state-of-the-art/Scalability}
+
+% \section{Framworks for web application distribution}
+% \subsection{Micro-batch processing}
+% \subsection{Stream Processing}
+
+% \section{Flow programming}
+% \subsection{Functional reactive programming}
+% \subsection{Flow-Based programming}
+
+% \section{Parallelizing compilers}
+% \comment{OpenMP and so on}
+% %\subsubsection{\comment{TODO}}
+
+% \section{\comment{Synthesis}}
+% \comment{There is no compiler focusing on event-loop based applications}
+
+
+%-----------------------------------------------------------------------------%
+                                    \endinput
+%-----------------------------------------------------------------------------%
+
+Objective
+---------
+
+My objective is to find a solution to allow a first code base to evolve continuously in performance. That is to avoid the rupture that is so often observed in the industry currently (e.g. LinkedIn, Facebook ... ).
+
+I want to achieve that with a solution to transition from the imperative model presenting certain characteristics to a distributed model with certain conditions.
+
+Cartography
+-----------
+
+
+# Industry -> We want to decrease development time while increasing performance. We barely care about used resources.
+
+## Languages, libraries and frameworks
+
+  + Java - Object-oriented
+  +> Spring
+  +> Scala - Functional + Object-oriented
+  +>> Akka - Message driven actors
+  +>>> Play - on top of akka (Asynchronous)
+
+  + PHP - Object-oriented
+  +> Sinatra
+
+  + Ruby - Functional + Object-oriented
+  +> Rails
+
+  + Javascript - Functional + Prototype-oriented
+  +> Express.js
+  +> hapi.js
+  +> Meteor
+  +> Bacon.js - Reactive programming
+  +> kraken.js
+
+  + NoFlo
+
+  + Haskell
+  +> FRP Reactive programming
+
+  + Spidle: A DSL approach to specifying streaming applications dataflow like
+
+  + Erlang
+
+## Databases
+
+  + FlockDB
+  + CouchDB
+  + PouchDB
+  + Cassendra
+  + Dynamo DB
+
+  + unhosted
+  + MoveMyData
+
+## Runtime
+
+  + Node.js - Asynchronous programming with Event-loop
+  +> Fibers 
+
+
+# Embedded -> We want to decrease used resources while increasing performance. We barely care about development time.
+
+
+
++ Exploiting Coarse-grained Task, Data and Pipeline Parallelism in Stream Programs -> Compile StreamIt to assembler for multi-core
+
++ Shangri-La - Compile C-like into assembler for packet program
+
++ SPUR - A programming model for an embedded media processing architecture
+
+
+# Scientific-like -> We want to increase performance. We barely care about used resources nor decreasing development time.
+
+## Languages, libraries and frameworks
+
+  + OpenMP
+  + OpenCL
+  + CUDA
+  + Cg: A system for programming graphics hardware in a C-like language
+  + Brook for GPUs: Stream Computing on Graphics Hardware
+  + Liquid Metal by IBM - unified language for FPGAs, GPUs and such ...
+
+  + StreaMIT: A language for Streaming Applications
+
+
+  + Apache Kafka - publish/subscribe distributed commit log
+
+  Design methodology:
+  + PCAM - Partition -> Communicate -> Agglomerate -> Map
+
+## Runtime
+
+  + Vert.X - node like + thread / worker capabilities
+
+  OSs :
+
+  + BarrelFish
+  + TesselationOS
+  + Mosix
+  + CoreOS
+
+
+  Architectures:
+
+
+    Web service oriented:
+      Threads only:
+      + Capricio - User cooperative threads (also known as fibers / green threads)
+
+      Events only:
+      + TAME - event-based solution without stack ripping in C (it is like closure, but for C)
+
+      Hybrid solutions:
+    + AMPED Asymetric multi-process event-driven
+    +> Flash
+    +> Nginx
+    +> Ninja
+    +> SEDA
+    +> Leda - PCAM 
+    + Combining events and threads for scalable network services, Linguistic symbiosis between event loop actors and threads, Combining data flow and control flow computing)
+
+    + 
+
+    + Cluster-based scalable network services
+
+
+  + Grape / Timestream - distributed SQL (roughly)
+  + CQL
+  +> STREAM (uses CQL)
+  + StreaQuel
+  +> TelegraphCQ
+  + AQuery
+
+  (From the paper : Making state explicit for imperative big data processing)
+  + MapReduce       map/reduce   |   Stateless dataflow
+  + DryadLINQ       functional   |   Stateless dataflow
+  + Spark           functional   |   Stateless dataflow
+  + CIEL            imperative   |   Stateless dataflow
+  + Hadoop          map/reduce   |   Stateless dataflow
+  + Incoop          map/reduce   |   Incremental dataflow
+  + Nectar          functional   |   Incremental dataflow
+  + CBP             dataflow     |   Incremental dataflow
+  + Comet           functional   |   Batched dataflow
+  + D-Streams       functional   |   Batched dataflow
+  + Naiad           Dataflow     |   Batched dataflow
+  + Storm, S4       dataflow     |   Continuous dataflow
+  + SEEP            dataflow     |   Continuous dataflow
+  + Piccolo         imperative   |   Parallel in-memory
+  + SDG             imperative   |   Stateful dataflow
+
+
+
+
+What about all the techniques for analyzing and extracting parallelism :
+
++ Commutativity analysis: a new analysis technique for parallelizing compilers
++ the scalable commutativity rule ...
++ Making asynchronous parallelism safe for the world
+
+
++ Cooperative task management without manual stack management - Hybrid approach, fibers + threads
+
+
+
+
+- transactional memory
+  - http://www.morganclaypool.com/doi/abs/10.2200/s00272ed1v01y201006cac011
+  - http://delivery.acm.org/10.1145/1370000/1364800/p80-larus.pdf?ip=160.92.8.31&id=1364800&acc=OPEN&key=4D4702B0C3E38B35.4D4702B0C3E38B35.4D4702B0C3E38B35.6D218144511F3437&CFID=529578904&CFTOKEN=25104956&__acm__=1437488908_6eeb5d92ab07593b1aa92d3ac4461c0b
+  - ...
+
+- Continuation-passing style parallelization
+  - The interprocedural analysis and automatic parallelization of Scheme programs - http://link.springer.com/article/10.1007/BF01808954#page-1
+  - 
+
+- Event-loop / 
+
+
+
+
+Criteria
+--------
+
+
+
+
+
+
 \input{02-context/Objectives}
 
 
+TODO Talk about the annotations used by many parallel languages.
+
+
+
+Some links I NEED to put :
+--------------------------
+
+https://glyph.twistedmatrix.com/2014/02/unyielding.html
+http://calculist.org/blog/2011/12/14/why-coroutines-wont-work-on-the-web/
+
+Transitions :
+  - Linkedin - http://engineering.linkedin.com/architecture/brief-history-scaling-linkedin
+  - Facebook - https://www.cs.princeton.edu/events/event/evolution-software-architecture-facebook / http://www.infoq.com/presentations/Evolution-of-Code-Design-at-Facebook
+  - ... 
 
 https://medium.com/@benorama/the-evolution-of-software-architecture-bd6ea674c477
 
@@ -40,3 +318,30 @@ Albert Cohen
 https://scholar.google.com/citations?user=MkKZKAMAAAAJ&hl=en
 
 + Paul Feautrier (Tutor of A. Cohen)
+
+
+SPMD Single program multiple data
+Partitioned global address space
+
+
+Some chunks I might find useful later :
+---------------------------------------
+
+\cit{No matter how great the talent or efforts, some things just take time. You can't produce a baby in one month by getting nine women pregnant.}
+{Warren Buffett}
+
+A good example of declarative sentence in everyday world : in case of fire, 
+the elevators don't work -> you understand that you need to take the stairs.
+
+The purpose of explicit synchronization is to manage the timing of side-effects in the presence of parallelism. 
+
+A function is side-effect free if it is referentially transparent.
+
+
+
+---
+
+
+We presented in the introduction the popularity of Javascript, we argue that using this position to leverage parallelism is the only solution, and that proposing a new language, only on the base that it provide parallelism could not possibly make this language popular and grow a community.
+
+Therefore, the only solution is to use the existing languages as is, and to compile them to gain parallelism.

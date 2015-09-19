@@ -80,6 +80,34 @@ EIther in Latency, or in throughput.
 
 
 
+\begin{tabular}{c|l} \hline
+
+\multirow{4}{*}{A} & \textbf{Ideal concurrency} ($\alpha, \beta = 0$)      \\
+                   & Single-threaded tasks                                 \\
+                   & Parallel text search                                  \\
+                   & Read-only queries                                     \\ \hline
+\multirow{4}{*}{B} & \textbf{Contention-limited} ($\alpha > 0, \beta = 0$) \\
+                   & Tasks requiring locking or sequencing                 \\
+                   & Message-passing protocols                             \\
+                   & Polling protocols (e.g., hypervisors)                 \\ \hline
+\multirow{3}{*}{C} & \textbf{Coherency-limited} ($\alpha = 0, \beta > 0$)  \\
+                   & SMP cache pinging                                     \\
+                   & Incoherent application state between cluster nodes    \\ \hline
+\multirow{4}{*}{D} & \textbf{Worst case} ($\alpha, \beta > 0$)             \\
+                   & Tasks acting on shared-writable data                  \\
+                   & Online reservation systems                            \\
+                   & Updating database records                             \\ \hline
+\end{tabular}
+\\~\\
+
+
+
+
+
+
+
+
+
 
 
 \subsection{Linear scalability}

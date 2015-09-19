@@ -1,3 +1,80 @@
 \chapter{Introduction} \label{chapter:conclusion}
 
-\comment{TODO 5p}
+
+\comment{A few words about my PhD, and its context. How I approached it ? What were the motivations for me ? Worldline ? DICE ?}
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+
+\fontencoding{\encodingdefault}%
+  \vspace{-32pt}
+  \begin{center}
+    \caption*{\tiny{Scalability...}}
+    \vspace{-30pt}
+    \hspace*{-25pt}
+    \includegraphics[width=0.5\textwidth]{../ressources/x-x-everywhere.png}
+    \vspace{-40pt}
+    \caption*{\tiny{Scalability everywhere.}}
+  \end{center}
+  \vspace{-40pt}
+\end{wrapfigure}
+
+During this thesis, We studied scalability in the domain of computer sciences.
+Scalability of the performance of an application over resources, as is often suggested when refering to scalability.
+But as well as scalability of the development project of such application.
+It now seems to me as if scalability is a crucial component of interacting and evolving in the world.
+From space exploration, to economical market ...
+
+\comment{What I take for scalability, might be overlapping with marginal increase, or incremental development}
+
+\section{Web development}
+
+The growth of web platforms is partially due to Internet's capacity to allow very quick releases of a minimal viable product (MVP).
+In a matter of hours, it is possible to release a prototype and start gathering a user community around.
+\textit{``Release early, release often''}, and \textit{``Fail fast''} are the punchlines of the web entrepreneurial community.
+It is crucial for the prosperity of such project to quickly validate that the proposed solution meets the needs of its users.
+Indeed, the lack of market need is the number one reason for startup failure.\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}
+That is why the development team quickly concretises an MVP and iterates on it using a feature-driven, monolithic approach.
+Such as proposed by imperative languages like Java or Ruby.
+
+\section{Performance requirements}
+
+If the service successfully complies with users requirements, its community might grow with its popularity.
+If the service can quickly respond to this growth, it is scalable.
+However, it is difficult to develop scalable applications with the feature-driven approach mentioned above.
+Eventually this growth requires to discard the initial monolithic approach to adopt a more efficient processing model instead.
+Many of the most efficient models distribute the system on a cluster of commodity machines.
+
+Once split, the service parts are connected by an asynchronous messaging system.
+Many tools have been developed to express and manage these service parts and their communications.
+However, these tools impose specific interfaces and languages, different from the initial monolithic approach.
+It requires the development team either to be trained or to hire experts, and to start over the initial code base.
+This shift causes the development team to spend development resources in background without adding visible value for the users.
+It is a risk for the evolution of the project as the number two and three reasons for startup failures are running out of cash, and missing the right competences.
+
+\section{Problematic and proposal}
+
+A web application fails to develop incrementally, and it is a risk for its economical evolution.
+The main question I address in this thesis is how to reconcile the reactivity required in the early stage of development and the performance increasingly required with the growth of popularity, while avoiding the risks of shifting technology during the evolution ?
+In this thesis, I study Javascript, as it seems to be increasingly used in web development, both client- and server-side, to start projects.
+Moreover, Javascript has the particularity to be implemented on top of an event-loop.
+% Javascript is the only language featuring such design and released at such scale, but it is by no mean limited to Javascript.
+This design is highly efficient and easy to develop with.
+But it remains limited to one core of a processor.
+Therefore, the problem of switching to a distributed approach remains.
+
+To give a first answer to this question, I limited this question to a problematic of compilation from Javascript to a distributed approach.
+More specifically, to a problem of memory analysis.
+In this thesis, I make two main contributions.
+The first contribution is a language and its execution engine to support the distributed approach.
+The second contribution is an equivalence between Javascript, or any similar language, and the language of the first contribution.
+
+\section{Thesis organization}
+
+This thesis is organized in four main chapters.
+Chapter \ref{chapter2} introduce the context and the objectives I set for this work.
+
+Chapter \ref{chapter3} presents the bibliography.
+
+Chapter \ref{chapter4} presents the first contribution.
+
+Chapter \ref{chapter5} presents the second contribution.

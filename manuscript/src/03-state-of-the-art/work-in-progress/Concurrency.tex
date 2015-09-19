@@ -201,6 +201,37 @@ yield impose a linear programming style, while promises keep the tree programmin
 
 
 
+\paragraph{Multi-thread} %  // Data parallelism
+
+In the multi-thread paradigm, each request is mapped onto a thread to be executed independently.
+On a multi-core architecture, multiple thread can progress at the same time.
+However, if they need the same resources, they need to share them.
+To assure there is no concurrent access on these resources, they lock the resources while they use them to disallow other threads to modify them.
+However, when there is a large amount of requests, this locking strategy is counterproductive.
+
+\paragraph{Pipeline} %  // Task parallelism
+
+The pipeline paradigm split the processing of a request into many stages.
+These stages are independent, they don't share anything, so they can be executed in parallel without lock.
+However, it imposes the developer to write its application as a sequence of isolated stages.
+
+\paragraph{Event-loop}
+
+An event-loop process requests sequentially.
+% which allows to keep a global memory.
+As only one request is executed at once, it has exclusive access to the memory.
+Therefore, it allows to share state across the application without lock mechanism.
+
+
+The first two leverage parallelism.
+They can stretch the execution on multiple cores.
+The last one is sequential, and is restrained on one core.
+Yet, we show that this last model is easier to develop because of this global memory.
+
+
+
+
+
 
 
 \subsubsection{Time-slicing}

@@ -1,4 +1,4 @@
-\section{Highly concurrent web servers}
+\section{Highly concurrent web servers} \label{chapter2:highly-concurrent-web-servers}
 
 \nt{This section needs review}
 
@@ -110,7 +110,7 @@ The same concept is found in transactional memory.
 
 In a multi-process application, there is no risk of corrupted state by simultaneous, conflicting accesses.
 The invariance is made explicit by the developer as the memory needs to be isolated inside each process.
-The invariance is assure at any point in time because the process remain isolated.
+The invariance is assured at any point in time because the process remains isolated.
 
 In a cooperative scheduling application, the developer is aware of the points in the code where the scheduler switches from one concurrent execution to the other, so it can manage its state in atomic modification.
 The invariance is assured, because any region in the memory can be accessed only by one task at a time.
@@ -122,17 +122,18 @@ The locking mechanisms are known to be difficult to manage, and sub-optimal.
 Indeed, they are eventually as efficient as a queue to share resources.
 
 For the rest of this thesis, I focus only on the invariances provided by the multi-process paradigm and the cooperative scheduling.
+\nt{In the state of the art, we probably cannot reduce the analyze to these two paradigms.}
 They are similar, because the developer defines sequence of instructions with atomic access to the memory.
 And in both paradigms, these sequences communicate by sending messages to each other.
 The difference is that in the multi-process paradigm, the developer defines the region and the isolated memory, while in the cooperative scheduling, the developer defines only the region, and the memory is isolated by the exclusivity in the execution.
 
 This difference seems to be crucial in the adoption of the technology by the developer community.
-As we will see in the next subsection, the parallelism of multi-process is difficult to develop, but provide good performances, while the sequentiality of the cooperative scheduling is easier to develop, but provide poor performances compared to parallelism.
+As we will see in the next subsection, the parallelism of multi-process is difficult to develop, but provides good performances, while the sequentiality of the cooperative scheduling is easier to develop, but provides poor performances compared to parallelism.
 
 
 \nt{TODO this paragraph needs review}
 
-\subsection{Technological shift}
+\subsection{Disrupted development}
 
 % \subsubsection{Power wall}
 
@@ -169,7 +170,7 @@ On the other hand, the more efficient languages sacrifice the readability and ma
 \nt{TODO justification and examples. What are modular application, or parallel applications ?}
 
 
-\subsubsection{Rupture}
+\subsubsection{Technological shift}
 
 Between the early development, and the maturation of a web application, the development needs are radically different.
 In its early development, a web application needs to quickly iterate over feedback from its users.

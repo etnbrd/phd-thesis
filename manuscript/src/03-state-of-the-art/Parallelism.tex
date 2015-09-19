@@ -1,0 +1,130 @@
+\section{Parallel execution}
+
+
+\subsection{Formal models}
+
+\subsubsection{Petri nets}
+
+The work of Petri on Net Theory seems to be a precursor work in the field of concurrent computation.
+\nt{TODO}
+
+\subsubsection{Pi-calculus}
+
+The pi-calculus started in 1980 as a work of Robin Milner intitutled A Calculus of Communicating Systems\cite{Milner1980}\nt{The cited version is a 1986 reprint of the original 1980 version.}.
+
+It is not an imperative language, but a calculus, as there is no statements, only expressions.
+
+This work presents the idea of concurrent composition in its very core.
+% An idea that we will find more than 30 years later, advocated by D. P. Reed\cite{Reed2012}.
+% A sign that imperative programming, and sequential composition still has a strong hold on the programming community.
+
+This work allows to express distributed, concurrent systems, as network of agents executing expressions, and communicating values.
+(Roughly, this definition needs to be reworded a lot, by reading further work)
+But the main point of this work is on observation of a system by another system (see chap7).
+
+
+
+To be read and added :
+
+The Calculus of Communicating Systems was revised by Uffe Engberg and Mogens Nielsen to add label passing \cite{Engberg1986}
+
+Modula: A language for modular multiprogramming \cite{Wirth1977}
+
+Distributed processes: a concurrent programming concept \cite{Hansen1978}
+
+Coroutines and Networks of Parallel Processes\cite{Kahn1976}
+
+\subsubsection{Communicating Sequential Processes}
+
+Communicating sequential processes \cite{Hoare1978}
+
+In this work, I should expect to see somewhat of an acknowledgment of the problem of global memory in imperative programs.
+
+\subsubsection{Actor Model}
+
+The Actor model was presented as a highly parallel programming model, but intended for Artificial Intelligence purpose.
+Its success spread way out of this scope, and it wrongly became a general reference to represent a message passing, parallel programming model.
+
+\subsection{Programming models}
+
+\subsubsection{Functional Reactive Programming}
+\nt{I don't know exactly what to do with this.
+It is not exactly aimed at concurrency, but it is definitly not oriented on improving software growth}
+
+\subsubsection{Flow programming}
+Morrison
+Noflo
+
+\subsubsection{Data flow}
+
+
+\subsubsection{SIMD / SPMD / MIMD / MPMD}
+
+\subsubsection{Partitioned Global Address Space (PGAS)}
+OpenSHMEM, UPC, CAF, Chapel
+
+
+\subsubsection{Task-based parallelism}
+X10 (is an APGAS), OCR, Habanero, Legion, Charm++, HPX
+
+\subsubsection{Message-based parralelism}
+Scala, Akka, Play
+
+\subsubsection{Directive-based languages}
+OpenMP, OpenACC
+
+
+StreaMIT
+
+
+
+\subsection{Design patterns}
+
+\subsubsection{Skeletons}
+Mc Cool, Structured Parallel Programmin with Deterministic Patterns
+
+\subsubsection{Accelerators}
+CUDA, OpenCL
+
+\subsubsection{SOA}
+
+
+
+\subsection{Frameworks and runtimes}
+
+\subsubsection{Stream Processing}
+
+SEDA
+
+CANS Cluster-based scalable network services
+
+SQL-like
+  Grape / Timestream - distributed SQL (roughly)
+  CQL
+  STREAM (uses CQL)
+  StreaQuel
+  TelegraphCQ
+  AQuery
+
+Map/Reduce
+  MapReduce    Stateless dataflow
+  Hadoop       Stateless dataflow
+  Incoop       Incremental dataflow
+
+Functional
+  DryadLINQ    Stateless dataflow
+  Spark        Stateless dataflow
+  Nectar       Incremental dataflow
+  Comet        Batched dataflow
+  D-Streams    Batched dataflow
+
+Dataflow
+  CBP          Incremental dataflow
+  Naiad        Batched dataflow
+  Storm, S4    Continuous dataflow
+  SEEP         Continuous dataflow
+
+Imperative
+  CIEL         Stateless dataflow
+  SDG          Stateful dataflow
+  Piccolo      Parallel in-memory
