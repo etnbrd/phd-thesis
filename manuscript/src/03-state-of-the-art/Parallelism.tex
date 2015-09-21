@@ -1,51 +1,119 @@
 \section{Parallel execution}
 
 
-\subsection{Formal models}
+\subsection{Concurrency Theory}
 
-\subsubsection{Petri nets}
+The first models of computation, like the Turing machine and lambda-calculus, were inherently sequential and based on a global state.
+As computers eventually evolved to become concurrent, a formalism was lacking  to represent concurrent computations.
+The works on these models first tackled the problems of determinacy, communication and state synchronization.
 
-The work of Petri on Net Theory seems to be a precursor work in the field of concurrent computation.
-\nt{TODO}
+We identify three main formal models for concurrent computations.
+The Actor Model of C. Hewitt, the Pi-calculus of R. Milner and the Communicating Sequential Processes of T. Hoare.
+Because these models represent a ground for all following work on concurrent programming, we briefly explain them in the next paragraphs.
+These formalism have in common to state that input, output and concurrency should be regarded as primitives of programming.
 
-\subsubsection{Pi-calculus}
-
-The pi-calculus started in 1980 as a work of Robin Milner intitutled A Calculus of Communicating Systems\cite{Milner1980}\nt{The cited version is a 1986 reprint of the original 1980 version.}.
-
-It is not an imperative language, but a calculus, as there is no statements, only expressions.
-
-This work presents the idea of concurrent composition in its very core.
-% An idea that we will find more than 30 years later, advocated by D. P. Reed\cite{Reed2012}.
-% A sign that imperative programming, and sequential composition still has a strong hold on the programming community.
-
-This work allows to express distributed, concurrent systems, as network of agents executing expressions, and communicating values.
-(Roughly, this definition needs to be reworded a lot, by reading further work)
-But the main point of this work is on observation of a system by another system (see chap7).
-
-
-
-To be read and added :
-
-The Calculus of Communicating Systems was revised by Uffe Engberg and Mogens Nielsen to add label passing \cite{Engberg1986}
-
-Modula: A language for modular multiprogramming \cite{Wirth1977}
-
-Distributed processes: a concurrent programming concept \cite{Hansen1978}
-
-Coroutines and Networks of Parallel Processes\cite{Kahn1976}
-
-\subsubsection{Communicating Sequential Processes}
-
-Communicating sequential processes \cite{Hoare1978}
-
-In this work, I should expect to see somewhat of an acknowledgment of the problem of global memory in imperative programs.
+% For more information, see : https://en.wikipedia.org/wiki/Actor_model_and_process_calculi_history
 
 \subsubsection{Actor Model}
 
-The Actor model was presented as a highly parallel programming model, but intended for Artificial Intelligence purpose.
-Its success spread way out of this scope, and it wrongly became a general reference to represent a message passing, parallel programming model.
+The Actor model allows to express the computation as a set of communicating actors \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
+In reaction to a received message, an actor can create actors, send messages, and choose how to respond to the next message.
+All actors are executed concurrently, and communicate asynchronously.
+
+The Actor model was presented as a highly parallel programming model, but intended for Artificial Intelligence purposes.
+Its success spread way out of this first scope, and it became a general reference on message passing parallel programming.
+For example, the Scala language advertises its use of an actor approach of concurrency.
+
+% More recent work of C. Hewitt on Actors is about \nt{TODO} \cite{Hewitt2007,Hewitt2007a}.
+
+The Actor model defined the message-passing communication paradigm.
+The communication between two actors, the sender and the receiver, is a stream of discrete messages.
+The sender names the receiver actor when sending messages to be the recipient of these messages.
+Message-passing is often seen as asynchronous, because, contrary to the invocation, the sender doesn't wait for the result of the initiated communication. 
+
+\subsubsection{Pi-calculus}
+
+R. Milner presented a process calculus to describe concurrent computation : the Calculus of Communicating Systems (CCS) \cite{Milner1975, Milner1980}.
+It is an algebraic notation to express identified processes communicating through labeled channels.
+In CCS, process compose concurrently, communications are synchronous, and the topology is static.
+The Pi-calculus improved upon this earlier work to allow processes to be communicated as values, hence to become mobile \cite{Engberg1986,Milner1992a,Milner1992}.
+Contrary to CCS, in Pi-calculus processes can replicate and send process through channel, allowing dynamic modification of the topology.
+
+Pi-calculus resembles to the actor model, but its algebraic nature led to a critical difference with the later.
+Indeed, processes in the Pi-calculus communicate indirectly, through labeled ports, whereas actors communicate directly by naming the recipient actors.
+This difference allows the same channel to lead to multiple processes in turns, whereas the recipient of a message cannot change. 
+However, as the communication are synchronous, Pi-calculus cannot fully represent non-deterministic, hence real communications.
+Moreover, Pi-calculus expresses concurrent computation, and not parallel computation, as progress can be made in only one process at a time.
+
+% The pi-calculus led to Pict, a programming language\cite{Pierce2000}.
+
+\subsubsection{Communicating Sequential Processes}
+
+C. A. R. Hoare presented Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}.
+In CSP, processes are executed concurrently, and communicates events via channels.
+The evolutions of this model were influenced by, and influenced the work of R. Milner, hence CCS and CSP are highly similar.
+With the evolutions appeared the problems of determinism in distributed systems\nt{TODO}.\cite{Brookes1984}
+
+
+
+\subsubsection{Concurrency, asynchronism and unbounded nondeterminacy}
+
+All these early work adopted concurrent composition by default, instead of sequential composition, to adapt to the very concurrent nature of real parallel machines.
+However, sequential programming is still the default.
+Concurrent composition is yet still to be widely accepted, as stated by Reed \cite{Reed2012}.
+\comment{TODO rewrite this paragraph}
+
+All these works eventually evolved to adopt asynchronous communications.
+Indeed, it is not realistic to build a distributed system based on synchronous communications. \nt{TODO reference needed}
+By abandoning synchronous communication, such system also needs to abandon determinism.
+It becomes non-deterministic because communications can take infinite time to complete.
+
+Asynchronous communications are less expressive than synchronous ones \cite{PALAMIDESSI2003}.
+
+\endinput
+
+
+
+We need to wait a bit to see state synchronization outside of message-passing. \nt{TODO}
+
+
+
 
 \subsection{Programming models}
+
+To be read and added :
+
+Distributed processes: a concurrent programming concept \cite{Hansen1978}
+
+Monitors: an operating system structuring concept \cite{Hoare1974}
+
+\subsubsection{Coroutines}
+
+Conway defines coroutines as subroutines executing all at the same level.\cite{Conway1963}
+
+\textit{A coroutine is an autonomous program which communicate with adjacent modules as if they were input and output subroutines.}
+
+It defines the separability of a program, and advocates that coroutines be executed on separate processes, and communicate by sending discrete items.
+This definition, is similar to that of actors.
+The first definition of coroutine, explicitly specify that coroutines are best used when they can be executed, and communicate asynchronously.
+However, most programming languages being synchronous, they then were implemented as synchronous routines, instead of independent processes.
+
+Following work : Coroutines and Networks of Parallel Processes\cite{Kahn1976}
+
+The coroutines defines the first pipeline organization of a program.
+
+\subsubsection{Modules}
+
+Multiprogramming designs the ability to program concurrent activities on multiple processing units.
+
+Modula: A language for modular multiprogramming \cite{Wirth1977}
+
+Modula is a descendent of Pascal with the addition of modules, that are essentially processes.
+
+
+\subsubsection{Promises and Futures}
+
+This \cite{Jr1977} is the reference paper for futures.
 
 \subsubsection{Functional Reactive Programming}
 \nt{I don't know exactly what to do with this.
