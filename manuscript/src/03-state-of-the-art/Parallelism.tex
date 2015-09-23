@@ -16,6 +16,8 @@ These formalism have in common to state that input, output and concurrency shoul
 
 \subsubsection{Actor Model}
 
+% TODO illustration of cells, and draw an analogy between cells and actor model.
+
 The Actor model allows to express the computation as a set of communicating actors \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
 In reaction to a received message, an actor can create actors, send messages, and choose how to respond to the next message.
 All actors are executed concurrently, and communicate asynchronously.
@@ -29,7 +31,12 @@ For example, the Scala language advertises its use of an actor approach of concu
 The Actor model defined the message-passing communication paradigm.
 The communication between two actors, the sender and the receiver, is a stream of discrete messages.
 The sender names the receiver actor when sending messages to be the recipient of these messages.
-Message-passing is often seen as asynchronous, because, contrary to the invocation, the sender doesn't wait for the result of the initiated communication. 
+
+Moreover, message-passing is asynchronous, because contrary to invocation, the sender doesn't wait for the result of the initiated communication.
+These asynchronous communication make the Actor Model non-deterministic.
+A message can take any time to be delivered, therefore no order can be assured in the messages sent between actors.
+The total ordering of messages is only local to an actor, while between actors, messages are causally ordered.
+As Lamport showed \cite{Lamport1978}, and Reed related later \cite{Reed2012}, causal order is sufficient to build a correct distributed system.
 
 \subsubsection{Pi-calculus}
 
@@ -39,22 +46,26 @@ In CCS, process compose concurrently, communications are synchronous, and the to
 The Pi-calculus improved upon this earlier work to allow processes to be communicated as values, hence to become mobile \cite{Engberg1986,Milner1992a,Milner1992}.
 Contrary to CCS, in Pi-calculus processes can replicate and send process through channel, allowing dynamic modification of the topology.
 
-Pi-calculus resembles to the actor model, but its algebraic nature led to a critical difference with the later.
+Pi-calculus resembles to the actor model, but its algebraic nature led to a critical difference with the latter.
 Indeed, processes in the Pi-calculus communicate indirectly, through labeled ports, whereas actors communicate directly by naming the recipient actors.
-This difference allows the same channel to lead to multiple processes in turns, whereas the recipient of a message cannot change. 
-However, as the communication are synchronous, Pi-calculus cannot fully represent non-deterministic, hence real communications.
+This difference allows multiple processes to listen in turns to the same channel, whereas the recipient of a message cannot change.
+
+
+
+However, as the communication are synchronous, Pi-calculus cannot fully represent non-deterministic -- hence real -- communications.
 Moreover, Pi-calculus expresses concurrent computation, and not parallel computation, as progress can be made in only one process at a time.
 
+
+This difference lead the Pi-calculus to be composable, whereas message-passing is not.
+Message-passing is not composable, whereas invocation is.
+The Actor model is not an ideal programming model, as non-composability makes difficult to reuse or extends existing components.
+A way to compose actors, is to send to an actor the name of the actor to respond to.
+It is similar in essence to the continuation concept.
+
+
+
+
 % The pi-calculus led to Pict, a programming language\cite{Pierce2000}.
-
-\subsubsection{Communicating Sequential Processes}
-
-C. A. R. Hoare presented Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}.
-In CSP, processes are executed concurrently, and communicates events via channels.
-The evolutions of this model were influenced by, and influenced the work of R. Milner, hence CCS and CSP are highly similar.
-With the evolutions appeared the problems of determinism in distributed systems\nt{TODO}.\cite{Brookes1984}
-
-
 
 \subsubsection{Concurrency, asynchronism and unbounded nondeterminacy}
 
@@ -70,22 +81,64 @@ It becomes non-deterministic because communications can take infinite time to co
 
 Asynchronous communications are less expressive than synchronous ones \cite{PALAMIDESSI2003}.
 
-\endinput
+% \endinput
 
+
+TODO rewrite this subsection.
+No subsubsection with name of model.
+I want to say that non-determinacy is ineluctable, and a good thing, as it is what happen in reality.
+More specifically, I want to say that causal ordering is good enough (See Lamport78 and Reed12).
+I can also say more about the advantages of determinism and non-determinism, but for the moment, I don't know much about that.
+
+I think there is several definitions for determinism.
+There might be a non determinism in the order of messages, but for an external observer, the application is still deterministic because of causal ordering.
+
+However, this determinism doesn't account for network and other Byzantines failures.
+TODO explain the byzantines failures.
 
 
 We need to wait a bit to see state synchronization outside of message-passing. \nt{TODO}
 
 
-
-
 \subsection{Programming models}
 
-To be read and added :
+\subsubsection{Distributed Processes}
 
 Distributed processes: a concurrent programming concept \cite{Hansen1978}
+This paper defines real-time applications.
+It proposes a unification between monitor and processes to apply on distributed storage.
+The distributed processes are basically event-loops with cooperative scheduling.
+However, the communication is done via procedure calling, not message-passing.
+A process defines common procedures, callable by other processes.
+Processes have access to guarded commands, and guarded regions.
+A guarded region (cycle, when) can make the execution wait, the guarded command (if, do) not.
+(That is how is )
+
+Mutual exclusion (Guarded region) \cite{Hansen1978a} \cite{Hoare2002}
+Guarded commands \cite{Dijkstra1975}
+
+CSP is similar to Distributed Processes, it seems :
+\textit{Both proposals [DP and CSP] attack the problem of concurrency without shared variables and recognize the need for nondeterminacy within a single process.}
+That is, they acknowledged that non-determinacy is a requirement to have good performances (to rewrite), and that with causal ordering (synchronization with guarded region) the application can be made somehow deterministic.
+
+C. A. R. Hoare presented Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}.
+In CSP, processes are executed concurrently, and communicates events via channels.
+The evolutions of this model were influenced by, and influenced the work of R. Milner, hence CCS and CSP are highly similar.
+With the evolutions appeared the problems of determinism in distributed systems\nt{TODO}.\cite{Brookes1984}
+
+
+Modula and Concurrent Pascal uses Monitors, but they are intended for computer with a common storage, or a single processor.
+
 
 Monitors: an operating system structuring concept \cite{Hoare1974}
+A monitor is the association of data and procedures.
+It assures that procedures are entered only one at a time (two programs cannot call the same procedure at the same time).
+Local variables are not accessible from outside, and monitors procedures shall not access variables outside of the monitor.
+With this restrictions, it guards against race condition on the access of a shared resource.
+
+Monitors are somehow equivalent to semaphore, but are more expressive.
+In the paper, Hoare says Monitor are to Semaphore, what coroutine or while loop are to jumps.
+
 
 \subsubsection{Coroutines}
 
@@ -93,10 +146,21 @@ Conway defines coroutines as subroutines executing all at the same level.\cite{C
 
 \textit{A coroutine is an autonomous program which communicate with adjacent modules as if they were input and output subroutines.}
 
-It defines the separability of a program, and advocates that coroutines be executed on separate processes, and communicate by sending discrete items.
-This definition, is similar to that of actors.
+It defines the separability of a program, and advocates that coroutines are separate program and communicate by sending discrete items.
 The first definition of coroutine, explicitly specify that coroutines are best used when they can be executed, and communicate asynchronously.
-However, most programming languages being synchronous, they then were implemented as synchronous routines, instead of independent processes.
+
+There is three conditions for coroutine
+\textit{(1) The only communication between modules is in the form of discrete items of information; (2) the flow of each of this items is along fixed, one-way paths; (3) the entire program can be laid out so that the input is at the left extreme, the output is at the right extreme, and everywhere in between all information items flowing between modules have a component of motion to the right.}
+\textit{When coroutines A and B are connected so that A sends items to B, B runs for a while until it encounters a a read command, which means it needs something from A. The control is then transfered to A until it wants to write, whereupon the control is returned to B at the point where it left off.}
+
+Coroutines seems to be the first definition of a concurrent pipeline.
+Coroutines can be executed simultaneously if parallel hardware is available.
+
+\subsubsection{Kahn Networks}
+
+Kahn Networks are basically parallel coroutines separated by bounded FIFO streams.
+
+
 
 Following work : Coroutines and Networks of Parallel Processes\cite{Kahn1976}
 
@@ -108,7 +172,7 @@ Multiprogramming designs the ability to program concurrent activities on multipl
 
 Modula: A language for modular multiprogramming \cite{Wirth1977}
 
-Modula is a descendent of Pascal with the addition of modules, that are essentially processes.
+Modula is a descendent of Pascal with the addition of modules, processes and signals.
 
 
 \subsubsection{Promises and Futures}
@@ -118,6 +182,8 @@ This \cite{Jr1977} is the reference paper for futures.
 \subsubsection{Functional Reactive Programming}
 \nt{I don't know exactly what to do with this.
 It is not exactly aimed at concurrency, but it is definitly not oriented on improving software growth}
+
+Maybe I can put it with coroutine, as it seems quite similar.
 
 \subsubsection{Flow programming}
 Morrison
@@ -148,14 +214,20 @@ StreaMIT
 
 \subsection{Design patterns}
 
-\subsubsection{Skeletons}
-Mc Cool, Structured Parallel Programmin with Deterministic Patterns
+\subsubsection{Algorithmic Skeletons}
+\cite{McCool2010} Mc Cool, Structured Parallel Programmin with Deterministic Patterns
+
+\textit{The general idea is that specific combinations of computation and data access recur in many different algorithms.}
 
 \subsubsection{Accelerators}
 CUDA, OpenCL
 
 \subsubsection{SOA}
 
+\subsubsection{Lock-free Algorithm}
+
+  Lock-free algorithm are highly concurrent, as they can be replicated, however, they are limited, and really hard to develop.
+  \url{https://en.wikipedia.org/wiki/Non-blocking_algorithm}
 
 
 \subsection{Frameworks and runtimes}
