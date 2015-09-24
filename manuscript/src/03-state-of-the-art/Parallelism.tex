@@ -19,6 +19,9 @@ The Actor Model of C. Hewitt, the Pi-calculus of R. Milner and the Communicating
 Based on these definition, we explain the importance of determinism, and the reason that asynchronous message-passing prevailed.
 
 
+% TODO illustration of cells, and draw an analogy between cells and actor model.
+% Or something the actor models is based upon.
+
 \subsubsection{Models}
 
 \paragraph{Actor Model}
@@ -117,18 +120,58 @@ The execution will either terminate correctly, or not terminate at all.
 
 \subsection{Message passing concurrency} \label{chapter3:parallel-execution:message-passing}
 
-Alternatively, as shown by Ghunter, the scalability of an application comes from its parallelism.
-So the synchronization on any shared resources adds contention.
-Therefore, the only way to do an efficient concurrent application is with true parallel processes communicating by messages.
+
+The theory advocates asynchronous message-passing, but it doesn't precise the granularity of the actors.
+In the Actor Model, everything is an actor, even the simplest types, like numbers.
+In practice this level of asynchronous communication is unachievable due to overhead.
+In practice, most implementations feature independent synchronous processes communicating by messages.
+
+\subsubsection{Programming models}
+
+Conway defines coroutines as an autonomous program which communicate with adjacent modules as if they were input and output subroutines.\cite{Conway1963}
+It seems to be the first definition of a parallel pipeline.
+\textit{When coroutines A and B are connected so that A sends items to B, B runs for a while until it encounters a a read command, which means it needs something from A. The control is then transfered to A until it wants to write, whereupon the control is returned to B at the point where it left off.}
+
+Hoare presented the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}.
+These processes are executed concurrently, and communicates events via named channels.
+The evolutions of this model were influenced by, and influenced the work of Milner that led to $\pi$-calculus.
+
+Similarly, Kahn developed the Kahn Networks \cite{Kahn1974, Kahn1976}, following the work of Conway on coroutines.
+They are explicitly parallel coroutines separated by bounded FIFO streams for communication.
+
+These programming models are highly similar, and differs only in details irrelevant for this thesis.
+However, it is interesting to note that they don't correctly inherit from the Actor Model, as it is generally impossible to dynamically modify the topology of the application.
+Coroutines and processes are defined statically in the source of the application.
+We shall come back to this limitation later.
+
+\subsubsection{Scalability law}
+
+These programming model were applied to run programs concurrently in machines providing a single processor, or shared resources among processors, like a common memory store, or network interface.
+To manage these resources, and avoid conflicting accesses, it is crucial to assure the mutual exclusion.
+For this purpose, Djikstra invented the Semaphore \cite{Dijkstra}.
+
+Following this work, he also introduced guarded commands \cite{Dijkstra1975} and Hansen introduced guarded region \cite{Hansen1978a}.
+Both assure the execution of a set of instructions to be exclusive to only one process.
+
+Hoare introduced the monitor following the work of Hansen \cite{Hoare1974}.
+A monitor is an extension of a class, it regroups data and procedures, except that it assures its procedures to be entered only once at a time.
+With this restrictions, it guards against race condition on the access of a shared resource.
+Modula \cite{Wirth1977} and Concurrent Pascal \cite{Hansen1975} uses Monitors.
+
+Multi-threading programming extensively uses these concepts, because of the preemptive scheduling and the common storage.
+It is known to lead to bad performances, and difficulties in the development \cite{Adya2002}.
+
+Amdahl warned against sequential portion of a program impacting the performance gained with parallelism \cite{Amdahl1967}.
+Ghunter extended Amdahl's law to show that sharing resources, even protected, leads to bad, and even decreases performances with increasing parallelism \cite{Gustafson1988,Gunther1993,Gunther1996,Nelson1996,Gunther2002}.
+Therefore, the only way to do an efficient concurrent application is to isolate the parallel processes in such way to limit the communication to the minimum.
+It is important the processes to be independent, and communicate solely by messages.
+
+\subsubsection{Programming languages}
+
+Scala / Akka / Erlang
 
 
 
-
-
-Among the model to develop concurrent application with message passing there is many many many solutions.
-The earliest ones are for example Distributed Processes, Kahn Networks, Coroutines.
-
-Cite as well stuffs like Akka Scala, Erlang, and so on.
 
 \subsection{Stream Processing} \label{chapter3:parallel-execution:stream-processing}
 
@@ -146,111 +189,12 @@ See all the good stuffs at the end of this file.
 
 \endinput
 
-% The following is all very interesting, but I need to integrate it into a more global argumentation.
-% Now that I have more clues about everything, I can start tracing this argumentation.
-
-\subsection{Concurrency Theory}
-
-
-
-
-
-% For more information, see : https://en.wikipedia.org/wiki/Actor_model_and_process_calculi_history
-
-\subsubsection{Actor Model}
-
-% TODO illustration of cells, and draw an analogy between cells and actor model.
-
-The Actor model allows to express the computation as a set of communicating actors \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
-In reaction to a received message, an actor can create actors, send messages, and choose how to respond to the next message.
-All actors are executed concurrently, and communicate asynchronously.
-
-The Actor model was presented as a highly parallel programming model, but intended for Artificial Intelligence purposes.
-Its success spread way out of this first scope, and it became a general reference on message passing parallel programming.
-For example, the Scala language advertises its use of an actor approach of concurrency.
-
-% More recent work of C. Hewitt on Actors is about \nt{TODO} \cite{Hewitt2007,Hewitt2007a}.
-
-The Actor model used the message-passing communication paradigm.
-The communication between two actors, the sender and the receiver, is a stream of discrete messages.
-The sender names the receiver actor when sending messages to be the recipient of these messages.
-
-Moreover, message-passing is asynchronous, because contrary to invocation, the sender doesn't wait for the result of the initiated communication.
-These asynchronous communication make the Actor Model non-deterministic.
-A message can take any time to be delivered, therefore no order can be assured in the messages sent between actors.
-The total ordering of messages is only local to an actor, while between actors, messages are causally ordered.
-As Lamport showed \cite{Lamport1978}, and Reed related later \cite{Reed2012}, causal order is sufficient to build a correct distributed system.
-
-\subsubsection{Pi-calculus}
-
-R. Milner presented a process calculus to describe concurrent computation : the Calculus of Communicating Systems (CCS) \cite{Milner1975, Milner1980}.
-It is an algebraic notation to express identified processes communicating through labeled channels.
-In CCS, process compose concurrently, communications are synchronous, and the topology is static.
-The Pi-calculus improved upon this earlier work to allow processes to be communicated as values, hence to become mobile \cite{Engberg1986,Milner1992a,Milner1992}.
-Contrary to CCS, in Pi-calculus processes can replicate and send process through channel, allowing dynamic modification of the topology.
-
-Pi-calculus resembles to the actor model, but its algebraic nature led to a critical difference with the latter.
-Indeed, processes in the Pi-calculus communicate indirectly, through labeled ports, whereas actors communicate directly by naming the recipient actors.
-This difference allows multiple processes to listen in turns to the same channel, whereas the recipient of a message cannot change.
-
-I think this difference lead the Pi-calculus to be composable, whereas message-passing is not.
-Message-passing is not composable, whereas invocation is.
-The Actor model is not an ideal programming model, as non-composability makes difficult to reuse or extends existing components.
-A way to compose actors, is to send to an actor the name of the actor to respond to.
-It is similar in essence to the continuation concept.
-
-Communications in Pi-calculus are based on handshaking : simultaneous execution of complementary actions.
-
-
-Asynchronous communications are less expressive than synchronous ones \cite{PALAMIDESSI2003}.
-
-Pi-calculus is a synchronous paradigm which contains an asynchronous fragment.\cite{PALAMIDESSI2003}
-(Boudol, G. (1992). Asynchrony and the π-calculus (note). Rapport de Recherche  1702, INRIA, Sophia-Antipolis,
-Honda, K. and Tokoro, M. (1991).  An object calculus for asynchronous communication. In America, P., editor, Proceedings of the European Conference on Object-Oriented Programming (ECOOP), volume 512 of Lecture Notes in Computer Science, pages 133–147. Springer-Verlag)
-
-
-The asynchronous pi-calculus defined by Honda and Tokoro in 1991 led to Pict, a programming language\cite{Pierce2000}.
-
-\subsubsection{Concurrency, asynchronism and unbounded nondeterminacy}
-
-All these early work adopted concurrent composition by default, instead of sequential composition, to adapt to the very concurrent nature of real parallel machines.
-However, sequential programming is still the default.
-Concurrent composition is yet still to be widely accepted, as stated by Reed \cite{Reed2012}.
-\comment{TODO rewrite this paragraph}
-
-All these works eventually evolved to adopt asynchronous communications.
-Indeed, it is not realistic to build a distributed system based on synchronous communications. \nt{TODO reference needed}
-By abandoning synchronous communication, such system also needs to abandon determinism.
-It becomes non-deterministic because communications can take infinite time to complete.
-
-
-Input-guarded choice allows to wait on two or more input channels.
-It is basically an epoll or select.
-It is implemented by CSP.
-
-
-
-% \endinput
-
-
-TODO rewrite this subsection.
-No subsubsection with name of model.
-I want to say that non-determinacy is ineluctable, and a good thing, as it is what happen in reality.
-More specifically, I want to say that causal ordering is good enough (See Lamport78 and Reed12).
-I can also say more about the advantages of determinism and non-determinism, but for the moment, I don't know much about that.
-
-I think there is several definitions for determinism.
-There might be a non determinism in the order of messages, but for an external observer, the application is still deterministic because of causal ordering.
-
-However, this determinism doesn't account for network and other Byzantines failures.
-TODO explain the byzantines failures.
 
 
 TODO read Communication and Concurrency by Milner 1989
 And A theory of synchrony and asynchrony by He 1990
 
-
-We need to wait a bit to see state synchronization outside of message-passing. \nt{TODO}
+\nt{We need to talk about state synchronization outside of message-passing.}
 
 
 \subsection{Programming models}
@@ -272,8 +216,6 @@ Guarded commands \cite{Dijkstra1975}
 
 \subsubsection{Communication Sequential Processes}
 
-Read this : http://www.springer.com/computer/theoretical+computer+science/foundations+of+computations/book/978-3-540-25813-1
-
 CSP is similar to Distributed Processes, it seems :
 \textit{Both proposals [DP and CSP] attack the problem of concurrency without shared variables and recognize the need for nondeterminacy within a single process.}
 That is, they acknowledged that non-determinacy is a requirement to have good performances (to rewrite), and that with causal ordering (synchronization with guarded region) the application can be made somehow deterministic.
@@ -284,52 +226,34 @@ The evolutions of this model were influenced by, and influenced the work of R. M
 With the evolutions appeared the problems of determinism in distributed systems\nt{TODO}.\cite{Brookes1984}
 
 
-Modula and Concurrent Pascal uses Monitors, but they are intended for computer with a common storage, or a single processor.
-
-
-Monitors: an operating system structuring concept \cite{Hoare1974}
-A monitor is the association of data and procedures.
-It assures that procedures are entered only one at a time (two programs cannot call the same procedure at the same time).
-Local variables are not accessible from outside, and monitors procedures shall not access variables outside of the monitor.
-With this restrictions, it guards against race condition on the access of a shared resource.
-
-Monitors are somehow equivalent to semaphore, but are more expressive.
-In the paper, Hoare says Monitor are to Semaphore, what coroutine or while loop are to jumps.
-
-
-\subsubsection{Coroutines}
-
-Conway defines coroutines as subroutines executing all at the same level.\cite{Conway1963}
-
-\textit{A coroutine is an autonomous program which communicate with adjacent modules as if they were input and output subroutines.}
-
-It defines the separability of a program, and advocates that coroutines are separate program and communicate by sending discrete items.
-The first definition of coroutine, explicitly specify that coroutines are best used when they can be executed, and communicate asynchronously.
-
-There is three conditions for coroutine
-\textit{(1) The only communication between modules is in the form of discrete items of information; (2) the flow of each of this items is along fixed, one-way paths; (3) the entire program can be laid out so that the input is at the left extreme, the output is at the right extreme, and everywhere in between all information items flowing between modules have a component of motion to the right.}
-\textit{When coroutines A and B are connected so that A sends items to B, B runs for a while until it encounters a a read command, which means it needs something from A. The control is then transfered to A until it wants to write, whereupon the control is returned to B at the point where it left off.}
-
-Coroutines seems to be the first definition of a concurrent pipeline.
-Coroutines can be executed simultaneously if parallel hardware is available.
-
-\subsubsection{Kahn Networks}
-
-Kahn Networks are basically parallel coroutines separated by bounded FIFO streams.
 
 
 
-Following work : Coroutines and Networks of Parallel Processes\cite{Kahn1976}
 
-The coroutines defines the first pipeline organization of a program.
+% \subsubsection{Coroutines}
 
-\subsubsection{Modules}
+% Conway defines coroutines as subroutines executing all at the same level.\cite{Conway1963}
 
-Multiprogramming designs the ability to program concurrent activities on multiple processing units.
+% \textit{A coroutine is an autonomous program which communicate with adjacent modules as if they were input and output subroutines.}
 
-Modula: A language for modular multiprogramming \cite{Wirth1977}
+% It defines the separability of a program, and advocates that coroutines are separate program and communicate by sending discrete items.
+% The first definition of coroutine, explicitly specify that coroutines are best used when they can be executed, and communicate asynchronously.
 
-Modula is a descendent of Pascal with the addition of modules, processes and signals.
+% There is three conditions for coroutine
+% \textit{(1) The only communication between modules is in the form of discrete items of information; (2) the flow of each of this items is along fixed, one-way paths; (3) the entire program can be laid out so that the input is at the left extreme, the output is at the right extreme, and everywhere in between all information items flowing between modules have a component of motion to the right.}
+% \textit{When coroutines A and B are connected so that A sends items to B, B runs for a while until it encounters a a read command, which means it needs something from A. The control is then transfered to A until it wants to write, whereupon the control is returned to B at the point where it left off.}
+
+% Coroutines seems to be the first definition of a concurrent pipeline.
+% Coroutines can be executed simultaneously if parallel hardware is available.
+
+
+% \subsubsection{Modules}
+
+% Multiprogramming designs the ability to program concurrent activities on multiple processing units.
+
+% Modula: A language for modular multiprogramming \cite{Wirth1977}
+
+% Modula is a descendent of Pascal with the addition of modules, processes and signals.
 
 
 \subsubsection{Promises and Futures}
