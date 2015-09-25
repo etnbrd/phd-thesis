@@ -168,8 +168,21 @@ It is important the processes to be independent, and communicate solely by messa
 
 \subsubsection{Programming languages}
 
-Scala / Akka / Erlang
+% Scala / Akka / Erlang
 
+Some programming languages features message-passing and isolation of actors directly.
+To some extent, these languages succeeded in industrial contexts.
+However, they largely remain elitist solutions for specific problems more than a general, and accessible tool.
+
+Scala is an attempt at unifying the object model and functional programming \cite{Odersky2004}.
+It proposes an actor approach in its design.
+Akka\ftnt{http://akka.io/} is a framework based on Scala, to build higly scalable and resilient applications.
+
+Erlang is a concurrent language designed by Ericsson to operate telecommunication devices \cite{JoeArmstrong}.
+
+
+All these solutions are generally oriented to design distributed systems.
+We focus more precisely on real-time web applications that process high volumes of requests.
 
 
 

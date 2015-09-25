@@ -40,18 +40,25 @@ D'autre part, l'exécution de Javascript ressemble à un pipeline.
 La boucle événementielle de Javascript est un pipeline de fonctions qui s’exécutent sur un seul cœur pour profiter d'une mémoire globale.
 % On observe le même flux de messages traversant cette boucle événementielle que dans un pipeline.
 
-L'objectif de cette thèse est d'étudier une équivalence entre l'approche modulaire, et l'approche pipeline d'un même programme.
+L'objectif de cette thès est de maintenir une double représentation d'un code Javascript grace à une équivalence entre l'approche modulaire, et l'approche pipeline d'un même programme.
+% L'objectif de cette thèse est d'étudier une équivalence entre l'approche modulaire, et l'approche pipeline d'un même programme.
 La première répondant aux besoins en fonctionnalités, et favorisant les bonnes pratiques de développement pour une meilleure maintenabilité.
-La seconde permettant une exécution plus efficace que la première.
+La seconde proposant une execution plus efficace que la première en permettant de rendre certaines parties du code relocalisable en cours d'execution.
 
 Nous étudions la possibilité pour cette équivalence de transformer un code d'une approche vers l'autre.
 % Pour cela nous avons développé un compilateur.
 Grace à cette transition, l'équipe de développement peut continuellement itérer le développement de l'application en suivant les deux approches à la fois, et ne pas se cloisonner dans une, et se coupant de l'autre.
 
-Nous construisons un compilateur permettant d'identifier les fonctions de Javascript et de les isoler dans ce que nous appelons des Fluxions.
+Nous construisons un compilateur permettant d'identifier les fonctions de Javascript et de les isoler dans ce que nous appelons des Fluxions, contraction entre fonctions et flux.
 Un conteneur qui peut exécuter une fonction à la réception d'un message, et envoyer des messages pour continuer le flux vers d'autres fluxions.
 Les fluxions étant indépendantes, elles peuvent être déplacées d'une machine à l'autre.
+
+Nous montrons qu'il existe une correspondance entre le programme initial, purement fonctionnel, et le programme pivot fluxionnel afin de maintenir deux versions équivalentes du code source.
 En ajoutant à un programme écrit en Javascript son expression en Fluxions, l'équipe de dévelopment peut le rendre scalable sans effort, tout en étant capable de répondre à la demande en fonctionnalités.
+
+Ce travail s'est fait de manière concrète dans le cadre d'une thèse CIFRE dans la société Worldline.
+L'objectif pour Worldline est de se maintenir à la pointe dans le domaine du développement et de l'hébergement logiciel à travers une activité de recherche.
+L'objectif pour l'équipe Dice est de conduire une activité de recherche en partenariat avec un acteur industriel,
 
 \end{abstract}
 \end{otherlanguage}
