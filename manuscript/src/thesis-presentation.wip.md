@@ -13,7 +13,7 @@ C'est pourquoi le code d'une application évolue radicalement du début à la fi
 La base de code se renouvèle trop vite pour qu'il soit intéressant de se plier aux bonnes pratiques, et garder une base de code lisible, et maintenable.
 Il en résulte une certaine énergie de développement gaspillé à réécrire des implémentations dans différentes visions pour rester en phase avec les réalités économiques.
 
-L'objectif de ma thèse est d'étudier une équivalence entre une vision impérative, et une vision flux d'un même programme.
+L'objectif de cette thèse est d'étudier une équivalence entre une vision impérative, et une vision flux d'un même programme.
 La première répondant aux besoins en fonctionnalités, et favorisant les bonnes pratiques de développement pour une meilleure maintenabilité.
 La seconde permettant une exécution plus efficace que la première vision.
 
