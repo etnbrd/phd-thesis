@@ -7,7 +7,8 @@ BIBER = mkdir -p .tmp && cd .tmp && biber ${FILE} && cd ..
 
 all: pdf bib open
 
-bib: _bib _post
+bib: _bib
+# bib: _bib _post
 
 pdf: _pre
 
