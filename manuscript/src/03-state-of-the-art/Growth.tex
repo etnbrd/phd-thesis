@@ -1,16 +1,130 @@
 \section{Development growth}
 
-Separation of concerns is a design principle to modularize an application into module so that each module has a specific concern.
-It feels like an rephrasing of information hiding.
-SoC needs encapsulation, for example via OOP, or layered programming (structured design).
-SoC assures the principle of locality.
+TODO introduction
 
-Separation of concerns is not what I thought !!!!!
-Dijkstra \cite{Dijkstra1982} wrote that it is about analyzing different aspects of a program, not different modules.
+\subsection{Modularity}
+
+TODO introduction
+
+\subsubsection{Structured Programming}
+
+In the history of software development, at some point the size and complexity of software system urges the developers to split the problem into isolated subproblems.
+Dijkstra was maybe the first to encounter and formalize this procedure.
+
+A program expressed as a suites of instructions with occasional jumps makes the flow of control very hard to follow and understand.
+We say it is spaghetti code.
+Instead, Dijkstra advocated to forbid the use of the \texttt{goto} statement, and decompose the implementation into functions to be called and returned \cite{Dijkstra1968a}.
+This would allow to split the main problem into many subproblems encapsulated into reusable, and isolated functions.
+This is called structured programming, and it impacts the development at a fine grain by restricting the usage of the control flow.
+
+Following this, he proposed to design complex systems with a hierarchical structure \cite{Dijkstra1968}.
+Each layer would abstract a design problem for the upper layers.
+This work established grounds for what is know called modular programming.
+
+% Letters to the editor : goto statement considered harmful \cite{Dijkstra1968a}
+% The structure of the THE-multiprogramming system \cite{Dijkstra1968}
+
+\subsubsection{Structured Design}
+
+Modular programming advocates to design a software system as an ensemble of modules communicating with each other.
+When designing the modules, two properties are crucial, coupling and cohesion \cite{Stevens1974}.
+
+The coupling defines the strength of the interdependence between modules.
+It is opposed as cohesion which defines how strongly the features inside a module are related.
+Low coupling between modules and high cohesion inside modules implies a better understanding and readability of the source code of the system.
+
+The relations between features, necessary to define the module organization, needs to be well defined.
+These relation will define the boundary of modules, and how the features should be put in those modules.
+
+
+% (See wikipedia page https://en.wikipedia.org/wiki/Separation_of_concerns)
+
+
+\subsection{Design choices}
+
+TODO introduction
+
+\subsubsection{Separation of concerns}
+
+Dijkstra \cite{Dijkstra1982} coined the terms separation of concerns more than thirty years ago, but this concept drifted and loosed its initial meaning.
+It is interesting to note the difference between the two meanings.
+Initially, the separation of concerns meant the ability to reason about different properties of a software system.
+My understanding of this definition, was not to encapsulate different concerns into different modules, but to analyze how a system possesses certain properties.
 Dijkstra gives the example of analyzing correctness and efficiency independently.
-However, now it seems to have drifted into layered design, and now into modularization.
-(See wikipedia page https://en.wikipedia.org/wiki/Separation_of_concerns)
+In this respect, this thesis is completely oriented towards separating the concern of development maintainability and the concern of performance.
+That is to be able to reason on the maintainability of a program, independently than of its performance, and vice versa.
 
+However, separation of concerns seems rightfully to mean a different concept \cite{Tarr1999,Hursch1995}.
+Separation of concerns is now understood as a design principle advocating that each module has a specific concern in a modular design.
+For example, the separation of the form and the content in Latex, or in HTML / CSS are example of this new meaning for separation of concerns.
+
+The drift in meaning seems to come from a confusion between a concern one have about this system, which is a property of the system (efficiency, readability, correctness), and a design choice to encapsulate to avoid impacting the whole system.
+
+\subsubsection{Information hiding principle}
+
+To my understanding, the new meaning of Separation of Concerns feels similar to the definition of information hiding.
+
+Information hiding was defined by Parnas \cite{Parnas1972} as a way to define the organization of modules.
+The intention was to encapsulate specific design choice in each module so as to limit the impact of the modification of a choice on the rest of the system.
+
+In this article, Parnas clearly oppose the definition of modules following the flow of data through the execution, and the definition of modules following the information hiding principle.
+In this thesis, we shall investigate further this opposition.
+
+
+
+\subsection{Programming models}
+
+TODO introduction
+
+\subsubsection{Object oriented programming}
+
+The following list define Object-Oriented Programming (OOP).
+
+\begin{enumerate}
+\item Everything is an object.
+\item Communication is performed by objects communicating with each other, requesting that objects perform actions. Objects communicate by sending and receiving messages. A message is a request for action, bundled with whatever objects may be necessary to complete the task.
+\item Objects have their own memory, which consists of other objects.
+\item Every object is an instance of a class. A class simply represents a grouping of similar objects, such as integers or lists.
+\item The class is the repository for behavior associated with an object. That is, all objects that are instances of the same class can perform the same actions.
+\end{enumerate}
+
+Though the recent concept of Object-oriented programming focus strongly on the notion of object as an encapsulation principle, Alan Kay who coined the term, insisted in a public mail exchange that the original concept he envisioned is about message-passing, more than inheritance.
+
+Interestingly enough, Object Oriented Programming, as defined by Alan Kay, who coined the term, is based on the definition of the Actor Model.
+
+
+
+\paragraph{Object calisthenics}
+
+Object calisthenics are defined as the chapter 6 of \cite{Bay2008}.
+It is an exercise presented as a list of 9 rules to follow to enforce maintainability and readability of your code.
+
+Some of these rules are direct implementations of the more general concept of separation of concerns, and information hiding.
+Rule 7 Keep all entities small, for example is similar somehow to say that entities should have a clear concern.
+Other rules are just plain syntactic rules to improve readability and comprehensibility.
+
+
+See Object calisthenics 
+- http://williamdurand.fr/2013/06/03/object-calisthenics/
+- http://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf
+
+
+
+\subsubsection{Another programming model ?}
+
+TODO
+
+
+
+\endinput
+
+
+
+
+
+
+
+Plan
 
 A first part with the modularity, from Parnas with Information Hiding, to modularity, and design decision, and design structure matrix, and so on ...
 To Object, with object calisthenics.
@@ -20,11 +134,7 @@ A second part with the incompatibility between this modularity and parallelism.
 This part might need to move into the reconciliation part.
 
 
-\subsubsection{Structured Design}
 
-Letters to the editor : goto statement considered harmful \cite{Dijkstra1968a}
-Structured Design \cite{Stevens1974}
-The structure of the THE-multiprogramming system \cite{Dijkstra1968}
 
 
 
@@ -60,17 +170,29 @@ Not a very good article, but advocate principle of locality :
 the person working closely, in terms of both space and time, to an artefact is the most qualified person to remove defects associated with it. This
 
 
-\subsubsection{Object Oriented Programming}
 
-Interestingly enough, Object Oriented Programming, as defined by Alan Kay, who coined the term, is based on the definition of the Actor Model.
 
-\begin{enumerate}
-\item Everything is an object.
-\item Communication is performed by objects communicating with each other, requesting that objects perform actions. Objects communicate by sending and receiving messages. A message is a request for action, bundled with whatever objects may be necessary to complete the task.
-\item Objects have their own memory, which consists of other objects.
-\item Every object is an instance of a class. A class simply represents a grouping of similar objects, such as integers or lists.
-\item The class is the repository for behavior associated with an object. That is, all objects that are instances of the same class can perform the same actions.
-\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Contradiction}
+
+
+To understand the problem of incompatibility between the modular design and the parallel execution, one can think about the communication between two stages.
+The result output by one stage needs to be understood by the next.
+There need to be a common understanding on the nature, and the structure of this result.
+The modular design advocates that this common ground, the interface, be the most immutable possible, the most solid possible.
+While the parallel execution defines interfaces between the stages.
+
+
 
 \endinput
 
