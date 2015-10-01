@@ -1,151 +1,165 @@
-\section{Development growth}
+\section{Implementation Evolution}
 
-TODO introduction
+The evolution of a software system holds on the readability and comprehensibility hence maintainability of its implementation.
+These properties are attained by decomposing the implementation into many modules with a distinct scope of action.
+In this section, we show the theoretical tools for this decomposition, and their application in programming languages.
 
 \subsection{Modularity}
 
-TODO introduction
-
 \subsubsection{Structured Programming}
 
-In the history of software development, at some point the size and complexity of software system urges the developers to split the problem into isolated subproblems.
-Dijkstra was maybe the first to encounter and formalize this procedure.
+Eventually, the growing size and complexity of software systems urges the developers to split the problem into isolated subproblems.
+Dijkstra formalized this procedure on two levels, at a fine grain and at a coarse grain.
 
-A program expressed as a suites of instructions with occasional jumps makes the flow of control very hard to follow and understand.
-We say it is spaghetti code.
-Instead, Dijkstra advocated to forbid the use of the \texttt{goto} statement, and decompose the implementation into functions to be called and returned \cite{Dijkstra1968a}.
-This would allow to split the main problem into many subproblems encapsulated into reusable, and isolated functions.
-This is called structured programming, and it impacts the development at a fine grain by restricting the usage of the control flow.
+A program expressed as a continuous suite of instructions with occasional jumps with \texttt{goto} statement makes the flow of control very hard to follow and understand.
+It is spaghetti code.
+Dijkstra stood up against the use of the \texttt{goto} statement, to instead decompose the problem into subproblem encapsulated into reusable functions \cite{Dijkstra1968a}.
+This is called structured programming, and it impacts the development at a fine grain, at the function level.
 
-Following this, he proposed to design complex systems with a hierarchical structure \cite{Dijkstra1968}.
+He also proposed to design complex systems with a hierarchical structure \cite{Dijkstra1968}.
+It decomposes a bigger problem at a coarser grain into subproblems encapsulated into layers.
 Each layer would abstract a design problem for the upper layers.
 This work established grounds for what is know called modular programming.
 
 % Letters to the editor : goto statement considered harmful \cite{Dijkstra1968a}
 % The structure of the THE-multiprogramming system \cite{Dijkstra1968}
 
-\subsubsection{Structured Design}
+\subsubsection{Modular Programming}
 
 Modular programming advocates to design a software system as an ensemble of modules communicating with each other.
-When designing the modules, two properties are crucial, coupling and cohesion \cite{Stevens1974}.
+The goal of using modular programming is twofold.
+It allows a developer to limit its understanding only to the features isolated inside a module, instead of understanding the whole problem \cite{Stevens1974}.
+And it reduces development time by allowing several developers to implement simultaneously different modules \cite{Wong2009,Cataldo2006}.
 
+The criterion to decompose the system into modules are coupling and cohesion \cite{Stevens1974}.
 The coupling defines the strength of the interdependence between modules.
-It is opposed as cohesion which defines how strongly the features inside a module are related.
-Low coupling between modules and high cohesion inside modules implies a better understanding and readability of the source code of the system.
+It is opposed to cohesion which defines how strongly the features inside a module are related.
+Low coupling between modules and high cohesion inside modules imply a better readability and comprehensibility, hence a better maintainability of the implementation of the system.
 
-The relations between features, necessary to define the module organization, needs to be well defined.
-These relation will define the boundary of modules, and how the features should be put in those modules.
-
+These two criterion defines how modular is the implementation.
+However, it doesn't define how well this organization will stand against the evolution of the implementation.
 
 % (See wikipedia page https://en.wikipedia.org/wiki/Separation_of_concerns)
 
 
-\subsection{Design choices}
+\subsection{Design Choices}
 
-TODO introduction
+It is important that the modular organization stand against the evolutions in the specification of the problem, and their consequences in the implementation.
+The interfaces between modules, and the contents of these modules need to be well thought.
+The information hiding principle, and the separation of concerns are two similar approach to do so.
 
-\subsubsection{Separation of concerns}
+\subsubsection{Separation of Concerns}
 
-Dijkstra \cite{Dijkstra1982} coined the terms separation of concerns more than thirty years ago, but this concept drifted and loosed its initial meaning.
-It is interesting to note the difference between the two meanings.
-Initially, the separation of concerns meant the ability to reason about different properties of a software system.
-My understanding of this definition, was not to encapsulate different concerns into different modules, but to analyze how a system possesses certain properties.
-Dijkstra gives the example of analyzing correctness and efficiency independently.
-In this respect, this thesis is completely oriented towards separating the concern of development maintainability and the concern of performance.
+Dijkstra \cite{Dijkstra1982} coined the terms separation of concerns almost thirty five years ago and its initial definition drifted and lose its initial meaning.
+It is interesting to note the difference between the new and the old meaning, as it is related to the goal of this thesis.
+% Initially, it meant the ability to reason independently about different concern about a software system.
+My understanding of the initial definition, was not to encapsulate different concerns into different modules, but to analyze independently how a system meets each concern.
+Dijkstra gives the example of analyzing independently correctness and efficiency.
+It is impossible to encapsulate correctness, or efficiency in different modules.
+In this respect, this thesis is oriented towards separating the concern of development evolution and the concern of performance.
 That is to be able to reason on the maintainability of a program, independently than of its performance, and vice versa.
 
-However, separation of concerns seems rightfully to mean a different concept \cite{Tarr1999,Hursch1995}.
-Separation of concerns is now understood as a design principle advocating that each module has a specific concern in a modular design.
-For example, the separation of the form and the content in Latex, or in HTML / CSS are example of this new meaning for separation of concerns.
+However, the separation of concerns is now orthogonal to its first meaning.
+It is a design principle advocating that each module is responsible for one and only one specific concern \cite{Tarr1999,Hursch1995}.
+For example, the separation of the form and the content in HTML / CSS, or the separation of concerns in the network stack, are example of separation of concerns.
+This new meaning is closer to the information hiding principle.
 
-The drift in meaning seems to come from a confusion between a concern one have about this system, which is a property of the system (efficiency, readability, correctness), and a design choice to encapsulate to avoid impacting the whole system.
+% The drift in meaning seems to come from a confusion between a concern one have about this system, which is a property of the system (efficiency, readability, correctness), and a design choice to encapsulate to avoid impacting the whole system.
 
-\subsubsection{Information hiding principle}
+\subsubsection{Information Hiding Principle}
 
-To my understanding, the new meaning of Separation of Concerns feels similar to the definition of information hiding.
+The information hiding principle helps define the content of modules so as to limit the impact of the evolution to a small portion of the implementation \cite{Parnas1972}.
+It advocates to encapsulate a specific design choice in each module to isolate the evolution on this choice from impacting the rest of the implementation.
 
-Information hiding was defined by Parnas \cite{Parnas1972} as a way to define the organization of modules.
-The intention was to encapsulate specific design choice in each module so as to limit the impact of the modification of a choice on the rest of the system.
+This article clearly opposes the definition of modules following the information hiding principle from the one following a pipeline approach to parallelize the execution.
+In this thesis, we shall investigate further this opposition to separate the concern of evolution and the concern of performance in the case of a web application as Dijkstra defined it.
+In the next subsection we investigate the first concern, we present the major programming models used to improve the evolution of an application.
 
-In this article, Parnas clearly oppose the definition of modules following the flow of data through the execution, and the definition of modules following the information hiding principle.
-In this thesis, we shall investigate further this opposition.
+% The structure and value of modularity in software design \cite{Sullivan2001a}
+% -> We identify an issue for software designers that neither Parnas’s formulation nor subsequent developments based on it adequately address: A designer is responsible for producing the greatest benefit for any given investment of time, talent, money, and other resources.
+
+\subsection{Programming Models}
+
+Programming languages are designed for developers to follow the best practices mentioned above.
+We present two programming models : object oriented programming and functional programming.
+
+\subsubsection{Object Oriented Programming}
+
+% The following list defines Object-Oriented Programming (OOP).
+% \begin{enumerate}
+% \item Everything is an object.
+% \item Communication is performed by objects communicating with each other, requesting that objects perform actions. Objects communicate by sending and receiving messages. A message is a request for action, bundled with whatever objects may be necessary to complete the task.
+% \item Objects have their own memory, which consists of other objects.
+% \item Every object is an instance of a class. A class simply represents a grouping of similar objects, such as integers or lists.
+% \item The class is the repository for behavior associated with an object. That is, all objects that are instances of the same class can perform the same actions.
+% \end{enumerate}
+
+Though the recent understanding of Object-Oriented Programming (OOP) focuses strongly on the concepts of class, inheritance and polymorphism, Alan Kay, who coined the term, states in a public mail exchange\ftnt{http://userpage.fu-berlin.de/~ram/pub/pub\_jf47ht81Ht/doc\_kay\_oop\_en} that the original definition is about message-passing, encapsulation and late binding.
+This original definition is strongly related to modular programming.
+It helps encapsulate both the data, and the functions to process this data in an isolated, loosely coupled module.
+
+The very first OOP language was Smalltalk \cite{Goldberg1984}.
+It defined the core concept of OOP, and is inspired by LISP and by the definition of the Actor Model, which we will define in the next section.
+
+% Illustration of multiple cells, as Alan Kay thought of biology when developing the object-oriented concepts.
+% http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en
+% I thought of objects being like biological cells [...] able to communicate with messages ...
+
+Now, the major languages of the software industry feature the new Object-Oriented approach.
+We can cite C++, Java, Javascript, Python, Ruby, among others.
+Though, the trends in programming language seems to forget this Object-Oriented approach to favor the original approach, which is incidentally closer to the functional approach.
+Indeed Javascript, Ruby and Python are dynamically typed and of higher-order.
+The field test seems to have had reason of the recent deviation of OOP to come back closer to its original definition.
+
+% \paragraph{Object Calisthenics}
+
+% Object calisthenics are defined as the chapter 6 of \textit{The Thoughtworks Anthology} \cite{Bay2008}.
+% It is an exercise for developers presented as a list of 9 rules to follow to enforce maintainability and readability on source code \ftnt{http://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf}.
+
+% Some of these rules are direct implementations of the more general concept of separation of concerns, and information hiding.
+% As an example, rule 7 \textit{Keep all entities small} advocate that entities should have a concise concern.
+% Other rules are just syntactic guides to improve readability and comprehensibility.
+
+
+% See Object calisthenics 
+% - http://williamdurand.fr/2013/06/03/object-calisthenics/
+% - http://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf
 
 
 
-\subsection{Programming models}
+\subsubsection{Functional Programming}
 
-TODO introduction
+% \cit{All problems in computer science can be solved by another level of indirection}{Butler Lampson}
 
-\subsubsection{Object oriented programming}
+Functional programming is often associated to its purest form, manipulating only expressions - in place of operation statements - and forbidding state mutability.
+However, the essence of functional programming is not as strict, it resides in higher-order functions and lazy evaluation.
+Two features that major programming languages now commonly adopt.
 
-The following list define Object-Oriented Programming (OOP).
+\paragraph{Higher-Order Function}
 
-\begin{enumerate}
-\item Everything is an object.
-\item Communication is performed by objects communicating with each other, requesting that objects perform actions. Objects communicate by sending and receiving messages. A message is a request for action, bundled with whatever objects may be necessary to complete the task.
-\item Objects have their own memory, which consists of other objects.
-\item Every object is an instance of a class. A class simply represents a grouping of similar objects, such as integers or lists.
-\item The class is the repository for behavior associated with an object. That is, all objects that are instances of the same class can perform the same actions.
-\end{enumerate}
+Languages providing higher-order functions allows to manipulate functions like any other primary value : to store them in variables, or to pass them as arguments.
+Higher-order functions replace the needs for most modern object oriented programming design patterns \ftnt{http://stackoverflow.com/a/5797892/933670}.
+Higher-order functions and lazy evaluation help loosen the couple between modules, and improve their re-usability.
+\textit{In fine}, it helps developers to write applications that are more resilient to evolutions \cite{Hughes1989}.
 
-Though the recent concept of Object-oriented programming focus strongly on the notion of object as an encapsulation principle, Alan Kay who coined the term, insisted in a public mail exchange that the original concept he envisioned is about message-passing, more than inheritance.
+\paragraph{Closures}
 
-Interestingly enough, Object Oriented Programming, as defined by Alan Kay, who coined the term, is based on the definition of the Actor Model.
+Most languages use closures to implement lexical scope with higher-order functions \cite{Sussman1998}.
+A closure is the association of a function and the data context from its creation.
+It allows this function to access variable from this context, even when invoked outside their scope, for example when passed as an argument to another module.
 
+It loosen the couple between modules, and helps define more generic and reusable modules.
+However, it increase their dependencies during the execution.
+Indeed, by exchanging closures, two modules intricately share their contexts of execution.
 
-
-\paragraph{Object calisthenics}
-
-Object calisthenics are defined as the chapter 6 of \cite{Bay2008}.
-It is an exercise presented as a list of 9 rules to follow to enforce maintainability and readability of your code.
-
-Some of these rules are direct implementations of the more general concept of separation of concerns, and information hiding.
-Rule 7 Keep all entities small, for example is similar somehow to say that entities should have a clear concern.
-Other rules are just plain syntactic rules to improve readability and comprehensibility.
-
-
-See Object calisthenics 
-- http://williamdurand.fr/2013/06/03/object-calisthenics/
-- http://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf
-
-
-
-\subsubsection{Another programming model ?}
-
-TODO
-
+Functional programming greatly improves the resilience of implementation to the evolution of their specification.
+However, it requires a global memory to share the context of execution among modules.
+As we will see in the next section, sharing memory makes parallelism difficult.
+In this regard, the concern of evolution and the concern of performance seem incompatible.
 
 
 \endinput
 
-
-
-
-
-
-
-Plan
-
-A first part with the modularity, from Parnas with Information Hiding, to modularity, and design decision, and design structure matrix, and so on ...
-To Object, with object calisthenics.
-This part should show roughly the trend in software modularity.
-
-A second part with the incompatibility between this modularity and parallelism.
-This part might need to move into the reconciliation part.
-
-
-
-
-
-
-\subsubsection{Information Hiding Principles}
-
-Reference paper :
-On the criteria to be used in decomposing systems into modules \cite{Parnas1972}
-
-
-The structure and value of modularity in software design \cite{Sullivan2001a}
--> We identify an issue for software designers that neither Parnas’s formulation nor subsequent developments based on it adequately address: A designer is responsible for producing the greatest benefit for any given investment of time, talent, money, and other resources.
 
 
 \subsubsection{Modularity based on Design Decisions}
@@ -163,11 +177,6 @@ About the communication requirement between teams working on different modules.
 If the teams working on different modules need not to communicate, then the same person working on different modules at different times, need not to remember any dependencies : both conserves locality of reasoning.
 
 
-\subsubsection{Locality}
-
-The Software Principle of Locality \cite{Dobson}
-Not a very good article, but advocate principle of locality :
-the person working closely, in terms of both space and time, to an artefact is the most qualified person to remove defects associated with it. This
 
 
 

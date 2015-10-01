@@ -1,9 +1,9 @@
 \section{Parallel execution} \label{chapter3:parallel-execution}
 
-Programming started with a very sequential nature, as we saw in the last chapter.
-But it eventually evolved toward concurrency to make advantage of the parallel architecture.
+Programming started with a very sequential nature, as Moore's law \cite{Moore1965} was wrongly interpreted as an exponential evolution in the sequential performance of the processing unit.
+But it eventually evolved toward concurrency to make advantage of parallel architectures.
 
-The first models of computation, like the Turing machine and lambda-calculus, were inherently sequential and based on a global state.
+The first models of computation, like the Turing machine and lambda-calculus, were sequential and based on a global memory state.
 A formalism was lacking to represent concurrent computations.
 We present the most important works on formalisms for parallel computation.
 They first tackled the problems of determinacy, communication and state synchronization.
@@ -14,10 +14,9 @@ Recently, with the need of performance from the web to process stream of request
 \subsection{Concurrency Theory} \label{chapter3:parallel-execution:concurrency-theory}
 
 The mathematical models are a ground for all following work on concurrent programming, we briefly explain them in the next paragraphs.
-There is two main formal models for concurrent computations.
-The Actor Model of C. Hewitt, the Pi-calculus of R. Milner and the Communicating Sequential Processes of T. Hoare.
-Based on these definition, we explain the importance of determinism, and the reason that asynchronous message-passing prevailed.
-
+There are two main formal models for concurrent computations.
+The Actor Model of C. Hewitt, the Pi-calculus of R. Milner.
+Based on these definition, we explain the importance of determinism, and the reason that made asynchronous message-passing prevail.
 
 % TODO illustration of cells, and draw an analogy between cells and actor model.
 % Or something the actor models is based upon.
@@ -29,25 +28,24 @@ Based on these definition, we explain the importance of determinism, and the rea
 The Actor model allows to express the computation as a set of communicating actors \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
 In reaction to a received message, an actor can create actors, send messages, and choose how to respond to the next message.
 All actors are executed concurrently, and communicate asynchronously.
+% The Actor model uses an asynchronous message-passing communication paradigm.
+% The communication between two actors, the sender and the receiver, is a stream of discrete messages.
+% The sender names the receiver actor when sending messages to be the recipient of these messages.
+Asynchronous communication means that the sender continues its execution immediately after sending the message, before receiving the result of the initiated communication.
 
 The Actor model was presented as a highly parallel programming model, but intended for Artificial Intelligence purposes.
-Its success spread way out of this first scope, and it became a general reference on message passing parallel programming.
-For example, the Scala language advertises its use of an actor approach of concurrency.
+Its success spread way out of this first scope, and it became a general reference and influence.
+% For example, the Scala programming language features an actor approach to concurrency.
 
 % More recent work of C. Hewitt on Actors is about ... \nt{TODO} \cite{Hewitt2007,Hewitt2007a}.
-
-The Actor model uses an asynchronous message-passing communication paradigm.
-The communication between two actors, the sender and the receiver, is a stream of discrete messages.
-% The sender names the receiver actor when sending messages to be the recipient of these messages.
-It is asynchronous because, contrary to invocation, the sender doesn't wait for the result of the initiated communication.
 
 \paragraph{$\Pi$-calculus}
 
 R. Milner presented a process calculus to describe concurrent computation : the Calculus of Communicating Systems (CCS) \cite{Milner1975, Milner1980}.
 It is an algebraic notation to express identified processes communicating through synchronous labeled channels.
 % In CCS, process compose concurrently, communications are synchronous, and the topology is static.
-The Pi-calculus improved upon this earlier work to allow processes to be communicated as values, hence to become mobile \cite{Engberg1986,Milner1992a,Milner1992}.
-Similarly to Actors, in Pi-calculus processes can dynamically modify the topology.
+The $\pi$-calculus improved upon this earlier work to allow processes to be communicated as values, hence to become mobile \cite{Engberg1986,Milner1992a,Milner1992}.
+Therefore, similarly to Actors, in Pi-calculus processes can dynamically modify the topology.
 However, contrary to the Actor model, communications in Pi-calculus are based on simultaneous execution of complementary actions, they are synchronous.
 
 
@@ -74,8 +72,8 @@ However, contrary to the Actor model, communications in Pi-calculus are based on
 % \comment{TODO rewrite this paragraph}
 
 The Actor Model uses asynchronous communications, while $\pi$-calculus uses synchronous communications.
-Synchronous communications are deterministic.
-The message sent needs to be received to continue the execution on both ends.
+% Synchronous communications are deterministic.
+% The message sent needs to be received to continue the execution on both ends.
 Because the concurrent executions and the communications in such system are both deterministic, the result of the concurrent system is assured to be deterministic.
 Determinism is a wanted property to assure the correctness of the execution.
 
@@ -83,16 +81,17 @@ On the other hand, asynchronous communications are non-deterministic.
 The message sent can take an infinite time to be received.
 Therefore, the result of the concurrent system is not assured to be deterministic.
 
-But the communication in reality are subject to various fault and attacks, called Byzantin fault \cite{Lamport1982}.
-It makes the real communications means unable to provide the determinism required by the deterministic models.
-The Actor model, on the other hands, was explicitly designed to take physical limitations in account \cite{Hewitt1977a}.
-Eventually, All these works evolved to adopt asynchronous communications.
-Indeed, it is not realistic to build a distributed system based on synchronous communications.
+But the communication in reality are subject to various fault and attacks \cite{Lamport1982}.
+And the wait required by synchronous communication negatively impact performances of the system because of the difference between communication latency, and execution latency.
+The Actor model was explicitly designed to take these physical limitations in account \cite{Hewitt1977a}.
 
 Moreover, the total ordering of messages is only local to an actor, while between actors, messages are causally ordered.
 As Lamport showed \cite{Lamport1978}, and Reed related later \cite{Reed2012}, causal order is sufficient to build a correct distributed system.
-The non-determinism in communications is hidden by the organization of the system.
+The non-determinism in the asynchronous communications is hidden by the organization of the system.
 The execution will either terminate correctly, or not terminate at all.
+
+Eventually, following works adopted asynchronous communications.
+Indeed, it is not realistic to build a distributed system based on synchronous communications.
 
 
 
@@ -123,8 +122,8 @@ The execution will either terminate correctly, or not terminate at all.
 
 The theory advocates asynchronous message-passing, but it doesn't precise the granularity of the actors.
 In the Actor Model, everything is an actor, even the simplest types, like numbers.
-In practice this level of asynchronous communication is unachievable due to overhead.
-In practice, most implementations feature independent synchronous processes communicating by messages.
+In practice this level of asynchronous communication is unachievable due to communication overhead.
+In practice, most implementations feature independent processes communicating by messages.
 
 \subsubsection{Programming models}
 
