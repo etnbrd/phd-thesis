@@ -1,17 +1,20 @@
-\chapter{Different software systems modularities} \label{chapter3}
+\chapter{Software Design} \label{chapter3}
 \minitoc
 \eject
 
 \section{Introduction}
 
-We are interested in the evolution of the development of web applications in an economical context.
-Such application is economically constrained by the cost of both development, and exploitation.
+% We are interested in the evolution of the development of web applications in an economical context.
+Computer applications are economically constrained by the cost of both development, and exploitation.
+These constraints became even more important, and the costs increased for web applications because with the growth of the web.
+% Since the web reached a global scale, these constraints are amplified for applications available on the web.
+% These constraints are amplified for web application because the latter are reachable at a larger scale.
 In this chapter, we draw a broad view of this duality in software systems projects, to finally refine the scope on our subject of interest, and to define the problematic of this thesis.
 
 % \cit{It is becoming increasingly important to the data-processing industry to be able to produce more programming systems and produce them with fewer errors, at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. P. Stevens, G. J. Myers, L. L. Constantine \cite{Stevens1974}}.
 
 Since the early days of software development as a discipline, the best practices advocate to organize the code into independent units to decompose a problem into many subproblems.
-It was called modular programming, structured design \cite{Stevens1974}, hierarchical structure \cite{Dijkstra1968}, object-oriented programming among other approaches.
+It was called modular programming, structured design \cite{Stevens1974}, hierarchical structure \cite{Dijkstra1968} and object-oriented programming among other approaches.
 % One recurring principle in these approaches is that the units are to be as loosely coupled as possible.
 These approaches focus on improving the readability, the maintainability, the comprehensibility ...
 We say that they intend to assure the evolution of the software system.
@@ -32,24 +35,37 @@ The increasing number of transistors predicted by Moore's law needed to be reorg
 % With multiple execution units to coordinate
 
 The best practices of software development inherited two goals : to assure the evolution of implementation by decomposing it into subproblems, as well as to decompose the execution on the several execution units.
-As D. L. Parnas famously showed in 1972 \cite{Parnas1972}, these two decomposition are incompatible.
+As D. L. Parnas showed in 1972 \cite{Parnas1972}, these two decompositions are incompatible.
 It seems impossible to develop a software following a decomposition that satisfies both the evolution, and an efficient parallel execution.
 
 With the incentive to leverage the execution power of parallel architectures, 
 intensive work was done to provide tools and model to organize the execution on multiple execution units.
-Though, these works often discard completely the evolution of implementation, and are often hard to use, and to maintain.
+Though, these works often completely discard the evolution of implementation, and are often hard to use, and to maintain.
 % For example distributed systems, single instruction multiple data, among others.\nt{TODO not really good examples}
 
 There has been many attempts at reconciling the two goals into a single approach.
 But none seems really convincing enough to be widely adopted.
 Throughout this chapter, I will classify different works from the community into three categories : focus on implementation evolution, focus on parallel execution, or reconciliation of the two.
 
-My objective in this thesis is to find a reconciliation of the two goals, by finding an equivalence between two approaches with different goals, in the case of streaming web applications.
-
 
 \input{03-state-of-the-art/Growth}
 \input{03-state-of-the-art/Parallelism}
 \input{03-state-of-the-art/Reconciliation}
+
+
+\section{Proposed work}
+
+My objective in this thesis is to find a reconciliation of the two goals, by finding an equivalence between two approaches with different goals, in the case of streaming web applications.
+
+We show that there is no languages that features higher-order functions to improve modularity, a common memory store easy to develop with, but at the same time provides scalable concurrency.
+
+We aim at filling this gap, and for a concrete example, focus our work on the Javascript programing language.
+Indeed, Javascript features higher-order functions, is highly-used in concurrent context, but lacks scalable concurrency.
+
+Our work is divided into two contributions: Due and Fluxions.
+
+-> Schema roadmap.
+
 
 %-----------------------------------------------------------------------------%
                                     \endinput

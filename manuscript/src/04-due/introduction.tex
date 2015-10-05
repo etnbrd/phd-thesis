@@ -1,0 +1,64 @@
+\section{Introduction}
+
+\iftoggle{plan}{
+  20 columns papers :
+
+  \begin{center}
+    \begin{tabular}{ll}
+
+    Abstract     \dotfill & 1 column \\
+    Introduction \dotfill & 2 columns \vspace{2mm}\\
+
+    source       \dotfill & 3 columns \\
+    target       \dotfill & 3 columns \\
+    equivalence  \dotfill & 4 columns \\
+    test         \dotfill & 4 columns \vspace{2mm}\\
+
+    Related Work \dotfill & 2 columns \\
+    Conclusion   \dotfill & 1 columns \\
+
+    \end{tabular}
+  \end{center}
+}
+
+The world wide web started as a document sharing platform for academics.
+It is now a rich application platform, pervasive, and accessible from almost everywhere.
+This transformation began in Netscape 2.0 with the introduction of Javascript, a web scripting language.
+
+Javascript was originally designed for the manipulation of a graphical interface, the Document Object Model (DOM\ftnt{http://www.w3.org/DOM/}).
+Functions are first-class citizens ; it allows to manipulate them like any object, and to link them to react to asynchronous events, \textit{e.g.} user inputs and remote requests.
+These asynchronously triggered functions are named callbacks, and allow to efficiently cope with the distributed and inherently asynchronous architecture of the Internet.
+This made Javascript a language of choice to develop both client and, more recently, server applications for the web.
+
+Callbacks are well-suited for small interactive scripts.
+But in a complete application, they are ill-suited to control the larger asynchronous execution flow.
+Their use leads to intricate imbrications of function calls and callbacks, commonly presented as \textit{callback hell}\ftnt{http://maxogden.github.io/callback-hell/}, or \textit{pyramid of doom}.
+This is widely recognized as a bad practice and reflects the unsuitability of callbacks in complete applications.
+Eventually, developers enhanced callbacks to meet their needs with the concept of Promise~\cite{Liskov1988}.
+
+Promises bring a different way to control the asynchronous execution flow, better suited for large applications.
+They fulfill this task well enough to be part of the next version of the Javascript language, ECMAScript 6\ftnt{http://people.mozilla.org/~jorendorff/es6-draft.html}.
+However, because Javascript started as a scripting language, beginners are often not introduced to Promises early enough.
+Most APIs use the classical callback approach encouraging beginner in this practice.
+Moreover, despite its benefits, the concept of Promise is not yet widely acknowledged.
+Developers may implement their own library for asynchronous flow control before discovering existing ones.
+There is such a disparity between the needs for and the adoption of Promises libraries, that there are almost 40 different implementations\ftnt{https://github.com/promises-aplus/promises-spec/blob/master/implementations.md}.
+% TODO reformulate this sentence.
+
+With the upcoming introduction of Promise as a language feature, we expect an increase of interest, and believe that many developers will shift to this better practice.
+In this paper, we propose a compiler to automate this shift in existing code bases.
+We present the transformation from an imbrication of callbacks to a sequence of Promise operations, while preserving the semantic.
+
+Promises bring a better way to control the asynchronous execution flow, but they also impose a conditional control over the result of the execution.
+Callbacks, on the other hand, leave this conditional control to the developer.
+This paper focuses on the transformation from imbrication of callbacks to chain of Promises.
+To avoid unnecessary modifications on this conditional control, we introduce an alternative to Promises leaving this conditional control to the developer, like callbacks.
+We call this simpler specification Dues.
+Our approach enables us to compile legacy Javascript code and brings a first automated step toward full Promises integration.
+This simple and pragmatic compiler has been tested over 64 \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}), 9 of them with success.
+
+In section \ref{section:definitions} we define callbacks, Promises and Dues.
+In section \ref{section:equivalence}, we explain the transformation from imbrications of callbacks to sequences of Dues.
+In section \ref{section:compiler}, we present a compiler to automate the application of this equivalence.
+In section \ref{section:evaluation}, we evaluate the developed compiler.
+In section \ref{section:related}, we present related works, and finally conclude in section \ref{section:conclusion}.

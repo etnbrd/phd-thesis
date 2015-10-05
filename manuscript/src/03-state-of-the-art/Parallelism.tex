@@ -1,13 +1,13 @@
-\section{Parallel execution} \label{chapter3:parallel-execution}
+\section{Software Efficiency} \label{chapter3:parallel-execution}
 
 Programming started with a very sequential nature, as Moore's law \cite{Moore1965} was wrongly interpreted as an exponential evolution in the sequential performance of the processing unit.
-But it eventually evolved toward concurrency to make advantage of parallel architectures.
+But it eventually evolved toward concurrency to make advantage of parallel architectures \cite{Flynn1972}.
 
 The first models of computation, like the Turing machine and lambda-calculus, were sequential and based on a global memory state.
-A formalism was lacking to represent concurrent computations.
+A formalism was missing to represent concurrent computations.
 We present the most important works on formalisms for parallel computation.
 They first tackled the problems of determinacy, communication and state synchronization.
-The answer to this problems seems to lie in a formalism based on a network of concurrent processes, asynchronously communicating via messages.
+The answer to this problems seems to be in a formalism based on a network of concurrent processes, asynchronously communicating via messages.
 We present the works on the programming models based on this formalism.
 Recently, with the need of performance from the web to process stream of requests, we see huge improvements in the field of distributed stream processing.
 
@@ -16,7 +16,7 @@ Recently, with the need of performance from the web to process stream of request
 The mathematical models are a ground for all following work on concurrent programming, we briefly explain them in the next paragraphs.
 There are two main formal models for concurrent computations.
 The Actor Model of C. Hewitt, the Pi-calculus of R. Milner.
-Based on these definition, we explain the importance of determinism, and the reason that made asynchronous message-passing prevail.
+Based on these definitions, we explain the importance of determinism, and the reason that made asynchronous message-passing prevail.
 
 % TODO illustration of cells, and draw an analogy between cells and actor model.
 % Or something the actor models is based upon.
@@ -75,7 +75,8 @@ The Actor Model uses asynchronous communications, while $\pi$-calculus uses sync
 % Synchronous communications are deterministic.
 % The message sent needs to be received to continue the execution on both ends.
 Because the concurrent executions and the communications in such system are both deterministic, the result of the concurrent system is assured to be deterministic.
-Determinism is a wanted property to assure the correctness of the execution.
+The correctness of the execution of deterministic systems is guaranteed.
+% Determinism is a wanted property to assure the correctness of the execution.
 
 On the other hand, asynchronous communications are non-deterministic.
 The message sent can take an infinite time to be received.
@@ -117,58 +118,66 @@ Indeed, it is not realistic to build a distributed system based on synchronous c
 
 
 
-\subsection{Message passing concurrency} \label{chapter3:parallel-execution:message-passing}
+\subsection{Concurrent Programming}
 
+As demonstrated by the theory, concurrency basically boils down to message passing.
+However, there exist several programming model abstracting more or less this theoretical view.
+
+\subsubsection{Independent Processes}
 
 The theory advocates asynchronous message-passing, but it doesn't precise the granularity of the actors.
 In the Actor Model, everything is an actor, even the simplest types, like numbers.
-In practice this level of asynchronous communication is unachievable due to communication overhead.
-In practice, most implementations feature independent processes communicating by messages.
+In practice, contrary to OOP, this level of granularity is unachievable due to the asynchronous communication overhead.
+Most implementations adopt a granularity on the process or function level.
 
-\subsubsection{Programming models}
-
+The first concurrent programming concept using message passing was the coroutine.
+It influenced many following works.
 Conway defines coroutines as an autonomous program which communicate with adjacent modules as if they were input and output subroutines.\cite{Conway1963}
-It seems to be the first definition of a parallel pipeline.
-\textit{When coroutines A and B are connected so that A sends items to B, B runs for a while until it encounters a a read command, which means it needs something from A. The control is then transfered to A until it wants to write, whereupon the control is returned to B at the point where it left off.}
+It is the first definition of a pipeline to implement multi-pass algorithms.
+Similar works include the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}, and the Kahn Networks \cite{Kahn1974, Kahn1976}.
 
-Hoare presented the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}.
-These processes are executed concurrently, and communicates events via named channels.
-The evolutions of this model were influenced by, and influenced the work of Milner that led to $\pi$-calculus.
+% Hoare presented the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}.
+% These processes are executed concurrently, and communicates events via named channels.
+% The evolutions of this model were influenced by, and influenced the work of Milner that led to $\pi$-calculus.
 
-Similarly, Kahn developed the Kahn Networks \cite{Kahn1974, Kahn1976}, following the work of Conway on coroutines.
-They are explicitly parallel coroutines separated by bounded FIFO streams for communication.
+% Similarly, Kahn developed the Kahn Networks \cite{Kahn1974, Kahn1976}, following the work of Conway on coroutines.
+% They are explicitly parallel coroutines separated by bounded FIFO streams for communication.
 
-These programming models are highly similar, and differs only in details irrelevant for this thesis.
-However, it is interesting to note that they don't correctly inherit from the Actor Model, as it is generally impossible to dynamically modify the topology of the application.
+These programming models differ from the Actor Model, because they don't allow to dynamically modify the topology of the application.
 Coroutines and processes are defined statically in the source of the application.
-We shall come back to this limitation later.
+We shall come back to this limitation later in this thesis.
 
-\subsubsection{Scalability law}
+% The shared-nothing architecture \cite{Stonebraker1986}.
 
-These programming model were applied to run programs concurrently in machines providing a single processor, or shared resources among processors, like a common memory store, or network interface.
-To manage these resources, and avoid conflicting accesses, it is crucial to assure the mutual exclusion.
+\subsubsection{Synchronization}
+
+These programming model allowed parallel execution, but at the time, the machine featured a single execution unit or shared resources among execution units, like a common memory store, or network interface.
+Multiprogramming was used to allow different programs to be executed concurrently in isolated processes, and to share resources \cite{Dijkstra1968}.
+To synchronize the different processes over these resources, and avoid conflicting accesses, it is crucial to assure the mutual exclusion.
 For this purpose, Djikstra introduced the Semaphore \cite{Dijkstra}.
+Similar works include guarded commands \cite{Dijkstra1975}, guarded region \cite{Hansen1978a} and monitors \cite{Hoare1974}.
 
-Following this work, he also introduced guarded commands \cite{Dijkstra1975} and Hansen introduced guarded region \cite{Hansen1978a}.
-Both assure the execution of a set of instructions to be exclusive to only one process.
+% Following this work, he also introduced guarded commands \cite{Dijkstra1975} and Hansen introduced guarded region \cite{Hansen1978a}.
+% Both assure the execution of a set of instructions to be exclusive to only one process.
 
-Hoare introduced the monitor following the work of Hansen \cite{Hoare1974}.
-A monitor is an extension of a class, it regroups data and procedures, except that it assures its procedures to be entered only once at a time.
-With this restrictions, it guards against race condition on the access of a shared resource.
-Modula \cite{Wirth1977} and Concurrent Pascal \cite{Hansen1975} uses Monitors.
+% Hoare introduced the monitor following the work of Hansen \cite{Hoare1974}.
+% A monitor is an extension of a class, it regroups data and procedures, except that it assures its procedures to be entered only once at a time.
+% With this restrictions, it guards against race condition on the access of a shared resource.
+% Modula \cite{Wirth1977} and Concurrent Pascal \cite{Hansen1975} uses Monitors.
 
-\paragraph{Multi-threading}
+\paragraph{Multi-Threading}
 
-Multi-threading programming extensively uses these concepts, because of the preemptive scheduling and the common storage.
-When executed in a parallel architecture, we say it follows the Multiple Instruction Multiple Data (MIMD) paradigm.
-Preemptive scheduling is known to lead to bad performances, and difficulties in the development \cite{Adya2002}.
-\nt{This paragraph is too short, and not well structured. Introduce Fibers ?}
+Multi-threading programming make use of synchronization within isolated processes.
+Threads are light processes sharing the same memory execution context within an isolated process.
+It seems to be an easy solution to parallelize sequential execution on parallel execution units with a common memory store.
+But because of the preemptive scheduling, threads require to synchronize over each and every shared memory cell.
+It is known that this heavy synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
+
+% When executed in a parallel architecture, we say it follows the Multiple Instruction Multiple Data (MIMD) paradigm.
 
 \paragraph{PGAS}
 
-Another approach to parallelism is the Single Program Multiple Data (SPMD) paradigm.
-As an example, is the Partitioned Global Address Space (PGAS) model.
-It has the advantage of providing to the developer a uniform access to a distributed memory space.
+The Partitioned Global Address Space (PGAS) model is another approach to provide a uniform memory access for the developer.
 Each computing node executes the same program, and provide its local memory to be shared with all the other nodes.
 The PGAS programming model assure the remote accesses and synchronization of memory across nodes, and enforces locality of reference, to reduce the communication overhead.
 % This model is a SPMD : Single Program Multiple Data.
@@ -176,16 +185,17 @@ Known implementation of the PGAS model are
 Chapel\cite{Chamberlain2007},
 X10 \cite{Charles2005}.
 Unified Parallel C \cite{El-Ghazawi2006},
-CoArray Fortran \cite{Numrich1998},
+CoArray Fortran \cite{Numrich1998} and
 OpenSHMEM \cite{Chapman2010}.
 
-Amdahl warned against sequential portion of a program impacting the performance gained with parallelism \cite{Amdahl1967}.
-Ghunter extended Amdahl's law to show that sharing resources, even protected, leads to bad, and even decreases performances with increasing parallelism \cite{Gustafson1988,Gunther1993,Gunther1996,Nelson1996,Gunther2002}.
-If portions of program in Multi-threading and PGAS are sequential, that is, if they share resources, it implies to defer the execution until the resource becomes available.
-This wait impacts performances negatively.
-Therefore, isolating the parallel processes in such way to limit the communication to the minimum is a better way to achieve efficient parallelism.
-It is important the processes to be independent, and communicate solely by messages.
+\paragraph{Scalability Limitation}
 
+Amdahl and later Ghunter theorized the speedup gains with parallelism for a sequential program \cite{Amdahl1967}.
+Their conclusion is that sharing resources protected by mutual exclusion eventually decreases performances when increasing parallelism \cite{Gustafson1988,Gunther1993,Gunther1996,Nelson1996,Gunther2002}.
+
+The execution regions requiring the same resource needs to execute sequentially.
+This wait impacts performances negatively because of contention.
+Therefore, to increase parallelism one needs to increase the number of independent processes, and to ensure their communicate to be solely by asynchronous messages without waiting.
 
 \subsubsection{Programming languages}
 
@@ -196,7 +206,7 @@ To some extent, these languages succeeded in industrial contexts.
 However, they largely remain elitist solutions for specific problems more than a general, and accessible tool.
 
 Scala is an attempt at unifying the object model and functional programming \cite{Odersky2004}.
-It proposes an actor approach in its design.
+% It proposes an actor approach in its design.
 Akka\ftnt{http://akka.io/} is a framework based on Scala, to build higly scalable and resilient applications.
 
 Erlang is a functional concurrent language designed by Ericsson to operate telecommunication devices \cite{JoeArmstrong}.
@@ -208,8 +218,8 @@ All the solutions previously presented are generally designed to build distribut
 We focus on real-time applications as defined by \cite{Hansen1978}.
 A real-time application must respond to a variety of simultaneous requests within a certain time.
 Otherwise, input data may be lost or output data may lose their significance.
-Such applications nowadays are often connected to the internet, which implies to process high volumes streams of requests with a constrained latency.
-Moreover, because these systems are key to business, their reliability is of critical importance.
+Such applications nowadays are often connected to the internet, which implies to process high volumes streams of requests.
+Moreover, because these systems are key to business, their reliability and latency are of critical importance.
 These requirements are challenging to meet in the design of such system.
 We present the state of the art.
 
@@ -242,9 +252,10 @@ We present the state of the art.
 
 \subsubsection{Data-stream management systems}
 
-The processing of large volume of data is usually handled by Database management systems.
-It is naturally that these systems evolved to manage data-streams as well.
-These systems continuously run on data streams request written in an SQL-like language.
+The processing of large volume of data was historically handled by Database management systems.
+These systems naturally evolved to manage data-streams as well.
+They continuously run SQL-like requests on data streams.
+The computation of these requests spread over a distributed architecture.
 Among the early works, we can cite NiagaraCQ \cite{Chen2000,Naughton2001}, Aurora \cite{Abadi2003,Abadi2003a,Balakrishnan2004} which evolved into Borealis \cite{Abadi2005}, AQuery \cite{Lerner2003}, STREAM \cite{Arasu2003,Arasu2005} and TelegraphCQ \cite{Krishnamurthy2003,Chandrasekaran2003}.
 More recently, we can cite DryadLINQ \cite{Isard2007,Yu2009}, Timestream \cite{Qian2013} and Shark \cite{Xin2013}.
 
@@ -274,6 +285,8 @@ More recently, we can cite DryadLINQ \cite{Isard2007,Yu2009}, Timestream \cite{Q
 
 
 \subsubsection{Dataflow pipeline}
+
+Another model successful model to process data stream is the pipeline architecture.
 
 SEDA is a precursor in the design of pipeline-based architecture for real-time applications for the internet \cite{Welsh2001}.
 It organizes an application as a network of event-driven stages connected by explicit queues.

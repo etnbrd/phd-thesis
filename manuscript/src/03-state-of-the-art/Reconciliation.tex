@@ -1,25 +1,5 @@
 \section{Reconciliations}
 
-TODO
-
-\endinput
-
-There are attempts at conciling the two approaches.
-
-Without a transformation process :
-Erlang - Jay Nelson, Structured Programming Using Processes
-
-With a transformation process :
-Parnas already advocated conciling the two methods in its Information Hiding paper.
-Using an assembler to transform the high-level, development, vision into the low-level, execution, vision.
-
-
-
-
-
-In its paper Simultaneous considered harmful, Reed finally present that the concept of mutex is inherently problematic in a distributed system.
-And much much more.
-
 
 
 
@@ -27,19 +7,27 @@ And much much more.
 
 \subsubsection{Algorithmic Skeletons}
 \cite{McCool2010} Mc Cool, Structured Parallel Programmin with Deterministic Patterns
-
 \textit{The general idea is that specific combinations of computation and data access recur in many different algorithms.}
 
-\subsubsection{Accelerators}
+\subsubsection{Accelerators} -> Annotations
 CUDA, OpenCL
 
-\subsubsection{SOA}
+
+Difference between skeletons and accelerators ?
+
+Imperative
+  Piccolo      Parallel in-memory \cite{Power2010}
+  CIEL         Stateless dataflow \cite{Murray2011}
+  Statdeful Dataflow Graph (SDG)          Stateful dataflow  \cite{Fernandez2014a}
+
+
 
 \subsubsection{Lock-free Algorithm}
 
-  Lock-free algorithm are highly concurrent, as they can be replicated, however, they are limited, and really hard to develop.
-  \url{https://en.wikipedia.org/wiki/Non-blocking_algorithm}
+Lock-free algorithm are highly concurrent, as they can be replicated, however, they are limited, and really hard to develop.
+\url{https://en.wikipedia.org/wiki/Non-blocking_algorithm}
 
+\subsubsection{Microservices \& SOA}
 
 Microservices are in the reconciliation category, I think.
 It is an attempt at reconciling the two organization. 
@@ -48,11 +36,58 @@ However, it doesn't support growth as well as sequential programming.
 
 
 
+\subsection{Compilation}
+
+Parnas already advocated conciling the two methods in its Information Hiding paper.
+Using an assembler to transform the high-level, development, vision into the low-level, execution, vision.
+
+
+\subsubsection{Cyclic parallelism}
+Data parallelism / Vectorization
+
+\subsubsection{Pipeline parallelism}
+Task parallelism / Pipeline parallelism
+
+
+An Overview of the SUIF Compiler for Scalable Parallel Machines. \cite{Amarasinghe1995}
+
+
+Interesting articles :
+
+http://comjnl.oxfordjournals.org/content/early/2015/09/15/comjnl.bxv077.abstract
+
+
+-> THIS, to read
+Load balanced pipeline parallelism \cite{Kamruzzaman2013}
+
+
+\subsubsection{Static analysis}
+
+Javascript static analysis here
+
+\endinput
+
+There are attempts at conciliating the two approaches.
+
+Without a transformation process :
+Erlang - Jay Nelson, Structured Programming Using Processes
 
 
 
-Imperative
-  Piccolo      Parallel in-memory \cite{Power2010}
-  CIEL         Stateless dataflow \cite{Murray2011}
-  Statdeful Dataflow Graph (SDG)          Stateful dataflow  \cite{Fernandez2014a}
 
+
+
+
+
+
+Continuations and coroutines \cite{Haynes1984}
+-> THIS
+
+Parallel closures, a new twist on an old idea \cite{Matsakis2012a}
+
+Making state explicit ... \cite{Fernandez2014a}
+
+http://2015.splashcon.org/event/splash2015-splash-i-lindsey-kuper-talk
+
+
+Continuation of work on SEDA \cite{Salmito2014}

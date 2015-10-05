@@ -1,20 +1,30 @@
-\section{Implementation Evolution}
+\section{Software Design}
 
-The evolution of a software system holds on the readability and comprehensibility hence maintainability of its implementation.
-These properties are attained by decomposing the implementation into many modules with a distinct scope of action.
+In order to improve and maintain a software system, one needs the mental representation behind its conception.
+Architects, and mechanical engineer draw codified plans to share their mental representations with other architects and building teams.
+Similarly software developers write source codes.
+But because the source code represents both the plan and its execution, the second aspect tends to shadow the first, and the mental representation is lost in technical the details and optimizations of the implementation.
+It then becomes hard or even impossible to quickly grasp without the associated mental representation.
+Newcomers, or even the initial author after several weeks, would have difficulties to understand the system.
+This problem becomes even more critical as the size of the system grows in size.
+Therefore, it is important to decompose the system into smaller subsystem easier to grasp individually.
+Such decomposition, improve the readability and comprehensibility hence maintainability of the implementation of a software system.
 In this section, we show the theoretical tools for this decomposition, and their application in programming languages.
 
 \subsection{Modularity}
 
 \subsubsection{Structured Programming}
 
-Eventually, the growing size and complexity of software systems urges the developers to split the problem into isolated subproblems.
-Dijkstra formalized this procedure on two levels, at a fine grain and at a coarse grain.
+The growing size and complexity of software systems eventually urges the developers to split the problem into isolated subproblems.
+To respond to this problem, Dijkstra developed the concept of Structured Programming \cite{Dijkstra1970}.
+D. Knuth cited C. Hoare to define Structured Programming as \textit{the systematic use of abstraction to control a mass of details, and also a means of documentation which aids program design} \cite{Knuth1974}.
+Dijkstra formalized this procedure on two levels, at a fine grain and at a coarse grain \cite{Dijkstra1968a,Dijkstra1968}.
 
-A program expressed as a continuous suite of instructions with occasional jumps with \texttt{goto} statement makes the flow of control very hard to follow and understand.
-It is spaghetti code.
-Dijkstra stood up against the use of the \texttt{goto} statement, to instead decompose the problem into subproblem encapsulated into reusable functions \cite{Dijkstra1968a}.
-This is called structured programming, and it impacts the development at a fine grain, at the function level.
+% A program expressed as a continuous flow of instructions with occasional jumps with 
+The \texttt{goto} statement makes the flow of control very hard to follow and understand.
+It is called spaghetti code.
+Dijkstra advocated instead to decompose the problem into subproblems encapsulated into  structures and reusable functions \cite{Dijkstra1968a}.
+It impacts the development at a fine grain.
 
 He also proposed to design complex systems with a hierarchical structure \cite{Dijkstra1968}.
 It decomposes a bigger problem at a coarser grain into subproblems encapsulated into layers.
@@ -26,7 +36,7 @@ This work established grounds for what is know called modular programming.
 
 \subsubsection{Modular Programming}
 
-Modular programming advocates to design a software system as an ensemble of modules communicating with each other.
+Modular programming advocates to design a software system as an assembly of modules communicating with each other.
 The goal of using modular programming is twofold.
 It allows a developer to limit its understanding only to the features isolated inside a module, instead of understanding the whole problem \cite{Stevens1974}.
 And it reduces development time by allowing several developers to implement simultaneously different modules \cite{Wong2009,Cataldo2006}.
@@ -48,35 +58,34 @@ It is important that the modular organization stand against the evolutions in th
 The interfaces between modules, and the contents of these modules need to be well thought.
 The information hiding principle, and the separation of concerns are two similar approach to do so.
 
-\subsubsection{Separation of Concerns}
-
-Dijkstra \cite{Dijkstra1982} coined the terms separation of concerns almost thirty five years ago and its initial definition drifted and lose its initial meaning.
-It is interesting to note the difference between the new and the old meaning, as it is related to the goal of this thesis.
-% Initially, it meant the ability to reason independently about different concern about a software system.
-My understanding of the initial definition, was not to encapsulate different concerns into different modules, but to analyze independently how a system meets each concern.
-Dijkstra gives the example of analyzing independently correctness and efficiency.
-It is impossible to encapsulate correctness, or efficiency in different modules.
-In this respect, this thesis is oriented towards separating the concern of development evolution and the concern of performance.
-That is to be able to reason on the maintainability of a program, independently than of its performance, and vice versa.
-
-However, the separation of concerns is now orthogonal to its first meaning.
-It is a design principle advocating that each module is responsible for one and only one specific concern \cite{Tarr1999,Hursch1995}.
-For example, the separation of the form and the content in HTML / CSS, or the separation of concerns in the network stack, are example of separation of concerns.
-This new meaning is closer to the information hiding principle.
-
-% The drift in meaning seems to come from a confusion between a concern one have about this system, which is a property of the system (efficiency, readability, correctness), and a design choice to encapsulate to avoid impacting the whole system.
-
 \subsubsection{Information Hiding Principle}
 
 The information hiding principle helps define the content of modules so as to limit the impact of the evolution to a small portion of the implementation \cite{Parnas1972}.
 It advocates to encapsulate a specific design choice in each module to isolate the evolution on this choice from impacting the rest of the implementation.
-
-This article clearly opposes the definition of modules following the information hiding principle from the one following a pipeline approach to parallelize the execution.
-In this thesis, we shall investigate further this opposition to separate the concern of evolution and the concern of performance in the case of a web application as Dijkstra defined it.
-In the next subsection we investigate the first concern, we present the major programming models used to improve the evolution of an application.
+In this article \cite{Parnas1972}, D. Parnas clearly opposes the organization of modules following the information hiding principle from the one following a pipeline approach to parallelize the execution.
+The former organization supports the development evolution, while the latter is more favorable to parallel execution and to performance.
+This opposition shows that a program cannot follow an organization that support both development evolution, and performance.
 
 % The structure and value of modularity in software design \cite{Sullivan2001a}
 % -> We identify an issue for software designers that neither Parnas’s formulation nor subsequent developments based on it adequately address: A designer is responsible for producing the greatest benefit for any given investment of time, talent, money, and other resources.
+
+\subsubsection{Separation of Concerns}
+
+The Separation of Concern is a design principle advocating that each module is responsible for one and only one specific concern \cite{Tarr1999,Hursch1995}.
+For example, the separation of the form and the content in HTML / CSS, or the OSI model for the network stack, are example of separation of concerns.
+
+However, this definition is orthogonal to the original meaning coined by Dijkstra \cite{Dijkstra1982}.
+It is interesting to note this difference, as it is related directly to this thesis.
+% Initially, it meant the ability to reason independently about different concern about a software system.
+The initial definition was about analyzing independently how a system meets different concerns.
+Dijkstra gives the example of analyzing independently correctness and efficiency.
+It is impossible to encapsulate correctness, or efficiency in a module, they concern the whole system.
+In this respect, this thesis is oriented towards separating the concern of development evolution and the concern of performance.
+That is to be able to reason on the maintainability of a program, independently than of its performance, and vice versa.
+This seems challenging as D. Parnas opposed these two concerns.
+
+In this thesis, we investigate further this opposition to separate the concern of evolution and the concern of performance in the case of a web application.
+In the next subsection we investigate the first concern, we present the major programming models used to improve the evolution of an application.
 
 \subsection{Programming Models}
 
@@ -94,10 +103,10 @@ We present two programming models : object oriented programming and functional p
 % \item The class is the repository for behavior associated with an object. That is, all objects that are instances of the same class can perform the same actions.
 % \end{enumerate}
 
-Though the recent understanding of Object-Oriented Programming (OOP) focuses strongly on the concepts of class, inheritance and polymorphism, Alan Kay, who coined the term, states in a public mail exchange\ftnt{http://userpage.fu-berlin.de/~ram/pub/pub\_jf47ht81Ht/doc\_kay\_oop\_en} that the original definition is about message-passing, encapsulation and late binding.
+Alan Kay, who coined the term, states that Object Oriented Programming (OOP) is about message-passing, encapsulation and late binding.
+(There is no scholar reference for that, only a public mail exchange\ftnt{http://userpage.fu-berlin.de/~ram/pub/pub\_jf47ht81Ht/doc\_kay\_oop\_en}.)
 This original definition is strongly related to modular programming.
 It helps encapsulate both the data, and the functions to process this data in an isolated, loosely coupled module.
-
 The very first OOP language was Smalltalk \cite{Goldberg1984}.
 It defined the core concept of OOP, and is inspired by LISP and by the definition of the Actor Model, which we will define in the next section.
 
@@ -105,11 +114,13 @@ It defined the core concept of OOP, and is inspired by LISP and by the definitio
 % http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en
 % I thought of objects being like biological cells [...] able to communicate with messages ...
 
-Now, the major languages of the software industry feature the new Object-Oriented approach.
-We can cite C++, Java, Javascript, Python, Ruby, among others.
-Though, the trends in programming language seems to forget this Object-Oriented approach to favor the original approach, which is incidentally closer to the functional approach.
-Indeed Javascript, Ruby and Python are dynamically typed and of higher-order.
-The field test seems to have had reason of the recent deviation of OOP to come back closer to its original definition.
+Object-Oriented Programming evolved to adopt as well the concepts of class, inheritance and polymorphism.
+The major languages of the software industry feature this Object-Oriented approach.
+We can cite C++ and Java as the emblematic figures of OOP.
+
+Though, the field test seems to have had reason of this strict version of OOP.
+The trends in programming language seems to digress from the pure Object-Oriented approach to evolve toward an approach closer to Functional Programming.
+Indeed Javascript, Ruby and Python adopt functional features such as dynamic typing and higher-order functions.
 
 % \paragraph{Object Calisthenics}
 
@@ -140,7 +151,7 @@ Two features that major programming languages now commonly adopt.
 Languages providing higher-order functions allows to manipulate functions like any other primary value : to store them in variables, or to pass them as arguments.
 Higher-order functions replace the needs for most modern object oriented programming design patterns \ftnt{http://stackoverflow.com/a/5797892/933670}.
 Higher-order functions and lazy evaluation help loosen the couple between modules, and improve their re-usability.
-\textit{In fine}, it helps developers to write applications that are more resilient to evolutions \cite{Hughes1989}.
+\textit{In fine}, it helps developers to write applications that are more maintainable, and upgradeable \cite{Hughes1989}.
 
 \paragraph{Closures}
 
@@ -151,6 +162,8 @@ It allows this function to access variable from this context, even when invoked 
 It loosen the couple between modules, and helps define more generic and reusable modules.
 However, it increase their dependencies during the execution.
 Indeed, by exchanging closures, two modules intricately share their contexts of execution.
+
+\paragraph{}
 
 Functional programming greatly improves the resilience of implementation to the evolution of their specification.
 However, it requires a global memory to share the context of execution among modules.

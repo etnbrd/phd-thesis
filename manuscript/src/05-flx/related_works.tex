@@ -1,0 +1,39 @@
+\section{Related Works} \label{section:related}
+
+The idea to split a task into independent parts goes back to the Actor's model, functional programming and the following works on Data\-Flow leading up to Flow-based Programming (FBP) and Functional Reactive program\-ming  (FRP).
+Both FBP and FRP, recently got some attention in the Javascript community with the projects \textit{NoFlo}\ftnt{http://noflojs.org/}, \textit{Bacon.js}\ftnt{https://baconjs.github.io/} and \textit{react}\ftnt{https://facebook.github.io/react/}.
+
+The execution model we presented in section \ref{section:model}, is inspired by some works on scalability for very large systems, like the Staged Event-Driven Architecture (SEDA) by Matt Welsh \cite{Welsh2000} and later by the MapReduce architecture \cite{Dean2008}.
+It also drew its inspiration from more recent work following SEDA.
+Among the best-known following works, we cited in the introduction Spark \cite{Zaharia2012}, MillWheel \cite{Akidau2013}, Naiad \cite{McSherry} and Storm \cite{Toshniwal2014}.
+The first part of our work stands upon these thorough studies.
+However, we believe that it is difficult for most developers to distribute the state of an application.
+% However, we believe that it is too difficult for most developers to express an application into a network of independent parts communicating through messages.
+This belief motivated us to propose a compiler from an imparative programming model to these more scalable, distributed execution engines.
+
+% The compiler makes use of the work on the BASE\cite{Fox1997} data semantics to justify trading off consitency for availability.
+% We cite the work on the BASE\cite{Fox1997} and ACID data semantics, but the compiler doesn't use these works.
+
+The transformation of an imperative programming model to be executed onto a parallel execution engine was recently addressed by Fernandez \textit{et. al.} \cite{Fernandez2014a}.
+However, as in similar works \cite{Power2010}, it requires annotations from developers, therefore partially conserves the disruption with the feature-based development.
+Our approach avoids the need for annotations, thus targets a broader range of developers, and not only ones experienced with parallel development.
+% aims at improving furthermore the accessibility.
+% Developers seems to have little difficulties programming in an asynchronous concurrent programming model, like the Javascript event-loop.
+% In such programming model, the memory is global but the algorithm is ripped into multiple, asynchronous steps.
+% While the synchronous concurrent programming model, based on multi-threading and locks to assure the consistency of shared states, is known to be more difficult to apprehend by novice developers \cite{Adya2002}.
+
+A great body of work focus on parallelizing loops in sequential programs \cite{Banerjee2013}. % \comment{TODO citation ?}
+Because of the synchronous execution of a sequential program, the speedup of parallelization is inherently limited.
+On the other hand, our approach is based on an asynchronous programming model.
+Hence the attainable speedup is not limited by the main synchronous thread of execution.
+
+% TODO
+% There is some work on the transformation of a program into distributed parts\cite{Amini2012, Petit2009}.
+
+% Promises\cite{Liskov1988} are related to our work as they are abstractions from a concurrent programming style, to an asynchronous and parallel execution model.
+% However, our approach using Node.js callback asynchronism to automate this abstraction seems unexplored yet.
+
+Our compiler uses the \textit{estools}\ftnt{https://github.com/estools} suite to parse, manipulate and generate source code from Abstract Syntax Tree (AST).
+% It modifies AST, as described in \cite{Jones2003}.
+% The implementation of the analyzer might be inspired from the points-to analysis in future works \cite{Wei2014}.
+Our implementation is based on the work by Ryan Dahl : \textit{Node.js}\ftnt{https://nodejs.org/}, as well as on one of the best-known \textit{Node.js} web framework : \textit{Express}\ftnt{http://expressjs.com/}.

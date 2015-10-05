@@ -6,59 +6,58 @@
 \begin{abstract}
 
 % Internet étend l'économie à une échelle spatiale et temporelle sans précédent.
-Internet étend nos moyens de communications, et réduit leur latence ce qui permet de développer l'économie à l'echelle planétaire.
+Internet étend nos moyens de communications, et réduit leur latence ce qui permet de développer l'économie à l’échelle planétaire.
 Il permet à chacun de mettre un service à disposition de milliards d'utilisateurs, en seulement quelques heures.
-La plupart des grands services actuels ont commencés comme de simples applications créées dans un garage par une poignée de personnes.
+La plupart des grands services actuels ont commencé comme de simples applications créées dans un garage par une poignée de personnes.
 C'est cette facilité à l'entrée qui a permis jusqu'à maintenant une telle croissance sur le web.
-Google, Facebook ou Twitter en sont les exemples les plus flagrants.
+Google, Facebook ou Twitter en sont quelques exemples.
 Au cours du développement d'une application, il est important de suivre cette croissance, au risque de se faire rattraper par la concurrence.
 Le développement est guidé par les besoins en terme de fonctionnalités, afin de vérifier rapidement si le service peut satisfaire l'audience.
 On parle d'approche modulaire des fonctionnalités.
-Des langages tel que Ruby ou Java se sont imposés comme les languages du web, justement parce qu'ils suivent cette approche qui permet d'intégrer facilement de nouvelles fonctionnalités.
+Des langages tel que Ruby ou Java se sont imposés comme les langages du web, justement parce qu'ils suivent cette approche qui permet d'intégrer facilement de nouvelles fonctionnalités.
 
 Si une application répond correctement aux besoins, elle atteindra de manière virale un nombre important d'utilisateurs.
 Son audience peut prendre plusieurs ordres de grandeurs en quelques jours seulement, ou même en quelques heures suivant comment elle est relayée.
-Une application est dites scalable si elle peut absorber ces augmentations d'audience.
-Or il est difficile pour une application suivant l'approche modulaire d'être scalable.
+Une application est dite \textit{scalable} si elle peut absorber ces augmentations d'audience.
+Or il est difficile pour une application suivant l'approche modulaire d'être \textit{scalable}.
 
 Au moment où l'audience commence à devenir trop importante, il est nécessaire de modifier l'approche de développement de l'application.
-Le plus souvent cela implique de la réécrire complètement en utilisant des infrastructures scalables qui imposent des modèles de programmation et des API spécifiques.
-Cela représente une charge de travail conséquente et incertaine.
-De plus, l'équipe de développement dois concilier cette nouvelle approche de développement scalable, avec la demande en fonctionnalités.
+Le plus souvent cela implique de la réécrire complètement en utilisant des infrastructures \textit{scalables} qui imposent des modèles de programmation et des API spécifiques, qui représentent une charge de travail conséquente et incertaine.
+De plus, l'équipe de développement dois concilier cette nouvelle approche de développement \textit{scalable}, avec la demande en fonctionnalités.
 Aucun langage n'a clairement réussi le compromis entre ces deux objectifs.
 
 Pour ces raisons, ce changement est un risque pour la pérennité de l'application.
 D'autant plus que le cadre économique accorde peu de marges d'erreurs, comme c'est le cas dans la plupart des start-up, mais également dans de plus grandes structures.
 
-Cette thèse consiste dans une certaine mesure à tenter d'écarter ce risque.
+Cette thèse est source de propositions pour écarter ce risque.
 Elle repose sur les deux observations suivantes.
-D'une part, Javascript est un langage qui a énormément gagné en popularité ces dernières années.
+D'une part, Javascript est un langage qui a gagné en popularité ces dernières années.
 Il est omniprésent sur les clients, et commence à s'imposer également sur les serveurs avec Node.js.
-Il a accumulé une communauté de développeur importante, et est l'environnement d’exécution le plus largement déployé.
+Il a accumulé une communauté de développeurs importante, et constitue l'environnement d’exécution le plus largement déployé.
 De ce fait, il se place maintenant de plus en plus comme le langage principal du web, détrônant Ruby ou Java.
-D'autre part, l'exécution de Javascript ressemble à un pipeline.
-La boucle événementielle de Javascript est un pipeline de fonctions qui s’exécutent sur un seul cœur pour profiter d'une mémoire globale.
+D'autre part, l'exécution de Javascript s'assimile à un pipeline.
+La boucle événementielle de Javascript exécute une suite de fonctions dont l’exécution est indépendante, mais qui s’exécutent sur un seul cœur pour profiter d'une mémoire globale.
 % On observe le même flux de messages traversant cette boucle événementielle que dans un pipeline.
 
-L'objectif de cette thès est de maintenir une double représentation d'un code Javascript grace à une équivalence entre l'approche modulaire, et l'approche pipeline d'un même programme.
+L'objectif de cette thèse est de maintenir une double représentation d'un code Javascript grâce à une équivalence entre l'approche modulaire, et l'approche pipeline d'un même programme.
 % L'objectif de cette thèse est d'étudier une équivalence entre l'approche modulaire, et l'approche pipeline d'un même programme.
 La première répondant aux besoins en fonctionnalités, et favorisant les bonnes pratiques de développement pour une meilleure maintenabilité.
-La seconde proposant une execution plus efficace que la première en permettant de rendre certaines parties du code relocalisable en cours d'execution.
+La seconde proposant une exécution plus efficace que la première en permettant de rendre certaines parties du code relocalisables en cours d’exécution.
 
 Nous étudions la possibilité pour cette équivalence de transformer un code d'une approche vers l'autre.
 % Pour cela nous avons développé un compilateur.
-Grace à cette transition, l'équipe de développement peut continuellement itérer le développement de l'application en suivant les deux approches à la fois, et ne pas se cloisonner dans une, et se coupant de l'autre.
+Grâce à cette transition, l'équipe de développement peut continuellement itérer le développement de l'application en suivant les deux approches à la fois, sans être cloisonné dans une, et coupé de l'autre.
 
 Nous construisons un compilateur permettant d'identifier les fonctions de Javascript et de les isoler dans ce que nous appelons des Fluxions, contraction entre fonctions et flux.
 Un conteneur qui peut exécuter une fonction à la réception d'un message, et envoyer des messages pour continuer le flux vers d'autres fluxions.
-Les fluxions étant indépendantes, elles peuvent être déplacées d'une machine à l'autre.
+Les fluxions sont indépendantes, elles peuvent être déplacées d'une machine à l'autre.
 
 Nous montrons qu'il existe une correspondance entre le programme initial, purement fonctionnel, et le programme pivot fluxionnel afin de maintenir deux versions équivalentes du code source.
-En ajoutant à un programme écrit en Javascript son expression en Fluxions, l'équipe de dévelopment peut le rendre scalable sans effort, tout en étant capable de répondre à la demande en fonctionnalités.
+En ajoutant à un programme écrit en Javascript son expression en Fluxions, l'équipe de développent peut le rendre \textit{scalable} sans effort, tout en étant capable de répondre à la demande en fonctionnalités.
 
-Ce travail s'est fait de manière concrète dans le cadre d'une thèse CIFRE dans la société Worldline.
+Ce travail s'est fait dans le cadre d'une thèse CIFRE dans la société Worldline.
 L'objectif pour Worldline est de se maintenir à la pointe dans le domaine du développement et de l'hébergement logiciel à travers une activité de recherche.
-L'objectif pour l'équipe Dice est de conduire une activité de recherche en partenariat avec un acteur industriel,
+L'objectif pour l'équipe Dice est de conduire une activité de recherche en partenariat avec un acteur industriel.
 
 \end{abstract}
 \end{otherlanguage}
