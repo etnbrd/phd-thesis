@@ -1,7 +1,6 @@
-\section{Software Efficiency} \label{chapter3:parallel-execution}
+\section{Software Efficiency} \label{chapter3:software-efficiency}
 
 Programming started with a very sequential nature, as Moore's law \cite{Moore1965} was wrongly interpreted as an exponential evolution in the sequential performance of the processing unit.
-But it eventually evolved toward concurrency to make advantage of parallel architectures \cite{Flynn1972}.
 
 The first models of computation, like the Turing machine and lambda-calculus, were sequential and based on a global memory state.
 A formalism was missing to represent concurrent computations.
@@ -173,11 +172,27 @@ It seems to be an easy solution to parallelize sequential execution on parallel 
 But because of the preemptive scheduling, threads require to synchronize over each and every shared memory cell.
 It is known that this heavy synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
 
-% When executed in a parallel architecture, we say it follows the Multiple Instruction Multiple Data (MIMD) paradigm.
+\paragraph{Lock-Free Data-Structures}
+
+An interesting alternative to locks are the wait-free and lock-free data-structures \cite{Lamport1977,Herlihy1988,Herlihy1990,Herlihy1991,Anderson1990}.
+They are based on atomic read and write operations on a shared memory.
+Therefore no locking is necessary for the algorithm to be highly concurrent.
+
+% Lock-free algorithm are highly concurrent, as they can be replicated, however, they are limited, and really hard to develop.
+% \url{https://en.wikipedia.org/wiki/Non-blocking_algorithm}
+
+% Reference papers :
+% Concurrent reading and writing \cite{Lamport1977}
+% Impossibility and universality results for wait-free synchronization \cite{Herlihy1988}
+% A methodology for implementing highly concurrent data structures \cite{Herlihy1990}
+% Wait-free synchronization \cite{Herlihy1991}
+
+% Book :
+% The virtue of Patience: Concurrent Programming With And Without Waiting \cite{Anderson1990}
 
 \paragraph{PGAS}
 
-The Partitioned Global Address Space (PGAS) model is another approach to provide a uniform memory access for the developer.
+The Partitioned Global Address Space (PGAS) model is another approach to provide a uniform memory access for the developer on a distributed architecture.
 Each computing node executes the same program, and provide its local memory to be shared with all the other nodes.
 The PGAS programming model assure the remote accesses and synchronization of memory across nodes, and enforces locality of reference, to reduce the communication overhead.
 % This model is a SPMD : Single Program Multiple Data.
@@ -259,6 +274,11 @@ The computation of these requests spread over a distributed architecture.
 Among the early works, we can cite NiagaraCQ \cite{Chen2000,Naughton2001}, Aurora \cite{Abadi2003,Abadi2003a,Balakrishnan2004} which evolved into Borealis \cite{Abadi2005}, AQuery \cite{Lerner2003}, STREAM \cite{Arasu2003,Arasu2005} and TelegraphCQ \cite{Krishnamurthy2003,Chandrasekaran2003}.
 More recently, we can cite DryadLINQ \cite{Isard2007,Yu2009}, Timestream \cite{Qian2013} and Shark \cite{Xin2013}.
 
+However, it implies to understand two paradigms of language, the SQL paradigm, and the imperative paradigm.
+Even if SQL is a turing-complete language, it is rather difficult to write a complex application only with a SQL-like language.
+The difference between these two paradigms creates a rupture in the design of the system.
+Even if the design follows an imperative structure, there are parts of SQL that merge not well with the structure.
+It is harder to separate concerns. \nt{need reference, plus rewrite this paragraph}.
 
 % SQL-like
 %   AQuery \cite{Lerner2003}
@@ -284,9 +304,9 @@ More recently, we can cite DryadLINQ \cite{Isard2007,Yu2009}, Timestream \cite{Q
 
 
 
-\subsubsection{Dataflow pipeline}
+\subsubsection{Dataflow pipeline} \label{chapter3:software-efficiency:dataflow-pipeline}
 
-Another model successful model to process data stream is the pipeline architecture.
+Another model to process data stream efficiently is the pipeline architecture.
 
 SEDA is a precursor in the design of pipeline-based architecture for real-time applications for the internet \cite{Welsh2001}.
 It organizes an application as a network of event-driven stages connected by explicit queues.

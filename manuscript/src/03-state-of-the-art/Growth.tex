@@ -1,4 +1,4 @@
-\section{Software Design}
+\section{Software Design} \label{chapter3:software-design}
 
 In order to improve and maintain a software system, one needs the mental representation behind its conception.
 Architects, and mechanical engineer draw codified plans to share their mental representations with other architects and building teams.
@@ -64,7 +64,7 @@ The information hiding principle helps define the content of modules so as to li
 It advocates to encapsulate a specific design choice in each module to isolate the evolution on this choice from impacting the rest of the implementation.
 In this article \cite{Parnas1972}, D. Parnas clearly opposes the organization of modules following the information hiding principle from the one following a pipeline approach to parallelize the execution.
 The former organization supports the development evolution, while the latter is more favorable to parallel execution and to performance.
-This opposition shows that a program cannot follow an organization that support both development evolution, and performance.
+This opposition shows that a program cannot trivially follow an organization that support both development evolution, and performance.
 
 % The structure and value of modularity in software design \cite{Sullivan2001a}
 % -> We identify an issue for software designers that neither Parnas’s formulation nor subsequent developments based on it adequately address: A designer is responsible for producing the greatest benefit for any given investment of time, talent, money, and other resources.
@@ -87,7 +87,7 @@ This seems challenging as D. Parnas opposed these two concerns.
 In this thesis, we investigate further this opposition to separate the concern of evolution and the concern of performance in the case of a web application.
 In the next subsection we investigate the first concern, we present the major programming models used to improve the evolution of an application.
 
-\subsection{Programming Models}
+\subsection{Programming Models} \label{chapter3:software-design:programming-models}
 
 Programming languages are designed for developers to follow the best practices mentioned above.
 We present two programming models : object oriented programming and functional programming.
@@ -138,7 +138,7 @@ Indeed Javascript, Ruby and Python adopt functional features such as dynamic typ
 
 
 
-\subsubsection{Functional Programming}
+\subsubsection{Functional Programming} \label{chapter3:software-design:programming-models:functional-programming}
 
 % \cit{All problems in computer science can be solved by another level of indirection}{Butler Lampson}
 
@@ -173,94 +173,9 @@ In this regard, the concern of evolution and the concern of performance seem inc
 
 \endinput
 
-
-
 \subsubsection{Modularity based on Design Decisions}
 
 Designing Software for ease of extension and contraction \cite{Parnas1979}
 
 Design Rules: The Power of Modularity Volume 1 \cite{Baldwin1999}
-A reference book, but can't get it.
-
-Design Rule Hierarchies and Parallelism in Software Development Tasks \cite{Wong2009}
-Organize design, so that modules can be developed in parallel, without communication between teams working on independent modules.
-Identification of coordination requirements \cite{Cataldo2006}
-About the communication requirement between teams working on different modules.
-
-If the teams working on different modules need not to communicate, then the same person working on different modules at different times, need not to remember any dependencies : both conserves locality of reasoning.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsubsection{Contradiction}
-
-
-To understand the problem of incompatibility between the modular design and the parallel execution, one can think about the communication between two stages.
-The result output by one stage needs to be understood by the next.
-There need to be a common understanding on the nature, and the structure of this result.
-The modular design advocates that this common ground, the interface, be the most immutable possible, the most solid possible.
-While the parallel execution defines interfaces between the stages.
-
-
-
-\endinput
-
-Since the beginning of software development, software systems are designed as the composition of smaller subsystems.\nt{Find exact reference of this}
-
-The first one follows the Information Hiding principle, firstly stated by Parnas, in 1972 in his paper On the criteria to be used in decomposing systems into modules.
-
-Dijkstra coined the term hierarchical structure in a paper presenting the decomposition of a multiprogramming system.
-Basically what we could consider a simple operating system.
-
-This paper also presents the what seems to be the very first concept of mutual exclusion, what is now regarded as an extremely difficult concept to master in concurrent programming.
-
-In 2009 we can cite Wong, Design Rule Hierarchies and Parallelism in Software Development Tasks, that aim at improving the parallelism in development tasks.
-
-
-But I am sure there is a lot more to find.
-\begin{itemize}
-  \item Structured Programming
-  \item Hierarchical structure
-  \item OOP
-\end{itemize}
-
-
-
-
-
-\endinput
-
-
-Making state explicit for imperative big data processing \cite{Fernandez2014a}
-
-Prospect: Finding and Exploiting Parallelism in a Productivity Language for Scientific Computing
-http://2015.splashcon.org/event/splash2015-splash-i-lindsey-kuper-talk
-
-Where is software headed ? \cite{Lewis1995}
--> Comparison between academic and industrial roadmap for software.
-
-Now every programming languages use pass-by-reference, or pass-by-sharing to make use of the common memory storage.
-Developers were always comfortable with this kind of storage abstraction.
-It made sequential programming almost as efficient, and sometimes more, than parallel programming because of the optimization on sequential programming, and the difficulty and the lack of optimization of parallel programming.
-
-
-
-I need to show that the 1) languages the more used are sequential with a common memory storage, because 2) it is inherently difficult to program with distributed memory storage.
-3) I need to show that the best practice of software development require this common memory storage.
-
-See Object calisthenics 
-- http://williamdurand.fr/2013/06/03/object-calisthenics/
-- http://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf
+A reference book, but I can't get it.
