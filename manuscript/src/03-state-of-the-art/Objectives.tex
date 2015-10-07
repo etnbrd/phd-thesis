@@ -18,18 +18,32 @@ Most are satisfactory for specific domains, such as the high-performance computi
 However, none is satisfactory in the case of web applications.
 Indeed, they all are too specific, and require too much from the developer to be accepted at a large scale.
 
-\comment{Here a table summarizing the different approaches, and the sweet spot.}
+% \comment{Here a table summarizing the different approaches, and the sweet spot.}
+
+\begin{table}
+\begin{tabular}{l|l|l|l}
+             & Maintainability         & Performance           & Both\\\hline
+General      & Functional Programming  & Message-passing       & Loop parallelization\\
+Web          & Javascript              & Pipeline architecture & ø
+\end{tabular}
+\caption{Summary of the state of the art}
+\label{tab:chapter3:objectives:summary}
+\end{table}
 
 Our objectives is to find an equivalence between these two organization, to be able to compile one into the other, specifically for the case of web applications.
 To do so, we focus on the Javascript programming language, and specifically, the node.js interpreter.
 We intend to split a node.js application into a parallel pipeline of stages.
-Our contribution is organized in two chapters.
+Our contribution is organized in two chapters, as illustrated in figure \ref{fig:chapter3:objectives:roadmap}.
 In the fourth chapter of this thesis, we present the extraction of a pipeline of stages from a Javascript application.
 We show that such pipeline of operations is exposed by Promises, and we propose a simpler alternative to Promises : Dues.
 However, these stages are not yet executed in parallel, and still require a global memory.
 In the fifth chapter, we present the isolation of the stages of the pipeline into isolated containers called Fluxions. 
 
-\includegraphics[width=0.5\textwidth]{../ressources/roadmap.pdf}
+\begin{figure}[h!]
+\includegraphics[width=1\textwidth]{../ressources/roadmap.pdf}
+\caption{Roadmap for this work}
+\label{fig:chapter3:objectives:roadmap}
+\end{figure}
 
 \endinput
 
