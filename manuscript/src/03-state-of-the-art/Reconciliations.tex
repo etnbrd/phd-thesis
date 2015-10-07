@@ -71,6 +71,7 @@ We present here the state of the art in compilation-based parallelization.
 One of the main approach to parallelization is to parallelize the loops inside a sequential program \cite{Amarasinghe1995,Banerjee2013,Radoi2014}.
 The loops represent most of the execution time, so it is a sweet spot to parallelize them.
 It is called vectorization, or data parallelism, as loops often iterates over an array, or vector.
+Following this trend, some proposed to parallelize closure to exploit some data parallelism \cite{Matsakis2012a}.
 However, Amdahl's law states that even if a slight portion of execution is sequential, the expected speedup is limited \cite{Amdahl1967,Clements2013a}.
 
 Another common approach is to split the sequential execution into following, parallelisable tasks to form a pipeline \cite{Kamruzzaman2013,Fernandez2014a}.
