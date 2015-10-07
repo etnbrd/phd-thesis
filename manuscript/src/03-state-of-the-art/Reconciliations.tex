@@ -1,0 +1,147 @@
+\section{Reconciliations} \label{chapter4:reconciliations}
+
+\subsection{Contradiction}
+
+As shown in the two previous sections, the decomposition of an application into a pipeline is somehow intuitive, but incompatible with the modular design advocated by the separation of concerns.
+To understand the problem of incompatibility between the modular design and the parallel execution of a pipeline architecture, one can think about the communication between two stages.
+The result output by one stage needs to be understood by the next.
+There need to be a common understanding on the nature, and the structure of this result.
+The modular design advocates that this common ground, the interface, be the most immutable possible, the most solid possible.
+While the parallel execution defines interfaces between the stages of the execution, which will eventually change with the evolution of the problem specification.
+Moreover, as the team knows that they will eventually throw away their code to upgrade it to a different paradigm, there is little effort to follow the best practice to make maintainable code.
+It result in a large effort of development to compensate this rupture.
+
+This incompatibility is blatant because, counter-intuitively, most project use languages supporting the least intuitive organization, the modular design when they need to evolve the most : at the beginning.
+They switch to the pipeline architecture only when the performance requirement overcome the requirement of evolution.
+This rupture between the two organization is not novel, and is at the center of a large body of work.
+In this section, we present the state of the art to reconciliate the two organizations.
+
+First we see the design patterns to fit both organization onto a same source code.
+Then we see the compilation tentatives to switch from one to the other.
+
+\subsection{Design patterns}
+
+As we explained in the previous sections, the two different concerns seems intuitively incompatible.
+However, it might be possible to find organizations that fit both concerns for particular cases.
+
+\subsubsection{Algorithmic Skeletons}
+
+Algorithmic skeletons are predefined patterns that fit certain type of problems \cite{Cole1988}.
+They are general computational framework for distributed computing \cite{Dean2008, McCool2010, Gonzalez-Velez2010}.
+A developer express its problem as a specific case of a skeleton.
+Using a skeleton simplify the design and implementation of the communication, hence the developer can focus on its problem independently of the distrubuted communications, and their performance overhead.
+
+As there is similtudes between SQL-like languages, functional structures, and algorithmic skeletons, the latter can be seen as a tentative to merge the more descriptional features of the former into imperative programming.
+Indeed, among the Algorithmic skeletons, we can cite Map and reduce, which are functional structures, but are somehow equivalent to the select and aggregate functions of SQL.
+The pipeline architecture for data stream processing presented in section \ref{chapter3:software-efficiency:dataflow-pipeline} can be considered as algorithmic skeletons.
+
+However, they introduce limitations and difficulties, as the developer must fit its problem into already existing skeletons.
+One of this difficulties, it that a common memory is impossible to use.
+Developers needs to think in terms of message passing, which can be somehow difficult \nt{need reference, and stengthen argument}
+
+\subsubsection{Microservices \& SOA}
+
+Service Oriented Architectures (SOA) allows developers to express an application as an assembly of services connected to each others.
+It is a good example to show the difference between Information Hiding Principles and Separation of Concerns.
+SOA is in contradiction with the former, but consistent with the latter, as a service doesn't encapsulate a design choice, but a specific task.
+
+More recently, in the web service development communities, emerged the term of microservices.
+It is a good example to test at which granularity the fitting between modular organization and parallel execution should occur.
+They advocate that software developers can manage the two organizations at a sufficiently fine level.
+
+In all these solutions, there is no possibilities of higher-order functions.
+And as we showed earlier in section \ref{chapter3:software-design:programming-models:functional-programming}, higher-order functions are an important part of the success of modular design.
+
+\subsection{Compilation}
+
+
+Instead of trying to find a fitting between the two organization, another approach is to transform the source from one organization into the other.
+\textit{It is a mistake to attempt high concurrency without help from the compiler} \cite{Behren2003}.
+When defining the Information Hiding Principle, and showing the incompatibility between the two organization, Parnas already advocated conciling the two methods using an assembler to transform the development organization into the execution organization \cite{Parnas1972}.
+We present here the state of the art in compilation-based parallelization.
+
+% Imperative Stream Processing
+%   Piccolo                                  Parallel in-memory \cite{Power2010}
+%   CIEL                                    Stateless dataflow \cite{Murray2011}
+%   Statdeful Dataflow Graph (SDG)          Stateful dataflow  \cite{Fernandez2014a}
+
+\subsubsection{Parallelism Extraction}
+
+
+One of the main approach to parallelization is to parallelize the loops inside a sequential program \cite{Amarasinghe1995,Banerjee2013,Radoi2014}.
+The loops represent most of the execution time, so it is a sweet spot to parallelize them.
+It is called vectorization, or data parallelism, as loops often iterates over an array, or vector.
+However, Amdahl's law states that even if a slight portion of execution is sequential, the expected speedup is limited \cite{Amdahl1967,Clements2013a}.
+
+Another common approach is to split the sequential execution into following, parallelisable tasks to form a pipeline \cite{Kamruzzaman2013,Fernandez2014a}.
+Pipeline parallelism is relevant only for multi-pass algorithms \cite{Conway1963}, or for stream processing applications.
+For these applications, saying that the execution is sequential is no longer relevant, instead, we could say that the flow is sequential.
+
+More generally, there is three type of parallelism, data, task and pipeline parallelism.
+Some works explored the task parallelism \cite{Rinard1996}, while other works explored the extraction of the three types from sequential program, instead of focusing on only one type \cite{Li2012}.
+
+
+\subsubsection{Static analysis}
+
+In order to extract parallelism, compilers analyze the source code of applications.
+
+An common approach to analyze the memory repreentation is the point-to analyzis, presented by L. Andersen \cite{Andersen1994}.
+It analyzes the modification of pointers through the control flow.
+
+It helps extract properties from programs, and is used in security, particularly in Javascript \cite{Chudnov2015}.
+However, these techniques are not precise enough to rely only on them for the parallelization.
+
+\subsubsection{Annotations}
+
+Extracting parallel dataflow from an impertaive, sequential programs is a hard problem \cite{Johnston2004a}.
+Some works asked the developers to annotate their code so as help the compiler extract parallelism \cite{Vandierendonck2010a}.
+It is an intermediate solution with the solution presented in the previous section.
+However, it still requires developers to learn a system of annotations, which still represent a rupture.
+
+\endinput
+
+
+Continuations and coroutines \cite{Haynes1984}
+-> THIS
+
+Parallel closures, a new twist on an old idea \cite{Matsakis2012a}
+
+Continuation of work on SEDA \cite{Salmito2014}
+
+
+
+From control flow to dataflow \cite{Beck1991}
+
+
+-> THIS, to read
+Automatic Extraction of Coarse-Grained Data-Flow Threads from Imperative Programs \cite{Li2012}
+In this paper all parallelism are extracted (data, task and pipeline).
+
+
+Commutativity analysis: A new analysis framework for parallelizing compilers \cite{Rinard1996}
+In this paper, they analyze commutative operations to parallelize them.
+It is novel because it isn't about parallelizing loops.
+However, it is not exactly pipeline parallelism either.
+
+
+Interesting articles :
+
+http://comjnl.oxfordjournals.org/content/early/2015/09/15/comjnl.bxv077.abstract
+
+
+-> THIS, to read
+Load balanced pipeline parallelism \cite{Kamruzzaman2013}
+
+
+??? The Paralax infrastructure \cite{Vandierendonck2010a}
+
+??? Blazes: Coordination analysis for distributed programs \cite{Alvaro2014}
+
+Making state explicit ... \cite{Fernandez2014a}
+http://2015.splashcon.org/event/splash2015-splash-i-lindsey-kuper-talk
+
+
+Introducing 'Bones': a parallelizing source-to-source compiler based on algorithmic skeletons \cite{Nugteren2012}
+
+
+Recent paper about Javascrypt static analysis \cite{Chudnov2015}
