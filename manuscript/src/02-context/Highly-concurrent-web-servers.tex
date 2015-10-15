@@ -1,137 +1,138 @@
 \section{Highly concurrent web servers} \label{chapter2:highly-concurrent-web-servers}
 
-\nt{This section needs review}
+
 
 \subsection{Concurrency}
 
-The Internet allows interconnection at an unprecedented scale.
-There is currently more than 16 billions devices connected to the internet, and it is growing exponentially\ftnt{http://blogs.cisco.com/news/cisco-connections-counter} \cite{Hilbert2011a}.
-This massively interconnected network gives the ability for a web applications to be reached at the largest scale.
-A large web application like google search receives about 40 000 requests per seconds.
-That is about 3.5 billions requests a day\ftnt{http://www.internetlivestats.com/google-search-statistics/}.
-Such a web application needs to be highly concurrent to manage a large number of simultaneous request.
-Concurrency is the ability for an application to make progress on several tasks at the same time.
-For example to respond to several simultaneous requests, a task is a part in the response to a request. \nt{TOOD define more clearly what is a task}
+The Internet allows communication at an unprecedented scale.
+There is more than 16 billions connected devices, and it is growing fast\ftnt{http://blogs.cisco.com/news/cisco-connections-counter} \cite{Hilbert2011a}.
+% This massively interconnected network gives the ability for a web applications to be reached at the largest scale.
+A large web application like google search receives about 40 000 requests per seconds\ftnt{http://www.internetlivestats.com/google-search-statistics/}.
+Such a web application needs to be highly concurrent to manage such load.
+% Concurrency is the ability for an application to make progress on several tasks at the same time.
+% For example to respond to several simultaneous requests, a task is a part in the response to a request. \nt{TOOD define more clearly what is a task}
 %It represents an uninterrupted flow of requests, with a growing throughput.
-
-In the 2000s, the limit to reach was to process 10 thousands simultaneous connections with a single commodity machine\ftnt{http://www.kegel.com/c10k.html}.
-Nowadays, in the 2010s, the limit is set at 10 millions simultaneous connections at roughly the same price\ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
+In the 2000s, the limit to break was 10 thousands simultaneous connections with a single commodity machine\ftnt{http://www.kegel.com/c10k.html}.
+Nowadays, in the 2010s, the limit is set at 10 millions simultaneous connections\ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
 With the growing number of connected devices on the internet, concurrency is a very important property in the design of web applications.
 
 \subsubsection{Scalability}
 
-The traffic of a popular web application such as Google search is huge, and it remains roughly stable because of this popularity.
-There is no apparent spikes in the traffic, because of the importance of the average traffic.
+The traffic of a popular web application such as Google search remains stable because of its popularity.
+The importance of the average traffic soften the occasional spikes.
+%There is no apparent spikes in the traffic, because of the importance of the average traffic.
 However, the traffic of a less popular web application is much more uncertain.
-If the web application fits the market need, it might become viral when it is efficiently relayed in the media.
-For example, when a web application appears in the evening news, it expects a huge spike in traffic.
-With the growth of audience, the number of simultaneous requests obviously  increases, and the load of the web application on the available resources increases  as well.
-The available resources needs to increase to meet the load.
-This growth might be steady and predictable enough to plan the increase of resources ahead of time, or it might be erratic and challenging.
-The spikes of a less popular web application are unpredictable.
-Therefore, the concurrency needs to be expressed in a scalable fashion.
-An application is scalable, if the growth of its audience is proportional to the increase of its load on the resources.
-For example, if a scalable application uses one resource to handle $n$ simultaneous requests, it will use $k$ resource to handle two times $n$ simultaneous requests.
-With $k$ being constant, for $n$ ranging from tens to millions of simultaneous requests.
-Scalability assures that the resource usage is not increasing exponentially in function of the audience increase ; it increases roughly linearly.
+For example, it might become viral when it is efficiently relayed in the media.
+% For example, when a web application appears in the evening news, it expects a huge spike in traffic.
+% the number of simultaneous requests obviously  increases, and 
+The load of the web application increases with the growth of audience, hence the available resources needs to increase to meet this load.
+This growth can be steady enough to plan the increase of resources ahead of time, or it might be erratic and challenging.
+% The spikes of a less popular web application are unpredictable.
+Therefore the application needs to spread over any available resources if needed.
+% Therefore, the concurrency needs to be expressed in a scalable fashion.
+The concurrence of an application is scalable, if the growth of its audience is proportional to the increase of its load on the resources.
+% For example, if a scalable application uses one resource to handle $n$ simultaneous requests, it will use $k$ resource to handle two times $n$ simultaneous requests.
+% With $k$ being constant, for $n$ ranging from tens to millions of simultaneous requests.
+It assures that the load is increasing linearly, instead of exponentially.
 
+\subsubsection{Time-slicing and Parallelism}
 
-\subsubsection{Time-slicing and parallelism}
+Concurrency is achieved differently on hardware with a single or several processing units.
+On a single processing unit, the tasks are executed sequentially, interleaved in time, while on several processing units, the tasks are executed simultaneously, in parallel.
+% Parallel executions reduce computing time over sequential execution, as it uses more processing units.
+If the tasks are independent, they can be executed in parallel as well as sequentially.
+These tasks are scalable, as they can stretch the computation on the resources so as to meet the required performance.
+% This parallelism is used in operating system to execute several applications concurrently to allow multi-tasking.
 
-Concurrency can be achieved on hardware with either a single or several processing units.
-On a single processing unit, the tasks are executed sequentially ; their executions are interleaved in time.
-On several processing unit, the tasks are executed in parallel.
-Parallel executions reduce computing time over sequential execution, as it uses more processing units.
-
-If the tasks are completely independent, they can be executed in parallel as well as sequentially.
-This parallelism is a form of scalable concurrency, as it allows to stretch the computation on available hardware to meet the required performance, at the required cost.
-This parallelism is used in operating system to execute several applications concurrently to allow multi-tasking.
-
-However, the tasks of an application are rarely independent.
-The tasks need to coordinate their dependencies to modify the global state of the application.
-This coordination limits the possible parallelism between the tasks, and might impose to execute them sequentially.
-The type of possible concurrency, sequential or parallel, is defined by the required coordination between the tasks.
-Either the tasks are independents and they can be executed in parallel, or the tasks need to coordinate a common state, and they need to be executed sequentially to avoid conflicting accesses to the state.
+However, the tasks of an application need to coordinate together to modify the global state.
+This coordination limits the parallelism and impose to execute some tasks sequentially.
+The type of possible concurrency, sequential or parallel, is defined by the interdependencies of the tasks.
+% Either the tasks are independents and they can be executed in parallel, or the tasks need to coordinate a common state, and they need to be executed sequentially to avoid conflicting accesses to the state.
 
 % The same limitations are found in the two paradigms I study in this thesis : event-loop and multi-process.
 
 \subsection{Interdependencies}
 
-It is easier to understand the possible parallelism of a cooking recipe than an application.
-That is because the modifications to the state are trivial in the cooking recipe, hence the interdependencies between operations.
-It is easy to understand that preheating the oven is independent from whipping up egg whites.
-While the interdependencies are not immediately obvious in an application.
-\nt{TODO is this metaphor useful here ? if yes, continue to a transition}
+It is easy to understand the parallelism in a cooking recipe because the interdependencies between operations are trivial.
+It is trivial that melting chocolate is independent from whipping up egg whites.
+% Because chocolate and egg whites are different ingredients.
+This distinction between chocolate and egg whites is trivial.
+% ... comes from the modifications to the state.
+While the distinctions within the state of an application are more intricate.
 
-\subsubsection{State coordination}
+\subsubsection{State Coordination}
 
-The interdependencies between the tasks impose the coordination of the global application state.
-This coordination happen either by sending events from one task to another, or by modifying a shared memory.
+% The interdependencies between the tasks impose the coordination of the global application state.
+The global application state impose the coordination between the tasks.
+This coordination happen either by sending messages, or by modifying a shared memory.
 
-If the tasks are independent enough, they never need access to a state at the same time.
-The coordination of the state of the application can be done with message passing.
-They pass the states from one task to another so as to always have an exclusive access on the state.
-As example, applications built around a pipeline architecture define independent tasks arranged to be executed one after the other.
-The tasks pass the result of their computation to the next.
-These tasks never share a state.
+If the tasks are independent enough, the coordination can be done with message passing.
+Each task sends message to indicate modifications of the state with consequences outside its scope.
+% They pass the states from one task to another so as to always have an exclusive access on the state.
+% As example, applications built around a pipeline architecture define independent tasks arranged to be executed one after the other.
+% The tasks pass the result of their computation to the next.
+% These tasks never share a state.
 
-If the tasks need concurrent accesses to a state, they cannot efficiently pass the state from one to the other repeatedly.
-They need to share and to coordinate their accesses to this state.
+However, if the tasks are too dependent, the overhead of message passing tends to impact performances.
+% If the tasks need concurrent accesses to a state, they cannot efficiently pass the state from one to the other repeatedly.
+They need to share and coordinate their accesses to the state.
 Each access needs to be exclusive to avoid corruption.
-This exclusivity is assured differently depending on the scheduling strategy.
+I address in the next paragraphs the different scheduling strategies, and how they assure this exclusivity.
 
 \subsubsection{Task scheduling}
 
-There is roughly two main scheduling strategy to execute tasks sequentially on a single processing unit : preemptive scheduling and cooperative scheduling.
-The state coordination presented previously is highly depending on the scheduling strategy.
+There are two scheduling strategies to execute tasks sequentially on a single processing unit : preemptive scheduling and cooperative scheduling.
+The state coordination is different for the two scheduling strategies.
 
-Preemptive scheduling is used in most execution environment in conjunction with multi-threading.
-The scheduler allows each task to execute for a limited time before preempting it to let another task execute.
-It is a fair and pessimistic scheduling, as it grant the same amount of computing time to each task.
-However, as the preemption might happen at any point in the execution, it is important for the developer to lock the shared state before access, so as to assure exclusivity.
+\illustration{feu rouge et rond point}
+
+Preemptive scheduling is used to assure fairness between the tasks, such as a multi-tasking operating system.
+% in most execution environment in conjunction with multi-threading.
+The scheduler allows a limited time of execution for each task, before preempting it.
+% It is a fair and pessimistic scheduling, as it grant the same amount of computing time to each task.
+However, as the preemption happens unexpectedly, the developer needs to lock the shared state before access, so as to assure exclusivity.
 This protection is known to be hard to manage.
 % This scheduling strategy should be avoided except when true concurrency is needed in concert with true shared state.
 % Shared state could probably always be emulated with isolated memory and message passing.
 
-In cooperative scheduling, the scheduler allows a task to run until the task yield the execution back.
-Each task is an atomic execution ; it is never be preempted, and have an exclusive access on the memory.
-It gives back to the developer the control over the preemption.
-It seems to be the easiest way for developers to write concurrent programs efficiently.
-Indeed, I presented in the previous section the popularity of Javascript, which is often implemented on top of this scheduling strategy (DOM, Node.js).
-
-As I explained the different paradigms for writing concurrent program in this subsection, it appears that the main problem is to assure to the developer for each task the exclusive access to the state of its application.
-This assurance is called invariance.
+In cooperative scheduling, a task is allowed to run until it yields the execution back to the scheduler.
+Each task is an atomic execution : it has an exclusive access on the memory.
+% It gives back to the developer the control over the preemption.
+It is easier for developers to write concurrent programs efficiently with this scheduling strategy.
+% Indeed, I presented in the previous section the popularity of Javascript, which is often implemented on top of this scheduling strategy (DOM, Node.js).
 
 \subsubsection{Invariance}
 
-I call invariance the assurance given that the state accessible from a task will remain unchanged during its access to avoid corruption, and more generally to allow the developer to perform atomic modifications on the state.
-This assurance allows the developer to regroup operations logically so as to perform all the operations without interference from concurrent executions.
-The same concept is found in transactional memory.
+% The challenge introduced above is to assure to the developer an exclusive access to the state of its application.
+In concurrent computation, it is important to assure the invariance of a state during its manipulation.
+This assurance is given by the exclusive access of an atomic execution on the state.
+% I call invariance the assurance given that the state accessible from a task will remain unchanged during its access to avoid corruption, and more generally to allow the developer to perform atomic modifications on the state.
+It allows the developer to group operations inside this atomic execution, so as to avoid corruption of the state.
+% so as to perform all the operations without interference from concurrent executions.
+% The same concept is found in transactional memory.
 
-In a multi-process application, there is no risk of corrupted state by simultaneous, conflicting accesses.
-The invariance is made explicit by the developer as the memory needs to be isolated inside each process.
-The invariance is assured at any point in time because the process remains isolated.
+When the tasks remains isolated and communicate by message passing, there is no risk of corrupted state.
+The invariance is assured by the isolation of the state specified by the developer.
 
-In a cooperative scheduling application, the developer is aware of the points in the code where the scheduler switches from one concurrent execution to the other, so it can manage its state in atomic modification.
-The invariance is assured, because any region in the memory can be accessed only by one task at a time.
+In a cooperative scheduling application, each task is atomic, as it yields the execution explicitly.
+% The invariance is assured by the atomicity of each task.
+The developer always has an exclusive access to the global state, it assures the invariance.
+% , because any region in the memory can be accessed only by one task at a time.
 
-Between these two invariances, the locking mechanisms seems to be a promising compromise.
-The developer defines only the shared states, and these are locked only when needed.
-However, it increases the complexity of the possible locked combination, leading to unpredictable situations, such as deadlock, and so on.
-The locking mechanisms are known to be difficult to manage, and sub-optimal.
-Indeed, they are eventually as efficient as a queue to share resources.
+% Between these two invariances, the locking mechanisms seems to be a promising compromise.
+% The developer defines only the shared states, and these are locked only when needed.
+% However, it increases the complexity of the possible locked combination, leading to unpredictable situations, such as deadlock, and so on.
+% The locking mechanisms are known to be difficult to manage, and sub-optimal.
+% Indeed, they are eventually as efficient as a queue to share resources.
 
-For the rest of this thesis, I focus only on the invariances provided by the multi-process paradigm and the cooperative scheduling.
-\nt{In the state of the art, we probably cannot reduce the analyze to these two paradigms.}
-They are similar, because the developer defines sequence of instructions with atomic access to the memory.
-And in both paradigms, these sequences communicate by sending messages to each other.
-The difference is that in the multi-process paradigm, the developer defines the region and the isolated memory, while in the cooperative scheduling, the developer defines only the region, and the memory is isolated by the exclusivity in the execution.
-
-This difference seems to be crucial in the adoption of the technology by the developer community.
-As we will see in the next subsection, the parallelism of multi-process is difficult to develop, but provides good performances, while the sequentiality of the cooperative scheduling is easier to develop, but provides poor performances compared to parallelism.
-
-
-\nt{TODO this paragraph needs review}
+% For the rest of this thesis, I focus only on the invariances provided by the multi-process paradigm and the cooperative scheduling.
+% They two invariance are similar, because the developer defines sequence of instructions with atomic access to the memory.
+% And in both paradigms, these sequences communicate by sending messages to each other.
+The difference is that in the message passing paradigm, the developer defines the state isolation, while in the cooperative scheduling, the developer defines the atomic execution.
+This difference seems to be crucial in the adoption by the developer community.
+The state isolation is difficult to develop with, but provides good performances through parallelism, while the atomic execution of the cooperative scheduling is easier to develop with, but is unable to provide parallelism.
+The impact of the modularity of an application on performance, and maintainability is at the heart of this thesis.
+% !!! Modularity !!!
 
 \subsection{Disrupted development}
 
