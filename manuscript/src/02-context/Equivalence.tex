@@ -1,110 +1,149 @@
-\section{Equivalence} \label{chapter2:equivalence}
+\section{Proposition} \label{chapter2:proposition}
 
-I argue that the language should propose to the developer an abstraction to encourage the best practices of software development.
-Then a compiler, or the execution engine, can adapt this abstraction so as to leverage parallel architectures. 
-So as to provide to the developer a usable, yet efficient compromise.
-We propose to find an equivalence between the invariance proposed by the cooperative scheduling paradigm and the invariance proposed by the multi-processes paradigm in the case of web applications.
+In the previous section, I presented two implementation organizations to improve either performance, or maintainability.
+However, these two organizations are incompatible, which imply rupture in the development.
+I argue that a compiler should bridge the gap between the two organizations, so as to allow a continuous development.
+In this section, I present the two programming models representing each an organization.
+Then I present the possibility of an equivalence between the two.
+We detail further this equivalence in the remaining of this thesis.
+
+% I argue that the language should propose to the developer an abstraction to encourage the best practices of software development.
+% Then a compiler, or the execution engine, can adapt this abstraction so as to leverage parallel architectures. 
+% So as to provide to the developer a usable, yet efficient compromise.
+% We propose to find an equivalence between the invariance proposed by the cooperative scheduling paradigm and the invariance proposed by the multi-processes paradigm in the case of web applications.
 
 \subsection{Architecture of web applications}
 
 \subsubsection{Real-time streaming web services}
 
-\nt{The need for invariance in the streaming applications : it can be emulated by message passing. Indeed the data flows from one processing step to the other, with few retroprogation of state (don't mention retro-propagation yet)}
+% \nt{The need for invariance in the streaming applications : it can be emulated by message passing. Indeed the data flows from one processing step to the other, with few retroprogation of state (don't mention retro-propagation yet)}
 
-This equivalence intends not to be universal.
-It focuses on a precise class of applications : web applications processing stream of requests from users in soft real-time.
+We focus on web applications processing stream of requests from users in soft real-time.
+Such application receives requests from clients using the http protocol and must respond within a finite window of time.
+They are generally organized as sequences of tasks to modify the input stream of requests to produce the output stream of responses.
+The stream of requests flows through the tasks, and is not stored.
+% This stream of data stand out from the state of the application.
+On the other hand, the state of the application remains in memory to impact the future behaviors of the application.
+This state might be shared by several tasks within the application, and imply coordination between them.
+% In this thesis I study two programming paradigm derived directly from the cooperative scheduling and the multi-process paradigms presented in previous sections to be applied in the case of real-time web applications.
 
-Such applications are organized in sequences of concurrent tasks to modify the input stream of requests to produce the output stream of responses.
-This stream of data stand out from the pure state of the application.
-The data flows in a communication channel between different concurrent tasks, and is never stored on any task.
-The state represents a communication channel between different instant in time, it remains in the memory to impact the future behaviors of the application.
-The state might be shared by several tasks of the application, and result in the needs for coordination presented in the previous section.
-In this thesis I study two programming paradigm derived directly form the cooperative scheduling and the multi-process paradigms presented in previous sections to be applied in the case of real-time web applications.
-The event-loop execution engine is a direct application of the cooperative scheduling, and the pipeline architecture is a direct application of the multi-process paradigm.
+In the next paragraphs, we present two programming models to express web applcations based on the invariance paradigms presented in the previous section.
+%, the event-loop and the pipeline architecture.
+The event-loop execution engine is based on the cooperative scheduling, and the pipeline architecture is based on isolated tasks communicating by message passing.
+% They both feature different organization for the sequence of tasks, the stream and the state.
+This thesis is based on the similarities between these two programming models.
 
 \subsubsection{Event-loop}
 
-The event-loop is an execution model using asynchronous communication and cooperative scheduling to allow efficent execution of concurrent tasks on a single processing unit.
-It relies on a queue of event, and a loop to process each event one after the other.
-The communications are asynchronous to let the application use the processor instead of waiting for a slow response.
-When the response of a communication is available, it queues an event.
-This event is composed of the result of the communication, and of a function previously defined at the communication initiation, to continue the execution with the result.
-In the Javascript even-loop, this function is defined following the continuation passing style, and is named a callback.
-After processing the result, this callback can initiate communications, resulting in the queuing of more events.
+The event-loop is an efficent execution model for concurrent applications on a single processing unit using non-blocking communications.
+It relies on a queue to queue the received messages, and a loop to process each them one after the other.
+Each reception triggers the execution of a task to process the received message.
+% This event is the aggregation of the response, and of a function to continue the execution with the result.
+While processing the message, the task can initiate new communications, leading in turn to the queuing of more messgaes, which trigger more tasks, and so on.
+The scheduling of execution is cooperative, each task is executed atomically and exclusively, until it yields execution, to continue with the next task in queue.
 
-In this model, the data is the result of every communication operations - starting with the received user request - flowing through a sequence of callbacks, one after the other.
-The state contains all the variables remaining in memory from one request to the other, and from one callback to the other.
-In Javascript, it includes the closures.
+
+% The tasks are scheduled cooperatively, and yield execution on asynchronous communication.
+
+In Javascript, the tasks to execute at message reception are defined during the communication initiation.
+The function called to initiate the execution, expects as argument a function to continue the execution at the reception of communication result.
+This function is called a callback or a continuation.
+
+In this model, the input stream of data flows through a sequence of callbacks to be processed until the application outputs it.
+This stream is never stored, except as a buffer between two callbacks.
+On the contrary, The state ramins in memory to be shared by all callbacks.
+Because Javascript is of higher-order, the callbacks as well as their execution contexts are part of this state.
+They are called closures.
+% In Javascript, it includes the closures.
 
 \nt{TODO schema of an event-loop}
 
+This execution model is somewhat similar to the pipeline architecture I present in the next paragraph.
+
 \subsubsection{Pipeline}
 
-The pipeline software architecture uses the multi-process paradigm and message passing to leverage the parallelism of a multi-core hardware architectures for streaming application.
-It consists of many processes treating and carrying the flow of data from stage to stage.
-This flow of data consist roughly of the requests, and associated data from the user, as well as the necessary state coordination between the stages.
-Each stage has its independent memory to hold its own state from one request to another.
-
-\nt{TODO it is not universal, but multi-process paradigms are also oriented around event-loops. An Event-loop is a multi-process on one machine. A multi-process is multiple event-loop running different part of the same program.}
+The pipeline software architecture is composed of isolated stages communicating by message passing to leverage the parallelism of a multi-core hardware architectures.
+It is well suited for streaming application, as the stream of data flows from stage to stage.
+Each stage has an independent memory to hold its own state.
+As the stages are indendent, the state coordination between the stages are communicated along with the stream of data.
 
 \nt{TODO schema of a pipeline}
 
-The pipeline architecture and the event-loop model present similar execution model.
-Both paradigms encapsulate the execution, in callbacks or processes.
-Those containers are assured to have an exclusive access to the memory.
-However, they provide two different memory models to provide this exclusivity.
-It results in two distinct ways for the developer to assure the invariance, and to manage the global state of the application.
-The event-loop shares the memory globally through the application, allowing the best practice of software development.
+Each stage is organized in a similar fashion than the event-loop presented above.
+It receives and queues messages from upstream stages, process them one after the other, and outputs the result to downstream stages.
+The difference is that in the pipeline architecture, each task is executed on an isolated stage, whereas in the event-loop execution model, all tasks share the same queue, loop and memory store.
+
+Both paradigms encapsulate the execution in tasks assured to have an exclusive access to the memory.
+However, they provide two different models to provide this exclusivity resulting in two distinct ways for the developer to assure the invariance on the application state.
+Contrary to the pipeline architecture, the event-loop provide a common memory store allowing the best practice of software development to improve maintainability.
 It is possibly the reason of the wide adoption of this programming model by the community of developers.
 
-I argue in this thesis that it is possible to provide an equivalence between the two memory models for streaming web application.
-In the next subsection, I present the similarity in the execution model, and the differences in the memory model for which an equivalence is necessary.
-Such equivalence would allow to transform an application following the event-loop model to be compatible with the pipeline architecture.
-This transformation would allow the development of an application following a programming model allowing the best practices of software development, while leverageing the parallelism of multi-core hardware architecture.
+\paragraph{}
+
+This thesis propose to provide an equivalence between the two memory models for streaming web application.
+In the next subsection, I describe further the similarities and differences between the two models.
+The equivalence would allow a compiler to transform an application expressed in one model into the other.
+With such a tool, a development team could rely on the common memory store of the event-loop execution model, and focus on the maintainability of the implementation.
+And continuously during the development, the team could compile the event-loop implementation to the pipeline architecture to assure that the execution can be distributed on a parallel architecture.
 
 \subsection{Equivalence}
 
 \subsubsection{Rupture point}
 
 The execution of the pipeline architecture is well delimited in isolated stages.
-Each stage has its own thread of execution, and is independent of the others.
-On the other hand, the execution of the event-loop seems pretty linear to the developer.
-The continuation passing style nest callbacks linearly inside each others.
-The message passing linking the callbacks is transparently handled by the event-loop.
+Each stage has its own thread of execution, and is independent from the others.
+On the contrary, the execution of the event-loop is pretty appears as uninterrupted because of the continuation passing style and the common memory store.
+% The message passing linking the callbacks is transparently handled by the event-loop.
 However, the execution of the different callbacks are as distinct as the execution of the different stages of a pipeline.
-Precisely, the call stack is as distinct between two callbacks, as between two stages.
-Therefore, in the event-loop, an asynchronous function call represents the end of the call stack of the current callback, and the beginning of the call stack of the next.
-It represents what I call a rupture point.
-It is the equivalent to a data stream between two stages in the pipeline architecture.
+The call stacks of two callbacks are distincts.
+Therefore, an asynchronous function call represents the rupture between two call stacks.
+It is what I call a rupture point, and is equivalent to a data stream between two stages in the pipeline architecture.
 
-Both the pipeline architecture and the event-loop present these ruptures points.
-To allow the transformation from the event-loop model to the pipeline architecture in the case of real-time web applications, I study in this thesis the possibility to transform the global memory of the event-loop into isolated memory to be able to execute the application on a pipeline architecture.
+Both the pipeline architecture and the event-loop present these rupture points.
+The detection of rupture points allows to map a pipeline architecture onto the implementation following the event-loop model.
+To allow the transformation from one to the other, I study in this thesis the possibility to detect rupture points, and to distribute the global memory into the parts defined by these rupture points.
+The detection of rupture points is fully addressed in chapter \ref{chapter4}.
 
-\subsubsection{State coordination}
+\subsubsection{Invariance}
 
-The global memory used by the event-loop holds both the state and the data of the application.
-The invariance holds for the whole memory during the execution of each callback.
-As I explained in the previous section, this invariance is required to allow the concurrent execution of the different tasks.
-On the other hand, the invariance is explicit in the pipeline architecture, as all the stages have isolated memories.
-The coordination between these isolated process is made explicit by the developer through message passing.
+% This transformation is important on two points.
+% The conservation of the invariance.
+% The equivalence between the coordinations.
 
-I argue that the state coordination between the callbacks requireing a global memory could be replaced by the message passing coordination used manually in the pipeline architecture.
-I argue that not all applications need concurrent access on the state, and therefore, need a shared memory.
-Specifically, I argue that each state region remains roughly local to a stage during its modification.
-\nt{TODO review that, I don't know how to formulate these paragraphs. Identify the state and the data in the global memory.}
+The transformation should preserve the invariance as expressed by the developer to assure the correctness of the execution.
+The partial ordering of events in a system, by opposition to total ordering, is sufficient to assure this correctness.
+% This result was used by Lamport to prove the correctness of distributed systems.
+The global memory is a way to assure the total ordering of events, and the message passing coordination is a way to assure partial ordering of events.
+Therefore, the state coordination requireing a global memory is equivalent to message passing coordination to assure the correctness of the execution of a system.
+And it is possible, at least for some rutpure points, to transform the global memory corrdination into message passing while conserving the correctness of execution.
 
-\subsubsection{Transformation}
+In order to preserve the invariance assured by the event-loop model after the transformation, each stage of the pipeline needs to have an exclusive access to memory.
+The global memory needs not to be splited into parts and distributed into each of the stages.
+To assure the missing coordinations assured by the shared memory between the stages, the transformation should provide equivalent coordination with message passing.
+The isolation and replacement of the global memory is fully address in chapter \ref{chapter5}
 
-This equivalence should allow the transformation of an event loop into several parallel processes communicating by messages.
-In this thesis, I study the static transformation of a program, but the equivalence should also hold for a dynamic transformation.
-I present the analyzis tools I developed to identify the state and the data from the global memory.
+% The invariance holds for the whole memory during the execution of each callback.
+% As I explained in the previous section, this invariance is required to allow the concurrent execution of the different tasks.
+% On the other hand, the invariance is explicit in the pipeline architecture, as all the stages have isolated memories.
+% The coordination between these isolated process is made explicit by the developer through message passing.
 
-With this compiler, it would be possible to express an application with a global memory, so as to follow the design principles of software development.
+% I argue that the state coordination between the callbacks requireing a global memory could be replaced by the message passing coordination used manually in the pipeline architecture.
+% I argue that not all applications need concurrent access on the state, and therefore, need a shared memory.
+% % Specifically, I argue that each state region remains roughly local to a stage during its modification.
+% \nt{TODO review that, I don't know how to formulate these paragraphs. Identify the state and the data in the global memory.}
+
+% \subsubsection{Transformation}
+
+% This equivalence should allow the transformation of an event loop into several parallel processes communicating by messages.
+% In this thesis, I study the static transformation of a program, but the equivalence should also hold for a dynamic transformation.
+% I present the analyzis tools I developed to identify the state and the data from the global memory.
+
+With this compiler, it would be possible to express an application following the design principles of software development, hence maintainable.
 And yet, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
+Because of the equivalence between these two models, the development team could iterate testing the two models for their different concerns about the implementation : performance and maintainability.
 
-\comment{TODO too fast on the end of this section}
-
-\comment{TODO Transition to the chapter State of the Art}
+The goal of conciling these two concerns is not new.
+We present in the next chapter all the results from previous works needed to understand this work, up to the latest results in the field.
 
 \endinput
 
