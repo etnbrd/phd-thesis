@@ -1,64 +1,70 @@
-\section{Reconciliations} \label{chapter4:reconciliations}
+\section{Reconciliations} \label{chapter3:reconciliations}
 
 \subsection{Contradiction}
 
-As shown in the two previous sections, the decomposition of an application into a pipeline is somehow intuitive, but incompatible with the modular design advocated by the separation of concerns.
-To understand the problem of incompatibility between the modular design and the parallel execution of a pipeline architecture, one can think about the communication between two stages.
-The result output by one stage needs to be understood by the next.
-There need to be a common understanding on the nature, and the structure of this result.
-The modular design advocates that this common ground, the interface, be the most immutable possible, the most solid possible.
-While the parallel execution defines interfaces between the stages of the execution, which will eventually change with the evolution of the problem specification.
+The decomposition of an application into a pipeline, as shown in the two previous sections, is incompatible with the modular design advocated by the separation of concerns.
+The problem of incompatibility between the modular design and the parallel execution of a pipeline architecture is the following.
+There need to be a common understanding on the structure of the communication from one stage to the next.
+The modular design defines that this common ground, the interface, be the most resilient possible to focus the evolution within a module.
+While the pipeline architecture (and more generally the concurrent programming models) defines these interfaces as the communications between the stages of the execution.
+With the evolution of the problem specification, when a stage needs to be modified, it is most likely that these changes will affect the previous or next stages.
+% which will eventually change with the evolution of the problem specification.
+
+Most project use languages supporting the modular design at the beginning, when they need to evolve the most.
+They then switch to the pipeline architecture only when the requirement of performance overcomes the requirement of evolution.
 Moreover, as the team knows that they will eventually throw away their code to upgrade it to a different paradigm, there is little effort to follow the best practice to make maintainable code.
-It result in a large effort of development to compensate this rupture.
-
-This incompatibility is blatant because, counter-intuitively, most project use languages supporting the least intuitive organization, the modular design when they need to evolve the most : at the beginning.
-They switch to the pipeline architecture only when the performance requirement overcome the requirement of evolution.
-This rupture between the two organization is not novel, and is at the center of a large body of work.
-In this section, we present the state of the art to reconciliate the two organizations.
-
+It results in a large effort of development to compensate this rupture.
+% This rupture between the two organization is not novel, and is at the center of a large body of work.
+In this section, we present the state of the art to reconciliate the two organizations, and avoid this rupture.
 First we see the design patterns to fit both organization onto a same source code.
 Then we see the compilation tentatives to switch from one to the other.
 
 \subsection{Design patterns}
 
-As we explained in the previous sections, the two different concerns seems intuitively incompatible.
-However, it might be possible to find organizations that fit both concerns for particular cases.
+As we explained in the previous sections, the two different organization, modular and parallel, seems intuitively incompatible.
+However, it might be possible to find specific organizations that are both modular and parallel, and fit both requirements of maintainability and performance.
+% fit both concerns for particular cases.
 
 \subsubsection{Algorithmic Skeletons}
 
-Algorithmic skeletons are predefined patterns that fit certain type of problems \cite{Cole1988}.
-They are general computational framework for distributed computing \cite{Dean2008, McCool2010, Gonzalez-Velez2010}.
-A developer express its problem as a specific case of a skeleton.
-Using a skeleton simplify the design and implementation of the communication, hence the developer can focus on its problem independently of the distrubuted communications, and their performance overhead.
+Algorithmic skeletons are general computational framework for distributed computing proposing predefined patterns that fit certain type of problems \cite{Cole1988, Dean2008, McCool2010, Gonzalez-Velez2010}.
+A developer expresses its problem as a specific case of a skeleton.
+It simplifies the design and implementation of the communications, hence the developer can focus on its problem independently of the distributed communications, and their performance overhead.
 
 As there is similtudes between SQL-like languages, functional structures, and algorithmic skeletons, the latter can be seen as a tentative to merge the more descriptional features of the former into imperative programming.
-Indeed, among the Algorithmic skeletons, we can cite Map and reduce, which are functional structures, but are somehow equivalent to the select and aggregate functions of SQL.
+Indeed, among the Algorithmic skeletons, we can cite Map / reduce, which are functional structures, but are somehow equivalent to the select and aggregate functions of SQL.
 The pipeline architecture for data stream processing presented in section \ref{chapter3:software-efficiency:dataflow-pipeline} can be considered as algorithmic skeletons.
 
-However, they introduce limitations and difficulties, as the developer must fit its problem into already existing skeletons.
-One of this difficulties, it that a common memory is impossible to use.
-Developers needs to think in terms of message passing, which can be somehow difficult \nt{need reference, and stengthen argument}
+However, they introduce limitations and difficulties, as the developer must fit its problem into the skeletons.
+% One of this difficulties, it that a common memory is impossible to use.
+Developers needs to think in terms of message passing instead of a global memory, which, as we saw in previous section, is incompatible with best practices.
 
 \subsubsection{Microservices \& SOA}
 
-Service Oriented Architectures (SOA) allows developers to express an application as an assembly of services connected to each others.
-It is a good example to show the difference between Information Hiding Principles and Separation of Concerns.
-SOA is in contradiction with the former, but consistent with the latter, as a service doesn't encapsulate a design choice, but a specific task.
+Another approach in an industrial context is the Service Oriented Architectures (SOA).
+It allows developers to express an application as an assembly of services connected to each others.
+It shows well the difference between Information Hiding Principles and Separation of Concerns, as a service doesn't encapsulate a design choice, but a specific task.
+SOA is in contradiction with the former, but consistent with the latter.
 
-More recently, in the web service development communities, emerged the term of microservices.
-It is a good example to test at which granularity the fitting between modular organization and parallel execution should occur.
-They advocate that software developers can manage the two organizations at a sufficiently fine level.
+More recently, in the web service development communities, emerged the term of microservices, following the trends of SOA.
+It to choose and deacrease the granularity of the fitting between modular organization and parallel execution.
+Using Microservices implies that software developers can manage the two organizations at a sufficiently fine level.
+As said in section \ref{chpater3:concurrent-programming:programming-languages} and \ref{chapter3:software-efficiency:dataflow-pipeline}, it is an elitist point of view.
+Most developers are unable to manage efficiently the two organizations.
 
-In all these solutions, there is no possibilities of higher-order functions.
-And as we showed earlier in section \ref{chapter3:software-design:programming-models:functional-programming}, higher-order functions are an important part of the success of modular design.
+Moreover, in these solutions, higher-order programming is impossible.
+As we showed earlier in section \ref{chapter3:software-design:programming-models:functional-programming}, higher-order programming is important for modular design and maintainability.
+The next section present some work on compiling from one organization into the other.
+By keeping the modular programming model, the compilation approach allows higher-level programming. 
 
 \subsection{Compilation}
 
 
-Instead of trying to find a fitting between the two organization, another approach is to transform the source from one organization into the other.
+% Instead of trying to find a fitting between the two organization,
+Another approach to conciliate performance and maintainability, is to transform the source from one organization into the other.
 \textit{It is a mistake to attempt high concurrency without help from the compiler} \cite{Behren2003}.
-When defining the Information Hiding Principle, and showing the incompatibility between the two organization, Parnas already advocated conciling the two methods using an assembler to transform the development organization into the execution organization \cite{Parnas1972}.
-We present here the state of the art in compilation-based parallelization.
+When showing the incompatibility between the two organization, D. Parnas already advocated conciling the two methods using an assembler to transform the development organization into the execution organization \cite{Parnas1972}.
+I present in the this section the state of the art in compilation-based parallelization.
 
 % Imperative Stream Processing
 %   Piccolo                                  Parallel in-memory \cite{Power2010}
@@ -67,37 +73,47 @@ We present here the state of the art in compilation-based parallelization.
 
 \subsubsection{Parallelism Extraction}
 
+Generally, there is three type of parallelism, data, task and pipeline parallelism.
+Some works explore the extraction of the three types indistincly \cite{Li2012}.
+Other works focused on the task parallelism \cite{Rinard1996}.
+However, huge works has been done on the data parallelization, to parallelize the loops inside a sequential program \cite{Mauras1989,Amarasinghe1995,Yuki2013,Banerjee2013,Radoi2014}
+Indeed, the loops represent most of the execution time in scientific applications, so an important speedup is expected from this data parallelization.
+C. Hermann studied the parallelization of loop in a functional language with higher-order programming and immutable data \cite{Herrmann2000}.
+However, there is few works to parallelize higher-order programming languages, with mutable data.
+Closures often complicates the dependencies between iterations.
+To conserve higher-order programming, N. Matsakis proposed to forbid the mutation of the parent closure of a loop, so that the iterations can be executed in parallel while accessing the immutable closure\cite{Matsakis2012a}.
 
-One of the main approach to parallelization is to parallelize the loops inside a sequential program \cite{Amarasinghe1995,Banerjee2013,Radoi2014}.
-The loops represent most of the execution time, so it is a sweet spot to parallelize them.
-It is called vectorization, or data parallelism, as loops often iterates over an array, or vector.
-Following this trend, some proposed to parallelize closure to exploit some data parallelism \cite{Matsakis2012a}.
-However, Amdahl's law states that even if a slight portion of execution is sequential, the expected speedup is limited \cite{Amdahl1967,Clements2013a}.
+All these approaches are based on synchronous execution and Amdahl's law states that even if a slight portion of execution is sequential, the expected speedup is limited \cite{Amdahl1967,Clements2013a}.
+Another approach to break free from the sequential structure is to split the sequential execution into following, parallelizable tasks to form a pipeline \cite{Kamruzzaman2013,Fernandez2014a}.
+This thesis focus solely on pipeline parallelism.
 
-Another common approach is to split the sequential execution into following, parallelisable tasks to form a pipeline \cite{Kamruzzaman2013,Fernandez2014a}.
-Pipeline parallelism is relevant only for multi-pass algorithms \cite{Conway1963}, or for stream processing applications.
-For these applications, saying that the execution is sequential is no longer relevant, instead, we could say that the flow is sequential.
-
-More generally, there is three type of parallelism, data, task and pipeline parallelism.
-Some works explored the task parallelism \cite{Rinard1996}, while other works explored the extraction of the three types from sequential program, instead of focusing on only one type \cite{Li2012}.
+Pipeline parallelism is relevant for multi-pass algorithms \cite{Conway1963}, and it is particularly efficient for stream processing applications as we saw in section \ref{chapter3:software-efficiency:dataflow-pipeline}.
+For these applications, sequentiality is no longer relevant, as the different stages of the execution are repeated for each message in the stream.
+Only causality is necessary, and it opens a possible pipeline parallelism.
 
 
 \subsubsection{Static analysis}
 
 In order to extract parallelism, compilers analyze the source code of applications.
-
-An common approach to analyze the memory repreentation is the point-to analyzis, presented by L. Andersen \cite{Andersen1994}.
-It analyzes the modification of pointers through the control flow.
-
-It helps extract properties from programs, and is used in security, particularly in Javascript \cite{Chudnov2015}.
-However, these techniques are not precise enough to rely only on them for the parallelization.
+The compiler analyzes the control flow to detect the dependencies between statements to parallelize them.
+As these dependencies are linked to memory access, it is important to have a good memory representation.
+The point-to analysis, presented by L. Andersen \cite{Andersen1994} is a common approach to extract the memory representation.
+It analyzes the modification of pointers through the control flow, to help extract properties from programs.
+It is used in security to assure the safeness of an implementation, for example in Javascript \cite{Chudnov2015}.
+% However, these techniques are not precise enough to rely only on them for the parallelization.
 
 \subsubsection{Annotations}
 
-Extracting parallel dataflow from an impertaive, sequential programs is a hard problem \cite{Johnston2004a}.
-Some works asked the developers to annotate their code so as help the compiler extract parallelism \cite{Vandierendonck2010a}.
-It is an intermediate solution with the solution presented in the previous section.
-However, it still requires developers to learn a system of annotations, which still represent a rupture.
+Extracting parallel dataflow from an imperative, sequential implementation is a hard problem \cite{Johnston2004a}.
+Some works proposed to rely on annotations from the developer to help the extraction \cite{Vandierendonck2010a,Fernandez2014a}.
+% Some works asked the developers to annotate their code so as help the compiler extract parallelism
+% It is an intermediate solution with the solution presented in the previous section.
+However, it still requires developers indicate the independence of the memory or the execution.
+In this regard, this solution is similar to concurrent programming present in \ref{chapter3:concurrent-programming}, and are unable to fix the rupture between performance and maintainability.
+
+All the solution presented throughout this chapter are elitist, as they tend to rely on the developer to reconcile the two organizations.
+They are not satisfactory as they are too hardly accessible for most developers.
+It finally results in frail implementations, that require great efforts of development to assure their performance in the first place, and then to maintain.
 
 \endinput
 
@@ -146,3 +162,13 @@ Introducing 'Bones': a parallelizing source-to-source compiler based on algorith
 
 
 Recent paper about Javascrypt static analysis \cite{Chudnov2015}
+
+
+
+Loop nesting optimization
+- systolic arrays
+- polyhedral compilers
+- Simplifying reductions 
+
+
+\cite{Mendis2015}
