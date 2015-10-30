@@ -15,6 +15,7 @@ Such a web application needs to be highly concurrent to manage this amount of si
 In the 2000s, the limit to break was 10 thousands simultaneous connections with a single commodity machine\ftnt{http://www.kegel.com/c10k.html}.
 Nowadays, in the 2010s, the limit is set at 10 millions simultaneous connections\ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
 With the growing number of connected devices on the internet, concurrency is a very important property in the design of web applications.
+Moreover, the concurrency needs to be scalable to adapt to this growth of audience, as explained in the next paragraph.
 
 \subsubsection{Scalability}
 
@@ -47,6 +48,7 @@ This parallelism is scalable, as the independent tasks can stretch the computati
 
 However, the tasks within an application need to coordinate together to modify the application state.
 This coordination limits the parallelism and impose to execute some tasks sequentially.
+It limits the scalability.
 The type of possible concurrency, sequential or parallel, is defined by the interdependencies of the tasks.
 % Either the tasks are independents and they can be executed in parallel, or the tasks need to coordinate a common state, and they need to be executed sequentially to avoid conflicting accesses to the state.
 
@@ -55,7 +57,7 @@ The type of possible concurrency, sequential or parallel, is defined by the inte
 \subsection{Interdependencies}
 
 It is easy to understand the parallelism in a cooking recipe because the interdependencies between operations are trivial.
-It is trivial that melting chocolate is independent from whipping up egg whites.
+It seems obvious that melting chocolate is independent from whipping up egg whites.
 % Because chocolate and egg whites are different ingredients.
 This distinction between chocolate and egg whites is trivial.
 % ... comes from the modifications to the state.
@@ -66,9 +68,9 @@ This makes concurrent application more difficult to understand.
 
 % The interdependencies between the tasks impose the coordination of the global application state.
 The global state of an application impose the coordination between the tasks.
-This coordination happen either by sending messages, or by modifying a shared memory.
-If the tasks are independent enough, the coordination can be done with message passing.
-Each task sends message to indicate modifications of the state with consequences outside its scope.
+This coordination happens either by sending messages, or by modifying a shared memory.
+If the tasks are independent enough, the coordinations can be done with message passing.
+Each task sends messages to indicate the modifications of the state with consequences outside its scope.
 % They pass the states from one task to another so as to always have an exclusive access on the state.
 % As example, applications built around a pipeline architecture define independent tasks arranged to be executed one after the other.
 % The tasks pass the result of their computation to the next.
@@ -86,12 +88,12 @@ The coordination is different with the two scheduling strategies.
 
 \illustration{feu rouge et rond point}
 
-Preemptive scheduling is used to assure fairness between the tasks, such as a multi-tasking operating system.
+Preemptive scheduling is used to assure fairness between the tasks, such as in a multi-tasking operating system.
 % in most execution environment in conjunction with multi-threading.
 The scheduler allows a limited time of execution for each task, before preempting it.
 % It is a fair and pessimistic scheduling, as it grant the same amount of computing time to each task.
 However, as the preemption happens unexpectedly, the developer needs to assure exclusivity by locking the shared state before access.
-This protection is known to be hard to manage, so we do not address it any further in this section.
+Locking is known to be hard to manage by developers, and to impact performances, so it is set aside for the remaining of this chapter.
 % This scheduling strategy should be avoided except when true concurrency is needed in concert with true shared state.
 % Shared state could probably always be emulated with isolated memory and message passing.
 
@@ -112,8 +114,8 @@ It allows the developer to group operations inside this atomic execution, so as 
 % The same concept is found in transactional memory.
 
 When the tasks remains isolated and communicate by message passing, there is no risk of corrupted state.
-The invariance is assured by the isolation of the state specified by the developer.
-In a cooperative scheduling application, each task is atomic, so the developer always has an exclusive access to the global state.
+The invariance is assured by the isolation of the state specified by the developer, and by the atomicity of the message processing.
+On the other hand, in a cooperative scheduling application, each task is atomic, so the developer always has an exclusive access to the global state.
 This atomicity assures the invariance.
 % The invariance is assured by the atomicity of each task.
 % , because any region in the memory can be accessed only by one task at a time.
@@ -127,13 +129,13 @@ This atomicity assures the invariance.
 % For the rest of this thesis, I focus only on the invariances provided by the multi-process paradigm and the cooperative scheduling.
 % They two invariance are similar, because the developer defines sequence of instructions with atomic access to the memory.
 % And in both paradigms, these sequences communicate by sending messages to each other.
-The difference is that in the message passing paradigm, the developer defines the state isolation, while with cooperative scheduling, the developer defines the atomic execution.
+The difference is that in the message passing paradigm, the developer defines the state isolation inducing the execution isolation, while with cooperative scheduling, the developer defines only the execution isolation.
 % This difference seems to be crucial in the adoption by the developer community.
 It is difficult for developer to isolate state, but it provides good performances through parallelism.
 While it is easier to assure atomic execution with cooperative scheduling, but it is unable to provide parallelism.
-On one hand, the application is organized into modules containing isolated state, to improve performance.
+On one hand, the state is distributed and isolated to improve performance scalability.
 On the other hand, the code is organized logically to improve maintainability.
-The impact of these two organizations on performance and maintainability is at the heart of this thesis.
+The impact of these two organizations on performance scalability and development scalability is at the heart of this thesis.
 
 \subsection{Disrupted Development}
 
@@ -147,8 +149,8 @@ The impact of these two organizations on performance and maintainability is at t
 
 \illustration{heating chipset / parallel chipsets}
 
-Around 2004, the speed of sequential execution on processing units plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
-Manufacturers started to arrange transistors into several processing units to keep increasing overall performance, while avoiding overheating problems.
+Around 2004, the speed of sequential execution on a processing unit plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
+Manufacturers started to arrange transistors into several processing units to keep increasing overall performance while avoiding overheating problems.
 % Because of these limitations, a processor is limited in the number of instruction per second it can execute.
 Therefore, the performance of the sequential execution required by the cooperative scheduling plateaued as well.
 Isolating tasks is the only option to achieve high concurrency on this parallel hardware.
@@ -161,7 +163,7 @@ It implies a rupture between performance and maintainability.
 The best practices in software development advocate to gather features logically into distinct modules.
 % The understanding of the whole application emerges from the interconnections between the different modules.
 This modularity allows a developer to understand and contribute to an application one module at a time, instead of understanding the whole application.
-It allows to develop and maintain a large code-base by a multitude of developer bringing small, independent contributions.
+It allows to develop and maintain a large code-base by a multitude of developers bringing small, independent contributions.
 
 
 % Modularity advocates three principles : encapsulation, a module contains all the data, as well as the functions to manipulate this data ; separation of concerns, each module should have a clear scope of action, and this scope should not overlap with the scope of other modules ; and loose coupling, each module should require no, or as little knowledge as possible about the definition of other modules.
@@ -185,7 +187,7 @@ In the next paragraph, I argue this conflict disrupts the development of a web a
 Between the prototyping, and the maturation of a web application, the needs are radically different.
 I argue that during the initiation of a web application project, the economical constraint holds on the pace of development.
 The development reactivity is crucial to meet the market needs\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}.
-The development team opt for a popular and accessible language.
+The development team opt for a popular and accessible language to leverage the advantage of its community.
 It is only after a certain threshold of popularity that the  economical constraint on performance requirements exceed the one on development.
 The development team shift to an organization providing parallelism.
 
@@ -210,7 +212,7 @@ The application risks to fail because of this challenge.
 And after this shift the development pace slow down.
 % Parallel languages are incompatible with the commonly learned design principles.
 The development team cannot react as quickly to user feedbacks to adapt the application to the market needs.
-The application risks to become obsolete.
+The application risks to fall in obsolescence.
 
 % There is a performance problem with languages about concurrency.
 % The used imperative programming languages are difficulty parallel.

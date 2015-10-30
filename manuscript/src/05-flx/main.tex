@@ -1,117 +1,22 @@
-% \documentclass[conference]{utils/IEEEtran}
-% % \documentclass{utils/sig-alternate}
-% % \documentclass{utils/acm_proc_article-sp}
-
-% \usepackage[utf8]{inputenc}
-% \usepackage[T1]{fontenc}
-% \usepackage{textcomp}
-% \usepackage[french, english]{babel}
-% \usepackage{algorithm}
-% \usepackage{algpseudocode}
-% \usepackage{graphicx}
-% % \usepackage{hyperref}
-% \usepackage{nohyperref}  % This makes hyperref commands do nothing without errors
-% \usepackage{url}  % This makes \url work
-% \usepackage{backnaur}
-
-% \usepackage{tikz}
-% \usepackage{pgfplots}
-% \usepgfplotslibrary{external} 
-% \tikzexternalize
-
-
-% \usepackage[hyperref=true,%
-%             url=false,%
-%             isbn=false,%
-%             style=numeric,%
-%             maxcitenames=3,%
-%             maxbibnames=100,%
-%             backend=biber,%
-%             block=none]{biblatex}
-
-% \bibliography{../src/bib/OS.bib}
-% \bibliography{../src/bib/Flow-Based Programming.bib}
-% \bibliography{../src/bib/Functional Programming-Functional Reactive Programming.bib}
-% \bibliography{../src/bib/Stream.bib}
-% \bibliography{../src/bib/Dataflow.bib}
-% \bibliography{../src/bib/Web & Social Networks.bib}
-% \bibliography{../src/bib/Others.bib}
-% \bibliography{../src/bib/Actor Model.bib}
-% \bibliography{../src/bib/Misc.bib}
-% \bibliography{../src/bib/Parallelisation.bib}
-% \bibliography{../src/bib/Others.bib}
-% \bibliography{../src/bib/Distributed Systems.bib}
-% \bibliography{../src/bib/Compilation.bib}
-% \bibliography{../src/bib/MyPublications.bib}
-% \bibliography{../src/bib/Sync-Async.bib}
-% % \bibliography{../src/bib/sigproc.bib}
-
-% % \bibliographystyle{abbrv}
-% % \bibliography{../src/bib/OS.bib,../src/bib/Flow-Based Programming.bib,../src/bib/Functional Programming-Functional Reactive Programming.bib,../src/bib/Stream.bib,../src/bib/Dataflow.bib,../src/bib/Web & Social Networks.bib,../src/bib/Others.bib,../src/bib/Actor model.bib,../src/bib/Misc.bib,../src/bib/Parallelisation.bib,../src/bib/Others.bib,../src/bib/Distributed Systems.bib}
-
-% \input{utils/code}
-% \input{utils/macros}
-
-
-% % Document starts
-% \begin{document}
-
-% % Title portion
-% \title{
-%   Transforming Javascript Event-Loop Into a Pipeline
-% 	% Toward a compiler providing pipeline parallelism for the Javascript event-loop.
-%   % : hide scalability constraints from the developer
-% }
-
-% \author{
-% \IEEEauthorblockN{Etienne Brodu, Stéphane Frénot}\\
-% \IEEEauthorblockA{\small{Univ Lyon, INSA Lyon, Inria, CITI, F-69621 Villeurbanne, France}\\
-% \{etienne.brodu, stephane.frenot\}@insa-lyon.fr}\\
-% \and
-% \IEEEauthorblockN{Frédéric Oblé}\\
-% \IEEEauthorblockA{\small{Worldline, Bât. Le Mirage,}\\
-% \small{53 avenue Paul Krüger}\\
-% frederic.oble@worldline.com}
-% }
-
-
-% % \numberofauthors{2}
-% % \author{
-% % \alignauthor
-% % Etienne Brodu, Stéphane Frénot\\
-%   % \email{\textsf{\normalsize{\{etienne.brodu, stephane.frenot\}@insa-lyon.fr}}}\\
-%   % \affaddr{\textsf{\small{Univ Lyon, INSA Lyon, Inria, CITI, F-69621 Villeurbanne, France}}}
-% % \and  % use '\and' if you need 'another row' of author names
-% % \alignauthor
-% % Frédéric Oblé\\
-%   % \email{\textsf{\normalsize{frederic.oble@worldline.com}}}\\
-%   % \affaddr{\textsf{\small{Worldline}}}\\
-%   % \affaddr{\textsf{\small{Worldline, Bât. Le Mirage, 53 avenue Paul Krüger}}}\\
-%   % \affaddr{\textsf{\small{CS 60195}}}\\
-%   % \affaddr{\textsf{\small{69624 Villeurbanne Cedex}}}\\
-% % }
-
-% \maketitle
-
-% \input{abstract}
-
-
-% % A category with the (minimum) three required fields
-% % \category{H.4}{Information Systems Applications}{Miscellaneous}
-% %A category including the fourth, optional field follows...
-% % \category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
-
-% % \category{Software and its engineering}{Software notations and tools}{Compilers}[Runtime environments]
-
-% % \terms{Compilation, dataflow, code transformation}
-
-% % \keywords{Flow programming, Web, Javascript} % NOT required for Proceedings
-
-% % \eject
-
-\chapter{Fluxion} \label{chapter5}
+\chapter{Pipeline isolation} \label{chapter5}
 
 \section{Introduction}
+
+The previous chapter presented a compiler to identify and extract the underlying pipeline in a Javascript application.
+However, all the operations are not independent, and cannot be executed in parallel, to support the performance scalability.
+This chapter present the second contribution of this thesis.
+The equivalence between a memory shared among all the operations and independent memory for each operation in a pipeline.
+It tackles the problems arising from the translation of the global memory synchronization into message passing.
+
+This equivalence is implemented as a compiler, improving upon the previous one.
+The compiler transforms a Javascript application into a network of independent parts communicating by message streams and executed in parallel.
+We named these parts \textit{fluxions}, by contraction between a flux and a function.
+% Fluxions are executed in an execution model that assure parallelism and communications.
+
+% We present an early version of this tool as a proof of concept for this compilation approach.
+Section \ref{section:model} describes the execution model that executes fluxions in parallel, and assure their communications.
+The compiler, and the equivalence are described in section \ref{section:compiler}.
+Section \ref{section:evaluation} a real-case test of compilation, and expose the limits of this compiler.
 
 \input{05-flx/model}
 \input{05-flx/compiler}

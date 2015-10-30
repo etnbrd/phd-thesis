@@ -10,7 +10,7 @@ The growth of the web and Software as a Service (SaaS) revealed the importance o
 % These constraints became even more important, and the costs increased for web applications because with the growth of the web.
 % Since the web reached a global scale, these constraints are amplified for applications available on the web.
 % These constraints are amplified for web application because the latter are reachable at a larger scale.
-In this chapter, we draw a broad view of this duality in software systems projects, to finally refine the scope on our subject of interest, and to define the problematic of this thesis.
+This chapter draws a broad view of this duality in software systems projects, to finally refine the scope on the subject of interest, and to define the problematic of this thesis.
 % \cit{It is becoming increasingly important to the data-processing industry to be able to produce more programming systems and produce them with fewer errors, at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. P. Stevens, G. J. Myers, L. L. Constantine \cite{Stevens1974}}.
 
 % Since the early days of software development as a discipline,
@@ -23,7 +23,7 @@ These approaches focus on improving the readability, maintainability and compreh
 % \textit{OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. It can be done in Smalltalk and in LISP. There are possibly other systems in which this is possible, but I'm not aware of them.
 % Cheers,
 % Alan}
-These approaches assure the evolution of the implementation of software systems.
+These approaches assure the scalability and evolution of the implementation of software systems.
 
 The Moore's law \cite{Moore1965} and Dennard's MOSFET scaling \cite{Dennard2007} promised an exponential evolution of the processing power, hence the software industry could always rely on the hardware to increase the execution speed.
 But eventually, the clock speed of processors plateaued \ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}\cite{Bohr2007}.
@@ -34,15 +34,15 @@ The best practices of software development then inherited two goals : to assure 
 As D. L. Parnas showed in 1972 \cite{Parnas1972}, these two decompositions are hardly reconcilable.
 It seems impossible to develop a software following a decomposition that satisfies both the evolution, and an efficient parallel execution.
 
-As the economic constraint shifted from development to performance, and with the incentive to leverage the execution power of parallel architectures, intensive work was done to provide tools and model to organize the execution on multiple execution units.
+As the economic constraint shifted from development to performance, and with the incentive to leverage the execution power of parallel architectures, intensive work was done to provide tools and models to organize the execution on multiple execution units.
 Though, these works often ignore the best practices regarding maintainability.
-Increasing performance drastically increases the required development effort.
+Increasing performance then implies to increase exponentially the required development effort.
 % For example distributed systems, single instruction multiple data, among others.\nt{TODO not really good examples}
 
 There has been many attempts at reconciling the two goals into a single approach.
 But none seems really convincing enough to be widely adopted.
-Throughout this chapter, I will classify different works from the community into three categories : focus on implementation evolution in section \ref{chapter3:software-design}, focus on parallel execution in section \ref{chapter3:software-efficiency}, or reconciliation of the two in section \ref{chapter3:reconciliation}.
-And finally, I will present the objectives for this thesis in section \ref{chapter3:objectives}.
+Throughout this chapter, the different works from the community are classified into three categories : focus on implementation evolution, focus on parallel execution in section \ref{chapter3:software-efficiency}, or reconciliation of the two in section \ref{chapter3:reconciliation}.
+And finally, section \ref{chapter3:objectives} presents the objectives for this thesis.
 
 \input{03-state-of-the-art/Software-design}
 \input{03-state-of-the-art/Software-efficiency}

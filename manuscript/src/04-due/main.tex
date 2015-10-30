@@ -1,43 +1,73 @@
-\chapter{Due} \label{chapter4}
+\chapter{Pipeline extraction} \label{chapter4}
 
 \section{Introduction}
 
-Javascript was originally designed for the manipulation of a graphical interface, the Document Object Model (DOM\ftnt{http://www.w3.org/DOM/}).
-Functions are first-class citizens ; it allows to manipulate them like any object, and to link them to react to asynchronous events, \textit{e.g.} user inputs and remote requests.
+
+The previous chapter presented globally the state of the art in designing systems to scale in performance, and in maintenance.
+It refined the scope of this thesis to the study of the opposition between maintenance scalability and performance scalability in streaming web applications.
+It concluded with the objectives of this thesis, which is to find an equivalence between the two opposed organizations.
+The maintenance scalability organization, supported by modular programming, higher-order programming and a global memory store.
+The performance scalability organization, supported by the parallelism of memory and exuction distribution.
+The equivalence between these two organization is in two steps, as presented in figure \ref{fig:chapter3:objectives:roadmap}.
+This chapter presents the first step in this equivalence.
+That is to identify and extract a pipeline of execution inside an application following the first organization.
+In this work, we focus on Javascript, and specifically node.js applications.
+In this chapter, I define further the higher-order programming concepts.
+
+In Javascript, functions are first-class citizens ; it allows to manipulate them like any object, and to link them to react to asynchronous events, \textit{e.g.} user inputs and remote requests.
 These asynchronously triggered functions are named callbacks, and allow to efficiently cope with the distributed and inherently asynchronous architecture of the Internet.
-This made Javascript a language of choice to develop both client and, more recently, server applications for the web.
+To execute a suite of asynchronous functions, callbacks are nested one into the other.
+This nesting, if not organized properly, can result in unreadable layer of callbacks, commonly presented as \textit{callback hell}\ftnt{http://maxogden.github.io/callback-hell/}, or \textit{pyramid of doom}.
 
-Callbacks are well-suited for small interactive scripts.
-But in a complete application, they are ill-suited to control the larger asynchronous execution flow.
-Their use leads to intricate imbrications of function calls and callbacks, commonly presented as \textit{callback hell}\ftnt{http://maxogden.github.io/callback-hell/}, or \textit{pyramid of doom}.
-This is widely recognized as a bad practice and reflects the unsuitability of callbacks in complete applications.
-Eventually, developers enhanced callbacks to meet their needs with the concept of Promise~\cite{Liskov1988}.
+Promises are another way to organize a suite of asynchronous operations avoiding this callback hell.
+They organize the operations as a well-defined pipeline.
+Moreover, Promises provide additional control over the asynchronous execution flow, than callbacks.
+They are part of the next version of the Javascript language, ECMAScript 6\ftnt{http://people.mozilla.org/~jorendorff/es6-draft.html}.
+To avoid the equivalence being unnecessarily incomplete, we present an alternative to Promise, called Due.
+Due organize the operations like Promises, as a well-defined pipeline, while discarding the unnecessary additional control over the asynchronous flow.
 
-Promises bring a different way to control the asynchronous execution flow, better suited for large applications.
-They fulfill this task well enough to be part of the next version of the Javascript language, ECMAScript 6\ftnt{http://people.mozilla.org/~jorendorff/es6-draft.html}.
-However, because Javascript started as a scripting language, beginners are often not introduced to Promises early enough.
-Most APIs use the classical callback approach encouraging beginner in this practice.
-Moreover, despite its benefits, the concept of Promise is not yet widely acknowledged.
-Developers may implement their own library for asynchronous flow control before discovering existing ones.
-There is such a disparity between the needs for and the adoption of Promises libraries, that there are almost 40 different implementations\ftnt{https://github.com/promises-aplus/promises-spec/blob/master/implementations.md}.
-% TODO reformulate this sentence.
+This chapter present an equivalence, and a compiler to identify the pipeline of operating underlying in a Javascript application using callbacks, and extract it to express it as Dues.
+This compiler has been tested over 64 \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}).
+55 packages were incompatible with the compiler, 9 packages were compiled with success.
 
-With the upcoming introduction of Promise as a language feature, we expect an increase of interest, and believe that many developers will shift to this better practice.
-In this paper, we propose a compiler to automate this shift in existing code bases.
-We present the transformation from an imbrication of callbacks to a sequence of Promise operations, while preserving the semantic.
+Callbacks, Promises and Dues are further defined in section \ref{section:definitions}.
+Section \ref{section:equivalence} explains the transformation from imbrications of callbacks to sequences of Dues.
+Section \ref{section:compiler} presents a compiler to automate the application of this equivalence.
+And finally, the developed compiler is evaluated in section \ref{section:evaluation}.
 
-Promises bring a better way to control the asynchronous execution flow, but they also impose a conditional control over the result of the execution.
-Callbacks, on the other hand, leave this conditional control to the developer.
-This paper focuses on the transformation from imbrication of callbacks to chain of Promises.
-To avoid unnecessary modifications on this conditional control, we introduce an alternative to Promises leaving this conditional control to the developer, like callbacks.
-We call this simpler specification Dues.
-Our approach enables us to compile legacy Javascript code and brings a first automated step toward full Promises integration.
-This simple and pragmatic compiler has been tested over 64 \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}), 9 of them with success.
 
-In section \ref{section:definitions} we define callbacks, Promises and Dues.
-In section \ref{section:equivalence}, we explain the transformation from imbrications of callbacks to sequences of Dues.
-In section \ref{section:compiler}, we present a compiler to automate the application of this equivalence.
-In section \ref{section:evaluation}, we evaluate the developed compiler.
+% This made Javascript a language of choice to develop both client and, more recently, server applications for the web.
+
+% Callbacks are well-suited for small interactive scripts.
+% But in a complete application, they are ill-suited to control the larger asynchronous execution flow.
+% Their use leads to intricate imbrications of function calls and callbacks, commonly presented as \textit{callback hell}\ftnt{http://maxogden.github.io/callback-hell/}, or \textit{pyramid of doom}.
+% This is widely recognized as a bad practice and reflects the unsuitability of callbacks in complete applications.
+% Eventually, developers enhanced callbacks to meet their needs with the concept of Promise~\cite{Liskov1988}.
+
+% Promises bring a different way to control the asynchronous execution flow, better suited for large applications.
+% They fulfill this task well enough to be part of the next version of the Javascript language, ECMAScript 6\ftnt{http://people.mozilla.org/~jorendorff/es6-draft.html}.
+% However, because Javascript started as a scripting language, beginners are often not introduced to Promises early enough.
+% Most APIs use the classical callback approach encouraging beginner in this practice.
+% Moreover, despite its benefits, the concept of Promise is not yet widely acknowledged.
+% Developers may implement their own library for asynchronous flow control before discovering existing ones.
+% There is such a disparity between the needs for and the adoption of Promises libraries, that there are almost 40 different implementations\ftnt{https://github.com/promises-aplus/promises-spec/blob/master/implementations.md}.
+
+% With the upcoming introduction of Promise as a language feature, we expect an increase of interest, and believe that many developers will shift to this better practice.
+% In this paper, we propose a compiler to automate this shift in existing code bases.
+% We present the transformation from an imbrication of callbacks to a sequence of Promise operations, while preserving the semantic.
+
+% Promises bring a better way to control the asynchronous execution flow, but they also impose a conditional control over the result of the execution.
+% Callbacks, on the other hand, leave this conditional control to the developer.
+% This paper focuses on the transformation from imbrication of callbacks to chain of Promises.
+% To avoid unnecessary modifications on this conditional control, we introduce an alternative to Promises leaving this conditional control to the developer, like callbacks.
+% We call this simpler specification Dues.
+% Our approach enables us to compile legacy Javascript code and brings a first automated step toward full Promises integration.
+% This simple and pragmatic compiler has been tested over 64 \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}), 9 of them with success.
+
+% In section \ref{section:definitions} we define callbacks, Promises and Dues.
+% In section \ref{section:equivalence}, we explain the transformation from imbrications of callbacks to sequences of Dues.
+% In section \ref{section:compiler}, we present a compiler to automate the application of this equivalence.
+% In section \ref{section:evaluation}, we evaluate the developed compiler.
 
 \input{04-due/Definitions}
 \input{04-due/Equivalence}
