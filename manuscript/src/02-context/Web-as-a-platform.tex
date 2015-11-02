@@ -1,33 +1,4 @@
-\section{The Web as a platform} \label{chapter2:web-as-a-platform}
-
-\subsection{From Operating Systems to the World Wide Web}
-
-
-% With the invention of electronic computing machine, appeared the market for software applications.
-% This market is not limited by marginal production cost ; software being a virtual product, the production and distribution cost for another unit is virtually null.
-% The market is limited by the platform a software can be deployed on.
-% The bigger the platform, the wider the market.
-% There is an economically incentive to standardize and widen the platform, both for the provider, and for the consumer.
-% The first platforms started as products, in competition with other products.
-% Their manufacturers had economical incentive to increase their market share.
-% Microsoft successfully took over the market of operating system in the 90s, and was on the edge of monopoly more than once.
-% But eventually, the product is standardized, and becomes the platform.
-
-% Before the internet, this market was limited for distribution by the physical medium.
-% It takes time to burn a CD, or a floppy, and to bring it to the consummer's home.
-% Sir Tim Berners Lee invented the world wide web in 1989.
-% It was initially intended to share scientific documents and results.
-% And it eventually became the distribution medium of choice for every virtual products, software included.
-% It pushed the scalability of software distribution.
-
-% Similarly to operating systems, Web browsers started as software products.
-% They exposed innovative features to try to increase their market share.
-% Among others is the ability to run scripts.
-% It allows to deploy and run software at unprecedented scales.
-% The web became the platform.
-% Now, with web services, or Software as a Service (SaaS), the distribution medium of software is so transparent that owning a software product to have an easier access is no longer relevant.
-% We explore now the different languages to write and deploy applications on the web.
-
+\section{The Web as a Platform} \label{chapter2:web-as-a-platform}
 
 \begin{wrapfigure}{r}{0.2\textwidth}
   \vspace{-27pt}
@@ -37,65 +8,49 @@
   \vspace{-20pt}
 \end{wrapfigure}
 
+\nt{TODO this paragraph is not clear}
+
 The production and distribution cost for another unit of a software application is virtually null.
 The market is only limited by the platform a software can be deployed on.
 The bigger the platform, the wider the market.
-% There is an economical incentive to standardize and widen the platform, both for the provider, and for the consumer.
-% The first platforms started as products, in competition with other products.
-% Their manufacturers had economical incentive to increase their market share.
-% Microsoft successfully took over the market of operating system in the 90s, and was on the edge of monopoly more than once.
-% But eventually, the product is standardized, and becomes the platform.
-% The market of operating system was limited for distribution by the physical medium.
-% It takes time to burn a CD, or a floppy, and to bring it to the consummer's home.
 The Internet and particularly the Web spreads the scalability of software distribution world wide with a near zero latency.
 It eventually became the main distribution medium for software, and the wider market there can possibly be.
 
 Similarly to operating systems, Web browsers started as software products with the ability to run scripts to extend their possibilities.
-% They exposed innovative features to try to increase their market share.
 It led the web to become the platform, replacing operating systems.
 Now, with web services, or Software as a Service (SaaS), the distribution medium of software is so transparent that owning a software product to have an easier access is no longer relevant.
 It stimulates a competly new business model based on a free access for the user, while claiming value for their data.
 We explore in the next paragraphs the different languages that allowed this new business model to emerge.
 
-\subsection{The Languages of the Web}
+\subsection{Javascript, The Language of the Web}
 
 In the 80's and early 90's, with Moore's law predicting exponential increase in hardware performance, development time became more expensive than hardware.
-Higher-level languages replaced lower-level languages. %, trading perfomance for accessibility.
+Higher-level languages replaced lower-level languages.
 The economical gain in development time compensated the worsen performances.
 During the web early development, most of the now popular programming languages were released, Python(1991), Ruby(1993), Java(1994), PHP(1995) and Javascript(1995).
 
-Java, developed by Sun Microsystems, imposes itself early as a language of choice and never really decreased.
+Java, developed by Sun Microsystems, imposes itself in the software industry and never really decreased.
 The language is executed on a virtual machine, allowing to write an application once, and to deploy it on heterogeneous machines.
-The software industry quickly adopted it as its main development language.
-% It is currently the second most cited language on StackOverflow, and used on Github.
-% And is in the first place of many language popularity indexes.
 However, because of the heavy adoption by the software industry, Java lose the hype that drove the community innovation and creativy.
 It struggles to keep up with the latest trends in software development.
+Similarly, Ruby was almost unknown until the release of the web framework Rails.
+Rails was initially created within an industrial context, but is now open source, and supported by a strong community.
 
-\textit{Python is the second best language for everything.}
-It is a general purpose language, currently popular for data science.
-In 2003, the release of the Django web framworks brought the language to the web development scene.
-
-Ruby was almost unknown until the release of Rails in 2005.
-With the release of this web framework, Ruby took-off and is still in active use.
-% It meets the latest trends in software development.
-% And it might had replaced Java if the latter had not been so well adopted in the software industry.
-
-PHP %stands for Personal Home Page Tools.
-was initially designed to build personal web pages.
-It might be one of the easiest language to start web development, but even though there is some success story, it is generally unfit to grow projects to industrial size.
-It is on a slow decline since a few years according to several language popularity indexes.
+Other languages bloomed, grew within a strong community, and were later adopted by the industry for web development.
+For example, it is the case of Python and PHP.
+It is often said of Python, that \textit{[it] is the second best language for everything} because of number of available libraries.
+The Python community brought Django as a web frameworks, and it is used to develop many web applications in industrial contexts.
+And PHP was initially designed to build personal web pages.
+Its simplicity made it a language of choice for many young developpers.
+As an example, Wordpress is the result of this effervescent, and is now a strong economical success.
+These examples show that the involvement of the community is critical for the adoption, evolution and maturation of a language.
 
 Since a few years, Javascript is slowly becoming the main language for web development.
 It is the only choice in the browser.
-Because of this unavoidable position, it became fast (V8, ASM.js) and convenient (ES6, ES7).
-% It is a target for LLVM, allowing many languages to compile to Javascript, strengthening again its omnipresent position.
+Because of this unavoidable position, work has been done to make it fast (V8, ASM.js) and convenient (ES6, ES7).
 And since 2009, it is present on the server as well with Node.js
 This omnipresence became an advantage.
 It allows to develop and maintain the whole application with the same language.
-% I argue that Javascript is the language of choice to prototype and maintain an application.
-
-\subsection{Explosion of Javascript popularity}
 
 \subsubsection{In the beginning}
 
@@ -140,16 +95,16 @@ Why do so many people seem to hate Javascript?\ftnt{https://www.quora.com/Why-do
 }
 
 But things evolved drastically since.
-One of the reason for the success of Javascript is the \textit{View Source} menu that reveals the complete source code of any web site.
+One of the reason for the success of Javascript is the \textit{View Source} menu that reveals the source code of any web site client side.
 % The success of Javascript is due to many factors ; maybe the most important of all is the \textit{View Source} menu that reveals the complete source code of any web application.
 % \textit{The view source menu is the ultimate form of open source}\ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
-It allows the community to pick, improve and reproduce the best techniques \ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
+It allows the community to pick, improve and reproduce the best techniques as an open collaboration \ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
 % It brought open source and collaborative development to the web.
 Another reason is that all web browsers include a Javascript interpreter, making Javascript the most ubiquitous runtime in history \cite{Flanagan2006}.
 % Every browser include development tools for Javascript, making it the most ubiquitous development environment, as well.
 Javascript is distributed freely, with all the tools needed to reproduce and experiment on the largest communication network in history.
 Anybody can seize this opportunity to incrementally build and share the best tools they can.
-This open collaboration is the reason for the popularity the Web and Javascript with.
+All these reasons made the popularity of the Web and Javascript.
 
 % When such a language is distributed freely with the tools to reproduce and experiment on every piece of code.
 % And its distribution is carried during the expansion of the largest communication network in history.
@@ -202,6 +157,8 @@ Around the same time, Google released V8 for its browser Chrome.
 It is a Javascript interpreter improving drastically the execution performance. % with a just-in-time compiler.
 Javascript became the programming language of web, becoming the rising application platform.
 
+\nt{TODO More precisions on the following paragraph}
+
 Taking advantage of this trend, Node.js pushed Javascript to the server as well in 2009.
 % Javascript was initially proposed to develop user interfaces.
 Javascript is often associated with an event-based paradigm to react to concurrent user interactions.
@@ -221,7 +178,35 @@ Javascript is now the only language able to build a complete web service, from t
 % Another example is Gnome-shell. It uses Javascript to build its interface, and extensions.
 % PhoneGap (Cordova) is a huge effort toward bringing web technologies to the mobile.
 
+\nt{Include more about functional language, promises, browser integration, event programming.}
 
+\subsubsection{Event-Loop}
+
+The event-loop is an efficent execution model for concurrent applications on a single processing unit using non-blocking communications.
+It relies on a queue storing the received messages before being processed one after the other by the loop.
+On each reception, the loop executes a task to process the received message.
+% This event is the aggregation of the response, and of a function to continue the execution with the result.
+While processing the message, the task can initiate new communications, leading in turn to the queuing of more messages, which trigger more tasks, and so on.
+The scheduling of execution is cooperative.
+Each task is executed atomically and exclusively, until it yields execution, to continue with the next task in queue.
+
+
+% The tasks are scheduled cooperatively, and yield execution on asynchronous communication.
+
+In Javascript, these tasks are defined during the communication initiation.
+The function called to initiate the execution expects as argument a function to continue the execution at the reception of communication result.
+This function is called a callback or a continuation.
+
+In this model, the input stream of data flows through a sequence of callbacks to be processed until the application outputs it.
+This stream is never stored, except as a buffer between two callbacks.
+On the contrary, The state ramins in memory to be shared by all callbacks.
+Because Javascript is of higher-order, the callbacks as well as their execution contexts are part of this state.
+They are called closures.
+% In Javascript, it includes the closures.
+
+\nt{TODO schema of an event-loop}
+
+% This execution model is similar to the pipeline architecture presented in the next paragraph.
 
 
 \begin{figure}
@@ -415,3 +400,88 @@ With the evolution of web applications development and increased interest in thi
 
 This section presented the languages used to build web applications.
 In the next section presents the realities and technical challenges to assure their performance against billions of users.
+
+
+
+\subsection{Highly concurrent web servers}
+
+
+
+\subsubsection{Concurrency}
+
+The Internet allows communication at an unprecedented scale.
+There is more than 16 billions connected devices, and it is growing fast\ftnt{http://blogs.cisco.com/news/cisco-connections-counter} \cite{Hilbert2011}.
+% This massively interconnected network gives the ability for a web applications to be reached at the largest scale.
+A large web application like google search receives about 40 000 requests per seconds\ftnt{http://www.internetlivestats.com/google-search-statistics/}.
+Such a web application needs to be highly concurrent to manage this amount of simultaneous requests.
+% Concurrency is the ability for an application to make progress on several tasks at the same time.
+% For example to respond to several simultaneous requests, a task is a part in the response to a request. \nt{TOOD define more clearly what is a task}
+%It represents an uninterrupted flow of requests, with a growing throughput.
+In the 2000s, the limit to break was 10 thousands simultaneous connections with a single commodity machine\ftnt{http://www.kegel.com/c10k.html}.
+Nowadays, in the 2010s, the limit is set at 10 millions simultaneous connections\ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
+With the growing number of connected devices on the internet, concurrency is a very important property in the design of web applications.
+Moreover, the concurrency needs to be scalable to adapt to this growth of audience, as explained in the next paragraph.
+
+\subsubsection{Scalability}
+
+The traffic of a popular web application such as Google search remains stable because of its popularity.
+The importance of the average traffic soften the occasional spikes.
+%There is no apparent spikes in the traffic, because of the importance of the average traffic.
+However, the traffic of a less popular web application is much more uncertain.
+For example, it might become viral when it is efficiently relayed in the media.
+% For example, when a web application appears in the evening news, it expects a huge spike in traffic.
+% the number of simultaneous requests obviously  increases, and 
+The load of the web application increases with the growth of audience.
+The available resources needs to increase to meet this load.
+This growth can be steady enough to plan the increase of resources ahead of time, or it might be erratic and challenging.
+% The spikes of a less popular web application are unpredictable.
+% Therefore, the concurrency needs to be expressed in a scalable fashion.
+An application is scalable, if it is able to spread over resources proportionnaly as a reaction to the increasing growth of audience.
+% For example, if a scalable application uses one resource to handle $n$ simultaneous requests, it will use $k$ resource to handle two times $n$ simultaneous requests.
+% With $k$ being constant, for $n$ ranging from tens to millions of simultaneous requests.
+% It assures that the load is increasing linearly, instead of exponentially.
+
+\subsubsection{Time-slicing and Parallelism}
+
+Concurrency is achieved differently on hardware with a single or several processing units.
+On a single processing unit, the tasks are executed sequentially, interleaved in time, while on several processing units, the tasks are executed simultaneously, in parallel.
+% Parallel executions reduce computing time over sequential execution, as it uses more processing units.
+If the tasks are independent, they can be executed in parallel as well as sequentially.
+This parallelism is scalable, as the independent tasks can stretch the computation on the resources so as to meet the required performance.
+% This parallelism is used in operating system to execute several applications concurrently to allow multi-tasking.
+
+However, the tasks within an application need to coordinate together to modify the application state.
+This coordination limits the parallelism and impose to execute some tasks sequentially.
+It limits the scalability.
+The type of possible concurrency, sequential or parallel, is defined by the interdependencies of the tasks.
+\nt{TODO the paragraph below is to be rewritten : sentences poorly formed + link with next section}
+% Either the tasks are independents and they can be executed in parallel, or the tasks need to coordinate a common state, and they need to be executed sequentially to avoid conflicting accesses to the state.
+
+% The same limitations are found in the two paradigms I study in this thesis : event-loop and multi-process.
+
+
+\subsubsection{Pipeline}
+
+The pipeline software architecture is composed of isolated stages communicating by message passing to leverage the parallelism of a multi-core hardware architectures.
+It is well suited for streaming application, as the stream of data flows from stage to stage.
+Each stage has an independent memory to hold its own state.
+As the stages are indendent, the state coordination between the stages are communicated along with the stream of data.
+
+\nt{TODO schema of a pipeline}
+
+Each stage is organized in a similar fashion than the event-loop presented above.
+It receives and queues messages from upstream stages, processes them one after the other, and outputs the result to downstream stages.
+The difference is that in the pipeline architecture, each task is executed on an isolated stage, whereas in the event-loop execution model, all tasks share the same queue, loop and memory store.
+
+Both paradigms encapsulate the execution in tasks assured to have an exclusive access to the memory.
+However, they provide two different models to provide this exclusivity resulting in two distinct ways for the developer to assure the invariance on the application state.
+Contrary to the pipeline architecture, the event-loop provide a common memory store allowing the best practice of software development to improve maintainability.
+It is possibly the reason of the wide adoption of this programming model by the community of developers.
+
+\paragraph{}
+
+This thesis proposes to provide an equivalence between the two memory models for streaming web applications.
+The next subsection describes further the similarities and differences between the two models.
+The equivalence would allow a compiler to transform an application expressed in one model into the other.
+With such a tool, a development team could rely on the common memory store of the event-loop execution model, and focus on the maintainability of the implementation.
+And compile continuously during the development the event-loop implementation to the pipeline architecture to assure that the execution can be distributed on a parallel architecture.

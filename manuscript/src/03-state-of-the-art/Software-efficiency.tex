@@ -378,3 +378,95 @@ Streaming
 
 Map Reduce
 \cite{Yao2015}
+
+
+
+
+
+
+\subsection{Interdependencies}
+
+It is easy to understand the parallelism in a cooking recipe because the interdependencies between operations are trivial.
+It seems obvious that melting chocolate is independent from whipping up egg whites.
+% Because chocolate and egg whites are different ingredients.
+This distinction between chocolate and egg whites is trivial.
+% ... comes from the modifications to the state.
+While the distinctions within the state of an application are more intricate.
+This makes concurrent application more difficult to design and implement.
+
+\subsubsection{State Coordination}
+
+% The interdependencies between the tasks impose the coordination of the global application state.
+The global state of an application impose the coordination between the tasks.
+This coordination happens either by sending messages, or by modifying a shared memory.
+\nt{The following sentence needs to be rewritten to include both message passing and shared memory. Because state coordination limits parallelism, and scalability, it is a better solution to use message passing}
+If the tasks are independent enough, the coordinations can be done with message passing.
+Each task sends messages to indicate the modifications of the state with consequences outside its scope.
+% They pass the states from one task to another so as to always have an exclusive access on the state.
+% As example, applications built around a pipeline architecture define independent tasks arranged to be executed one after the other.
+% The tasks pass the result of their computation to the next.
+% These tasks never share a state.
+However, if the tasks are too dependent, the overhead of message passing tends to impact performances.
+% If the tasks need concurrent accesses to a state, they cannot efficiently pass the state from one to the other repeatedly.
+They need to share and coordinate their accesses to the state.
+Each access needs to be exclusive to avoid corruption.
+I address in the next paragraphs the different scheduling strategies, and how they assure this exclusivity.
+
+\subsubsection{Task Scheduling}
+
+There are two scheduling strategies to execute tasks sequentially on a single processing unit : preemptive scheduling and cooperative scheduling.
+The coordination is different with the two scheduling strategies.
+
+\illustration{feu rouge et rond point}
+
+Preemptive scheduling is used to assure fairness between the tasks, such as in a multi-tasking operating system.
+% in most execution environment in conjunction with multi-threading.
+The scheduler allows a limited time of execution for each task, before preempting it.
+% It is a fair and pessimistic scheduling, as it grant the same amount of computing time to each task.
+However, as the preemption happens unexpectedly, the developer needs to assure exclusivity by locking the shared state before access.
+Locking is known to be hard to manage by developers, and to impact performances negatively.
+Because it is not ideal both for development scalability and performance scalability, it is set aside for the remaining of this chapter.
+% This scheduling strategy should be avoided except when true concurrency is needed in concert with true shared state.
+% Shared state could probably always be emulated with isolated memory and message passing.
+
+On the other hand, in cooperative scheduling, a task is allowed to run until it yields the execution back to the scheduler.
+Each task is an atomic execution : it has an exclusive access on the memory.
+% It gives back to the developer the control over the preemption.
+As the developer doesn't need to explicitly assure exclusivity, it is easier to write concurrent programs efficiently with this scheduling strategy.
+% Indeed, I presented in the previous section the popularity of Javascript, which is often implemented on top of this scheduling strategy (DOM, Node.js).
+
+\subsubsection{Invariance}
+
+\nt{TODO This section is not clear. It should be moved in the state of the art.}
+
+% The challenge introduced above is to assure to the developer an exclusive access to the state of its application.
+In concurrent computation, it is important to assure the invariance of a state during its manipulation.
+This assurance is given by the exclusive access of an atomic execution on the state.
+% I call invariance the assurance given that the state accessible from a task will remain unchanged during its access to avoid corruption, and more generally to allow the developer to perform atomic modifications on the state.
+It allows the developer to group operations inside this atomic execution, so as to avoid corruption of the state.
+% so as to perform all the operations without interference from concurrent executions.
+% The same concept is found in transactional memory.
+
+When the tasks remains isolated and communicate by message passing, there is no risk of corrupted state.
+The invariance is assured by the isolation of the state specified by the developer, and by the atomicity of the message processing.
+On the other hand, in a cooperative scheduling application, each task is atomic, so the developer always has an exclusive access to the global state.
+This atomicity assures the invariance.
+% The invariance is assured by the atomicity of each task.
+% , because any region in the memory can be accessed only by one task at a time.
+
+% Between these two invariances, the locking mechanisms seems to be a promising compromise.
+% The developer defines only the shared states, and these are locked only when needed.
+% However, it increases the complexity of the possible locked combination, leading to unpredictable situations, such as deadlock, and so on.
+% The locking mechanisms are known to be difficult to manage, and sub-optimal.
+% Indeed, they are eventually as efficient as a queue to share resources.
+
+% For the rest of this thesis, I focus only on the invariances provided by the multi-process paradigm and the cooperative scheduling.
+% They two invariance are similar, because the developer defines sequence of instructions with atomic access to the memory.
+% And in both paradigms, these sequences communicate by sending messages to each other.
+The difference is that in the message passing paradigm, the developer defines the state isolation inducing the execution isolation, while with cooperative scheduling, the developer defines only the execution isolation.
+% This difference seems to be crucial in the adoption by the developer community.
+It is difficult for developer to isolate state, but it provides good performances through parallelism.
+While it is easier to assure atomic execution with cooperative scheduling, but it is unable to provide parallelism.
+On one hand, the state is distributed and isolated to improve performance scalability.
+On the other hand, the code is organized logically to improve maintainability.
+The impact of these two organizations on performance scalability and development scalability is at the heart of this thesis.

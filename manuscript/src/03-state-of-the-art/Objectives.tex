@@ -1,4 +1,5 @@
 \section{Objectives} \label{chapter3:objectives}
+\nt{TODO title not clear enough}
 
 % The objective of this thesis is to find a reconciliation of the two goals, by finding an equivalence between two approaches with different goals, in the case of streaming web applications.
 
@@ -58,3 +59,62 @@ We show that there is no languages that features higher-order functions to impro
 
 We aim at filling this gap, and for a concrete example, focus our work on the Javascript programing language.
 Indeed, Javascript features higher-order functions, is highly-used in concurrent context, but lacks scalable concurrency.
+
+
+
+
+
+
+
+
+\subsection{Equivalence}
+
+\subsubsection{Rupture Point}
+
+The execution of the pipeline architecture is well delimited in isolated stages.
+Each stage has its own thread of execution, and is independent from the others.
+On the contrary, the code of the event-loop is linear because of the continuation passing style and the common memory store.
+% The message passing linking the callbacks is transparently handled by the event-loop.
+However, the execution of the different callbacks are as distinct as the execution of the different stages of a pipeline.
+The call stacks of two callbacks are distincts.
+Therefore, an asynchronous function call represents the rupture between two call stacks.
+It is a rupture point, and is equivalent to a data stream between two stages in the pipeline architecture.
+
+Both the pipeline architecture and the event-loop present these rupture points.
+The detection of rupture points allows to map a pipeline architecture onto the implementation following the event-loop model.
+To allow the transformation from one to the other, this thesis studies the possibility to detect rupture points, and to distribute the global memory into the parts defined by these rupture points.
+The detection of rupture points is addressed in chapter \ref{chapter4}.
+
+\subsubsection{Invariance}
+
+% This transformation is important on two points.
+% The conservation of the invariance.
+% The equivalence between the coordinations.
+
+The transformation should preserve the invariance as expressed by the developer to assure the correctness of the execution.
+The partial ordering of events in a system, by opposition to total ordering, is sufficient to assure this correctness.
+% This result was used by Lamport to prove the correctness of distributed systems.
+The global memory is a way to assure the total ordering of events, and the message passing coordination is a way to assure partial ordering of events.
+Therefore, to assure the correctness of the execution of a system, the state coordination with a global memory is equivalent to message passing coordination.
+And it is possible, at least for some rupture points, to transform the global memory coordination into message passing while conserving the correctness of execution.
+
+In order to preserve the invariance assured by the event-loop model after the transformation, each stage of the pipeline needs to have an exclusive access to memory.
+The global memory needs not to be split into parts and distributed into each of the stages.
+To assure the missing coordinations assured by the shared memory between the stages, the transformation should provide equivalent coordination with message passing.
+The isolation and replacement of the global memory is fully address in chapter \ref{chapter5}
+
+% The invariance holds for the whole memory during the execution of each callback.
+% As I explained in the previous section, this invariance is required to allow the concurrent execution of the different tasks.
+% On the other hand, the invariance is explicit in the pipeline architecture, as all the stages have isolated memories.
+% The coordination between these isolated process is made explicit by the developer through message passing.
+
+% I argue that the state coordination between the callbacks requireing a global memory could be replaced by the message passing coordination used manually in the pipeline architecture.
+% I argue that not all applications need concurrent access on the state, and therefore, need a shared memory.
+% % Specifically, I argue that each state region remains roughly local to a stage during its modification.
+% \nt{TODO review that, I don't know how to formulate these paragraphs. Identify the state and the data in the global memory.}
+
+% \subsubsection{Transformation}
+
+% This equivalence should allow the transformation of an event loop into several parallel processes communicating by messages.
+% In this thesis, I study the static transformation of a program, but the equivalence should also hold for a dynamic transformation.
+% I present the analyzis tools I developed to identify the state and the data from the global memory.
