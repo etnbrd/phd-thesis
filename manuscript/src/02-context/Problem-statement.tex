@@ -1,73 +1,35 @@
 \section{An Economical Problem} \label{chapter2:problem-statement}
 
-The previous section presented two implementation organizations to improve either performance scalability, or development scalability.
-However, these two organizations are incompatible.
-Because of economical constraints, this incompatibility implies ruptures in the development.
-It represents additional development efforts and important costs.
-This thesis argues that is possible to allow a continuous development between the two organizations, so as to lift these efforts and costs.
-This section presents the two programming models representing each an organization.
-Then it presents the possibility of an equivalence bridging the two.
-This equivalence is detailed further in the the chapter \ref{chapter4} and \ref{chapter5} of this thesis.
-
-% I argue that the language should propose to the developer an abstraction to encourage the best practices of software development.
-% Then a compiler, or the execution engine, can adapt this abstraction so as to leverage parallel architectures. 
-% So as to provide to the developer a usable, yet efficient compromise.
-% We propose to find an equivalence between the invariance proposed by the cooperative scheduling paradigm and the invariance proposed by the multi-processes paradigm in the case of web applications.
-
-
-
-
-
-
-
-
+\nt{TODO introduction}
 
 \subsection{Disrupted Development}
 
-% \subsubsection{Power wall}
+\nt{TODO introduction}
 
-\subsubsection{Scalable Concurrency}
-
-% Around 2004, the so-called Power Wall was reached.
-% The clock of CPU is stuck at 3GHz because of the inability to dissipate the heat generated at higher frequencies.
-% Additionally, the instruction-level parallelism is limited.
+\subsubsection{Power-Wall Disruption}
 
 \illustration{heating chipset / parallel chipsets}
 
 Around 2004, the speed of sequential execution on a processing unit plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
-Manufacturers started to arrange transistors into several processing units to keep increasing overall performance while avoiding overheating problems.
-% Because of these limitations, a processor is limited in the number of instruction per second it can execute.
+Manufacturers reached what they called the power wall
+THey started to arrange transistors into several processing units to keep increasing overall performance while avoiding overheating problems.
 Therefore, the performance of the sequential execution required by the cooperative scheduling plateaued as well.
 Isolating tasks is the only option to achieve high concurrency on this parallel hardware.
-% Therefore, a coarser level of parallelism, like the task-level, multi-processes parallelism previously presented is the only option to achieve high concurrency and scalability.
 But this isolation is in contradiction with the best practices of software development.
 It implies a rupture between performance and maintainability.
 
-\subsubsection{The Case for Modularity}
+\subsubsection{Unavoidable Modularity}
 
 The best practices in software development advocate to gather features logically into distinct modules.
-% The understanding of the whole application emerges from the interconnections between the different modules.
 This modularity allows a developer to understand and contribute to an application one module at a time, instead of understanding the whole application.
 It allows to develop and maintain a large code-base by a multitude of developers bringing small, independent contributions.
-
-
-% Modularity advocates three principles : encapsulation, a module contains all the data, as well as the functions to manipulate this data ; separation of concerns, each module should have a clear scope of action, and this scope should not overlap with the scope of other modules ; and loose coupling, each module should require no, or as little knowledge as possible about the definition of other modules.
-% The main goal followed by these principles, is to help the developer to develop and maintain a large code-base.
 
 This modularity avoids a different problem than the isolation required by parallelism.
 The former intends to structure code to improve maintainability, while the latter improve performance through parallel execution.
 These two organizations are conflicting in the design of the application.
-% Therefore, every language needs to provide a compromise between these two goals, and specialized in specific type of applications.
-In the next paragraph, I argue this conflict disrupts the development of a web application.
+The next paragraph presents the disruptions in the development of a web application implied by this conflict.
 
-% I argue that the more accessible, hence popular programming languages choose to provide modularity over isolation.
-% They provide a global memory at the sacrifice of the performance provided by parallelism.
-% On the other hand, the more efficient languages sacrifice the readability and maintainability, to provide a model closer to parallelism, to allow better performances.
-% \nt{TODO instead of language, use a more generic term to refer to language or infrastructure}
-% \nt{TODO justification and examples. What are modular application, or parallel applications ?}
-
-
-\subsubsection{Technological shift}
+\subsubsection{Technological Shift}
 
 Between the prototyping, and the maturation of a web application, the needs are radically different.
 During the initiation of a web application project, the economical constraint holds on the pace of development.
@@ -76,121 +38,75 @@ The development team opt for a popular and accessible language to leverage the a
 It is only after a certain threshold of popularity that the  economical constraint on performance requirements exceed the one on development.
 The development team shift to an organization providing parallelism.
 
-% Between the early development, and the maturation of a web application, the development needs are radically different.
-% In its early development, a web application needs to quickly iterate over feedback from its users.
-% \textit{``Release early, release often''}, and \textit{``Fail fast''} are the punchlines of the web entrepreneurial community.
-% The development team quickly releases a Minimum Viable Product as to get these feedbacks.
-% The development reactivity is crucial.
-% The first reason of startup failures is the lack of market need\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}.
-% Therefore, the development team opt for a popular, and accessible language.
-
-% As the application matures and its audience grows, the focus shift from the development speed to the scalability of the application.
-% % The ability of the application to handle a large amount of simultaneous request.
-% The development team shift from a modular language, to a language providing parallelism.
-
-
 This shift brings two risks.
 The development team needs to rewrite the code base to adapt it to a completely different paradigm.
 The application risks to fail because of this challenge.
-% It is hard for the development team to find the time, hence the money, or the competences to deploy this new paradigm.
-% Indeed, the number two and three reasons for startup failures are running out of cash, and missing the right competences.
 And after this shift the development pace slows down.
-% Parallel languages are incompatible with the commonly learned design principles.
 The development team cannot react as quickly to user feedbacks to adapt the application to the market needs.
 The application risks to fall in obsolescence.
-
-% There is a performance problem with languages about concurrency.
-% The used imperative programming languages are difficulty parallel.
-% And the highly parallel programming languages are not largely used.
-
-% There is a technological rupture between the two.
 
 The risks implied by this rupture proves that there is economically a need for a solution that continuously follows the evolution of a web application.
 We present in the next section the proposition of this thesis for such a solution.
 It would allow developers to iterate continuously on the implementation focusing simultaneously on performance, and on maintainability.
 
-% This technological rupture proves that there is economically a need for a more sustainable solution to follow the evolution of a web application.
-% A paradigm that it is easy to develop with, as needed in the beginning of a web application development, and yet scalable, so as to be highly concurrent when the application matures.
-
-% Such a paradigm would allow to develop with a global memory, so as to follow the best practices of software development, and be able to isolate the state of each concurrent tasks to parallelize them.
 
 
 
 
+\subsection{Seamless Web Development}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Targeted Classes Of Application}
+\nt{TODO introduction}
 
 \subsubsection{Real-Time Streaming Web Services}
 
-% \nt{The need for invariance in the streaming applications : it can be emulated by message passing. Indeed the data flows from one processing step to the other, with few retroprogation of state (don't mention retro-propagation yet)}
-
-We focus on web applications processing streams of requests from users in soft real-time.
+This thesis focus on web applications processing streams of requests from users in soft real-time.
 Such applications receive requests from clients using the HTTP protocol and must respond within a finite window of time.
 They are generally organized as sequences of tasks to modify the input stream of requests to produce the output stream of responses.
 The stream of requests flows through the tasks, and is not stored.
-% This stream of data stand out from the state of the application.
 On the other hand, the state of the application remains in memory to impact the future behaviors of the application.
 This state might be shared by several tasks within the application, and imply coordination between them.
-% In this thesis I study two programming paradigm derived directly from the cooperative scheduling and the multi-process paradigms presented in previous sections to be applied in the case of real-time web applications.
 
-The next paragraphs present two programming models to express web applications based on the invariance paradigms presented in the previous section.
-%, the event-loop and the pipeline architecture.
-The event-loop execution engine is based on the cooperative scheduling, and the pipeline architecture is based on isolated tasks communicating by message passing.
-% They both feature different organization for the sequence of tasks, the stream and the state.
-This thesis is based on the similarities between these two programming models.
+The next section introduces the similarities and differences between the two programming models from the previous section.
+And then draws an equivalence.
+This equivalence is developed all throughout this thesis.
 
-\subsubsection{Architectures for Web Services}
+\subsubsection{Differences}
 
-\nt{TODO Event-Loop and Pipeline}
+Both paradigms encapsulate the execution in tasks assured to have an exclusive access to the memory.
+However, they provide two different models to provide this exclusivity resulting in two distinct programming models.
+Contrary to the pipeline architecture, the event-loop provide a common memory store allowing the best practice of software development to improve maintainability.
 
-\subsubsection{Seamless Web Development}
+However, these two organizations are incompatible.
+Because of economical constraints, this incompatibility implies ruptures in the development.
+It represents additional development efforts and important costs.
+This thesis argues that it is possible to allow a continuous development between the two organizations, so as to lift these efforts and costs.
+This section presents the two programming models representing each an organization.
+Then it presents the possibility of an equivalence bridging the two.
+This equivalence is detailed further in the the chapter \ref{chapter4} and \ref{chapter5} of this thesis.
 
-With this compiler, it would be possible to express an application following the design principles of software development, hence maintainable.
+\subsubsection{Equivalence}
+
+With this equivalence, it would be possible to express an application following the design principles of software development, hence maintainable.
 And yet, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
 Because of the equivalence between these two models, the development team could iterate testing the two models for their different concerns about the implementation : performance and maintainability.
 
 The goal of conciliating these two concerns is not new.
 The next chapter presents all the results from previous works needed to understand this work, up to the latest results in the field.
 
+\paragraph{}
+
+This thesis proposes to provide an equivalence between the two memory models for streaming web applications.
+The next section describes further the similarities and differences between the two models.
+The equivalence would allow a compiler to transform an application expressed in one model into the other.
+With such a tool, a development team could rely on the common memory store of the event-loop execution model, and focus on the maintainability of the implementation.
+And compile continuously during the development the event-loop implementation to the pipeline architecture to assure that the execution can be distributed on a parallel architecture.
+
+
+
+
+
+
 \endinput
-
-
-
-
----
-
-
-There are different kinds of state dependencies in applications components leading to different kinds of parallelism.
-In this thesis I argue that it is possible to parallelize a real-time web applications written on an event-loop because the strong dependencies mainly remains within a closed number of concurrent executions.
-
-
-
-
-\subsubsection{Learning curve}
-
-Because the compiler intend to warn the developer about shared states, it would be a great tool for beginner to progressively adapt to the flow programming model and best practices.
-
 
 \subsection{Liquid IT}
 

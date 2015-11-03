@@ -1,8 +1,5 @@
 \chapter{Introduction} \label{chapter:conclusion}
 
-
-% \comment{A few words about my PhD, and its context. How I approached it ? What were the motivations for me ? Worldline ? DICE ?}
-
 When the amazed 7 years old I was laid eyes on the first family computer, my life goal became to know everything there is to know about computers.
 This thesis is a mild achievement.
 It compiles my PhD work on
@@ -10,28 +7,6 @@ It compiles my PhD work on
 \textit{bridging the gap between development scalability, and performance scalability, in the case of real-time web applications}.
 
 \illustration{amazed child in front of a computer}
-
-% \begin{wrapfigure}{r}{0.3\textwidth}
-% \fontencoding{\encodingdefault}%
-%   \vspace{-32pt}
-%   \begin{center}
-%     \caption*{\tiny{Scalability...}}
-%     \vspace{-30pt}
-%     \hspace*{-25pt}
-%     \includegraphics[width=0.5\textwidth]{../ressources/x-x-everywhere.png}
-%     \vspace{-40pt}
-%     \caption*{\tiny{Scalability everywhere.}}
-%   \end{center}
-%   \vspace{-40pt}
-% \end{wrapfigure}
-
-% I studied scalability in the domain of computer sciences.
-% Scalability of the performance of an application over resources, as is often suggested when refering to scalability.
-% But as well as scalability of the development project of such application.
-% It now seems to me as if scalability is a crucial component of interacting and evolving in the world.
-% From space exploration, to economical market ...
-% \comment{What I take for scalability, might be overlapping with marginal increase, or incremental development}
-
 
 This work is the fruit of a collaboration between the Worldline and the Inria DICE (Data on the Internet at the Core of the Economy) team from the CITI (Centre d’Innovation en Télécommunications et Intégration
 de services) at INSA de Lyon.
@@ -71,7 +46,7 @@ It is a risk for the evolution of the project as the second and third reasons fo
 These shifts are a risk for the economaical evolution of a web application by disrupting the continuity in its developpement.
 The main question I address in this thesis is how to avoid these shifts, so as to allow a continuous development?
 That is to reconcile the reactivity required in the early stage of development and the performance increasingly required with the growth of popularity.
-To answer this question, I propose in this thesis a solution based on an equivalence between two different programming paradigms.
+To answer this question, this thesis proposes a solution based on an equivalence between two different programming paradigms.
 On one hand, there is the imperative, functional, asynchronous programming model, embodied by Javascript.
 On the other hand, there is the dataflow, distributed, programming model, embodied by the concept of fluxions introduced in chapter \ref{chapter5}.
 
@@ -82,30 +57,17 @@ With these two contributions, it is possible to build a compiler that links an i
 The imperative representation carries the functional modularization of the application, while the flow-based representation carries its execution distribution.
 A development team shall then use these two representations to continuesly iterate over the implementation of an application, while keeping both maintainability and performance.
 
-% In this thesis, I study Javascript, as it seems to be increasingly used in web development, both client- and server-side, to start projects.
-% Moreover, Javascript has the particularity to be implemented on top of an event-loop.
-% % Javascript is the only language featuring such design and released at such scale, but it is by no mean limited to Javascript.
-% This design is highly efficient and easy to develop with.
-% But it remains limited to one core of a processor.
-% Therefore, the problem of switching to a distributed approach remains.
-
-% To give a first answer to this question, I limited this question to a problematic of compilation from Javascript to a distributed approach.
-% More specifically, to a problem of memory analysis.
-% In this thesis, I make two main contributions.
-% The first contribution is a language and its execution engine to support the distributed approach.
-% The second contribution is an equivalence between Javascript, or any similar language, and the language of the first contribution.
-
 \section{Thesis organization}
 
 This thesis is organized in four main chapters.
-Chapter \ref{chapter2} introduces the context for this thesis and explains in greater details the objective I briefly described above.
+Chapter \ref{chapter2} introduces the context for this thesis and explains in greater details its objectives.
 It presents the challenge to build web applications at a world wide scale, without jamming the organic evolution of its implementation.
 It concludes drawing a first answer to this challenge.
 Chapter \ref{chapter3} presents the works surrounding this thesis, and how they relate to it.
 It defines into the notions outlined in the precedent chapter to help the reader understand better the context.
-At the end of this chapter, I present clearly the problematic addressed in this thesis.
+The end of this chapter presents clearly the problematic addressed in this thesis.
 Chapter \ref{chapter4} presents the first contribution allowing to represent a program as a pipeline of stages.
-We introduce Dues to encapsulate these stages, based on Javascript Promises.
+It introduces Dues to encapsulate these stages, based on Javascript Promises.
 Chapter \ref{chapter5} presents the second contribution allowing to make these stages independend.
-We introduce Fluxion to encapsulate these stages.
+It introduces Fluxion to encapsulate these stages.
 Chapter \ref{chapter6} concludes this thesis, and draw the possible perspectives beyond this work.
