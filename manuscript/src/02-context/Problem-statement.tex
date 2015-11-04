@@ -1,10 +1,20 @@
 \section{An Economical Problem} \label{chapter2:problem-statement}
 
-\nt{TODO introduction}
+With the rise of SaaS on the Web, the software industry are in charge of both the development and the execution of the software.
+The previous section presented these two aspects individually.
+This section present the challenges encountered by conducting the two at such a large scale.
+It then focus on the subject and define the objectives of this thesis.
 
 \subsection{Disrupted Development}
 
-\nt{TODO introduction}
+The economical context on the Web allows a project to grow from a very early stage to a large business.
+The economical constraints to meet are very different in the beginning and in the maturation of such project.
+In the early steps the constraints hold on the development.
+The project needs crucially to reduce development costs, and to release a first product as soon as possible.
+On the contrary, in the maturation of the project, the constraints hold on the performance.
+The product needs to be highly concurrent to meet the load of usage.
+The team needs to adapt to meet the different constraints, which implies a disruption in the evolution of the project.
+This section details further the reasons and consequences of this disruption.
 
 \subsubsection{Power-Wall Disruption}
 
@@ -12,7 +22,7 @@
 
 Around 2004, the speed of sequential execution on a processing unit plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
 Manufacturers reached what they called the power wall
-THey started to arrange transistors into several processing units to keep increasing overall performance while avoiding overheating problems.
+They started to arrange transistors into several processing units to keep increasing overall performance while avoiding overheating problems.
 Therefore, the performance of the sequential execution required by the cooperative scheduling plateaued as well.
 Isolating tasks is the only option to achieve high concurrency on this parallel hardware.
 But this isolation is in contradiction with the best practices of software development.
@@ -49,13 +59,14 @@ The risks implied by this rupture proves that there is economically a need for a
 We present in the next section the proposition of this thesis for such a solution.
 It would allow developers to iterate continuously on the implementation focusing simultaneously on performance, and on maintainability.
 
-
-
-
-
 \subsection{Seamless Web Development}
 
-\nt{TODO introduction}
+This thesis is conducted in the frame of a larger work within the company Worldline : LiquidIT.
+This company identified that one of their need was to increase the time to market for its product.
+LiquidIT intends precisely to fit this need.
+The goal of this thesis in this larger work, is to allow the developer to focus solely on business logic, and leave the technical constraints of deployment to automated tools.
+This section presents the objective of this work to avoid the disruption in development, and provide a seamless development experience.
+Worldline develops and hosts real-time streaming Web services, as defined in the next paragraph.
 
 \subsubsection{Real-Time Streaming Web Services}
 
@@ -100,16 +111,3 @@ The next section describes further the similarities and differences between the 
 The equivalence would allow a compiler to transform an application expressed in one model into the other.
 With such a tool, a development team could rely on the common memory store of the event-loop execution model, and focus on the maintainability of the implementation.
 And compile continuously during the development the event-loop implementation to the pipeline architecture to assure that the execution can be distributed on a parallel architecture.
-
-
-
-
-
-
-\endinput
-
-\subsection{Liquid IT}
-
-The goal of Liquid IT is to hide the technical complexity of scalability to the developer, so he can focus solely on business logic.
-
-

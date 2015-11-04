@@ -8,41 +8,28 @@
   \vspace{-20pt}
 \end{wrapfigure}
 
-\nt{TODO this paragraph is not clear}
-
-The production and distribution cost for another unit of a software application is virtually null.
-The market is only limited by the platform a software can be deployed on.
-The bigger the platform, the wider the market.
-The Internet and particularly the Web spreads the scalability of software distribution world wide with a near zero latency.
+Similarly to operating systems, Web browsers started as software products with extension capabilities with scripts and applications.
+The distribution of an applications is limited only by the platform it can be deployed on.
+The Web spreads the scalability of software distribution world wide with a near zero latency.
 It eventually became the main distribution medium for software, and the wider market there can possibly be.
+It led the Web to become the platform, replacing operating systems.
 
-Similarly to operating systems, Web browsers started as software products with the ability to run scripts to extend their possibilities.
-It led the web to become the platform, replacing operating systems.
 Now, with web services, or Software as a Service (SaaS), the distribution medium of software is so transparent that owning a software product to have an easier access is no longer relevant.
-It stimulates a competly new business model based on a free access for the user, while claiming value for their data.
-We explore in the next paragraphs the different languages that allowed this new business model to emerge.
+It stimulates a completely new business model based on a free access for the user, while claiming value for their data.
+The next paragraphs present Javascript, the language that allowed this new business model to emerge.
 
 \subsection{Javascript, The Language of the Web}
 
-In the 80's and early 90's, with Moore's law predicting exponential increase in hardware performance, development time became more expensive than hardware.
-Higher-level languages replaced lower-level languages.
-The economical gain in development time compensated the worsen performances.
-During the web early development, most of the now popular programming languages were released, Python(1991), Ruby(1993), Java(1994), PHP(1995) and Javascript(1995).
+In the 80's with Moore's law predicting exponential increase in hardware performance, reducing development time became more profitable than reducing hardware costs.
+Higher-level languages replaced lower-level languages, because the economical gain in development time compensated the worsen performances.
+Most of the now popular programming languages were released at this time, Python(1991), Ruby(1993), Java(1994), PHP(1995) and Javascript(1995).
 
-Java, developed by Sun Microsystems, imposes itself in the software industry and never really decreased.
-The language is executed on a virtual machine, allowing to write an application once, and to deploy it on heterogeneous machines.
-However, because of the heavy adoption by the software industry, Java lose the hype that drove the community innovation and creativy.
-It struggles to keep up with the latest trends in software development.
-Similarly, Ruby was almost unknown until the release of the web framework Rails.
-Rails was initially created within an industrial context, but is now open source, and supported by a strong community.
-
-Other languages bloomed, grew within a strong community, and were later adopted by the industry for web development.
-For example, it is the case of Python and PHP.
-It is often said of Python, that \textit{[it] is the second best language for everything} because of number of available libraries.
-The Python community brought Django as a web frameworks, and it is used to develop many web applications in industrial contexts.
-And PHP was initially designed to build personal web pages.
-Its simplicity made it a language of choice for many young developpers.
-As an example, Wordpress is the result of this effervescent, and is now a strong economical success.
+Java thrived in the software industry.
+However, Java lose the hype that drove the community innovation and creativity, and now struggles to keep up with the latest trends in software development.
+On the contrary, Ruby on Rails emerged from an industrial context, but is now open source, and backed by a strong community that makes it evolve and mature.
+Other languages like Python and PHP, bloomed, grew within a strong community, and were later adopted by the industry for web development.
+Django, the Python web frameworks, is used to develop many web applications in industrial contexts.
+And Wordpress, a PHP publishing platform, is an economical success.
 These examples show that the involvement of the community is critical for the adoption, evolution and maturation of a language.
 
 Since a few years, Javascript is slowly becoming the main language for web development.
@@ -58,16 +45,14 @@ Javascript was created by Brendan Eich at Netscape around May 1995, and released
 At the time, Java was quickly adopted as the default language for web servers development, and everybody was betting on pushing Java to the client as well.
 The history proved them wrong.
 
-Javascript was released as a scripting engine on Netscape navigator.
-Microsoft released their browser Internet Explorer 3 in June 1996 with a concurrent implementation of Javascript.
-At the time, because of the differences between the two implementations, web pages had to be designed for a specific browser.
-This competition was fragmenting the web.
+Javascript was released as a scripting engine on Netscape Navigator and later on its concurrent, Internet Explorer.
+The competition between the two was fragmenting the Web.
+Web pages had to be designed for a specific browser.
 To stop this fragmentation, Netscape submitted Javascript to Ecma International for standardization in November 1996.
-In June 1997, ECMA International released ECMA-262, the first specification of ECMAScript, the standard for Javascript.
+ECMA International released ECMA-262 in June 1997, the first standard for Javascript - or ECMAScript.
 A standard to which all browser should refer for their implementations.
 
-The initial release of Javascript was designed in a rush. The version released in 1995 was finished within 10 days.
-And, it was intended to be simple enough to attract unexperienced developers.
+The initial release of Javascript was designed in a rush, within 10 days, and targeted unexperienced developers.
 For these reasons, the language was considered poorly designed and unattractive by the developer community.
 
 \illustration{the ugly duckling}
@@ -85,21 +70,17 @@ Why do so many people seem to hate Javascript?\ftnt{https://www.quora.com/Why-do
 }
 
 But things evolved drastically since.
-One of the reason for the success of Javascript is the \textit{View Source} menu that reveals the source code of any web site client side.
-It allows the community to pick, improve and reproduce the best techniques as an open collaboration \ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
-Another reason is that all web browsers include a Javascript interpreter, making Javascript the most ubiquitous runtime in history \cite{Flanagan2006}.
+All web browsers include a Javascript interpreter, making Javascript the most ubiquitous runtime \cite{Flanagan2006}.
+Any Javascript code is open, allowing the community to pick, improve and reproduce the best techniques \ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
 Javascript is distributed freely, with all the tools needed to reproduce and experiment on the largest communication network in history.
-Anybody can seize this opportunity to incrementally build and share the best tools they can.
 All these reasons made the popularity of the Web and Javascript.
 
-%\subsubsection{Rising of the unpopular language}
-
-\paragraph{Rising of the unpopular language}
+% \paragraph{Rising of the unpopular language}
 
 \cit{When JavaScript was first introduced, I dismissed it as being not worth my attention. Much later, I took another look at it and discovered that hidden in the browser was an excellent programming language.}{Douglas Crockford}
 
-Javascript started as a programming language to implement short interactions on web pages.
-The best usage example was to validate some forms on the client before sending the request to the server.
+Javascript was initially limited to short interactions on web pages.
+The typical usage was to pre-validate forms on the client to avoid wasting wrongly formated requests to the server.
 This situation hugely improved since the beginning of the language.
 Nowadays, there is a lot of web-based application replacing desktop applications, like mail client, word processor, music player, graphics editor…
 
@@ -108,24 +89,19 @@ The third version contributed to give Javascript a more complete and solid base 
 From this point on, the consideration for Javascript kept improving.
 
 In 2005, James Jesse Garrett released \textit{Ajax: A New Approach to Web Applications}, a white paper coining the term Ajax \cite{Garrett2005}.
-This paper explains the advantage on user experience of this technique.
-It uses Javascript to reload the content inside a web page by requesting only the relevant content from the server, not a full page.
-Javascript rose outside of simple user interactions and allows to develop richer applications inside the browser, from user interactions to network communications.
+It uses Javascript to dynamically  reload the content inside a web page, hence improving the user experience.
+It allows Javascript to develop richer applications inside the browser, from user interactions to network communications.
 The first web applications to use Ajax were Gmail, and Google maps\footnote{A more in-depth analysis of the history of Ajax, given by late Aaron Swartz \url{http://www.aaronsw.com/weblog/ajaxhistory}}.
-
-Around this time, the community realeased Javascript framework with the goal to straighten differences in implementation, and assist the development.
+The community released Javascript framework to assist the development of these larger applications.
 Prototype\ftnt{http://prototypejs.org/} and DOJO\ftnt{https://dojotoolkit.org/} are early famous examples, and later jQuery\ftnt{https://jquery.com/} and underscore\ftnt{http://underscorejs.org/}.
-These frameworks took some responsibilities to the large success of Javascript and of the web technologies.
 
 \illustration{Javascript with superpowers}
 
-In the meantime, in 2004, the Web Hypertext Application Technology Working Group\ftnt{https://whatwg.org/} was formed to work on the fifth version of the HTML standard.
-The name is misleading, it is really about giving Javascript superpowers.
-It features geolocation, file API, web storage, canvas drawing element, audio and video capabilities, drag and drop, browser history manipulation, and many mores.
+In 2004, the Web Hypertext Application Technology Working Group\ftnt{https://whatwg.org/} was formed to work on the fifth version of the HTML standard.
+The name is misleading, it is really about giving Javascript superpowers like geolocation, storage, audio, video, and many mores.
 The releases of HTML5 and ECMAScript 5, in 2008 and 2009, represent a mile-stone in the development of web-based applications.
-Around the same time, Google released V8 for its browser Chrome.
-It is a Javascript interpreter improving drastically the execution performance.
-Javascript became the programming language of web, becoming the rising application platform.
+Around the same time, Google released the Javascript interpreter V8 for its browser Chrome, improving drastically the execution performance.
+Javascript became the \textit{defacto} programming language to develop on this rising application platform that is the Web.
 
 \begin{figure}
 
@@ -160,46 +136,40 @@ Javascript became the programming language of web, becoming the rising applicati
 
 \subsubsection{Current Situation}
 
-The rise of Javascript is indisputable on the web and the open source communities.
-It also seems to be rising in the software industry.
-But it is difficult to give an accurate representation of the situation because the software industry often try to keep an edge by keeping a fog of war.
-In the following paragraphs, I report some indexes that represent the situation globally, both in the open source community and in the more opaque software industry.
+The rise of Javascript is indisputable on the web, and seems to be rising in the software industry as well.
+But it is difficult to give an accurate representation of the situation because the software industry often maintains a fog of war to try to keep an edge.
+The following paragraphs report some efforts to clear up the situation.
 % More detailed informations are available section \ref{appendix:langpop}.
 
 \paragraph{Available Resources}
 
-According to the TIOBE Programming Community index, Javascript ranks 8th, as of October 2015, and it was the most rising language in 2014.
+According to the TIOBE Programming Community index, Javascript ranks 8th, as of October 2015, and was the most rising language in 2014.
 This index measure the popularity of a programming language with the number of results on many search engines.
-However, the number of pages doesn't represent the number of readers.
-This measure is controversial, and might not be representative.
-
+However, this measure is controversial as the number of pages doesn't represent the number of readers.
 Alternatively, Javascript ranks 7th on the PYPL, as of October 2015.
 The PYPL index is based on Google trends to measure the number of requests on a programming language.
-However, it is not representative as it is limited to google searches.
-
-From these indexes, the major programming language is Java, then C/C++, C\# and Python.
-These languages are still the most widely taught, and used to write softwares.
+However, it is limited to Google searches.
+From these indexes, the major programming languages are Java, then C/C++, C\# and Python.
+Javascript seems not as popular as previously described.
+The following paragraphs rectify this vision.
 
 \nt{TODO graphical ranking of TIOBE and PYPL}
 
 \paragraph{Developers Collaboration Platforms}
 
-Online tools of collaboration gives an indicator of the number of developers and project using certain languages.
+Online collaboration tools gives an indicator of the number of developers and project using certain languages.
 Javascript is the most used language on \textit{Github}, the most important collaborative development platform, with around 9 millions users.
 It represents more than 320 000 repositories, while the second language is Java with more than 220 000 repositories.
+Javascript is the most cited language on \textit{StackOverflow}, the most important Q\&A platform for developers.
+It represent more than 960 000 questions, while the second is Java with around 940 000 questions.
+Moreover, Javascript is the second language used in open source projects, according to \textit{Black Duck Software}\ftnt{https://www.blackducksoftware.com/}.
+C is first, C++ third and Java fourth.\ftnt{https://www.blackducksoftware.com/resources/data}
+These four languages represent about 80\% of all programming language usage in open source communities.
 
 \nt{TODO redo this graph, it is ugly.}
 \includegraphics[width=0.9\linewidth]{../../data/js-trends/github-ranks}\ftnt{https://github.com/blog/2047-language-trends-on-github}
 
-Javascript is the language the most cited on \textit{StackOverflow}, the most important Q\&A platform for developers.
-It is a good representation of the activity around a language.
-Javascript represent more than 960 000 questions, while the second is Java with around 940 000 questions.
-
 \nt{TODO graphical ranking of the tags in StackOverflow}
-
-According to \textit{Black Duck Software}\ftnt{https://www.blackducksoftware.com/}, Javascript is the second language used in open source projects.
-C is first, C++ third and Java fourth.\ftnt{https://www.blackducksoftware.com/resources/data}
-These four languages represent about 80\% of all programming language usage in open source communities.
 
 \nt{TODO redo this graph, it is ugly.}
 \includegraphics[width=0.9\linewidth]{../../data/js-trends/black-duck-15}
@@ -268,12 +238,12 @@ These four languages represent about 80\% of all programming language usage in o
 
 \paragraph{Jobs}
 
-The actors of the software industry tends to hide their activities trying to keep on edge on the competition.
-All these previous metrics are representing the visible activity about programming language, but are barely representative of the software industry.
-The trends on job openings give some hints on the direction the software industry is heading towards.
+The actors of the software industry tends to hide their activities trying to keep an edge on the competition.
+The previous metrics represent the visible activity but are barely representative of the software industry.
+The trends on job opportunities give some additional hints on the situation.
 Javascript is the third most wanted skill, according to \textit{Indeed}\ftnt{http://www.indeed.com}, right after SQL and Java.\ftnt{http://www.indeed.com/jobtrends?q=Javascript\%2C+SQL\%2C+Java\%2C+C\%2B\%2B\%2C+C\%2FC\%2B\%2B\%2C+C\%23\%2C+Python\%2C+PHP\%2C+Ruby\&l=}
 Moreover, according to \textit{breaz.io}\ftnt{https://breaz.io/}, Javascript developers get more opportunities than any other developers.
-This position indicate that Javascript is increasingly adopted in the software industry.
+Javascript is increasingly adopted in the software industry.
 
 \nt{TODO redo this graph, it is ugly.}
 \includegraphics[width=0.9\linewidth]{../../data/js-trends/jobgraph}
@@ -281,7 +251,7 @@ This position indicate that Javascript is increasingly adopted in the software i
 \paragraph{}
 
 All these metrics represent different faces of the current situation of the Javascript adoption in the development community and industry.
-It is widely used in open source projects, everywhere on the web, and in the software industry.
+It is widely used on the web, in open source projects, and in the software industry.
 With the evolution of web applications development and increased interest in this domain, Javascript is assuredly one of most important language in the times to come.
 
 This section presented the languages used to build web applications.
@@ -290,17 +260,15 @@ The next paragraphs presents the event-loop model used to develop Javascript web
 \subsubsection{Event-Loop Execution Model} \ref{chapter2:web-as-a-platform:javascript:event-loop}
 
 Javascript is often associated with an event-based paradigm to react to concurrent user interactions.
-This event-based paradigm is very efficient as well for a web service to react to concurrent requests.
 In 2009, Joyent released Node.js to build real-time web services with this paradigm.
 It is a server-side implementation of Javascript based on an event-loop.
-Javascript is now the only language able to build a complete web service from the client to the server.
-This section presents event-loop execution model, and the advantages Javascript has for this paradigm.
+This event-based paradigm proved to be very efficient as well for a web service to react to concurrent requests.
+This section presents the event-loop execution model, and the advantages of Javascript for this paradigm.
 
-The event-loop is an efficient execution model for concurrent applications on a single processing unit using non-blocking communications.
-It relies on a queue storing the received messages before being processed one after the other by the loop.
-On each reception, the loop executes a task to process the received message.
-While processing the message, the task can initiate new communications, leading in turn to the queuing of more messages, which trigger more tasks, and so on.
-The scheduling of execution is cooperative.
+The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
+It relies on a queue storing the messages received asynchronously.
+The loop executes previously defined tasks to process these messages one after the other.
+Each task can initiate new communications, leading in turn to the queuing of more messages, which trigger more tasks, and so on.
 Each task is executed atomically and exclusively, until it yields execution, to continue with the next task in queue.
 
 \nt{TODO schema of an event-loop}
@@ -313,18 +281,18 @@ The task to process the result of the communication, and to continue the executi
 This function is name a callback or a continuation.
 A callback is a function passed as an argument to a callee, for the callee to transfer the control back to the caller after its execution, without the need for synchronization.
 
-In this execution model, the synchronous execution is broken by asynchronous function calls.
-The asynchronous execution organizes the callbacks one after the other.
+In this execution model, the execution is interrupted by asynchronous function calls.
+It organizes the execution of callbacks causally, one after the other.
 The input stream of data flows through a sequence of callbacks until the application outputs it.
 The asynchronous execution flow is controlled by callbacks, and is organized similarly to a pipeline.
-However, this organization is not obvious with callbacks.
+In this model, callbacks are the atoms of asynchronous execution flow control.
+The next paragraph presents a more elaborate form of control.
 
 \paragraph{Promises}
 
-Since the asynchronous execution flow became more complicated on larger web application, callbacks revealed to be an insufficient tooling.
-Many projects filled this gap, and proposed improved asynchronous execution controls.
-The specification designed for ECMAScript is called Promises.
-It arranges sequence of unorganized callbacks into neatly organized pipeline of callbacks communicating their result to the next.
+Since the asynchronous execution flow became more complicated on larger web application, many projects proposed improved asynchronous execution controls on top of callbacks.
+The ECMAScript specification proposes Promises for such purpose.
+It arranges sequence of causally related callbacks into neatly organized pipeline of callbacks communicating their result to the next.
 
 Callbacks are said to be first class citizen.
 They imply higher-order programming, which is part of functional programming.
@@ -339,19 +307,24 @@ The association of a function and its initial context is called a closure.
 Higher-order programming is convenient for developers, as they allow great modularity in the implementation through \textit{e.g.} inversion of control.
 It is presented in further details in section \ref{chapter3:software-maintainability}.
 However, because the contexts are passed, and shared all over the implementation, this programming model needs a global memory for coordination.
-As we will see in the next section, this need is problematic to increase the concurrency of the execution.
+As presented in the next section, this need is problematic to increase the concurrency of the execution.
 
 This section presented Javascript as the language of the web, and its programming model.
 The next section presents the realities and technical challenges to assure the performance of web services against billions of users.
 
 \subsection{Highly Concurrent Web Servers}
 
+The previous section presented Javascript, the prolific language to build the Web.
+With SaaS, a Web service can scale world wide with near zero latency, and accessing it is as simple as distributing it world wide.
+With this broad range of distribution, a new business model emerged, allowing free access for the user.
+The usage exploded, and the software industry needed innovative solutions to cope with large network traffic.
+
 \subsubsection{Scalable Concurrency}
 
 The Internet allows communication at an unprecedented scale.
 There is more than 16 billions connected devices, and it is growing fast\ftnt{http://blogs.cisco.com/news/cisco-connections-counter} \cite{Hilbert2011}.
 A large web application like google search receives about 40 000 requests per seconds\ftnt{http://www.internetlivestats.com/google-search-statistics/}.
-Such a web application needs to be highly concurrent to manage this amount of simultaneous requests.
+Such a Web application needs to be highly concurrent to manage this amount of simultaneous requests.
 In the 2000s, the limit to break was 10 thousands simultaneous connections with a single commodity machine\ftnt{http://www.kegel.com/c10k.html}.
 In the 2010s, the limit is set at 10 millions simultaneous connections\ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
 With the growing number of connected devices on the internet, concurrency is a very important property in the design of web applications.
