@@ -1,5 +1,7 @@
 \section{Software Efficiency} \label{chapter3:software-efficiency}
 
+\nt{Introduction on the problem of software performance (don't start with the parallelism)}
+
 Programming started with a sequential nature.
 The Moore's law \cite{Moore1965} and Dennard's MOSFET scaling \cite{Dennard2007} were wrongly interpreted to promise the exponential evolution in the sequential performance of the processing unit.
  % Programming started with a very sequential nature, as Moore's law \cite{Moore1965} was wrongly interpreted as an exponential evolution in the sequential performance of the processing unit.
@@ -12,6 +14,380 @@ This section presents the most important works on formalisms for parallel comput
 They tackled the problems of determinacy, state synchronization and correctness of execution in a formalism based on a network of concurrent processes, asynchronously communicating via messages.
 This section first presents the works on the programming models based on this formalism.
 Then it presents the huge improvements we recently witnessed in the field of distributed stream processing due to the need of performance from the web to process large stream of requests,
+
+\subsection{Parallel Programming}
+
+\illustration{state of the art schema step 3}
+
+\subsubsection{Execution Causality}
+
+\nt{Causal ordering of execution, instead of global ordering
+Causality / Concurrent programming / Asynchronism / Message-passing / Synchronization ...}
+
+Causal ordering of execution, instead of global ordering, lead to concurrent programming, and with some memory synchronization to parallel programming.
+
+% All these early work adopted concurrent composition by default, instead of sequential composition, to adapt to the very concurrent nature of real parallel machines.
+% However, sequential programming is still the default.
+% Concurrent composition is yet still to be widely accepted, as stated by Reed \cite{Reed2012}.
+% \comment{TODO rewrite this paragraph}
+
+% The Actor Model uses asynchronous communications, while $\pi$-calculus uses synchronous communications.
+% Synchronous communications are deterministic.
+% The message sent needs to be received to continue the execution on both ends.
+Because of the synchronous communication used by $\pi$-calculus, the concurrent executions and the communications are both deterministic.
+Therefore, the result of the concurrent system is assured to be deterministic.
+The correctness of the execution of deterministic systems is guaranteed.
+% Determinism is a wanted property to assure the correctness of the execution.
+
+On the other hand, the asynchronous communications used by Actors are non-deterministic.
+The message sent can take an infinite time to be received.
+Therefore, the result of the concurrent system is not assured to be deterministic.
+
+But the communication in reality are subject to various faults and attacks \cite{Lamport1982}.
+And the wait required by synchronous communications negatively impact performances of the system because of the difference of latency between communication, and execution.
+The Actor model was explicitly designed to take these physical limitations in account \cite{Hewitt1977a}.
+The non-determinism in the asynchronous communications is hidden by the organization of the system.
+The total ordering of messages possible with synchronous communication is too strong a requirement for correctness.
+As Lamport showed \cite{Lamport1978}, and Reed related later \cite{Reed2012}, causal order is sufficient to build a correct distributed system.
+% The non-determinism in the asynchronous communications is hidden by the organization of the system.
+The ordering of messages is only local to an actor, while between actors, messages are causally ordered.
+The execution will either terminate correctly, or not terminate at all because of a failure in the communications.
+
+Eventually, following works adopted asynchronous communications as it is hardly realistic to build a distributed system based on synchronous communications.
+
+
+
+
+% Asynchronous communications are less expressive than synchronous ones \cite{PALAMIDESSI2003}.
+
+% Pi-calculus is a synchronous paradigm which contains an asynchronous fragment.\cite{PALAMIDESSI2003}
+% (Boudol, G. (1992). Asynchrony and the π-calculus (note). Rapport de Recherche  1702, INRIA, Sophia-Antipolis,
+% Honda, K. and Tokoro, M. (1991).  An object calculus for asynchronous communication. In America, P., editor, Proceedings of the European Conference on Object-Oriented Programming (ECOOP), volume 512 of Lecture Notes in Computer Science, pages 133–147. Springer-Verlag)
+
+
+% The asynchronous pi-calculus defined by Honda and Tokoro in 1991 led to Pict, a programming language\cite{Pierce2000}.
+
+
+
+
+% There was firstly theories, and models for concurrent computation.
+% The main problem was determinism.
+% In a sequential machine, the non-determinism of the physical world is hidden by the sequentiality of the machine.
+% However, in concurrent computation, the order of communication cannot be assured the way the order of statements is assured in a sequential machine.
+% We observe local non-determinism.
+% However, to conserve an apparent determinism, causal ordering is sufficient.
+
+
+
+
+\subsubsection{State Independence}
+
+
+As demonstrated by the theory, concurrency boils down to causality expressed with message passing.
+There exist several programming model over this theoretical view.
+
+\paragraph{Independent Processes}
+
+The theory advocates asynchronous message-passing, but it doesn't precise the granularity of the communicating entities.
+In the Actor Model, everything is an actor, even the simplest types, like numbers, similarly in OOP, everything is an object.
+In practice, this level of granularity is unachievable due to overhead from the asynchronous communications.
+Most implementations adopt a granularity on the process or function level.
+
+% concurrent programming
+The first concept using message passing was the coroutine.
+% It influenced many following works.
+Conway defines coroutines as an autonomous program which communicate with adjacent modules as if they were input and output subroutines \cite{Conway1963}.
+It is the first definition of a pipeline to implement multi-pass algorithms.
+Similar works include the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}, and the Kahn Networks \cite{Kahn1974, Kahn1976}.
+
+% Hoare presented the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}.
+% These processes are executed concurrently, and communicates events via named channels.
+% The evolutions of this model were influenced by, and influenced the work of Milner that led to $\pi$-calculus.
+
+% Similarly, Kahn developed the Kahn Networks \cite{Kahn1974, Kahn1976}, following the work of Conway on coroutines.
+% They are explicitly parallel coroutines separated by bounded FIFO streams for communication.
+
+These programming models don't allow to dynamically modify the topology of the application.
+Coroutines and processes are defined statically in the source of the application.
+We shall come back to this limitation later in this thesis in chapter \ref{chapter5}.
+
+% The shared-nothing architecture \cite{Stonebraker1986}.
+
+As we saw in last section, higher-level programming is helping modularity.
+The absence of this feature in the concurrent programming model is a limitation.
+On of the instrumental gaol of this thesis is to allow to bring higher-level programming in parallel programming, without the need for manual synchronization, as we will see in the next section.
+
+\paragraph{Synchronization}
+
+\nt{Too raw, not enough synthesis in this section}
+
+These programming models allowed parallel execution on several processing units, so there is a need to shared resources among processing units, like a common memory store, or network interface.
+Multiprogramming was used to allow different programs to be executed concurrently in isolated processes, and to share resources \cite{Dijkstra1968}.
+To synchronize the different processes over these resources, and avoid conflicting accesses, it is crucial to assure the mutual exclusion.
+For this purpose, Djikstra introduced the Semaphore \cite{Dijkstra}.
+Similar works include guarded commands \cite{Dijkstra1975}, guarded region \cite{Hansen1978a} and monitors \cite{Hoare1974}.
+They are all kinds of locks to assure mutual exclusion.
+
+% Following this work, he also introduced guarded commands \cite{Dijkstra1975} and Hansen introduced guarded region \cite{Hansen1978a}.
+% Both assure the execution of a set of instructions to be exclusive to only one process.
+
+% Hoare introduced the monitor following the work of Hansen \cite{Hoare1974}.
+% A monitor is an extension of a class, it regroups data and procedures, except that it assures its procedures to be entered only once at a time.
+% With this restrictions, it guards against race condition on the access of a shared resource.
+% Modula \cite{Wirth1977} and Concurrent Pascal \cite{Hansen1975} uses Monitors.
+
+\subparagraph{Multi-Threading}
+
+As we saw earlier, a common memory storage helps to follow the best practice, and is easier to develop with.
+These lock mechanisms were used in Multi-Threading to provide this common memory storage for concurrent programming.
+% Multi-threading programming make use of synchronization within isolated processes.
+Threads are light processes sharing the same memory execution context within an isolated process.
+It seems to be an easy solution to parallelize sequential execution on parallel execution units with a common memory store.
+But because of the preemptive scheduling, threads require to lock each and every shared memory cell.
+It is known that this heavy need for synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
+
+\subparagraph{Lock-Free Data-Structures}
+
+An interesting alternative to locks are the wait-free and lock-free data-structures \cite{Lamport1977,Herlihy1988,Herlihy1990,Herlihy1991,Anderson1990}.
+They are based on clever use of atomic read and write operations on a shared memory to provide concurrent safe version of common data-structures algorithms.
+Therefore no locking is necessary for the algorithm to be highly concurrent, while conserving a common memory store
+However, even if they are theoretically infinitely scalable, they are hard to come with, and are not fit for every problem.
+% Lock-free algorithm are highly concurrent, as they can be replicated, however, they are limited, and really hard to develop.
+% \url{https://en.wikipedia.org/wiki/Non-blocking_algorithm}
+
+% Reference papers :
+% Concurrent reading and writing \cite{Lamport1977}
+% Impossibility and universality results for wait-free synchronization \cite{Herlihy1988}
+% A methodology for implementing highly concurrent data structures \cite{Herlihy1990}
+% Wait-free synchronization \cite{Herlihy1991}
+
+% Book :
+% The virtue of Patience: Concurrent Programming With And Without Waiting \cite{Anderson1990}
+
+\subparagraph{Scalability Limitation}
+
+Amdahl \cite{Amdahl1967} and later Ghunter \cite{Gunther1993} theorized the speedup gains with parallelism for a sequential program.
+They concludes that sharing resources protected by mutual exclusion eventually decreases performances when increasing parallelism \cite{Gustafson1988,Gunther1996,Nelson1996,Gunther2002}.
+
+The concurrent process sharing resources need to be scheduled sequentially, and not in parallel, as the contention of locking negatively impact the performance.
+To increase the parallelism and performance, it implies to reduce the shared resources between concurrent processes.
+
+% The execution regions requiring the same resource needs to execute sequentially.
+% This wait impacts performances negatively because of contention.
+% Therefore, to increase parallelism one needs to increase the number of independent processes, and to ensure their communicate to be solely by asynchronous messages without waiting.
+
+\subparagraph{PGAS}
+
+Sharing resources eventually limits scalability, hence distribution of the memory is unavoidable.
+The Partitioned Global Address Space (PGAS) model replaces the need for a common memory store.
+It provides the developers with a uniform memory access on a distributed architecture.
+Each computing node executes the same program, and provide its local memory to be shared with all the other nodes.
+The PGAS programming model assure the remote accesses and synchronization of memory across nodes, and enforces locality of reference, to reduce the communication overhead.
+% This model is a SPMD : Single Program Multiple Data.
+Known implementation of the PGAS model are 
+Chapel\cite{Chamberlain2007},
+X10 \cite{Charles2005}.
+Unified Parallel C \cite{El-Ghazawi2006},
+CoArray Fortran \cite{Numrich1998} and
+OpenSHMEM \cite{Chapman2010}.
+
+These programming models are promising.
+However, they focus rather on scientific application with intensive computing such as matrix multiplication, and leave out streaming applications, such as web services.
+
+\paragraph{Programming languages} \label{chpater3:concurrent-programming:programming-languages}
+
+% Scala / Akka / Erlang
+
+Some programming languages features message-passing and isolation of actors directly to give the responsibility to developers to assure high parallelism.
+To some extent, these languages succeeded in industrial contexts.
+However, they largely remain elitist solutions for specific problems more than a general, and accessible tool.
+I present some examples below.
+
+Scala is an attempt at unifying the object model and functional programming \cite{Odersky2004}.
+% It proposes an actor approach in its design.
+Akka\ftnt{http://akka.io/} is a framework based on Scala, to build higly scalable and resilient applications.
+
+Erlang is a functional concurrent language designed by Ericsson to operate telecommunication devices \cite{JoeArmstrong,Nelson2004} % Nelson2004 is not very good, find another better citation.
+
+CUDA, OpenCL are data parallel API to allow imperative code to run onto accelerators such as GPUs or FPGAs \cite{Stone2010}.
+
+The field of concurrent programming is so vast it is impossible to relate here every of its branch.
+The previous examples are only the best known.
+The next focus focuses on streaming real-time applications.
+
+
+
+
+
+
+\paragraph{Stream Processing Systems} \label{chapter3:parallel-execution:stream-processing}
+
+All the solutions previously presented are designed to build general distributed systems.
+We focus on real-time applications as defined by \cite{Hansen1978}.
+A real-time application must respond to a variety of simultaneous requests within a certain time.
+Otherwise, input data may be lost or output data may lose their significance.
+Such applications are often connected to the internet and use the web as an interface, which implies to process high volumes streams of requests.
+Moreover, because these systems are key to business, their reliability and latency are of critical importance.
+These requirements are challenging to meet in the design of such system.
+It present the state of the art to design such systems with these challenging requirements.
+
+
+% \textit{
+% From a language designer's point of view, real-time
+% programs have these characteristics:
+% \begin{enumerate}
+% \item A real-time program interacts with an environ-
+% ment in which many things happen simultaneously at
+% high speeds.
+% \item A real-time program must respond to a variety
+% of nondeterministic requests from its environment. The
+% program cannot predict the order in which these requests
+% will be made but must respond to them within certain
+% time limits. Otherwise, input data may be lost or output
+% data may lose their significance.
+% \item A real-time program controls a computer with a
+% fixed configuration of processors and peripherals and
+% performs (in most cases) a fLxed number of concurrent
+% tasks in its environment.
+% \item A real-time program never terminates but contin-
+% ues to serve its environment as long as the computer
+% works. (The occasional need to stop a real-time program,
+% say at the end of an experiment, can be handled by ad
+% hoc mechanisms, such as turning the machine off or
+% loading another program into it.)
+% \end{enumerate}
+% }
+
+\subparagraph{Data-stream management systems}
+
+% The processing of large volume of data was historically handled by Database management systems.
+% These systems naturally evolved to manage data-streams as well.
+
+Database Management Systems (DBMS) historically processed large volume of data, and they naturally evolved into Data-stream Management System (DSMS) to processed data streams as well.
+They concurrently run SQL-like requests on continuous data streams.
+The computation of these requests spread over a distributed architecture.
+Among the early works, we can cite NiagaraCQ \cite{Chen2000,Naughton2001}, Aurora \cite{Abadi2003,Abadi2003a,Balakrishnan2004} which evolved into Borealis \cite{Abadi2005}, AQuery \cite{Lerner2003}, STREAM \cite{Arasu2003,Arasu2005} and TelegraphCQ \cite{Krishnamurthy2003,Chandrasekaran2003}.
+More recently, we can cite DryadLINQ \cite{Isard2007,Yu2009}, Timestream \cite{Qian2013} and Shark \cite{Xin2013}.
+
+However, these solutions implies to understand two paradigms of language, the SQL paradigm, and the imperative paradigm.
+% Even if SQL is a turing-complete language, it is rather difficult to write a complex application only with a SQL-like language.
+The difference between these two paradigms creates a rupture in the design of the system.
+% Even if the design follows an imperative structure,
+The SQL parts difficulty merge with the imperative structure.
+% It is harder to separate concerns. \nt{need reference, plus rewrite this paragraph}.
+This rupture impacts the maintainability of the system as it is not straightforward to reorganize the logic between the two paradigms.
+
+
+% SQL-like
+%   AQuery \cite{Lerner2003}
+%   STREAM (uses CQL) \cite{Arasu2003,Arasu2005}
+%   TelegraphCQ (uses StreaQuel) \cite{Krishnamurthy2003,Chandrasekaran2003}
+%   Grape / Timestream - distributed SQL (roughly) \cite{Qian2013}
+%   Shark        Stateless dataflow \cite{Xin2013}
+
+%   DryadLINQ    Stateless dataflow \cite{Isard2007,Yu2009}
+
+% \subsubsection{Batched dataflow}
+
+% Map/Reduce
+%   MapReduce    Stateless dataflow \cite{Dean2008}
+%   Hadoop       Stateless dataflow 
+%   Incoop       Incremental dataflow \cite{Bhatotia2011}
+
+% Functional
+%   Comet        Batched dataflow \cite{He2010}
+%   D-Streams    Batched dataflow \cite{Zaharia2012}
+%   Spark        Stateless dataflow \cite{Zaharia,Zaharia2010}
+%   Nectar       Incremental dataflow \cite{Gunda2010}
+
+
+
+\subparagraph{Dataflow pipeline} \label{chapter3:software-efficiency:dataflow-pipeline}
+
+An alternative model to process data stream efficiently is the pipeline architecture.
+It inspires from dataflow to integrate the two conflicting programming paradigms into one.
+
+SEDA is a precursor in the design of pipeline-based architecture for real-time applications for the internet \cite{Welsh2001}.
+It organizes an application as a network of event-driven stages connected by explicit queues.
+It is based on previous works \cite{Gribble2001,Pai1999}.
+
+Several projects followed and adapted the principles in this work.
+StreaMIT is a language to help the programming of large streaming application \cite{Thies2002}.
+Storm \cite{Toshniwal2014} is designed by and used at Twitter calculate metrics on streams of tweets such as the trending topics.
+% It is only one example of industrial practical application, among many others.
+Among other works, there are CBP \cite{Logothetis2010} and S4 \cite{Neumeyer2010}, that were designed at Yahoo, Millwheel \cite{Akidau2013} designed at Google and Naiad \cite{Murray2013} designed at Microsoft.
+
+Similarly to the programming models presented in section \ref{chpater3:concurrent-programming:programming-languages} these frameworks are elitist and not accessible to a large community of developers.
+Indeed, the pipeline architecture present a distributed storage, which is hardly compatible with the best practices.
+It impacts maintainability.
+For this reason, there are some works on reconciling the concurrent programming models with the modular programming model favoring maintainability.
+The next section presents these reconciliations.
+
+% Dataflow
+%   CBP          Incremental dataflow \cite{Logothetis2010}
+%   S4           Continuous dataflow \cite{Neumeyer2010}
+%   Storm        Continuous dataflow \cite{Toshniwal2014}
+%   Millwheel    Continuous dataflow \cite{Akidau2013}
+%   SEEP         Continuous dataflow \cite{Fernandez2013}
+%   Naiad        Batched dataflow \cite{Murray2013}
+
+
+
+Transition on the limitations of software parallelism)
+
+\subsection{Maintainability Improvements}
+
+\illustration{state of the art schema step 4}
+
+\subsubsection{Design Patterns}
+
+Algorithm skeleton (Map/Reduce ... )
+
+As we explained in the previous sections, the two different organization, modular and parallel, seems intuitively incompatible.
+However, it might be possible to find specific organizations that are both modular and parallel, and fit both requirements of maintainability and performance.
+% fit both concerns for particular cases.
+
+Algorithmic skeletons are general computational framework for distributed computing proposing predefined patterns that fit certain type of problems \cite{Cole1988, Dean2008, McCool2010, Gonzalez-Velez2010}.
+A developer expresses its problem as a specific case of a skeleton.
+It simplifies the design and implementation of the communications, hence the developer can focus on its problem independently of the distributed communications, and their performance overhead.
+
+As there is similtudes between SQL-like languages, functional structures, and algorithmic skeletons, the latter can be seen as a tentative to merge the more descriptional features of the former into imperative programming.
+Indeed, among the Algorithmic skeletons, we can cite Map / reduce, which are functional structures, but are somehow equivalent to the select and aggregate functions of SQL.
+The pipeline architecture for data stream processing presented in section \ref{chapter3:software-efficiency:dataflow-pipeline} can be considered as algorithmic skeletons.
+
+However, they introduce limitations and difficulties, as the developer must fit its problem into the skeletons.
+% One of this difficulties, it that a common memory is impossible to use.
+Developers needs to think in terms of message passing instead of a global memory, which, as we saw in previous section, is incompatible with best practices.
+
+\subsubsection{Granularity}
+
+Microservices, SOA ...
+
+
+Another approach in an industrial context is the Service Oriented Architectures (SOA).
+It allows developers to express an application as an assembly of services connected to each others.
+It shows well the difference between Information Hiding Principles and Separation of Concerns, as a service doesn't encapsulate a design choice, but a specific task.
+SOA is in contradiction with the former, but consistent with the latter.
+
+More recently, in the web service development communities, emerged the term of microservices, following the trends of SOA.
+It to choose and deacrease the granularity of the fitting between modular organization and parallel execution.
+Using Microservices implies that software developers can manage the two organizations at a sufficiently fine level.
+As said in section \ref{chpater3:concurrent-programming:programming-languages} and \ref{chapter3:software-efficiency:dataflow-pipeline}, it is an elitist point of view.
+Most developers are unable to manage efficiently the two organizations.
+
+Moreover, in these solutions, higher-order programming is impossible.
+As we showed earlier in section \ref{chapter3:software-design:programming-models:functional-programming}, higher-order programming is important for modular design and maintainability.
+The next section present some work on compiling from one organization into the other.
+By keeping the modular programming model, the compilation approach allows higher-level programming. 
+
+\nt{TODO EJB}
+
+\subsubsection{Lack of Higher-Order Programming}
+
+\paragraph{Transistion : these methods doesn't allow higher-order programming, which is required for good modularity.}
+
+
+\endinput
 
 \subsection{Concurrency Theory} \label{chapter3:parallel-execution:concurrency-theory}
 
@@ -66,309 +442,41 @@ However, contrary to the Actor model, communications in Pi-calculus are based on
 
 
 
-\subsubsection{Determinism and Non-determinism}
 
-% All these early work adopted concurrent composition by default, instead of sequential composition, to adapt to the very concurrent nature of real parallel machines.
-% However, sequential programming is still the default.
-% Concurrent composition is yet still to be widely accepted, as stated by Reed \cite{Reed2012}.
-% \comment{TODO rewrite this paragraph}
 
-% The Actor Model uses asynchronous communications, while $\pi$-calculus uses synchronous communications.
-% Synchronous communications are deterministic.
-% The message sent needs to be received to continue the execution on both ends.
-Because of the synchronous communication used by $\pi$-calculus, the concurrent executions and the communications are both deterministic.
-THerefore, the result of the concurrent system is assured to be deterministic.
-The correctness of the execution of deterministic systems is guaranteed.
-% Determinism is a wanted property to assure the correctness of the execution.
 
-On the other hand, the asynchronous communications used by Actors are non-deterministic.
-The message sent can take an infinite time to be received.
-Therefore, the result of the concurrent system is not assured to be deterministic.
 
-But the communication in reality are subject to various faults and attacks \cite{Lamport1982}.
-And the wait required by synchronous communications negatively impact performances of the system because of the difference of latency between communication, and execution.
-The Actor model was explicitly designed to take these physical limitations in account \cite{Hewitt1977a}.
-The non-determinism in the asynchronous communications is hidden by the organization of the system.
-The total ordering of messages possible with synchronous communication is too strong a requirement for correctness.
-As Lamport showed \cite{Lamport1978}, and Reed related later \cite{Reed2012}, causal order is sufficient to build a correct distributed system.
-% The non-determinism in the asynchronous communications is hidden by the organization of the system.
-The ordering of messages is only local to an actor, while between actors, messages are causally ordered.
-The execution will either terminate correctly, or not terminate at all because of a failure in the communications.
 
-Eventually, following works adopted asynchronous communications as it is hardly realistic to build a distributed system based on synchronous communications.
+\section{Reconciliations} \label{chapter3:reconciliations}
+\nt{TODO title not clear enough}
 
+\subsection{Contradiction}
 
+The decomposition of an application into a pipeline, as shown in the two previous sections, is incompatible with the modular design advocated by the separation of concerns.
+The problem of incompatibility between the modular design and the parallel execution of a pipeline architecture is the following.
+There need to be a common understanding on the structure of the communication from one stage to the next.
+The modular design defines that this common ground, the interface, be the most resilient possible to focus the evolution within a module.
+While the pipeline architecture (and more generally the concurrent programming models) defines these interfaces as the communications between the stages of the execution.
+With the evolution of the problem specification, when a stage needs to be modified, it is most likely that these changes will affect the previous or next stages.
+% which will eventually change with the evolution of the problem specification.
 
+Most project use languages supporting the modular design at the beginning, when they need to evolve the most.
+They then switch to the pipeline architecture only when the requirement of performance overcomes the requirement of evolution.
+Moreover, as the team knows that they will eventually throw away their code to upgrade it to a different paradigm, there is little effort to follow the best practice to make maintainable code.
+It results in a large effort of development to compensate this rupture.
+% This rupture between the two organization is not novel, and is at the center of a large body of work.
+In this section, we present the state of the art to reconciliate the two organizations, and avoid this rupture.
+First we see the design patterns to fit both organization onto a same source code.
+Then we see the compilation tentatives to switch from one to the other.
 
-% Asynchronous communications are less expressive than synchronous ones \cite{PALAMIDESSI2003}.
 
-% Pi-calculus is a synchronous paradigm which contains an asynchronous fragment.\cite{PALAMIDESSI2003}
-% (Boudol, G. (1992). Asynchrony and the π-calculus (note). Rapport de Recherche  1702, INRIA, Sophia-Antipolis,
-% Honda, K. and Tokoro, M. (1991).  An object calculus for asynchronous communication. In America, P., editor, Proceedings of the European Conference on Object-Oriented Programming (ECOOP), volume 512 of Lecture Notes in Computer Science, pages 133–147. Springer-Verlag)
 
 
-% The asynchronous pi-calculus defined by Honda and Tokoro in 1991 led to Pict, a programming language\cite{Pierce2000}.
 
 
 
 
-% There was firstly theories, and models for concurrent computation.
-% The main problem was determinism.
-% In a sequential machine, the non-determinism of the physical world is hidden by the sequentiality of the machine.
-% However, in concurrent computation, the order of communication cannot be assured the way the order of statements is assured in a sequential machine.
-% We observe local non-determinism.
-% However, to conserve an apparent determinism, causal ordering is sufficient.
 
-
-
-\subsection{Concurrent Programming} \label{chapter3:concurrent-programming}
-
-As demonstrated by the theory, concurrency boils down to causality expressed with message passing.
-There exist several programming model over this theoretical view.
-
-\subsubsection{Independent Processes}
-
-The theory advocates asynchronous message-passing, but it doesn't precise the granularity of the communicating entities.
-In the Actor Model, everything is an actor, even the simplest types, like numbers, similarly in OOP, everything is an object.
-In practice, this level of granularity is unachievable due to overhead from the asynchronous communications.
-Most implementations adopt a granularity on the process or function level.
-
-% concurrent programming
-The first concept using message passing was the coroutine.
-% It influenced many following works.
-Conway defines coroutines as an autonomous program which communicate with adjacent modules as if they were input and output subroutines \cite{Conway1963}.
-It is the first definition of a pipeline to implement multi-pass algorithms.
-Similar works include the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}, and the Kahn Networks \cite{Kahn1974, Kahn1976}.
-
-% Hoare presented the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}.
-% These processes are executed concurrently, and communicates events via named channels.
-% The evolutions of this model were influenced by, and influenced the work of Milner that led to $\pi$-calculus.
-
-% Similarly, Kahn developed the Kahn Networks \cite{Kahn1974, Kahn1976}, following the work of Conway on coroutines.
-% They are explicitly parallel coroutines separated by bounded FIFO streams for communication.
-
-These programming models don't allow to dynamically modify the topology of the application.
-Coroutines and processes are defined statically in the source of the application.
-We shall come back to this limitation later in this thesis in chapter \ref{chapter5}.
-
-% The shared-nothing architecture \cite{Stonebraker1986}.
-
-As we saw in last section, higher-level programming is helping modularity.
-The absence of this feature in the concurrent programming model is a limitation.
-On of the instrumental gaol of this thesis is to allow to bring higher-level programming in parallel programming, without the need for manual synchronization, as we will see in the next section.
-
-
-
-\subsubsection{Synchronization}
-
-These programming models allowed parallel execution on several processing units, so there is a need to shared resources among processing units, like a common memory store, or network interface.
-Multiprogramming was used to allow different programs to be executed concurrently in isolated processes, and to share resources \cite{Dijkstra1968}.
-To synchronize the different processes over these resources, and avoid conflicting accesses, it is crucial to assure the mutual exclusion.
-For this purpose, Djikstra introduced the Semaphore \cite{Dijkstra}.
-Similar works include guarded commands \cite{Dijkstra1975}, guarded region \cite{Hansen1978a} and monitors \cite{Hoare1974}.
-They are all kinds of locks to assure mutual exclusion.
-
-% Following this work, he also introduced guarded commands \cite{Dijkstra1975} and Hansen introduced guarded region \cite{Hansen1978a}.
-% Both assure the execution of a set of instructions to be exclusive to only one process.
-
-% Hoare introduced the monitor following the work of Hansen \cite{Hoare1974}.
-% A monitor is an extension of a class, it regroups data and procedures, except that it assures its procedures to be entered only once at a time.
-% With this restrictions, it guards against race condition on the access of a shared resource.
-% Modula \cite{Wirth1977} and Concurrent Pascal \cite{Hansen1975} uses Monitors.
-
-\paragraph{Multi-Threading}
-
-As we saw earlier, a common memory storage helps to follow the best practice, and is easier to develop with.
-These lock mechanisms were used in Multi-Threading to provide this common memory storage for concurrent programming.
-% Multi-threading programming make use of synchronization within isolated processes.
-Threads are light processes sharing the same memory execution context within an isolated process.
-It seems to be an easy solution to parallelize sequential execution on parallel execution units with a common memory store.
-But because of the preemptive scheduling, threads require to lock each and every shared memory cell.
-It is known that this heavy need for synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
-
-\paragraph{Lock-Free Data-Structures}
-
-An interesting alternative to locks are the wait-free and lock-free data-structures \cite{Lamport1977,Herlihy1988,Herlihy1990,Herlihy1991,Anderson1990}.
-They are based on clever use of atomic read and write operations on a shared memory to provide concurrent safe version of common data-structures algorithms.
-Therefore no locking is necessary for the algorithm to be highly concurrent, while conserving a common memory store
-However, even if they are theoretically infinitely scalable, they are hard to come with, and are not fit for every problem.
-% Lock-free algorithm are highly concurrent, as they can be replicated, however, they are limited, and really hard to develop.
-% \url{https://en.wikipedia.org/wiki/Non-blocking_algorithm}
-
-% Reference papers :
-% Concurrent reading and writing \cite{Lamport1977}
-% Impossibility and universality results for wait-free synchronization \cite{Herlihy1988}
-% A methodology for implementing highly concurrent data structures \cite{Herlihy1990}
-% Wait-free synchronization \cite{Herlihy1991}
-
-% Book :
-% The virtue of Patience: Concurrent Programming With And Without Waiting \cite{Anderson1990}
-
-\paragraph{Scalability Limitation}
-
-Amdahl \cite{Amdahl1967} and later Ghunter \cite{Gunther1993} theorized the speedup gains with parallelism for a sequential program.
-They concludes that sharing resources protected by mutual exclusion eventually decreases performances when increasing parallelism \cite{Gustafson1988,Gunther1996,Nelson1996,Gunther2002}.
-
-The concurrent process sharing resources need to be scheduled sequentially, and not in parallel, as the contention of locking negatively impact the performance.
-To increase the parallelism and performance, it implies to reduce the shared resources between concurrent processes.
-
-% The execution regions requiring the same resource needs to execute sequentially.
-% This wait impacts performances negatively because of contention.
-% Therefore, to increase parallelism one needs to increase the number of independent processes, and to ensure their communicate to be solely by asynchronous messages without waiting.
-
-\paragraph{PGAS}
-
-Sharing resources eventually limits scalability, hence distribution of the memory is unavoidable.
-The Partitioned Global Address Space (PGAS) model replaces the need for a common memory store.
-It provides the developers with a uniform memory access on a distributed architecture.
-Each computing node executes the same program, and provide its local memory to be shared with all the other nodes.
-The PGAS programming model assure the remote accesses and synchronization of memory across nodes, and enforces locality of reference, to reduce the communication overhead.
-% This model is a SPMD : Single Program Multiple Data.
-Known implementation of the PGAS model are 
-Chapel\cite{Chamberlain2007},
-X10 \cite{Charles2005}.
-Unified Parallel C \cite{El-Ghazawi2006},
-CoArray Fortran \cite{Numrich1998} and
-OpenSHMEM \cite{Chapman2010}.
-
-These programming models are promising.
-However, they focus rather on scientific application with intensive computing such as matrix multiplication, and leave out streaming applications, such as web services.
-
-\subsubsection{Programming languages} \label{chpater3:concurrent-programming:programming-languages}
-
-% Scala / Akka / Erlang
-
-Some programming languages features message-passing and isolation of actors directly to give the responsibility to developers to assure high parallelism.
-To some extent, these languages succeeded in industrial contexts.
-However, they largely remain elitist solutions for specific problems more than a general, and accessible tool.
-I present some examples below.
-
-Scala is an attempt at unifying the object model and functional programming \cite{Odersky2004}.
-% It proposes an actor approach in its design.
-Akka\ftnt{http://akka.io/} is a framework based on Scala, to build higly scalable and resilient applications.
-
-Erlang is a functional concurrent language designed by Ericsson to operate telecommunication devices \cite{JoeArmstrong,Nelson2004} % Nelson2004 is not very good, find another better citation.
-
-CUDA, OpenCL are data parallel API to allow imperative code to run onto accelerators such as GPUs or FPGAs \cite{Stone2010}.
-
-The field of concurrent programming is so vast it is impossible to relate here every of its branch.
-The previous examples are only the best known.
-The next focus focuses on streaming real-time applications.
-
-\subsection{Stream Processing Systems} \label{chapter3:parallel-execution:stream-processing}
-
-All the solutions previously presented are designed to build general distributed systems.
-We focus on real-time applications as defined by \cite{Hansen1978}.
-A real-time application must respond to a variety of simultaneous requests within a certain time.
-Otherwise, input data may be lost or output data may lose their significance.
-Such applications are often connected to the internet and use the web as an interface, which implies to process high volumes streams of requests.
-Moreover, because these systems are key to business, their reliability and latency are of critical importance.
-These requirements are challenging to meet in the design of such system.
-It present the state of the art to design such systems with these challenging requirements.
-
-
-% \textit{
-% From a language designer's point of view, real-time
-% programs have these characteristics:
-% \begin{enumerate}
-% \item A real-time program interacts with an environ-
-% ment in which many things happen simultaneously at
-% high speeds.
-% \item A real-time program must respond to a variety
-% of nondeterministic requests from its environment. The
-% program cannot predict the order in which these requests
-% will be made but must respond to them within certain
-% time limits. Otherwise, input data may be lost or output
-% data may lose their significance.
-% \item A real-time program controls a computer with a
-% fixed configuration of processors and peripherals and
-% performs (in most cases) a fLxed number of concurrent
-% tasks in its environment.
-% \item A real-time program never terminates but contin-
-% ues to serve its environment as long as the computer
-% works. (The occasional need to stop a real-time program,
-% say at the end of an experiment, can be handled by ad
-% hoc mechanisms, such as turning the machine off or
-% loading another program into it.)
-% \end{enumerate}
-% }
-
-\subsubsection{Data-stream management systems}
-
-% The processing of large volume of data was historically handled by Database management systems.
-% These systems naturally evolved to manage data-streams as well.
-
-Database Management Systems (DBMS) historically processed large volume of data, and they naturally evolved into Data-stream Management System (DSMS) to processed data streams as well.
-They concurrently run SQL-like requests on continuous data streams.
-The computation of these requests spread over a distributed architecture.
-Among the early works, we can cite NiagaraCQ \cite{Chen2000,Naughton2001}, Aurora \cite{Abadi2003,Abadi2003a,Balakrishnan2004} which evolved into Borealis \cite{Abadi2005}, AQuery \cite{Lerner2003}, STREAM \cite{Arasu2003,Arasu2005} and TelegraphCQ \cite{Krishnamurthy2003,Chandrasekaran2003}.
-More recently, we can cite DryadLINQ \cite{Isard2007,Yu2009}, Timestream \cite{Qian2013} and Shark \cite{Xin2013}.
-
-However, these solutions implies to understand two paradigms of language, the SQL paradigm, and the imperative paradigm.
-% Even if SQL is a turing-complete language, it is rather difficult to write a complex application only with a SQL-like language.
-The difference between these two paradigms creates a rupture in the design of the system.
-% Even if the design follows an imperative structure,
-The SQL parts difficulty merge with the imperative structure.
-% It is harder to separate concerns. \nt{need reference, plus rewrite this paragraph}.
-This rupture impacts the maintainability of the system as it is not straightforward to reorganize the logic between the two paradigms.
-
-
-% SQL-like
-%   AQuery \cite{Lerner2003}
-%   STREAM (uses CQL) \cite{Arasu2003,Arasu2005}
-%   TelegraphCQ (uses StreaQuel) \cite{Krishnamurthy2003,Chandrasekaran2003}
-%   Grape / Timestream - distributed SQL (roughly) \cite{Qian2013}
-%   Shark        Stateless dataflow \cite{Xin2013}
-
-%   DryadLINQ    Stateless dataflow \cite{Isard2007,Yu2009}
-
-% \subsubsection{Batched dataflow}
-
-% Map/Reduce
-%   MapReduce    Stateless dataflow \cite{Dean2008}
-%   Hadoop       Stateless dataflow 
-%   Incoop       Incremental dataflow \cite{Bhatotia2011}
-
-% Functional
-%   Comet        Batched dataflow \cite{He2010}
-%   D-Streams    Batched dataflow \cite{Zaharia2012}
-%   Spark        Stateless dataflow \cite{Zaharia,Zaharia2010}
-%   Nectar       Incremental dataflow \cite{Gunda2010}
-
-
-
-\subsubsection{Dataflow pipeline} \label{chapter3:software-efficiency:dataflow-pipeline}
-
-An alternative model to process data stream efficiently is the pipeline architecture.
-It inspires from dataflow to integrate the two conflicting programming paradigms into one.
-
-SEDA is a precursor in the design of pipeline-based architecture for real-time applications for the internet \cite{Welsh2001}.
-It organizes an application as a network of event-driven stages connected by explicit queues.
-It is based on previous works \cite{Gribble2001,Pai1999}.
-
-Several projects followed and adapted the principles in this work.
-StreaMIT is a language to help the programming of large streaming application \cite{Thies2002}.
-Storm \cite{Toshniwal2014} is designed by and used at Twitter calculate metrics on streams of tweets such as the trending topics.
-% It is only one example of industrial practical application, among many others.
-Among other works, there are CBP \cite{Logothetis2010} and S4 \cite{Neumeyer2010}, that were designed at Yahoo, Millwheel \cite{Akidau2013} designed at Google and Naiad \cite{Murray2013} designed at Microsoft.
-
-Similarly to the programming models presented in section \ref{chpater3:concurrent-programming:programming-languages} these frameworks are elitist and not accessible to a large community of developers.
-Indeed, the pipeline architecture present a distributed storage, which is hardly compatible with the best practices.
-It impacts maintainability.
-For this reason, there are some works on reconciling the concurrent programming models with the modular programming model favoring maintainability.
-The next section presents these reconciliations.
-
-% Dataflow
-%   CBP          Incremental dataflow \cite{Logothetis2010}
-%   S4           Continuous dataflow \cite{Neumeyer2010}
-%   Storm        Continuous dataflow \cite{Toshniwal2014}
-%   Millwheel    Continuous dataflow \cite{Akidau2013}
-%   SEEP         Continuous dataflow \cite{Fernandez2013}
-%   Naiad        Batched dataflow \cite{Murray2013}
-
-
-
-\endinput
 
 TO READ :
 
@@ -382,92 +490,3 @@ Map Reduce
 
 Web assembly
 https://medium.com/javascript-scene/what-is-webassembly-the-dawn-of-a-new-era-61256ec5a8f6
-
-
-
-\subsection{Interdependencies}
-
-It is easy to understand the parallelism in a cooking recipe because the interdependencies between operations are trivial.
-It seems obvious that melting chocolate is independent from whipping up egg whites.
-% Because chocolate and egg whites are different ingredients.
-This distinction between chocolate and egg whites is trivial.
-% ... comes from the modifications to the state.
-While the distinctions within the state of an application are more intricate.
-This makes concurrent application more difficult to design and implement.
-
-\subsubsection{State Coordination}
-
-% The interdependencies between the tasks impose the coordination of the global application state.
-The global state of an application impose the coordination between the tasks.
-This coordination happens either by sending messages, or by modifying a shared memory.
-\nt{The following sentence needs to be rewritten to include both message passing and shared memory. Because state coordination limits parallelism, and scalability, it is a better solution to use message passing}
-If the tasks are independent enough, the coordinations can be done with message passing.
-Each task sends messages to indicate the modifications of the state with consequences outside its scope.
-% They pass the states from one task to another so as to always have an exclusive access on the state.
-% As example, applications built around a pipeline architecture define independent tasks arranged to be executed one after the other.
-% The tasks pass the result of their computation to the next.
-% These tasks never share a state.
-However, if the tasks are too dependent, the overhead of message passing tends to impact performances.
-% If the tasks need concurrent accesses to a state, they cannot efficiently pass the state from one to the other repeatedly.
-They need to share and coordinate their accesses to the state.
-Each access needs to be exclusive to avoid corruption.
-I address in the next paragraphs the different scheduling strategies, and how they assure this exclusivity.
-
-\subsubsection{Task Scheduling}
-
-There are two scheduling strategies to execute tasks sequentially on a single processing unit : preemptive scheduling and cooperative scheduling.
-The coordination is different with the two scheduling strategies.
-
-\illustration{feu rouge et rond point}
-
-Preemptive scheduling is used to assure fairness between the tasks, such as in a multi-tasking operating system.
-% in most execution environment in conjunction with multi-threading.
-The scheduler allows a limited time of execution for each task, before preempting it.
-% It is a fair and pessimistic scheduling, as it grant the same amount of computing time to each task.
-However, as the preemption happens unexpectedly, the developer needs to assure exclusivity by locking the shared state before access.
-Locking is known to be hard to manage by developers, and to impact performances negatively.
-Because it is not ideal both for development scalability and performance scalability, it is set aside for the remaining of this chapter.
-% This scheduling strategy should be avoided except when true concurrency is needed in concert with true shared state.
-% Shared state could probably always be emulated with isolated memory and message passing.
-
-On the other hand, in cooperative scheduling, a task is allowed to run until it yields the execution back to the scheduler.
-Each task is an atomic execution : it has an exclusive access on the memory.
-% It gives back to the developer the control over the preemption.
-As the developer doesn't need to explicitly assure exclusivity, it is easier to write concurrent programs efficiently with this scheduling strategy.
-% Indeed, I presented in the previous section the popularity of Javascript, which is often implemented on top of this scheduling strategy (DOM, Node.js).
-
-\subsubsection{Invariance}
-
-\nt{TODO This section is not clear. It should be moved in the state of the art.}
-
-% The challenge introduced above is to assure to the developer an exclusive access to the state of its application.
-In concurrent computation, it is important to assure the invariance of a state during its manipulation.
-This assurance is given by the exclusive access of an atomic execution on the state.
-% I call invariance the assurance given that the state accessible from a task will remain unchanged during its access to avoid corruption, and more generally to allow the developer to perform atomic modifications on the state.
-It allows the developer to group operations inside this atomic execution, so as to avoid corruption of the state.
-% so as to perform all the operations without interference from concurrent executions.
-% The same concept is found in transactional memory.
-
-When the tasks remains isolated and communicate by message passing, there is no risk of corrupted state.
-The invariance is assured by the isolation of the state specified by the developer, and by the atomicity of the message processing.
-On the other hand, in a cooperative scheduling application, each task is atomic, so the developer always has an exclusive access to the global state.
-This atomicity assures the invariance.
-% The invariance is assured by the atomicity of each task.
-% , because any region in the memory can be accessed only by one task at a time.
-
-% Between these two invariances, the locking mechanisms seems to be a promising compromise.
-% The developer defines only the shared states, and these are locked only when needed.
-% However, it increases the complexity of the possible locked combination, leading to unpredictable situations, such as deadlock, and so on.
-% The locking mechanisms are known to be difficult to manage, and sub-optimal.
-% Indeed, they are eventually as efficient as a queue to share resources.
-
-% For the rest of this thesis, I focus only on the invariances provided by the multi-process paradigm and the cooperative scheduling.
-% They two invariance are similar, because the developer defines sequence of instructions with atomic access to the memory.
-% And in both paradigms, these sequences communicate by sending messages to each other.
-The difference is that in the message passing paradigm, the developer defines the state isolation inducing the execution isolation, while with cooperative scheduling, the developer defines only the execution isolation.
-% This difference seems to be crucial in the adoption by the developer community.
-It is difficult for developer to isolate state, but it provides good performances through parallelism.
-While it is easier to assure atomic execution with cooperative scheduling, but it is unable to provide parallelism.
-On one hand, the state is distributed and isolated to improve performance scalability.
-On the other hand, the code is organized logically to improve maintainability.
-The impact of these two organizations on performance scalability and development scalability is at the heart of this thesis.
