@@ -1,4 +1,4 @@
-\chapter{Software Design, A Atate Of The Art} \label{chapter3}
+\chapter{Software Design, State Of The Art} \label{chapter3}
 \minitoc
 \eject
 
@@ -37,10 +37,18 @@ Though, these works often ignore the best practices regarding maintainability.
 Increasing performance then implies to increase exponentially the required development effort.
 % For example distributed systems, single instruction multiple data, among others.\nt{TODO not really good examples}
 
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art.pdf}
+\end{center}
+
 There has been many attempts at reconciling the two goals into a single approach.
 But none seems really convincing enough to be widely adopted.
-Throughout this chapter, the different works from the community are classified into three categories : focus on implementation evolution in section \ref{chapter3:software-maintainability}, focus on parallel execution in section \ref{chapter3:software-efficiency}, or reconciliation of the two in section \ref{chapter3:reconciliations}.
-And finally, section \ref{chapter3:objectives} presents the objectives for this thesis.
+The schema above is used thorought this chapter to place graphically these different attempts.
+The different works from the community are classified into two categories.
+The focus on implementation evolution, noted by number 1, are in section \ref{chapter3:software-maintainability} and the focus on parallel execution, noted by number 3, are in section \ref{chapter3:software-efficiency}.
+For each of these sections, we present the limitations, and work on improvements to meet the opposing the requirements from the opposing category, noted by number 2 and 4.
+And finally, section \ref{chapter3:objectives} presents the objectives for this thesis, noted by number 5.
 
 \input{03-state-of-the-art/Software-maintainability}
 \input{03-state-of-the-art/Software-efficiency}
