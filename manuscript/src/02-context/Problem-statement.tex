@@ -1,0 +1,115 @@
+\section{An Economical Problem} \label{chapter2:problem-statement}
+
+With the rise of SaaS on the Web, the software industry are in charge of both the development and the execution of the software.
+The previous section presented these two aspects individually.
+This section present the challenges encountered by conducting the two at such a large scale.
+It then focus on the subject and define the objectives of this thesis.
+
+\subsection{Disrupted Development}
+
+The economical context on the Web allows a project to grow from a very early stage to a large business.
+The economical constraints to meet are very different in the beginning and in the maturation of such project.
+In the early steps the constraints hold on the development.
+The project needs crucially to reduce development costs, and to release a first product as soon as possible.
+On the contrary, in the maturation of the project, the constraints hold on the performance.
+The product needs to be highly concurrent to meet the load of usage.
+The team needs to adapt to meet the different constraints, which implies a disruption in the evolution of the project.
+This section details further the reasons and consequences of this disruption.
+
+\subsubsection{Power-Wall Disruption}
+
+\illustration{heating chipset / parallel chipsets}
+
+Around 2004, the speed of sequential execution on a processing unit plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
+Manufacturers reached what they called the power wall
+They started to arrange transistors into several processing units to keep increasing overall performance while avoiding overheating problems.
+Therefore, the performance of the sequential execution required by the cooperative scheduling plateaued as well.
+Isolating tasks is the only option to achieve high concurrency on this parallel hardware.
+But this isolation is in contradiction with the best practices of software development.
+It implies a rupture between performance and maintainability.
+
+\subsubsection{Unavoidable Modularity}
+
+The best practices in software development advocate to gather features logically into distinct modules.
+This modularity allows a developer to understand and contribute to an application one module at a time, instead of understanding the whole application.
+It allows to develop and maintain a large code-base by a multitude of developers bringing small, independent contributions.
+
+This modularity avoids a different problem than the isolation required by parallelism.
+The former intends to structure code to improve maintainability, while the latter improve performance through parallel execution.
+These two organizations are conflicting in the design of the application.
+The next paragraph presents the disruptions in the development of a web application implied by this conflict.
+
+\subsubsection{Technological Shift}
+
+Between the prototyping, and the maturation of a web application, the needs are radically different.
+During the initiation of a web application project, the economical constraint holds on the pace of development.
+The development reactivity is crucial to meet the market needs\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}.
+The development team opt for a popular and accessible language to leverage the advantage of its community.
+It is only after a certain threshold of popularity that the  economical constraint on performance requirements exceed the one on development.
+The development team shift to an organization providing parallelism.
+
+This shift brings two risks.
+The development team needs to rewrite the code base to adapt it to a completely different paradigm.
+The application risks to fail because of this challenge.
+And after this shift the development pace slows down.
+The development team cannot react as quickly to user feedbacks to adapt the application to the market needs.
+The application risks to fall in obsolescence.
+
+The risks implied by this rupture proves that there is economically a need for a solution that continuously follows the evolution of a web application.
+We present in the next section the proposition of this thesis for such a solution.
+It would allow developers to iterate continuously on the implementation focusing simultaneously on performance, and on maintainability.
+
+\subsection{Seamless Web Development}
+
+This thesis is conducted in the frame of a larger work within the company Worldline : LiquidIT.
+This company identified that one of their need was to increase the time to market for its product.
+LiquidIT intends precisely to fit this need.
+The goal of this thesis in this larger work, is to allow the developer to focus solely on business logic, and leave the technical constraints of deployment to automated tools.
+This section presents the objective of this work to avoid the disruption in development, and provide a seamless development experience.
+Worldline develops and hosts real-time streaming Web services, as defined in the next paragraph.
+
+\subsubsection{Real-Time Streaming Web Services}
+
+This thesis focus on web applications processing streams of requests from users in soft real-time.
+Such applications receive requests from clients using the HTTP protocol and must respond within a finite window of time.
+They are generally organized as sequences of tasks to modify the input stream of requests to produce the output stream of responses.
+The stream of requests flows through the tasks, and is not stored.
+On the other hand, the state of the application remains in memory to impact the future behaviors of the application.
+This state might be shared by several tasks within the application, and imply coordination between them.
+
+The next section introduces the similarities and differences between the two programming models from the previous section.
+And then draws an equivalence.
+This equivalence is developed all throughout this thesis.
+
+\subsubsection{Differences}
+
+Both paradigms encapsulate the execution in tasks assured to have an exclusive access to the memory.
+However, they provide two different models to provide this exclusivity resulting in two distinct programming models.
+Contrary to the pipeline architecture, the event-loop provide a common memory store allowing the best practice of software development to improve maintainability.
+
+However, these two organizations are incompatible.
+Because of economical constraints, this incompatibility implies ruptures in the development.
+It represents additional development efforts and important costs.
+This thesis argues that it is possible to allow a continuous development between the two organizations, so as to lift these efforts and costs.
+This section presents the two programming models representing each an organization.
+Then it presents the possibility of an equivalence bridging the two.
+This equivalence is detailed further in the the chapter \ref{chapter4} and \ref{chapter5} of this thesis.
+
+\subsubsection{Equivalence}
+
+With this equivalence, it would be possible to express an application following the design principles of software development, hence maintainable.
+And yet, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
+Because of the equivalence between these two models, the development team could iterate testing the two models for their different concerns about the implementation : performance and maintainability.
+In the beginning of a project, the team focus on maintainability and evolution, discarding the scalable performance concerns.
+And as the project gather audience and the performance concerns become more and more critical, the development team progressively take into account this performance concerns.
+
+The goal of conciliating these two concerns is not new.
+The next chapter presents all the results from previous works needed to understand this work, up to the latest results in the field.
+
+\paragraph{}
+
+This thesis proposes to provide an equivalence between the two memory models for streaming web applications.
+The next section describes further the similarities and differences between the two models.
+The equivalence would allow a compiler to transform an application expressed in one model into the other.
+With such a tool, a development team could rely on the common memory store of the event-loop execution model, and focus on the maintainability of the implementation.
+And compile continuously during the development the event-loop implementation to the pipeline architecture to assure that the execution can be distributed on a parallel architecture.
