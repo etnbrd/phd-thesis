@@ -2,56 +2,49 @@
 \minitoc
 \eject
 
-% We are interested in the evolution of the development of web applications in an economical context.
-Computer applications are economically constrained by the cost of both development and exploitation.
-The growth of the web and Software as a Service (SaaS) revealed the importance of these constraints, as the same entity need to carry both development and exploitation in scale of unprecedented size.
-% These constraints became even more important, and the costs increased for web applications because with the growth of the web.
-% Since the web reached a global scale, these constraints are amplified for applications available on the web.
-% These constraints are amplified for web application because the latter are reachable at a larger scale.
-This chapter draws a broad view of this duality in software systems projects, to finally refine the scope on the subject of interest, and to define the problematic of this thesis.
-% \cit{It is becoming increasingly important to the data-processing industry to be able to produce more programming systems and produce them with fewer errors, at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. P. Stevens, G. J. Myers, L. L. Constantine \cite{Stevens1974}}.
+\cit{A designer is responsible for producing the greatest benefit for any given investment of time, talent, money, and other resources.}{K. Sullivan, W. Griswold, Y. Cai, B. Hallen \cite{Sullivan2001a}}
 
-% Since the early days of software development as a discipline,
-Similarly to many problem solving discipline, in software development the best practices advocate to decompose a problem into many subproblems.
-That is to organize the code into independent units, \textit{e.g.} modular programming, structured design \cite{Stevens1974}, hierarchical structure \cite{Dijkstra1968} and object-oriented programming.
-% One recurring principle in these approaches is that the units are to be as loosely coupled as possible.
-These approaches focus on improving the readability, maintainability and comprehensibility of an implementation.
-% We say that they intend to assure the evolution of the software system.
-% http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en
-% \textit{OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. It can be done in Smalltalk and in LISP. There are possibly other systems in which this is possible, but I'm not aware of them.
-% Cheers,
-% Alan}
-These approaches assure the scalability and evolution of the implementation of software systems.
+\nt{TODO the next paragraph expresses well the idea, but is not clear enough yet}
+The growth of the web and Software as a Service (SaaS) revealed the importance of previously unknown economic constraints.
+The same company carries both development and exploitation of a service in scale of unprecedented size.
+Development costs are reduced by following best practice, and by building maintainable softwares.
+However, as seen in the previous chapter, it is compensated by increasing hardware performance, which eventually rises exploitation costs.
+Similarly, exploitation costs are reduced by following more efficient programming models.
+But again, it rises development costs.
+So a SaaS company needs to cleverly allocate its budget between development and exploitation so as to limit the overall cost.
 
-The Moore's law \cite{Moore1965} and Dennard's MOSFET scaling \cite{Dennard2007} promised an exponential evolution of the processing power, hence the software industry could always rely on the hardware to increase the execution speed.
-But eventually, the clock speed of processors plateaued \ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}\cite{Bohr2007}.
-The increasing number of transistors predicted by Moore's law needed to be reorganized as several execution units into the same processor.
-The hardware could not anymore increase the execution speed without any additional development effort.
+Eventually, a company faces the problem of scalability limitations.Compensating development with hardware becomes unsustainable.
+The company has no choice but to commit huge development efforts to get correct performances.
+This chapter draws a broad view of the relation between the orientation of development toward maintainability or scalable performance, and its consequences.
 
-The best practices of software development then inherited two goals : to assure a scalable implementation evolution by decomposing it into subproblems, as well as to decompose the execution onto the several execution units.
-As D. L. Parnas showed in 1972 \cite{Parnas1972}, these two decompositions are hardly reconcilable.
-It seems impossible to develop a software following a decomposition that satisfies both a scalable implementation evolution, and a scalable parallel execution.
+The best practices in software design advocate to decompose a problem into many subproblems.
+The decomposition of the implementation of a problem improves directly its maintainability, development scalability and evolution.
+This chapter present some of these best practices, \textit{e.g.} modular programming, structured design \cite{Stevens1974}, hierarchical structure \cite{Dijkstra1968} and object-oriented programming.
 
-As the economic constraint shifted from development to performance, and with the incentive to leverage the execution power of parallel architectures, intensive work was done to provide tools and models to organize the execution on multiple execution units.
-Though, these works often ignore the best practices regarding maintainability.
-Increasing performance then implies to increase exponentially the required development effort.
-% For example distributed systems, single instruction multiple data, among others.\nt{TODO not really good examples}
+A few decades ago, the best practices were not concerned with execution performance.
+Moore's law \cite{Moore1965} was wrongly interpreted as the assurance that hardware could always increase execution speed.
+But eventually, the clock speed of processors plateaued \ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}\cite{Bohr2007}, and the processing units were organized as several execution units to continue improving performances.
+But this hardware improvement could not anymore increase the execution speed without any additional development effort.
 
+The best practices of software design then inherited two goals : to assure a scalable implementation evolution by decomposing it into subproblems, as well as assure a scalable parallel execution by decomposing the execution onto the several execution units.
+As D. L. Parnas showed in 1972 \cite{Parnas1972}, it seems challenging to develop a software following a decomposition that satisfies both goals.
 
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art.pdf}
 \end{center}
 
-There has been many attempts at reconciling the two goals into a single approach.
+The evolution of economic constraints often force an SaaS company to switch from scalable development to scalable performance.
+This switch implies huge development efforts.
+There has been many attempts at reconciling the two goals to reduce these costs.
 But none seems really convincing enough to be widely adopted.
-The schema above is used thorought this chapter to place graphically these different attempts.
-The different works from the community are classified into two categories.
-The focus on implementation evolution, noted by number 1, are in section \ref{chapter3:software-maintainability} and the focus on parallel execution, noted by number 3, are in section \ref{chapter3:software-efficiency}.
-For each of these sections, we present the limitations, and work on improvements to meet the opposing the requirements from the opposing category, noted by number 2 and 4.
+
+The schema above is a graphical representation of the organization of this chapter, and more generally of the state of the art of software design.
+The focus on development scalability, noted by number 1, are addressed in section \ref{chapter3:software-maintainability} while the focus on performance scalability, noted by number 3, are addressed in section \ref{chapter3:software-performance}.
+Each of these direction of development contains works trying to meet the requirements from the opposing category, noted by number 2 and 4.
 And finally, section \ref{chapter3:objectives} presents the objectives for this thesis, noted by number 5.
 
 \input{03-state-of-the-art/Software-maintainability}
-\input{03-state-of-the-art/Software-efficiency}
+\input{03-state-of-the-art/Software-performance}
 \input{03-state-of-the-art/Objectives}
 
 
@@ -59,250 +52,6 @@ And finally, section \ref{chapter3:objectives} presents the objectives for this 
 %-----------------------------------------------------------------------------%
                                     \endinput
 %-----------------------------------------------------------------------------%
-
-
-\section{Introduction}
-
-In this section I analyze the current solutions to provide concurrency for web servers.
-The criterion for this analysis are :
-
-\begin{itemize}
-\item how the solution (language) exposes the memory to the developer.
-\item how the solution (language) exposes the invariance on this memory. These two language choices should be representative of the ease for a developer to develop with this language.
-\item how the solution (infrastructure) finally extract parallelism based on the memory and its invariance (annotations or not, and how well ).
-\item The expected ratio of parallelism over the total execution. and the ratio of communcation over the total state. These two ratios should be representative of the expected speedup in function of the resources made available.
-\end{itemize}
-
-We argue that the best solution is to provide a global memory to support software development practices, to provide an implicit invariance that the developer doesn't need to explictely define, like in transactional memory, lock, and so on ...
-But yet provide parallelism for the execution to be scalable, with only a minimum of communication.
-
-To lay the base for this analysis, I fisrtly present in more precision what is concurrency and scalability, and how it is studied in the litterature.
-Then I analyze different solution to provide concurrency for web-applications.
-
-\comment{The different solutions are roughly multi-process with message passing, multi-threading and the event-loop. I will detail this solution in greater details later.}
-
-We analyze Javascript as an exammple in a class of higher-order languages using an event-loop with continuation passing style, for asynchronous programming.
-
-% Section \ref{chapter3:javascript}
-% Section \ref{chapter3:concurrency}
-% Section \ref{chapter3:scalability}
-
-% \input{03-state-of-the-art/Javascript}
-% \input{03-state-of-the-art/Concurrency}
-% \input{03-state-of-the-art/Scalability}
-
-% \section{Framworks for web application distribution}
-% \subsection{Micro-batch processing}
-% \subsection{Stream Processing}
-
-% \section{Flow programming}
-% \subsection{Functional reactive programming}
-% \subsection{Flow-Based programming}
-
-% \section{Parallelizing compilers}
-% \comment{OpenMP and so on}
-% %\subsubsection{\comment{TODO}}
-
-% \section{\comment{Synthesis}}
-% \comment{There is no compiler focusing on event-loop based applications}
-
-
-%-----------------------------------------------------------------------------%
-                                    \endinput
-%-----------------------------------------------------------------------------%
-
-Objective
----------
-
-My objective is to find a solution to allow a first code base to evolve continuously in performance. That is to avoid the rupture that is so often observed in the industry currently (e.g. LinkedIn, Facebook ... ).
-
-I want to achieve that with a solution to transition from the imperative model presenting certain characteristics to a distributed model with certain conditions.
-
-Cartography
------------
-
-
-# Industry -> We want to decrease development time while increasing performance. We barely care about used resources.
-
-## Languages, libraries and frameworks
-
-  + Java - Object-oriented
-  +> Spring
-  +> Scala - Functional + Object-oriented
-  +>> Akka - Message driven actors
-  +>>> Play - on top of akka (Asynchronous)
-
-  + PHP - Object-oriented
-  +> Sinatra
-
-  + Ruby - Functional + Object-oriented
-  +> Rails
-
-  + Javascript - Functional + Prototype-oriented
-  +> Express.js
-  +> hapi.js
-  +> Meteor
-  +> Bacon.js - Reactive programming
-  +> kraken.js
-
-  + NoFlo
-
-  + Haskell
-  +> FRP Reactive programming
-
-  + Spidle: A DSL approach to specifying streaming applications dataflow like
-
-  + Erlang
-
-## Databases
-
-  + FlockDB
-  + CouchDB
-  + PouchDB
-  + Cassendra
-  + Dynamo DB
-
-  + unhosted
-  + MoveMyData
-
-## Runtime
-
-  + Node.js - Asynchronous programming with Event-loop
-  +> Fibers 
-
-
-# Embedded -> We want to decrease used resources while increasing performance. We barely care about development time.
-
-
-
-+ Exploiting Coarse-grained Task, Data and Pipeline Parallelism in Stream Programs -> Compile StreamIt to assembler for multi-core
-
-+ Shangri-La - Compile C-like into assembler for packet program
-
-+ SPUR - A programming model for an embedded media processing architecture
-
-
-# Scientific-like -> We want to increase performance. We barely care about used resources nor decreasing development time.
-
-## Languages, libraries and frameworks
-
-  + OpenMP
-  + OpenCL
-  + CUDA
-  + Cg: A system for programming graphics hardware in a C-like language
-  + Brook for GPUs: Stream Computing on Graphics Hardware
-  + Liquid Metal by IBM - unified language for FPGAs, GPUs and such ...
-
-  + StreaMIT: A language for Streaming Applications
-
-
-  + Apache Kafka - publish/subscribe distributed commit log
-
-  Design methodology:
-  + PCAM - Partition -> Communicate -> Agglomerate -> Map
-
-## Runtime
-
-  + Vert.X - node like + thread / worker capabilities
-
-  OSs :
-
-  + BarrelFish
-  + TesselationOS
-  + Mosix
-  + CoreOS
-
-
-  Architectures:
-
-
-    Web service oriented:
-      Threads only:
-      + Capricio - User cooperative threads (also known as fibers / green threads)
-
-      Events only:
-      + TAME - event-based solution without stack ripping in C (it is like closure, but for C)
-
-      Hybrid solutions:
-    + AMPED Asymetric multi-process event-driven
-    +> Flash
-    +> Nginx
-    +> Ninja
-    +> SEDA
-    +> Leda - PCAM 
-    + Combining events and threads for scalable network services, Linguistic symbiosis between event loop actors and threads, Combining data flow and control flow computing)
-
-    + 
-
-    + Cluster-based scalable network services
-
-
-  + Grape / Timestream - distributed SQL (roughly)
-  + CQL
-  +> STREAM (uses CQL)
-  + StreaQuel
-  +> TelegraphCQ
-  + AQuery
-
-  (From the paper : Making state explicit for imperative big data processing)
-  + MapReduce       map/reduce   |   Stateless dataflow
-  + DryadLINQ       functional   |   Stateless dataflow
-  + Spark           functional   |   Stateless dataflow
-  + CIEL            imperative   |   Stateless dataflow
-  + Hadoop          map/reduce   |   Stateless dataflow
-  + Incoop          map/reduce   |   Incremental dataflow
-  + Nectar          functional   |   Incremental dataflow
-  + CBP             dataflow     |   Incremental dataflow
-  + Comet           functional   |   Batched dataflow
-  + D-Streams       functional   |   Batched dataflow
-  + Naiad           Dataflow     |   Batched dataflow
-  + Storm, S4       dataflow     |   Continuous dataflow
-  + SEEP            dataflow     |   Continuous dataflow
-  + Piccolo         imperative   |   Parallel in-memory
-  + SDG             imperative   |   Stateful dataflow
-
-
-
-
-What about all the techniques for analyzing and extracting parallelism :
-
-+ Commutativity analysis: a new analysis technique for parallelizing compilers
-+ the scalable commutativity rule ...
-+ Making asynchronous parallelism safe for the world
-
-
-+ Cooperative task management without manual stack management - Hybrid approach, fibers + threads
-
-
-
-
-- transactional memory
-  - http://www.morganclaypool.com/doi/abs/10.2200/s00272ed1v01y201006cac011
-  - http://delivery.acm.org/10.1145/1370000/1364800/p80-larus.pdf?ip=160.92.8.31&id=1364800&acc=OPEN&key=4D4702B0C3E38B35.4D4702B0C3E38B35.4D4702B0C3E38B35.6D218144511F3437&CFID=529578904&CFTOKEN=25104956&__acm__=1437488908_6eeb5d92ab07593b1aa92d3ac4461c0b
-  - ...
-
-- Continuation-passing style parallelization
-  - The interprocedural analysis and automatic parallelization of Scheme programs - http://link.springer.com/article/10.1007/BF01808954#page-1
-  - 
-
-- Event-loop / 
-
-
-
-
-Criteria
---------
-
-
-
-
-
-
-\input{02-context/Objectives}
-
-
-TODO Talk about the annotations used by many parallel languages.
-
 
 
 Some links I NEED to put :
@@ -352,16 +101,3 @@ Some chunks I might find useful later :
 
 A good example of declarative sentence in everyday world : in case of fire, 
 the elevators don't work -> you understand that you need to take the stairs.
-
-The purpose of explicit synchronization is to manage the timing of side-effects in the presence of parallelism. 
-
-A function is side-effect free if it is referentially transparent.
-
-
-
----
-
-
-We presented in the introduction the popularity of Javascript, we argue that using this position to leverage parallelism is the only solution, and that proposing a new language, only on the base that it provide parallelism could not possibly make this language popular and grow a community.
-
-Therefore, the only solution is to use the existing languages as is, and to compile them to gain parallelism.

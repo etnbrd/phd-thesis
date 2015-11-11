@@ -1,4 +1,4 @@
-\section{Reconciliation} \label{chapter3:objectives}
+\section{Seamless Development} \label{chapter3:objectives}
 \nt{TODO title not clear enough}
 
 
@@ -8,18 +8,18 @@
 
 % The objective of this thesis is to find a reconciliation of the two goals, by finding an equivalence between two approaches with different goals, in the case of streaming web applications.
 
-The section \ref{chapter3:software-design} shows modularity is the best organization to improve maintainability of an application.
+The section \ref{chapter3:software-maintainability} shows that modularity and functional programming, especially higher-order programming and lazy evaluation, are the best organization to improve maintainability of an application.
 This organization is best supported by a functional approach.
 Indeed, higher-order programming improves readability and maintainability.
 However, higher-order programming, and modular programming in general, requires the use of a global memory store.
 
-The section \ref{chapter3:software-efficiency} shows that to attain scalability, an application needs to be organized to distribute its memory store into independent silos to multiply the exclusive accesses.
+The section \ref{chapter3:software-performance} shows that to attain scalability, an application needs to be organized to distribute its memory store into independent silos to provide isolation and immutability. Leading to multiply the exclusive accesses.
 Still, many works provide this global memory store interface to developers, because it is the best way to support the modularity advocated in section \ref{chapter3:software-design}.
 This incompatibility between these two organization, and their goals is responsible for the shifts operated during the life of an application.
 Huge developing efforts are made to translate manually from one organization into the other, and to maintain the implementation despites its unmaintainable nature.
 % when the most pressing need shift from maintainability to performance, or vice versa.
 
-In section \ref{chapter3:reconciliations}, we show different tentatives to reconciles the two organizations.
+In section \ref{chapter3:objectives}, we show different tentatives to reconciles the two organizations.
 Most are satisfactory for specific domains, such as the high-performance computing.
 It is profitable, as the expected speedup of developing an application with an adapted programming model compensates the huge development effort.
 %  where it is accepted to spend long time developing an application to use thousands of accelerators to compute heavy calculation, because the expected speedup is profitable, compared to develop an application for all these thousands accelerators.
@@ -31,6 +31,13 @@ This situation illustrate the need for a programming model reconciling the two c
 
 % \comment{Here a table summarizing the different approaches, and the sweet spot.}
 
+Our objectives is to provide seamless development.
+3.1 shows that modularity is not scalable but needed.
+But compilation can help to get scalable.
+3.2 shows that parallelism is not maintainable (no Higher-Order Programming, no lazy evaluation, so no good glue between modules)
+But good developers can maintain double representation.
+With help from an equivalence or a \textit{compiler} most developers could develop using this double representation, and seamlessly achieving parallelism and maintainability.
+
 \begin{table}
 \begin{tabular}{l|l|l|l}
              & Maintainability         & Performance           & Both\\\hline
@@ -41,8 +48,10 @@ Web          & Javascript              & Pipeline architecture & ø
 \label{tab:chapter3:objectives:summary}
 \end{table}
 
+\nt{integrate these paragraphs after the next section}
 Our objectives is to find an equivalence between these two organization, specifically for the case of web applications.
 To do so, we focus on the Javascript programming language, and specifically, the node.js interpreter.
+\nt{TODO not clear}
 As explained in the end of chapter \ref{chapter2}, the execution model of Javascript is similar to a pipeline.
 We intend to split a node.js application into a parallel pipeline of stages.
 
