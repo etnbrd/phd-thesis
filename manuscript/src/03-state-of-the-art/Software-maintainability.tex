@@ -10,7 +10,7 @@ This problem becomes even more critical as the system grows in size.
 Therefore, it is crucial to decompose the system into smaller subsystem easier to grasp individually.
 This section shows the theories, programming languages and frameworks helping this decomposition.
 
-\subsection{Modularity} \label{chapter3:software-maintainability:modularity}
+\subsection{Modular Programming} \label{chapter3:software-maintainability:modular-programming}
 
 The modularity of a software implementation is about enclosing the subproblems and bringing the relevant interfaces to allow these part to be composed.
 It allows greater design to emerge from the composition of smaller components.
@@ -23,12 +23,12 @@ And it reduces development time by allowing several developers to simultaneously
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-1.pdf}
 \end{center}
 
-The section \ref{chapter3:software-maintainability:modularity:design-choices} is about the decomposition of a problem into subproblems.
-Then, the section \ref{chapter3:software-maintainability:modularity:programming-models} is about the bringing the interfaces allowing their composition.
-Finally, the section \ref{chapter3:software-maintainability:modularity:limitations} presents the consequences of this decomposition on performance.
+The section \ref{chapter3:software-maintainability:modular-programming:design-choices} is about the decomposition of a problem into subproblems.
+Then, the section \ref{chapter3:software-maintainability:modular-programming:programming-models} is about the bringing the interfaces allowing their composition.
+Finally, the section \ref{chapter3:software-maintainability:modular-programming:limitations} presents the consequences of this decomposition on performance.
 
 
-\subsubsection{Design Choices} \label{chapter3:software-maintainability:modularity:design-choices}
+\subsubsection{Design Choices} \label{chapter3:software-maintainability:modular-programming:design-choices}
 
 \nt{TODO this introduction is not very clear}
 In the decomposition of a large problem into smaller subproblem, there is two design choices.
@@ -49,11 +49,12 @@ The next paragraph explains further the criteria to draw the borders around modu
 
 \paragraph{Decomposition Criteria}
 
+\nt{move this paragraph closer to OOP ?}
 The criteria to decompose the system into well defined modules are coupling and cohesion \cite{Stevens1974}.
 The coupling defines the strength of the interdependence between modules, while cohesion defines how strongly the features inside a module are related.
 Low coupling between modules and high cohesion inside modules helps logically organize, and understand the implementation.
 Hence, it improve its maintainability.
-The next paragraph present the approach to build module helping with the evolution of the implementation.
+The next paragraph present the approach to build modules helping with the evolution of the implementation.
 
 \paragraph{Development Evolution}
 
@@ -65,360 +66,192 @@ Examples of separation of concerns are the separation of the form and the conten
 
 \subsubsection{Programming Models} \label{chapter3:software-design:programming-models}
 
-% Programming languages are designed for developers to follow the best practices mentioned above.
-Programming languages used in the industry were designed following programming models favoring the use of the best practices mentioned above.
-This section presents two programming models : object oriented programming and functional programming.
+The previous section presented the design choices to build modules.
+This section presents the programming models providing the interfaces to glue the modules together.
+It focus on two main programming models currently used in the industry, object oriented programming and functional programming.
 
 \paragraph{Object Oriented Programming}
 
-% The following list defines Object-Oriented Programming (OOP).
-% \begin{enumerate}
-% \item Everything is an object.
-% \item Communication is performed by objects communicating with each other, requesting that objects perform actions. Objects communicate by sending and receiving messages. A message is a request for action, bundled with whatever objects may be necessary to complete the task.
-% \item Objects have their own memory, which consists of other objects.
-% \item Every object is an instance of a class. A class simply represents a grouping of similar objects, such as integers or lists.
-% \item The class is the repository for behavior associated with an object. That is, all objects that are instances of the same class can perform the same actions.
-% \end{enumerate}
+\illustration{multiple cells communicating}
 
 Alan Kay, who coined the term, states that Object Oriented Programming (OOP) is about message-passing, encapsulation and late binding.
-\nt{emphasize on message-passing, encapsulation and late binding}
 (There is no academic reference for that, only a public mail exchange\ftnt{http://userpage.fu-berlin.de/~ram/pub/pub\_jf47ht81Ht/doc\_kay\_oop\_en}.)
-This original definition is an evolution upon modular programming.
-It helps encapsulate both the data, and the functions to process this data in an isolated, loosely coupled module.
+Message-passing and late binding loosen coupling between objects, while encapsulation is intended to increase cohesion \ftnt{http://williamdurand.fr/2013/06/03/object-calisthenics/}.
+% Reducing coupling and increasing cohesion are further sought by object calisthenics, in the chapter 6 of \textit{The Thoughtworks Anthology} \cite{Bay2008}
+
 The very first OOP language was Smalltalk \cite{Goldberg1984}.
 It defined the core concept of OOP.
-It is inspired by LISP and by the definition of the Actor Model, which we will define in the next section.
-
-% Illustration of multiple cells, as Alan Kay thought of biology when developing the object-oriented concepts.
-% http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en
-% I thought of objects being like biological cells [...] able to communicate with messages ...
-
-\nt{TODO don't be too categorical, just say that theorical OOP is different from industrial OOP in the implementation, or something like that}
-Object-Oriented Programming abandoned late-binding and adopted a stricter approach with the concepts of class, inheritance and polymorphism.
-The major languages of the software industry feature this stricter Object-Oriented approach.
-We can cite C++ and Java as the emblematic figures of OOP \cite{Gosling2000,Stroustrup1986}.
-
-\nt{TODO the next paragraph should be a transition to FP, not saying that OOP is bullshit}
-Though, the field test seems to have had reason of this stricter version.
-The trends in programming language seems to digress from the pure Object-Oriented approach to evolve toward a more dynamic approach, closer to Functional Programming.
-Indeed Javascript, Ruby and Python adopt functional features such as dynamic typing and higher-order functions \cite{Ecma1999}\ftnt{https://www.ruby-lang.org/en/about/}.
-
-% \paragraph{Object Calisthenics}
-
-% Object calisthenics are defined as the chapter 6 of \textit{The Thoughtworks Anthology} \cite{Bay2008}.
-% It is an exercise for developers presented as a list of 9 rules to follow to enforce maintainability and readability on source code \ftnt{http://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf}.
-
-% Some of these rules are direct implementations of the more general concept of separation of concerns, and information hiding.
-% As an example, rule 7 \textit{Keep all entities small} advocate that entities should have a concise concern.
-% Other rules are just syntactic guides to improve readability and comprehensibility.
-
-
-% See Object calisthenics 
-% - http://williamdurand.fr/2013/06/03/object-calisthenics/
-% - http://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf
-
-
+Nowadays, the major emblematic figures of OOP in the software industry are C++ and Java \cite{Gosling2000,Stroustrup1986}.
+Though, the trend seems to digress from these languages to evolve toward a more dynamic approach, closer to Functional Programming.
+Indeed Javascript adopts some functional features such as dynamic typing and higher-order functions \cite{Ecma1999}.
 
 \paragraph{Functional Programming} \label{chapter3:software-design:programming-models:functional-programming}
 
 % \cit{All problems in computer science can be solved by another level of indirection}{Butler Lampson}
 
-The formal definition of Functional Programming resides in manipulating only mathematical expressions - instead of operation statements - and forbidding state mutability.
-However, the functional programming concepts implemented in programming language are more mitigated, and resides in higher-order functions and lazy evaluation.
-Two features that major programming languages now commonly present.
+The definition of pure Functional Programming resides in manipulating only mathematical expressions - functions - and forbidding state mutability.
+The absence of state mutability makes a function referentially transparent, and thus side-effect free.
+The most important pure Functional Programming languages are Scheme \cite{Rees1986}, Miranda \cite{Turner1986}, Haskell \cite{Hudak1992}, Erlang \cite{JoeArmstrong} and Standard ML \cite{Milner1997}.
 
-\nt{TODO what about these}
-Haskell \cite{Hudak1992}
-Miranda \cite{Turner1986}
-Standard ML \cite{Milner1997}
-Scheme \cite{Rees1986}
-
-Languages providing higher-order functions allows to manipulate functions like any other primary value : to store them in variables, or to pass them as arguments.
-Higher-order functions replace the needs for most modern object oriented programming design patterns \ftnt{http://stackoverflow.com/a/5797892/933670}.
-
-Most languages use closures to implement lexical scope with higher-order functions \cite{Sussman1998}.
-A closure is the association of a function and the lexical context from its creation.
-It allows this function to access variable from this context, even when invoked outside the scope of this context.
-For example when passed as an argument to another module.
-
-\nt{Transition to next two sections}
-It loosen the couple between modules, and helps define more generic and reusable modules.
-However, it increase their dependencies during the execution.
-Indeed, by exchanging closures, two modules intricately share their contexts of execution.
-
-
-+ A function is side-effect free if it is referentially transparent.
-
-
-\subsubsection{Advantages of Functional Programming for Modularity}
-\nt{Not a section, integrate with the previous section}
-
-Higher-order functions and lazy evaluation help loosen the couple between modules, and improve their re-usability.
-\textit{In fine}, it helps developers to write applications that are more maintainable, and favorable to evolution \cite{Hughes1989}, and \cite{Turner1981}.
-
-\textbf{++}
+\nt{TODO find a better argument to say that immutability is unadapted to every day programming}
+However, the functional programming concepts are also implemented in other languages along with mutable states.
+Major imperative programming languages now commonly present higher-order functions and lazy evaluation to help loosen the couple between modules, define more generic and reusable modules.
+\textit{In fine}, it helps developers to write applications that are more maintainable, and favorable to evolution \cite{Hughes1989,Turner1981}.
 
 \paragraph{Higher-Order Programming}
 
-How to glue the modules together ?
-Structured programming define the glue between the blocks of code.
-A block can not be entered, or exited except at special interfaces that make the glue between the modules.
+Higher-order programming allows to manipulate functions like any other primary value : to store them in variables, or to pass them as arguments.
+It replaces the need for most modern object oriented programming design patterns \ftnt{http://stackoverflow.com/a/5797892/933670}.
+For example Inversion of Control \cite{Johnson}, the Hollywood Principle \cite{Sweet1985}, and Monads \cite{Wadler1992}.
+Higher-order programming help loosen coupling, thus improve maintainability.
 
-Similarly, higher-order programming provide new kind of glue between modules.
-
-
-
-It allows Inversion of control
-
-\textbf{++}
-
+In languages allowing mutable state, higher-order functions are implemented as closure, to preserve the lexical scope \cite{Sussman1998}.
+A closure is the association of a function and a reference to the lexical context from its creation.
+It allows this function to access variable from this context, even when invoked outside the scope of this context.
+It eventually tangles the memory references so that it requires a global memory.
 
 \paragraph{Lazy Evaluation}
 
-And dataflow programming is similar to lazy evaluation.
-Remember that lazy evaluation is only an extreme case of a buffered streaming execution.
-See your notes on Computer Models and Techniques stuffs.
+Lazy evaluation is an evaluation strategy allowing to defer the execution of a function only when its result is needed.
+% And according to \cite{Hughes1989}, \textit{Abelson and Sussman stress that streams (lazy list) is a powerful tool for structuring programs \cite{Sussman1983}.
+The lazy evaluation of lists is equivalent to a stream with a null-sized buffer \cite{VanRoy2003}.
+It is a powerful tool for structuring modular programs \cite{Sussman1983}.
+The opposite, eager evaluation, corresponds to an infinite buffer.
 
-Lazy evaluation allows as well a new kind of glue between modules.
+The dataflow programming paradigm resulting from lazy lists is particularly adapted for stream processing applications.
+Lazy evaluation allows the execution to be organized as a concurrent pipeline, as the stages are executed independently for each element of the stream.
+But this concurrency requires immutability of state, or at least isolation of side-effects.
+The next section addresses the consequences of higher-order programming and lazy evaluation on parallelism.
 
-According to \cite{Hughes1989}, \textit{Abelson and Sussman stress that streams (lazy lists) are a powerful tool for structuring programs} \cite{Sussman1983}.
+% Pipeline parallelism is relevant for multi-pass algorithms \cite{Conway1963}, and it is particularly efficient for stream processing applications.
 
-Lazy evaluation is somehow equivalent to stream, or data flow
+\subsubsection{Performance Limitations} \ref{chapter3:software-maintainability:modular-programming:limitations}
 
-Pipeline parallelism is relevant for multi-pass algorithms \cite{Conway1963}, and it is particularly efficient for stream processing applications as we saw in section \ref{chapter3:software-efficiency:dataflow-pipeline}.
-For these applications, sequentiality is no longer relevant, as the different stages of the execution are repeated for each message in the stream.
-Only causality is necessary, and it opens a possible pipeline parallelism.
+Functional programming greatly support modularity to improve the maintainability of an application, and its resilience to evolution.
+However, the closures introduced by higher-order programming require to share the execution context among modules.
+The previous chapter show that sharing makes parallelism difficult.
+It is the reason why that maintainability and performance seem hardly compatible.
+This section explore in further details the limitation of modular programming regarding performances.
 
-\textbf{++}
+\paragraph{Tighten Memory}
 
-\subsubsection{Performance Limitations} \ref{chapter3:software-maintainability:modularity:limitations}
+Closures are implemented in languages using a global memory.
+And by exchanging closures, two modules intricately share their contexts of execution.
+Higher-order programming loosen the couple on the implementation level of the modules, but tighten it on the execution level.
+It improves modularity, but it inherently worsens the parallelization hence the performance scalability.
 
-Functional programming greatly improves the resilience of implementation to the evolution of their specification.
-However, it requires a global memory to share the context of execution among modules.
-As shown in the previous chapter, sharing memory makes parallelism difficult.
-At the regard of this insight, the concern of evolution and the concern of performance seem hardly compatible.
-This section explore in further details the limitation of functional programming and so on.
+\paragraph{Scalability Limitations}
 
-Mutability vs Immutability ?
-
--> Mutability should win.
-
-With mutability and higher-order, you get closures.
-With closures, you get a very tangled web of mutable memory references.
-It the worst when you need to parallelize.
-For example, some argued to remove the mutability in memory references \cite{Gordon2012} \cite{Matsakis2012a}.
-
-Higher-order programming is very good for modularity, but it inherently blocks the parallelization of the memory.
-
-
-Immutability is the ... ? \cite{Gordon2012}
-
-Isolation > Immutability > Synchronization
-http://joeduffyblog.com/2010/07/11/thoughts-on-immutability-and-concurrency/
-This scale is explained in the section concurrent computing
-
-\textbf{++}
-
-Amdahl \cite{Amdahl1967} and later Ghunter \cite{Gunther1993} theorized the speedup gains with parallelism for a sequential program.
-They concludes that sharing resources protected by mutual exclusion eventually decreases performances when increasing parallelism \cite{Gustafson1988,Gunther1996,Nelson1996,Gunther2002}.
-The concurrent process sharing resources need to be scheduled sequentially, and not in parallel, as the contention of locking negatively impact the performance.
-To increase the parallelism and performance, it implies to reduce the shared resources between concurrent processes.
-\nt{TODO link the previous paragraph with the isolation / immutability / synchronization scale in concurrent programming}
-% The execution regions requiring the same resource needs to execute sequentially.
-% This wait impacts performances negatively because of contention.
-% Therefore, to increase parallelism one needs to increase the number of independent processes, and to ensure their communicate to be solely by asynchronous messages without waiting.
-
-In this article, D. Parnas opposes the organization of modules following the information hiding principle from the one following a pipeline approach to parallelize the execution.
-The former organization supports the development evolution, while the latter is more favorable to the performance of parallel execution.
-This opposition shows that a program cannot trivially follow an organization that support both development evolution, and performance.
-However, D. Parnas advocates the use of an assembler to conciliate the two approaches.
+Parallelizing the execution increases the performances \cite{Amdahl1967,Gunther1993}
+But the parallelism is limited because the execution portions sharing state need to be scheduled sequentially.
+Hence, to increase the parallelism and performance, the concurrent executions need to be independent, or to coordinate to be scheduled sequentially \cite{Gustafson1988,Gunther1996,Nelson1996,Gunther2002}.
+We explain further the reasons of these limitations, and the improvement solutions in the next section.
 
 \paragraph{}
 
-The next section shows improvement for performance and parallelism.
-Section \ref{chapter3:software-performance} shows the techniques for parallelism.
+\nt{TODO the transition is not very clear}
+The modular organization of implementation is opposed to the organization favoring the parallelization of the execution.
+The former organization supports the development scalability, while the latter supports performance scalability.
+A program cannot trivially follow an organization that support both development evolution, and performance.
+However, D. Parnas advocates the use of an assembler to conciliate the two approaches \cite{Parnas1972}.
+The next section shows the improvements for performance and parallelism .
+Then, section \ref{chapter3:software-performance} shows the techniques for parallelism.
 
-\subsection{Performance Improvements}
+\subsection{Performance Improvements} \label{chapter3:software-maintainability:performance}
+
+To assure its integrity, the global state of an application imposes the concurrent executions to coordinate their accesses.
+This coordination is responsible of the atomicity, and exclusivity of the accesses.
+It assures the invariance of the state during its atomic manipulation.
+So that developers can group operations in atomic manipulations so as to avoid corruption of the state.
+
+The invariance is assured differently depending on how the state is shared among the concurrent execution.
+To increase performance, concurrent executions needs to be as independent as possible to be executed in parallel \ftnt{http://joeduffyblog.com/2010/07/11/thoughts-on-immutability-and-concurrency/}.
+% Isolation is independent processes
+% Immutability Immutability
+% Synchronization is event-loop, multi-thread, lock-free
+\begin{description}
+  \item[Isolation] If different concurrent executions are commutative \cite{Rinard1996,Clements2013a}, and they share no portion of the state and can be isolated and executed in parallel.
+  \item[Immutability] Otherwise, the sharing state portions needs to be immutable to conserve invariance and parallel execution \cite{Gordon2012,Matsakis2012a}.
+  \item[Synchronization] If different concurrent executions needs mutation on the state, their accesses are scheduled sequentially.
+\end{description}
 
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-2.pdf}
 \end{center}
 
-\subsubsection{Concurrent Programming}
+The next few paragraphs presents the different models to assure invariance in concurrent execution, while conserving modular programming, as illustrated in the schema above.
+Section \ref{chapter3:software-maintainability:performance:concurrent-programming} presents the programming models providing synchronization and immutability for concurrent executions.
+Section \ref{chapter3:software-maintainability:performance:compilation} presents compilation methods to parallelize sequential programs.
 
-\cit{TODO Building concurrent programming is like building a steam engine through a keyhole}
+% Dynamic Isolation + Making asynchronous parallelism safe for the world \cite{Jr1990}
 
-Another approach is to provide directly concurrent mechanisms to the developer.
-\comment{TODO Event-loop / event-based programming / concurrent programming / multi-thread}
+\subsubsection{Concurrent Programming} \label{chapter3:software-maintainability:performance:concurrent-programming}
 
-+ Fibers \cite{Adya2002} + Capricio - User cooperative threads (also known as fibers / green threads)
-+ Vert.X - node like + thread / worker capabilities
+% \cit{Building concurrent programming is like building a steam engine through a keyhole}{TODO}
 
-+ TAME - event-based solution without stack ripping in C (it is like closure, but for C)
-    + AMPED Asymetric multi-process event-driven
-    +> Flash
-    +> Nginx
-    +> Ninja
-
-- Continuation-passing style parallelization
-  - The interprocedural analysis and automatic parallelization of Scheme programs - http://link.springer.com/article/10.1007/BF01808954#page-1
-
-
-+ Combining events and threads for scalable network services, Linguistic symbiosis between event loop actors and threads, Combining data flow and control flow computing)
-
-
-Design methodology:
-+> Leda - PCAM
-+ PCAM - Partition -> Communicate -> Agglomerate -> Map
-
-Again, isolation > immutability > synchronization
-Isolation is independent processes
-Immutability is event-loop ? (or is it synchronization ?)
-Synchronization is multi-thread, lock-free
-
-+ include alternative programming models CUDA / OpenCL + DSMS
-  + OpenMP
-  + OpenCL
-  + CUDA
-  + Cg: A system for programming graphics hardware in a C-like language
-  + Brook for GPUs: Stream Computing on Graphics Hardware
-  + Liquid Metal by IBM - unified language for FPGAs, GPUs and such ...
-
-  + Commutativity analysis: a new analysis technique for parallelizing compilers
-  + the scalable commutativity rule ...
-  + Making asynchronous parallelism safe for the world
-
-
-It is easy to understand the parallelism in a cooking recipe because the interdependencies between operations are trivial.
-It seems obvious that melting chocolate is independent from whipping up egg whites.
-% Because chocolate and egg whites are different ingredients.
-This distinction between chocolate and egg whites is trivial.
-% ... comes from the modifications to the state.
-While the distinctions within the state of an application are more intricate.
-This makes concurrent application more difficult to design and implement.
-
-\subparagraph{State Coordination}
-
-% The interdependencies between the tasks impose the coordination of the global application state.
-The global state of an application impose the coordination between the tasks.
-This coordination happens either by sending messages, or by modifying a shared memory.
-\nt{The following sentence needs to be rewritten to include both message passing and shared memory. Because state coordination limits parallelism, and scalability, it is a better solution to use message passing}
-If the tasks are independent enough, the coordinations can be done with message passing.
-Each task sends messages to indicate the modifications of the state with consequences outside its scope.
-% They pass the states from one task to another so as to always have an exclusive access on the state.
-% As example, applications built around a pipeline architecture define independent tasks arranged to be executed one after the other.
-% The tasks pass the result of their computation to the next.
-% These tasks never share a state.
-However, if the tasks are too dependent, the overhead of message passing tends to impact performances.
-% If the tasks need concurrent accesses to a state, they cannot efficiently pass the state from one to the other repeatedly.
-They need to share and coordinate their accesses to the state.
-Each access needs to be exclusive to avoid corruption.
-I address in the next paragraphs the different scheduling strategies, and how they assure this exclusivity.
-
-\subparagraph{Task Scheduling}
-
-There are two scheduling strategies to execute tasks sequentially on a single processing unit : preemptive scheduling and cooperative scheduling.
-The coordination is different with the two scheduling strategies.
+Concurrent programming provides to the developer the mechanisms for concurrent execution, while conserving a global memory model.
 
 \illustration{feu rouge et rond point}
 
-Preemptive scheduling is used to assure fairness between the tasks, such as in a multi-tasking operating system.
-% in most execution environment in conjunction with multi-threading.
-The scheduler allows a limited time of execution for each task, before preempting it.
-% It is a fair and pessimistic scheduling, as it grant the same amount of computing time to each task.
-However, as the preemption happens unexpectedly, the developer needs to assure exclusivity by locking the shared state before access.
-Locking is known to be hard to manage by developers, and to impact performances negatively.
-Because it is not ideal both for development scalability and performance scalability, it is set aside for the remaining of this chapter.
-% This scheduling strategy should be avoided except when true concurrency is needed in concert with true shared state.
-% Shared state could probably always be emulated with isolated memory and message passing.
+There are two scheduling strategies to execute tasks sequentially on a single processing unit, cooperative scheduling and preemptive scheduling.
+Cooperative scheduling allow a concurrent execution to run until it yields back to the scheduler.
+Each concurrent execution has an atomic, exclusive access on the memory.
+On the other hand, preemptive scheduling allows a limited time of execution for each concurrent execution, before preempting it.
+It assures fairness between the tasks, such as in a multi-tasking operating system, but as the preemption happens unexpectedly, the developer needs to lock the shared state to assure atomicity and exclusivity.
+The next paragraphs presents the event-based programing model, based on cooperative scheduling, and the multi-threading programming model, based on preemptive scheduling.
 
-On the other hand, in cooperative scheduling, a task is allowed to run until it yields the execution back to the scheduler.
-Each task is an atomic execution : it has an exclusive access on the memory.
-% It gives back to the developer the control over the preemption.
-As the developer doesn't need to explicitly assure exclusivity, it is easier to write concurrent programs efficiently with this scheduling strategy.
-% Indeed, I presented in the previous section the popularity of Javascript, which is often implemented on top of this scheduling strategy (DOM, Node.js).
+\paragraph{Event-Driven Programming}
 
-\subparagraph{Invariance}
+Event-driven programming explicitly queues the concurrent executions needing access to shared resources.
+The concurrent executions are schedule sequentially to assure exclusivity, and cooperatively to assure atomicity.
 
-\nt{TODO This section is not clear}
+As presented in the previous chapter, web servers needs to be highly concurrent, and efficient.
+The event-driven model is very efficient to serve websites, as it avoids contention due to waiting for shared resources like disks, or network.
+Web servers like Flash \cite{Pai1999}, Ninja \cite{Gribble2001} thttpd\ftnt{http://acme.com/software/thttpd/} and Nginx\ftnt{https://www.nginx.com/} were designed following this model.
+However, a drawback of this model was that the execution context is lost at each event.
+The developer needs to explicitly transfer the relevant state to continue the execution from one event execution to another.
 
-% The challenge introduced above is to assure to the developer an exclusive access to the state of its application.
-In concurrent computation, it is important to assure the invariance of a state during its manipulation.
-This assurance is given by the exclusive access of an atomic execution on the state.
-% I call invariance the assurance given that the state accessible from a task will remain unchanged during its access to avoid corruption, and more generally to allow the developer to perform atomic modifications on the state.
-It allows the developer to group operations inside this atomic execution, so as to avoid corruption of the state.
-% so as to perform all the operations without interference from concurrent executions.
-% The same concept is found in transactional memory.
+Cooperative threads, or fibers, addressed this drawback \cite{Adya2002,Behren2003a}.
+The execution is not ripped into several events.
+It yields and resume exactly at the same point after the completion of an asynchronous operation, conserving its context.
+However, the developer needs to be well aware of the asynchronous calls to assure the atomicity\ftnt{https://glyph.twistedmatrix.com/2014/02/unyielding.html}.
+% + Fibers \cite{Adya2002}
+% + Capricio \cite{Behren2003a} - User cooperative threads (also known as fibers / green threads)
 
-When the tasks remains isolated and communicate by message passing, there is no risk of corrupted state.
-The invariance is assured by the isolation of the state specified by the developer, and by the atomicity of the message processing.
-On the other hand, in a cooperative scheduling application, each task is atomic, so the developer always has an exclusive access to the global state.
-This atomicity assures the invariance.
-% The invariance is assured by the atomicity of each task.
-% , because any region in the memory can be accessed only by one task at a time.
+The problem of losing the execution context disappears with closures in higher-order programming.
+Moreover, the continuation passing style used in higher-order programming requires the developer to be aware of the asynchronous rupture in the execution, so as to assure atomicity \cite{Sussman1998}.
+And because an asynchronous call doesn't wait for the completion of the operation, the asynchronous control flow is not limited to be linear like in threads.
+Multiple asynchronous calls are made in parallel.
+Several execution model proposed this event-based programming model, like TAME \cite{Krohn2007}, Node.js\ftnt{https://nodejs.org/en/} and Vert.X\ftnt{http://vertx.io/}.
+% + TAME \cite{Krohn2007} - event-based solution without stack ripping in C (it is like closure, but for C)
+% + Node.js - \ftnt{https://nodejs.org/en/}
+% + Vert.X - \ftnt{http://vertx.io/} node like + thread / worker capabilities
 
-% Between these two invariances, the locking mechanisms seems to be a promising compromise.
-% The developer defines only the shared states, and these are locked only when needed.
-% However, it increases the complexity of the possible locked combination, leading to unpredictable situations, such as deadlock, and so on.
-% The locking mechanisms are known to be difficult to manage, and sub-optimal.
-% Indeed, they are eventually as efficient as a queue to share resources.
+However, as the shared memory is global and all the execution portions needs atomic access, they are not parallel, but sequentially concurrent.
+The next paragraph present the multi-threading and associated synchronization mechanisms to try improve the parallelism of execution using finer granularity of atomic execution and exclusivity.
 
-% For the rest of this thesis, I focus only on the invariances provided by the multi-process paradigm and the cooperative scheduling.
-% They two invariance are similar, because the developer defines sequence of instructions with atomic access to the memory.
-% And in both paradigms, these sequences communicate by sending messages to each other.
-The difference is that in the message passing paradigm, the developer defines the state isolation inducing the execution isolation, while with cooperative scheduling, the developer defines only the execution isolation.
-% This difference seems to be crucial in the adoption by the developer community.
-It is difficult for developer to isolate state, but it provides good performances through parallelism.
-While it is easier to assure atomic execution with cooperative scheduling, but it is unable to provide parallelism.
-On one hand, the state is distributed and isolated to improve performance scalability.
-On the other hand, the code is organized logically to improve maintainability.
-The impact of these two organizations on performance scalability and development scalability is at the heart of this thesis.
+\paragraph{Multi-Threading Programming}
 
+Threads are light processes sharing the same memory execution context within an isolated process \cite{Dijkstra1968}.
+They wait for completion of each operation, and are preemptively scheduled to avoid blocking the global progression.
+This preemption breaks the atomicity of the execution, and the parallel execution breaks the exclusivity.
+To restore atomicity and exclusivity, hence assure the invariance, multi-threading programming model provide synchronization mechanisms, such as semaphores \cite{Dijkstra}, guarded commands \cite{Dijkstra1975}, guarded region \cite{Hansen1978a} or monitors \cite{Hoare1974}.
+They assure an execution region to have exclusive access over a cell of the global state.
 
-\paragraph{Synchronization}
+\cit{The purpose of explicit synchronization is to manage the timing of side-effects in the presence of parallelism.}{Chris Quenelle\ftnt{http://pchiusano.blogspot.com/2010/01/actors-are-not-good-concurrency-model.html?showComment=1267337235223\#c3014836700278061280}}
 
-\nt{Too raw, not enough synthesis in this section}
+Developers tend to use the global memory extensively, and threads require to protect each and every shared memory cell.
+This heavy need for synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
+The next paragraph present work intending to improve performance by reducing the lock granularity to a minimum.
 
-+ The purpose of explicit synchronization is to manage the timing of side-effects in the presence of parallelism. 
+\paragraph{Lock-Free Data-Structures}
 
-- transactional memory
-  - http://www.morganclaypool.com/doi/abs/10.2200/s00272ed1v01y201006cac011
-  - http://delivery.acm.org/10.1145/1370000/1364800/p80-larus.pdf?ip=160.92.8.31&id=1364800&acc=OPEN&key=4D4702B0C3E38B35.4D4702B0C3E38B35.4D4702B0C3E38B35.6D218144511F3437&CFID=529578904&CFTOKEN=25104956&__acm__=1437488908_6eeb5d92ab07593b1aa92d3ac4461c0b
-  - ...
+The wait-free and lock-free data-structures reduce the exclusive execution to a few atomic operations \cite{Lamport1977,Herlihy1988,Herlihy1990,Herlihy1991,Anderson1990}.
+They are based on transactional memories \cite{Harris2010}, which provide atomic read and write operations on a shared memory.
+Lock-free data-structures arrange these atomic operations so as to keep invariance without the need to lock.
+They provide concurrent implementation of basic data-structures such as linked list \cite{Valois1995,Timnat2012}, queue \cite{Sundell2003,Wimmer2015}, tree \cite{Ramachandran2015} or stack \cite{Hendler2004}.
 
-These programming models allowed parallel execution on several processing units, so there is a need to shared resources among processing units, like a common memory store, or network interface.
-Multiprogramming was used to allow different programs to be executed concurrently in isolated processes, and to share resources \cite{Dijkstra1968}.
-To synchronize the different processes over these resources, and avoid conflicting accesses, it is crucial to assure the mutual exclusion.
-For this purpose, Djikstra introduced the Semaphore \cite{Dijkstra}.
-Similar works include guarded commands \cite{Dijkstra1975}, guarded region \cite{Hansen1978a} and monitors \cite{Hoare1974}.
-They are all kinds of locks to assure mutual exclusion.
-
-% Following this work, he also introduced guarded commands \cite{Dijkstra1975} and Hansen introduced guarded region \cite{Hansen1978a}.
-% Both assure the execution of a set of instructions to be exclusive to only one process.
-
-% Hoare introduced the monitor following the work of Hansen \cite{Hoare1974}.
-% A monitor is an extension of a class, it regroups data and procedures, except that it assures its procedures to be entered only once at a time.
-% With this restrictions, it guards against race condition on the access of a shared resource.
-% Modula \cite{Wirth1977} and Concurrent Pascal \cite{Hansen1975} uses Monitors.
-
-\subparagraph{Multi-Threading}
-
-As we saw earlier, a common memory storage helps to follow the best practice, and is easier to develop with.
-These lock mechanisms were used in Multi-Threading to provide this common memory storage for concurrent programming.
-% Multi-threading programming make use of synchronization within isolated processes.
-Threads are light processes sharing the same memory execution context within an isolated process.
-It seems to be an easy solution to parallelize sequential execution on parallel execution units with a common memory store.
-But because of the preemptive scheduling, threads require to lock each and every shared memory cell.
-It is known that this heavy need for synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
-
-\subparagraph{Lock-Free Data-Structures}
-
-An interesting alternative to locks are the wait-free and lock-free data-structures \cite{Lamport1977,Herlihy1988,Herlihy1990,Herlihy1991,Anderson1990}.
-They are based on clever use of atomic read and write operations on a shared memory to provide concurrent safe version of common data-structures algorithms.
-Therefore no locking is necessary for the algorithm to be highly concurrent, while conserving a common memory store
 However, even if they are theoretically infinitely scalable, they are hard to come with, and are not fit for every problem.
-% Lock-free algorithm are highly concurrent, as they can be replicated, however, they are limited, and really hard to develop.
-% \url{https://en.wikipedia.org/wiki/Non-blocking_algorithm}
 
 % Reference papers :
 % Concurrent reading and writing \cite{Lamport1977}
@@ -430,84 +263,100 @@ However, even if they are theoretically infinitely scalable, they are hard to co
 % The virtue of Patience: Concurrent Programming With And Without Waiting \cite{Anderson1990}
 
 
-\subparagraph{Data-stream management systems}
+\paragraph{}
 
-% The processing of large volume of data was historically handled by Database management systems.
-% These systems naturally evolved to manage data-streams as well.
+This section section showed that it is difficult for developers to assure the invariance of memory in the context of parallel programming.
+Multi-threading programming is inefficient and difficult to program with.
+Event-driven programming is easy to develop with but limits parallel execution to assure exclusivity.
+The global memory requires the synchronization between concurrent executions to some extent.
 
-Database Management Systems (DBMS) historically processed large volume of data, and they naturally evolved into Data-stream Management System (DSMS) to processed data streams as well.
-They concurrently run SQL-like requests on continuous data streams.
-The computation of these requests spread over a distributed architecture.
-Among the early works, we can cite NiagaraCQ \cite{Chen2000,Naughton2001}, Aurora \cite{Abadi2003,Abadi2003a,Balakrishnan2004} which evolved into Borealis \cite{Abadi2005}, AQuery \cite{Lerner2003}, STREAM \cite{Arasu2003,Arasu2005} and TelegraphCQ \cite{Krishnamurthy2003,Chandrasekaran2003}.
-More recently, we can cite DryadLINQ \cite{Isard2007,Yu2009}, Timestream \cite{Qian2013} and Shark \cite{Xin2013}.
+Synchronization inherently limits the scalability.
+The next section presents compilation methods to improve parallelism, by extracting immutability and isolation from sequential programs.
 
-However, these solutions implies to understand two paradigms of language, the SQL paradigm, and the imperative paradigm.
-% Even if SQL is a turing-complete language, it is rather difficult to write a complex application only with a SQL-like language.
-The difference between these two paradigms creates a rupture in the design of the system.
-% Even if the design follows an imperative structure,
-The SQL parts difficulty merge with the imperative structure.
-% It is harder to separate concerns. \nt{need reference, plus rewrite this paragraph}.
-This rupture impacts the maintainability of the system as it is not straightforward to reorganize the logic between the two paradigms.
+% \subparagraph{Data-stream management systems}
 
+% % The processing of large volume of data was historically handled by Database management systems.
+% % These systems naturally evolved to manage data-streams as well.
 
-  + Grape / Timestream - distributed SQL (roughly)
-  + CQL
-  +> STREAM (uses CQL)
-  + StreaQuel
-  +> TelegraphCQ
-  + AQuery
+% Database Management Systems (DBMS) historically processed large volume of data, and they naturally evolved into Data-stream Management System (DSMS) to processed data streams as well.
+% They concurrently run SQL-like requests on continuous data streams.
+% The computation of these requests spread over a distributed architecture.
+% Among the early works, we can cite NiagaraCQ \cite{Chen2000,Naughton2001}, Aurora \cite{Abadi2003,Abadi2003a,Balakrishnan2004} which evolved into Borealis \cite{Abadi2005}, AQuery \cite{Lerner2003}, STREAM \cite{Arasu2003,Arasu2005} and TelegraphCQ \cite{Krishnamurthy2003,Chandrasekaran2003}.
+% More recently, we can cite DryadLINQ \cite{Isard2007,Yu2009}, Timestream \cite{Qian2013} and Shark \cite{Xin2013}.
 
-% SQL-like
-%   AQuery \cite{Lerner2003}
-%   STREAM (uses CQL) \cite{Arasu2003,Arasu2005}
-%   TelegraphCQ (uses StreaQuel) \cite{Krishnamurthy2003,Chandrasekaran2003}
-%   Grape / Timestream - distributed SQL (roughly) \cite{Qian2013}
-%   Shark        Stateless dataflow \cite{Xin2013}
-
-%   DryadLINQ    Stateless dataflow \cite{Isard2007,Yu2009}
-
-% \subsubsection{Batched dataflow}
-
-% Map/Reduce
-%   MapReduce    Stateless dataflow \cite{Dean2008}
-%   Hadoop       Stateless dataflow 
-%   Incoop       Incremental dataflow \cite{Bhatotia2011}
-
-% Functional
-%   Comet        Batched dataflow \cite{He2010}
-%   D-Streams    Batched dataflow \cite{Zaharia2012}
-%   Spark        Stateless dataflow \cite{Zaharia,Zaharia2010}
-%   Nectar       Incremental dataflow \cite{Gunda2010}
+% However, these solutions implies to understand two paradigms of language, the SQL paradigm, and the imperative paradigm.
+% % Even if SQL is a turing-complete language, it is rather difficult to write a complex application only with a SQL-like language.
+% The difference between these two paradigms creates a rupture in the design of the system.
+% % Even if the design follows an imperative structure,
+% The SQL parts difficulty merge with the imperative structure.
+% % It is harder to separate concerns. \nt{need reference, plus rewrite this paragraph}.
+% This rupture impacts the maintainability of the system as it is not straightforward to reorganize the logic between the two paradigms.
 
 
+%   + Grape / Timestream - distributed SQL (roughly)
+%   + CQL
+%   +> STREAM (uses CQL)
+%   + StreaQuel
+%   +> TelegraphCQ
+%   + AQuery
+
+%   + hive https://hive.apache.org/
+
+% % SQL-like
+% %   AQuery \cite{Lerner2003}
+% %   STREAM (uses CQL) \cite{Arasu2003,Arasu2005}
+% %   TelegraphCQ (uses StreaQuel) \cite{Krishnamurthy2003,Chandrasekaran2003}
+% %   Grape / Timestream - distributed SQL (roughly) \cite{Qian2013}
+% %   Shark        Stateless dataflow \cite{Xin2013}
+
+% %   DryadLINQ    Stateless dataflow \cite{Isard2007,Yu2009}
+
+% % \subsubsection{Batched dataflow}
+
+% % Map/Reduce
+% %   MapReduce    Stateless dataflow \cite{Dean2008}
+% %   Hadoop       Stateless dataflow 
+% %   Incoop       Incremental dataflow \cite{Bhatotia2011}
+
+% % Functional
+% %   Comet        Batched dataflow \cite{He2010}
+% %   D-Streams    Batched dataflow \cite{Zaharia2012}
+% %   Spark        Stateless dataflow \cite{Zaharia,Zaharia2010}
+% %   Nectar       Incremental dataflow \cite{Gunda2010}
 
 
-\subsubsection{Compilation}
 
-\nt{The following paragraph is not very clear.}
-% Instead of trying to find a fitting between the two organization,
-Another approach to conciliate performance and maintainability, is to transform the source from one organization into the other.
-\textit{It is a mistake to attempt high concurrency without help from the compiler} \cite{Behren2003}.
-When showing the incompatibility between the two organization, D. Parnas already advocated conciling the two methods using an assembler to transform the development organization into the execution organization \cite{Parnas1972}.
-I present in the this section the state of the art in compilation-based parallelization.
+
 
 % Imperative Stream Processing
 %   Piccolo                                  Parallel in-memory \cite{Power2010}
 %   CIEL                                    Stateless dataflow \cite{Murray2011}
 %   Statdeful Dataflow Graph (SDG)          Stateful dataflow  \cite{Fernandez2014a}
 
+
+\subsubsection{Compilation} \label{chapter3:software-maintainability:performance:compilation}
+
+\cit{It is a mistake to attempt high concurrency without help from the compiler}{R. Behren, J. Condit, E. Brewer \cite{Behren2003}}.
+
+When showing the incompatibility between the two organization, D. Parnas  advocated conciliating the two methods using an assembler to transform the development organization into the execution organization \cite{Parnas1972}.
+This section presents the state of the art to extract parallelization from sequential programs through code transformation and compilation.
+
 \paragraph{Parallelism Extraction}
 
-Generally, there is three type of parallelism, data, task and pipeline parallelism.
+A compiler analyzes a sequential program to 
+
+
+
+Generally, there is three types of parallelism, data, task and pipeline parallelism.
 Some works explore the extraction of the three types indistincly \cite{Li2012}.
 Other works focused on the task parallelism \cite{Rinard1996}.
 However, huge works has been done on the data parallelization, to parallelize the loops inside a sequential program \cite{Mauras1989,Amarasinghe1995,Yuki2013,Banerjee2013,Radoi2014}
 
 Indeed, the loops represent most of the execution time in scientific applications, so an important speedup is expected from this data parallelization.
-\nt{As said in limitation : isolation > immutability > synchronization}
 
+As presented earlier, immutability helps parallelism.
 C. Hermann proposed the parallelization of loop in a functional language with higher-order programming and immutable data \cite{Herrmann2000}.
-\nt{And so what ?}
+
 
 However, there is few works to parallelize higher-order programming languages, with mutable data.
 \nt{}
@@ -515,12 +364,40 @@ Closures often complicates the dependencies between iterations.
 
 To conserve higher-order programming, N. Matsakis proposed to forbid the mutation of the parent closure of a loop, so that the iterations can be executed in parallel while accessing the immutable closure\cite{Matsakis2012a}.
 
-\paragraph{}
 
-\nt{For next paragraph, see causality in next section}
-All these approaches are based on synchronous execution and Amdahl's law states that even if a slight portion of execution is sequential, the expected speedup is limited \cite{Amdahl1967,Clements2013a}.
-Another approach to break free from the sequential structure is to split the sequential execution into following, parallelizable tasks to form a pipeline \cite{Kamruzzaman2013,Fernandez2014a}.
-This thesis focus solely on pipeline parallelism.
+Continuations and coroutines \cite{Haynes1984}
+-> THIS
+
+
+- Continuation-passing style parallelization compilation \cite{Harrison1989} The interprocedural analysis and automatic parallelization of Scheme programs
+- Automatic Parallelization of Scheme Programs using Static Analysis \cite{Nicolay2010}
+- Commutativity analysis: A new analysis framework for parallelizing compilers \cite{Rinard1996}
+In this paper, they analyze commutative operations to parallelize them.
+It is novel because it isn't about parallelizing loops.
+However, it is not exactly pipeline parallelism either.
+
+
+Loop nesting optimization
+- systolic arrays
+- polyhedral compilers
+- Simplifying reductions 
+
+The Paralax infrastructure : Automatic ParallelizationWith a Helping Hand
+Hans \cite{Vandierendonck2010a}
+
+From control flow to dataflow \cite{Beck1991}
+
+
+Making state explicit ... \cite{Fernandez2014a}
+http://2015.splashcon.org/event/splash2015-splash-i-lindsey-kuper-talk
+
+
+Introducing 'Bones': a parallelizing source-to-source compiler based on algorithmic skeletons \cite{Nugteren2012}
+
+
+Extract pipeline parallelism compilers from this :
+Load balanced pipeline parallelism \cite{Kamruzzaman2013}
+
 
 \paragraph{Static analysis}
 
@@ -530,7 +407,14 @@ As these dependencies are linked to memory access, it is important to have a goo
 The point-to analysis, presented by L. Andersen \cite{Andersen1994} is a common approach to extract the memory representation.
 It analyzes the modification of pointers through the control flow, to help extract properties from programs.
 It is used in security to assure the safeness of an implementation, for example in Javascript \cite{Chudnov2015}.
+
+\nt{TODO I have way more to say about Javascript static analysis}
 % However, these techniques are not precise enough to rely only on them for the parallelization.
+
+Static Single Assignment Form
+
+These result suggest that dataflow graphs can serve as an executable intermediate representation in parallel compilers \cite{Beck1991}.
+
 
 \paragraph{Annotations}
 
@@ -550,12 +434,53 @@ It finally results in frail implementations, that require great efforts of devel
 \nt{include the following sentence}
 CUDA, OpenCL are data parallel API to allow imperative code to run onto accelerators such as GPUs or FPGAs \cite{Stone2010}.
 
++ include alternative programming models CUDA, OpenCL + DSMS
+  + OpenMP
+  + OpenCL
+  + CUDA
+  + Cg: A system for programming graphics hardware in a C-like language
+  + Brook for GPUs: Stream Computing on Graphics Hardware
+  + Liquid Metal by IBM - unified language for FPGAs, GPUs and such ...
 
 
-\subsubsection{Limitations on Accessibility}
+Bloom declarative language \ftnt{http://bloom-lang.net/}
+Blazes: Coordination analysis for distributed programs \cite{Alvaro2014}
+
+\paragraph{Compilation Limitations}
+
+\nt{For next paragraph, see causality in next section}
+All these approaches are based on synchronous execution and Amdahl's law states that even if a slight portion of execution is sequential, the expected speedup is limited \cite{Amdahl1967,Clements2013a}.
+Another approach to break free from the sequential structure is to split the sequential execution into following, parallelizable tasks to form a pipeline \cite{Kamruzzaman2013,Fernandez2014a}.
+This thesis focus solely on pipeline parallelism.
+
+
+
+
+
+\subsubsection{Accessibility Limitations}
 
 Concurrent programming is difficult.
 Compilation is not yet solid enough.
+
+
+Locking is known to be hard to manage by developers, and to impact performances negatively.
+Because it is not ideal both for development scalability and performance scalability, it is set aside for the remaining of this chapter.
+
+Cooperative scheduling :
+As the developer doesn't need to explicitly assure exclusivity, it is easier to write concurrent programs efficiently with this scheduling strategy.
+However, it is not possible to parallelize this execution model
+
+
+% It is easy to understand the parallelism in a cooking recipe because the interdependencies between operations are trivial.
+% It seems obvious that melting chocolate is independent from whipping up egg whites.
+% % Because chocolate and egg whites are different ingredients.
+% This distinction between chocolate and egg whites is trivial.
+% % ... comes from the modifications to the state.
+% While the distinctions within the state of an application are more intricate.
+% This makes concurrent application more difficult to design and implement.
+
+
+
 
 \paragraph{Transition on parallel programming}
 
@@ -575,13 +500,23 @@ The next section investigates the first concern, and presents the major programm
 
 \endinput
 
+
+
+remote first Zack Holman : promote asynchronous communication
+\ftnt{http://zachholman.com/posts/remote-first/}
++
+Conway's law
+\cit{Organizations which design systems [...] are constrained to produce designs which are copies of the communication structures of these organizations.}
+{M. Conway \cite{Conway1968}}
+
+
+
 \subsubsection{Modularity based on Design Decisions}
 
 Designing Software for ease of extension and contraction \cite{Parnas1979}
 
 Design Rules: The Power of Modularity Volume 1 \cite{Baldwin1999}
 A reference book, but I can't get it.
-
 
 Promises 
 \cite{Liskov1988}
@@ -595,71 +530,3 @@ Collaboration, meaningful contribution : Kelly 99, Begel & Simon 06, Hewner & Gu
 Communicate and acquire understanding : LaToza 06, Ko 06
 Technical Knowledge : 
 Open minded : McConnell 04, Bryant 13
-
-
-
-
-Modularity :
-- encapsulation : a module contains the data, as well as the functions to manipulate this data
-- separation of concerns : each module should have a clear scope of action, and this scope should not overlap with the scope of other modules
-- loose coupling : each module should require no, or as little knowledge as possible about the definition of other modules
-
-
-
-
-
-
-Continuations and coroutines \cite{Haynes1984}
--> THIS
-
-Parallel closures, a new twist on an old idea \cite{Matsakis2012a}
-
-Continuation of work on SEDA \cite{Salmito2014}
-
-
-
-From control flow to dataflow \cite{Beck1991}
-
-
--> THIS, to read
-Automatic Extraction of Coarse-Grained Data-Flow Threads from Imperative Programs \cite{Li2012}
-In this paper all parallelism are extracted (data, task and pipeline).
-
-
-Commutativity analysis: A new analysis framework for parallelizing compilers \cite{Rinard1996}
-In this paper, they analyze commutative operations to parallelize them.
-It is novel because it isn't about parallelizing loops.
-However, it is not exactly pipeline parallelism either.
-
-
-Interesting articles :
-
-http://comjnl.oxfordjournals.org/content/early/2015/09/15/comjnl.bxv077.abstract
-
-
--> THIS, to read
-Load balanced pipeline parallelism \cite{Kamruzzaman2013}
-
-
-??? The Paralax infrastructure \cite{Vandierendonck2010a}
-
-??? Blazes: Coordination analysis for distributed programs \cite{Alvaro2014}
-
-Making state explicit ... \cite{Fernandez2014a}
-http://2015.splashcon.org/event/splash2015-splash-i-lindsey-kuper-talk
-
-
-Introducing 'Bones': a parallelizing source-to-source compiler based on algorithmic skeletons \cite{Nugteren2012}
-
-
-Recent paper about Javascrypt static analysis \cite{Chudnov2015}
-
-
-
-Loop nesting optimization
-- systolic arrays
-- polyhedral compilers
-- Simplifying reductions 
-
-
-\cite{Mendis2015}

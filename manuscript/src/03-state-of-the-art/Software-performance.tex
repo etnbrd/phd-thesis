@@ -224,6 +224,14 @@ It organizes an application as a network of event-driven stages connected by exp
 It is based on previous works \cite{Gribble2001,Pai1999}.
 
 Several projects followed and adapted the principles in this work.
+
+Leda \cite{Salmito2013,Salmito2014} proposed a model where stages are defined only by their role, and not their execution.
+Their distributed is defined only after the development, just before deployement.
+Though, they are still independent, so higher-level programming is impossible.
+
+Leda follows the PCAM design methodology : PCAM \cite{Foster1995} - Partition -> Communicate -> Agglomerate -> Map
+
+
 StreaMIT is a language to help the programming of large streaming application \cite{Thies2002}.
 Storm \cite{Toshniwal2014} is designed by and used at Twitter calculate metrics on streams of tweets such as the trending topics.
 % It is only one example of industrial practical application, among many others.
@@ -235,6 +243,10 @@ It impacts maintainability.
 For this reason, there are some works on reconciling the concurrent programming models with the modular programming model favoring maintainability.
 
 + Spidle: A DSL approach to specifying streaming applications dataflow like
+
+
++ Blazes: Coordination analysis for distributed programs \cite{Alvaro2014}
+
 
 
   (From the paper : Making state explicit for imperative big data processing)
@@ -254,6 +266,8 @@ For this reason, there are some works on reconciling the concurrent programming 
   + Piccolo         imperative   |   Parallel in-memory
   + SDG             imperative   |   Stateful dataflow
 
+  + pig https://pig.apache.org/
+  
 % Dataflow
 %   CBP          Incremental dataflow \cite{Logothetis2010}
 %   S4           Continuous dataflow \cite{Neumeyer2010}
@@ -261,6 +275,8 @@ For this reason, there are some works on reconciling the concurrent programming 
 %   Millwheel    Continuous dataflow \cite{Akidau2013}
 %   SEEP         Continuous dataflow \cite{Fernandez2013}
 %   Naiad        Batched dataflow \cite{Murray2013}
+
+
 
 
 
@@ -286,6 +302,8 @@ For this reason, there are some works on reconciling the concurrent programming 
 As we explained in the previous sections, the two different organization, modular and parallel, seems intuitively incompatible.
 However, it might be possible to find specific organizations that are both modular and parallel, and fit both requirements of maintainability and performance.
 % fit both concerns for particular cases.
+
+Introducing 'Bones': a parallelizing source-to-source compiler based on algorithmic skeletons \cite{Nugteren2012}
 
 Algorithmic skeletons are general computational framework for distributed computing proposing predefined patterns that fit certain type of problems \cite{Cole1988, Dean2008, McCool2010, Gonzalez-Velez2010}.
 A developer expresses its problem as a specific case of a skeleton.
