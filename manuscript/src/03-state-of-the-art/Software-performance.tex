@@ -1,78 +1,58 @@
 \section{Software Performance} \label{chapter3:software-performance}
 
-\comment{TODO Introduction}
+% The previous section showed that modular programming limits performance scalability of execution.
 
-Programming started with a sequential nature.
-The Moore's law \cite{Moore1965} and Dennard's MOSFET scaling \cite{Dennard2007} were wrongly interpreted to promise the exponential evolution in the sequential performance of the processing unit.
- % Programming started with a very sequential nature, as Moore's law \cite{Moore1965} was wrongly interpreted as an exponential evolution in the sequential performance of the processing unit.
+Moore's law \cite{Moore1965} which forecasts the density of transistors per processing unit, was wrongly interpreted to promise the exponential evolution in the sequential performance of the processing unit, and the assurance for the software industry of always faster hardware.
+But as transistors attained a critical size, the reduction in power required by transistor predicted by the Dennard's MOSFET scaling \cite{Dennard2007} stopped\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
+The ever growing number of transistor predicted by Moore's law are arranged in parallel architecture to continue increasing the performance of processing units.
+Parallel programming became the only solution for scalable performance, at the expense of development effort.
 
-% TODO Dennard scaling broke down \cite{Dennard2007}
-
-\sout{The first models of computation, like the Turing machine and lambda-calculus, were sequential and based on a global memory state.
-A formalism was missing to represent concurrent computations.
-This section presents the most important works on formalisms for parallel computation.
-They tackled the problems of determinacy, state synchronization and correctness of execution in a formalism based on a network of concurrent processes, asynchronously communicating via messages.
-This section first presents the works on the programming models based on this formalism.
-Then it presents the huge improvements we recently witnessed in the field of distributed stream processing due to the need of performance from the web to process large stream of requests,}
+This section presents the parallel programming solutions and their limitations in accessibility, and then the improvements to overcome these limitations.
 
 \subsection{Parallel Programming}
 
-\comment{Introduction}
+
+Concurrent programming is based on the causal ordering of execution.
+The ordering of operations is local within a synchronous execution, while the concurrent executions are causally ordered.
+It leads to parallel execution with some coordinations such as synchronization, immutability or isolation.
+As Lamport showed \cite{Lamport1978}, and Reed related later \cite{Reed2012}, This causal order is sufficient to execute correctly a system in parallel, such as in distributed system.
 
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-3.pdf}
 \end{center}
 
-Include in this section :\\
-Flynn's taxonomy \cite{Flynn1972}\\
-+ Actor models\\
-+ Scala / Akka\\
-+ Play - on top of akka (Asynchronous)\\
-\\
-
-Scala is an attempt at unifying the object model and functional programming \cite{Odersky2004}.
-% It proposes an actor approach in its design.
-Akka\ftnt{http://akka.io/} is a framework based on Scala, to build higly scalable and resilient applications.
-
-
-\subsubsection{Execution Causality}
-
-\nt{Causal ordering of execution, instead of global ordering
-Causality / Concurrent programming / Asynchronism / Message-passing / Synchronization ...}
-
-Causal ordering of execution, instead of global ordering, lead to concurrent programming, and with some memory synchronization to parallel programming.
+This section presents the theoretical and programming model based on asynchronous communication and isolated execution for parallel programming, as illustrated on the schema above.
+This section then continues on the limitations of parallel programming regarding accessibility.
 
 % All these early work adopted concurrent composition by default, instead of sequential composition, to adapt to the very concurrent nature of real parallel machines.
 % However, sequential programming is still the default.
 % Concurrent composition is yet still to be widely accepted, as stated by Reed \cite{Reed2012}.
 % \comment{TODO rewrite this paragraph}
-\sout{
-% The Actor Model uses asynchronous communications, while $\pi$-calculus uses synchronous communications.
-% Synchronous communications are deterministic.
-% The message sent needs to be received to continue the execution on both ends.
-Because of the synchronous communication used by $\pi$-calculus, the concurrent executions and the communications are both deterministic.
-Therefore, the result of the concurrent system is assured to be deterministic.
-The correctness of the execution of deterministic systems is guaranteed.
-% Determinism is a wanted property to assure the correctness of the execution.
-}
+% \sout{
+% % The Actor Model uses asynchronous communications, while $\pi$-calculus uses synchronous communications.
+% % Synchronous communications are deterministic.
+% % The message sent needs to be received to continue the execution on both ends.
+% Because of the synchronous communication used by $\pi$-calculus, the concurrent executions and the communications are both deterministic.
+% Therefore, the result of the concurrent system is assured to be deterministic.
+% The correctness of the execution of deterministic systems is guaranteed.
+% % Determinism is a wanted property to assure the correctness of the execution.
+% }
 
-\sout{
-On the other hand, the asynchronous communications used by Actors are non-deterministic.
-The message sent can take an infinite time to be received.
-Therefore, the result of the concurrent system is not assured to be deterministic.}
+% \sout{
+% On the other hand, the asynchronous communications used by Actors are non-deterministic.
+% The message sent can take an infinite time to be received.
+% Therefore, the result of the concurrent system is not assured to be deterministic.}
 
-But the communication in reality are subject to various faults and attacks \cite{Lamport1982}.
-And the wait required by synchronous communications negatively impact performances of the system because of the difference of latency between communication, and execution.
-The Actor model was explicitly designed to take these physical limitations in account \cite{Hewitt1977a}.
-The non-determinism in the asynchronous communications is hidden by the organization of the system.
-The total ordering of execution possible with synchronous communication is too strong a requirement for correctness.
-\nt{emphasize next sentence}
-As Lamport showed \cite{Lamport1978}, and Reed related later \cite{Reed2012}, causal order is sufficient to build a correct distributed system.
+% The communication in reality are subject to various faults and attacks \cite{Lamport1982} and too slow compared to execution to be synchronous.
+
+% % And the wait required by synchronous communications negatively impact performances of the system because of the difference of latency between communication, and execution.
+% The Actor model was explicitly designed to take these physical limitations in account \cite{Hewitt1977a}.
 % The non-determinism in the asynchronous communications is hidden by the organization of the system.
-The ordering of execution is only local to an \comment{entity}, while between \comment{entities}, execution is causally ordered.
-The execution will either terminate correctly, or not terminate at all because of a failure in the communications.
+% The total ordering of execution possible with synchronous communication is too strong a requirement for correctness.
 
-\sout{Eventually, following works adopted asynchronous communications as it is hardly realistic to build a distributed system based on synchronous communications.}
+% % The non-determinism in the asynchronous communications is hidden by the organization of the system.
+% The ordering of execution is only local to an \comment{entity}, while between \comment{entities}, execution is causally ordered.
+% The execution will either terminate correctly, or not terminate at all because of a failure in the communications.
 
 
 
@@ -105,7 +85,95 @@ The execution will either terminate correctly, or not terminate at all because o
 \sout{As demonstrated by the theory, concurrency boils down to causality expressed with message passing.
 There exist several programming model over this theoretical view.}
 
+
+
+
+
+Include in this section :\\
+Flynn's taxonomy \cite{Flynn1972}\\
++ Actor models\\
++ Scala / Akka\\
++ Play - on top of akka (Asynchronous)\\
+\\
+
+The communication in reality are subject to various faults and attacks \cite{Lamport1982} and too slow compared to execution to be synchronous.
+The Actor model was explicitly designed to take these physical limitations in account \cite{Hewitt1977a}.
+
+
+Scala is an attempt at unifying the object model and functional programming \cite{Odersky2004}.
+% It proposes an actor approach in its design.
+Akka\ftnt{http://akka.io/} is a framework based on Scala, to build higly scalable and resilient applications.
+
+
+\begin{center}
+\includegraphics[width=0.2\textwidth]{../ressources/SISD.svg}
+\includegraphics[width=0.2\textwidth]{../ressources/SIMD.svg}
+\includegraphics[width=0.2\textwidth]{../ressources/MISD.svg}
+\includegraphics[width=0.2\textwidth]{../ressources/MIMD.svg}\\
+by I, Cburnett. Licensed under CC BY-SA 3.0 via Commons
+\url{https://commons.wikimedia.org/wiki/File:SISD.svg#/media/File:SISD.svg}
+\url{https://commons.wikimedia.org/wiki/File:SIMD.svg#/media/File:SIMD.svg}
+\url{https://commons.wikimedia.org/wiki/File:MISD.svg#/media/File:MISD.svg}
+\url{https://commons.wikimedia.org/wiki/File:MIMD.svg#/media/File:MIMD.svg}
+\end{center}
+
+\nt{TODO convert these svg to pdf}
+
+
+
 \paragraph{Independent Processes}
+
+
+
+
+
+\sout{The first models of computation, like the Turing machine and lambda-calculus, were sequential and based on a global memory state.
+A formalism was missing to represent concurrent computations.
+This section presents the most important works on formalisms for parallel computation.
+They tackled the problems of determinacy, state synchronization and correctness of execution in a formalism based on a network of concurrent processes, asynchronously communicating via messages.
+This section first presents the works on the programming models based on this formalism.
+Then it presents the huge improvements we recently witnessed in the field of distributed stream processing due to the need of performance from the web to process large stream of requests,}
+
+The mathematical models are a ground for all following work on concurrent programming, we briefly explain them in the next paragraphs.
+There are two main formal models for concurrent computations.
+The Actor Model of C. Hewitt and the Pi-calculus of R. Milner.
+Based on these definitions, we explain the importance of determinism for correctness, and the reasons that made asynchronous message-passing prevail.
+
+% TODO illustration of cells, and draw an analogy between cells and actor model.
+% Or something the actor models is based upon.
+
+
+\paragraph{Actor Model}
+
+The Actor model allows to express the computation as a set of communicating actors \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
+In reaction to a received message, an actor can create other actors, send messages, and choose how to respond to the next message.
+All actors are executed concurrently, and communicate asynchronously.
+% The Actor model uses an asynchronous message-passing communication paradigm.
+% The communication between two actors, the sender and the receiver, is a stream of discrete messages.
+% The sender names the receiver actor when sending messages to be the recipient of these messages.
+An asynchronous communication implies that the sender continues its execution immediately after sending the message, before receiving the result of the initiated communication.
+
+The Actor model was presented as a highly parallel programming model, but intended for Artificial Intelligence purposes.
+Its success spread way out of this scope, and it became a general reference and influence.
+% For example, the Scala programming language features an actor approach to concurrency.
+
+% More recent work of C. Hewitt on Actors is about ... \nt{TODO} \cite{Hewitt2007,Hewitt2007a}.
+
+\paragraph{$\pi$-calculus}
+
+R. Milner presented a process calculus to describe concurrent computation : the Calculus of Communicating Systems (CCS) \cite{Milner1975, Milner1980}.
+It is an algebraic notation to express identified processes communicating through synchronous labeled channels.
+% In CCS, process compose concurrently, communications are synchronous, and the topology is static.
+The $\pi$-calculus improved upon this earlier work to allow processes to be communicated as values, hence to become mobile \cite{Engberg1986,Milner1992a,Milner1992}.
+Therefore, similarly to Actors, in Pi-calculus processes can dynamically modify the topology.
+However, contrary to the Actor model, communications in Pi-calculus are based on simultaneous execution of complementary actions, they are synchronous.
+
+
+
+
+
+
+
 
 The theory advocates asynchronous message-passing, but it doesn't precise the granularity of the communicating entities.
 In the Actor Model, everything is an actor, even the simplest types, like numbers, similarly in OOP, everything is an object.
