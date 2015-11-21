@@ -29,7 +29,7 @@
 
 \newcommand{\nt}[1]{%
   \textcolor{red}{*}%
-  \marginpar{\textcolor{red}{{\fontencoding{U}\fontfamily{futs}\selectfont\char 66\relax}}\vspace{3mm}\\
+  \marginpar{\textcolor{red}{\fontencoding{U}\fontfamily{futs}\selectfont\char 66\relax}\vspace{3mm}\\
   \tiny{\textcolor{text}{#1}}}%
 }
 
@@ -47,6 +47,10 @@
   \textit{``#1''}\\[5pt]
   \rightline{{\rm ---#2}}\\
 }
+
+\newcommand{\V}{ \textcolor{green}{V} }
+\newcommand{\X}{ \textcolor{red}{x} }
+\newcommand{\U}{ \textcolor{blue}{?} }
 
 \newlength\callStackIndentation
 \newcommand{\level}[1]{%

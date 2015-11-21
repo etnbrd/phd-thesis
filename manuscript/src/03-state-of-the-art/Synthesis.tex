@@ -1,0 +1,43 @@
+\newgeometry{left=0.5cm, right=0.5cm, top=0.5cm, bottom=0.5cm}
+\begin{landscape}
+\begin{table}
+\small
+\begin{tabu} to \linewidth {@{} *2{X[c]} | *2{X[c]} | *3{X[c]} | *1{X[c]} | *2{X[c]} @{}}
+%
+\toprule
+\multicolumn{4}{c}{}    & \multicolumn{3}{|c|}{Modularity}                                  & \multicolumn{1}{|c|}{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+\multicolumn{2}{c|}{} & Model & Examples    & Higher-Order Programming & Closures & Lazy Evaluation / Streams & \multicolumn{1}{|c|}{Synchronization} & Immutability        & Isolation \\
+\midrule
+% ✖ ⨯ ✔                                                                       HOP  CLS  LZY  SYN  IMU  ISO
+\multirow{2}{*}{\begin{sideways}Section \ref{chapter3:software-maintainability:modular-programming}\end{sideways}} & %
+\multirow{2}{*}{\begin{sideways}\parbox{2.3cm}{Modular Programming}\end{sideways}} & %
+    Object-Oriented Programming           & C/C++, Java                       & \V & \X & \X & \X & \X & \X \\
+& & Functional Programming                & Javascript                        & \V & \V & \V & \X & \X & \X \\
+\midrule %
+\multirow{5}{*}{\begin{sideways}Section \ref{chapter3:software-maintainability:performance}\end{sideways}} & %
+\multirow{5}{*}{\begin{sideways}Concurrent Programming\end{sideways}} & %
+    Event-driven                          & Node.js, Vert.X, TAME             & \V & \V & \U & \V & \X & \X \\
+& & Multi-Threading                       & Lock, Mutex                       & \U & \U & \U & \V & \X & \X \\
+& & Lock-Free Data Structure              &                                   & \U & \U & \U & \V & \X & \X \\
+& & \multirow{2}{*}{Compilation}          & Loop parallelization              & \X & \X & \X & \V & \X & \X \\
+& &                                       & CUDA, OpenCL, OpenMP ...          & \X & \X & \X & \V & \V & \V \\
+\midrule %
+\multirow{4}{*}{\begin{sideways}Section \ref{chapter3:software-performance:parallel-programming}\end{sideways}} & %
+\multirow{4}{*}{\begin{sideways}\parbox{2.2cm}{Parallel Programming}\end{sideways}} & %
+    \multirow{2}{*}{Actor Model}          & Scala, Akka, Play                 & \X & \X & \V & \X & \V & \V \\
+& &                                       & Erlang                            & \V & \X & \V & \X & \V & \V \\
+& & \multirow{2}{*}{Stream Processing}    & DSMS (Timestream)                 & \X & \X & \V & \X & \V & \V \\
+& &                                       & Pipeline (SEDA)                   & \X & \X & \V & \X & \V & \V \\
+\midrule %
+\multirow{4}{*}{\begin{sideways}Section \ref{chapter3:software-performance:maintainability}\end{sideways}} & %
+\multirow{4}{*}{\begin{sideways}\parbox{2.2cm}{Maintainability Improvements}\end{sideways}} & %
+    Algorithmic Skeletons                 & Map Reduce ...                    & \X & \X & \V & \X & \V & \V \\
+& & SOA, Microservices                    & EJB, Spring, Seneca               & \X & \X & \V & \X & \V & \V \\
+& & Dynamic Distribution                  & LEDA                              & \X & \X & \V & \X & \V & \V \\
+& & PGAS                                  & Chapel, X10 ...                   & \X & \X & \X & \X & \V & \V \\
+\bottomrule
+\end{tabu}
+\caption{Synthesis of the state of the art in software design}
+\end{table}
+\end{landscape}
+\restoregeometry

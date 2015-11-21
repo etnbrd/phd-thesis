@@ -10,7 +10,7 @@ Parallel programming became the only solution for scalable performance, at the e
 
 This section presents the parallel programming solutions and their limitations in accessibility, and then the improvements to overcome these limitations.
 
-\subsection{Parallel Programming}
+\subsection{Parallel Programming} \label{chapter3:software-performance:parallel-programming}
 
 
 Concurrent programming is based on the causal ordering of execution.
@@ -426,7 +426,43 @@ Parallel programming remains hard, and is accessible only to an elite of develop
 
 The next section presents different improvements to make parallel programming more accessible to common developers.
 
-\subsection{Maintainability Improvements}
+
+
+
+
+\begin{table}
+\small
+\begin{tabu} to \linewidth {@{} *1{X[c]} | *2{X[c]} | *1{X[c]} | *2{X[c]} @{}}
+%
+\toprule
+\multicolumn{3}{c}{}  & \multicolumn{1}{|c|}{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+& Model & Examples    & \multicolumn{1}{|c|}{Synchronization} & Immutability & Isolation \\
+\midrule
+% ✖ ⨯ ✔                                                                     SYN  IMU  ISO
+\multirow{4}{*}{\begin{sideways}\parbox{2.2cm}{Parallel Programming}\end{sideways}} & %
+  \multirow{2}{*}{Actor Model}          & Scala, Akka, Play                 & \X & \V & \V \\
+&                                       & Erlang                            & \X & \V & \V \\
+& \multirow{2}{*}{Stream Processing}    & DSMS (Timestream)                 & \X & \V & \V \\
+&                                       & Pipeline (SEDA)                   & \X & \V & \V \\
+\bottomrule
+\end{tabu}
+\caption{Synthesis of the state of the art in software design}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Maintainability Improvements} \label{chapter3:software-performance:maintainability}
 
 \comment{Introduction}
 
@@ -442,7 +478,7 @@ This section presents firstly the improvements to ease the decomposition of exec
 It then presents the improvements to helps development in face of the required memory isolation for distribution.
 It then transitions to the lack of improvements for higher-order programming in parallel programing.
 
-\subsubsection{Improvements on the Organization of Execution}
+\subsubsection{Execution Organization}
 
 All of the parallel programming models presented above decompose the execution into isolated parallel executions, like actors.
 This decomposition is difficult as it implies to manage both the parallel decomposition of execution and the modular decomposition of implementation.
@@ -495,7 +531,7 @@ The next paragraph presents works to improve on the distribution of memory.
 
 % Though, they are still independent, so higher-level programming is impossible.
 
-\subsubsection{Improvements on the Memory Abstraction}
+\subsubsection{Memory Abstraction}
 
 Parallelization of the execution eventually requires the distribution of the memory.
 The Partitioned Global Address Space (PGAS) provides the developers with a uniform memory access on a distributed architecture.
@@ -537,45 +573,24 @@ The next section presents the proposition of this thesis to bring parallel progr
 % \nt{TODO link with 3.1}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{table}
+\small
+\begin{tabu} to \linewidth {@{} *1{X[c]} | *2{X[c]} | *3{X[c]} @{}}
+%
+\toprule
+\multicolumn{3}{c}{} & \multicolumn{3}{|c}{Modularity} \\
+& Model & Examples     & Higher-Order Programming & Closures & Lazy Evaluation / Streams \\
+\midrule
+% ✖ ⨯ ✔                                                                       HOP  CLS  LZY  SYN  IMU  ISO
+\multirow{4}{*}{\begin{sideways}\parbox{2.2cm}{Maintainability Improvements}\end{sideways}} & %
+  Algorithmic Skeletons                 & Map Reduce ...                    & \X & \X & \V \\
+& SOA, Microservices                    & EJB, Spring, Seneca               & \X & \X & \V \\
+& Dynamic Distribution                  & LEDA                              & \X & \X & \V \\
+& PGAS                                  & Chapel, X10 ...                   & \X & \X & \X \\
+\bottomrule
+\end{tabu}
+\caption{Synthesis of the state of the art in maintainability improvements for parallel programming}
+\end{table}
 
 
 

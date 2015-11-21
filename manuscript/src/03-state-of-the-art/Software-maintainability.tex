@@ -149,6 +149,27 @@ We explain further the reasons of these limitations, and the improvement solutio
 
 \paragraph{}
 
+
+\begin{table}
+\small
+\begin{tabu} to \linewidth {@{} *1{X[c]} | *2{X[c]} | *3{X[c]} @{}}
+%
+\toprule
+\multicolumn{3}{c}{} & \multicolumn{3}{|c}{Modularity} \\
+& Model & Examples     & Higher-Order Programming & Closures & Lazy Evaluation / Streams \\
+\midrule
+% ✖ ⨯ ✔                                                                       HOP  CLS  LZY 
+\multirow{2}{*}{\begin{sideways}\parbox{2.3cm}{Modular Programming}\end{sideways}} & %
+  Object-Oriented Programming           & C/C++, Java                       & \V & \X & \X \\
+& Functional Programming                & Javascript                        & \V & \V & \V \\
+\bottomrule
+\end{tabu}
+\caption{Synthesis of the state of the art in modular programming}
+\end{table}
+
+
+
+
 \nt{TODO the transition is not very clear}
 The modular organization of implementation is opposed to the organization favoring the parallelization of the execution.
 The former organization supports the development scalability, while the latter supports performance scalability.
@@ -368,6 +389,26 @@ On the other hand, cooperative scheduling provides a more accessible invariance 
 
 The next section presents the programming paradigms focusing on performance more than development accessibility, and then presents the works to improve accessibility.
 
+
+\begin{table}
+\small
+\begin{tabu} to \linewidth {@{} *1{X[c]} | *2{X[c]} | *1{X[c]} | *2{X[c]} @{}}
+%
+\toprule
+\multicolumn{3}{c}{}  & \multicolumn{1}{|c|}{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+& Model & Examples    & \multicolumn{1}{|c|}{Synchronization} & Immutability & Isolation \\
+\midrule
+% ✖ ⨯ ✔                                                                       SYN  IMU  ISO
+\multirow{5}{*}{\begin{sideways}Concurrent Programming\end{sideways}} & %
+  Event-driven                          & Node.js, Vert.X, TAME             & \V & \X & \X \\
+& Multi-Threading                       & Lock, Mutex                       & \V & \X & \X \\
+& Lock-Free Data Structure              &                                   & \V & \X & \X \\
+& \multirow{2}{*}{Compilation}          & Loop parallelization              & \V & \X & \X \\
+&                                       & CUDA, OpenCL, OpenMP ...          & \V & \V & \V \\
+\bottomrule
+\end{tabu}
+\caption{Synthesis of the state of the art in Performance improvement of Modular Programming}
+\end{table}
 
 % It is easy to understand the parallelism in a cooking recipe because the interdependencies between operations are trivial.
 % It seems obvious that melting chocolate is independent from whipping up egg whites.

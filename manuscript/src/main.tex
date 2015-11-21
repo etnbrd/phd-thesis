@@ -5,9 +5,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[hidelinks=true]{hyperref}
+\usepackage{geometry}
 \usepackage{textcomp}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{tabu}
+\usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{svg}
@@ -22,10 +25,15 @@
 \usepackage{backnaur}
 \usepackage{pdfpages}
 \usepackage[normalem]{ulem}
+\usepackage{import}
+\usepackage{lscape}
+\usepackage{rotating}
 
 \input{bibliography}
 \input{utils/code}
 \input{utils/macros}
+
+% \DeclareUnicodeCharacter{2714}{✔}
 
 %\def \chron@selectmonth#1 {\ifcase#1\or January\or February\or March\or April\or May\or June\or July\or August\or September\or October\or November\or December\fi}
 \usepgfplotslibrary{external} 
@@ -46,18 +54,18 @@
 
 \maketitle
 
-\input{00-abstract/main}
+% \subimport*{00-abstract/}{main}
 
 \dominitoc% Initialization
 \tableofcontents
 
-\input{01-introduction/main}
-\input{02-context/main}
-\input{03-state-of-the-art/main}
-\input{04-due/main}
-\input{05-flx/main}
-\input{90-conclusion/main}
-\input{91-appendix/main}
+\subimport*{01-introduction/}{main}
+\subimport*{02-context/}{main}
+\subimport*{03-state-of-the-art/}{main}
+\subimport*{04-due/}{main}
+\subimport*{05-flx/}{main}
+\subimport*{90-conclusion/}{main}
+\subimport*{91-appendix/}{main}
 
 \printbibliography[]
 
