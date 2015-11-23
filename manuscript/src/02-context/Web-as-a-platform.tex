@@ -3,7 +3,7 @@
 \begin{wrapfigure}{r}{0.2\textwidth}
   \vspace{-27pt}
   \begin{center}
-    \includegraphics[width=0.18\textwidth]{../../ressources/Mac-PC.png}
+    \includegraphics[width=0.18\textwidth]{../ressources/Mac-PC.png}
   \end{center}
   \vspace{-20pt}
 \end{wrapfigure}
@@ -21,7 +21,7 @@ The next paragraphs present Javascript, the language that allowed this new busin
 \subsection{Javascript, The Language of the Web}
 
 In the 80's with Moore's law predicting exponential increase in hardware performance, reducing development time became more profitable than reducing hardware costs.
-Higher-level languages replaced lower-level languages, because the economical gain in development time compensated the worsen performances.
+Higher-level languages replaced lower-level languages, because the economical gain in development time compensated the decrease in performance.
 Most of the now popular programming languages were released at this time, Python(1991), Ruby(1993), Java(1994), PHP(1995) and Javascript(1995).
 
 Java thrived in the software industry.
@@ -44,8 +44,8 @@ It allows to develop and maintain the whole application with the same language.
 \cit{There are only two kinds of languages: the ones people complain about and the ones nobody uses}{B. Stroustrup\ftnt{http://www.stroustrup.com/bs_faq.html\#really-say-that}}
 
 Javascript was created by Brendan Eich at Netscape around May 1995, and released to the public in September.
-At the time, Java was quickly adopted as the default language for web servers development, and everybody was betting on pushing Java to the client as well.
-The history proved them wrong.
+At the time, Java was quickly adopted as the default language for web servers development, and everybody was betting on pushing Java inside the browser as well.
+The history proved them wrong\ftnt{Except for mobiles, with the success of Dalvik Android. Though, firefox OS is emerging.}.
 
 Javascript was released as a scripting engine on Netscape Navigator and later on its concurrent, Internet Explorer.
 The competition between the two was fragmenting the Web.
@@ -172,15 +172,15 @@ C is first, C++ third and Java fourth.\ftnt{https://www.blackducksoftware.com/re
 These four languages represent about 80\% of all programming language usage in open source communities.
 
 \nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../../data/js-trends/github-ranks}\ftnt{https://github.com/blog/2047-language-trends-on-github}
+\includegraphics[width=0.9\linewidth]{../../data/js-trends/github-ranks}\ftnt{https://github.com/blog/2047-language-trends-on-github}
 
 \nt{TODO graphical ranking of the tags in StackOverflow}
 
 \nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../../data/js-trends/black-duck-15}
+\includegraphics[width=0.9\linewidth]{../../data/js-trends/black-duck-15}
 
 \nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../../data/js-trends/modulecounts}
+\includegraphics[width=0.9\linewidth]{../../data/js-trends/modulecounts}
 
 % \begin{figure}[h!]
 % \begin{tikzpicture}
@@ -254,18 +254,17 @@ Moreover, according to \textit{breaz.io}\ftnt{https://breaz.io/}, Javascript dev
 Javascript is increasingly adopted in the software industry.
 
 \nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../../data/js-trends/jobgraph}
+\includegraphics[width=0.9\linewidth]{../../data/js-trends/jobgraph}
 
 \paragraph{}
 
 All these metrics represent different faces of the current situation of the Javascript adoption in the development community and industry.
 It is widely used on the web, in open source projects, and in the software industry.
-With the evolution of web applications development and increased interest in this domain, Javascript is assuredly one of most important language in the times to come.
-
-This section presented the languages used to build web applications.
+With the increasing importance of client web applications, Javascript is assuredly one of most important language in the times to come.
+Moreover, Javascript is also allows to build the server side of web applications.
 The next paragraphs presents the event-loop model used to develop Javascript web applications, both client and server-side.
 
-\subsubsection{Event-Loop Execution Model} \ref{chapter2:web-as-a-platform:javascript:event-loop}
+\subsubsection{Event-Loop Execution Model} \label{chapter2:web-as-a-platform:javascript:event-loop}
 
 Javascript is often associated with an event-based paradigm to react to concurrent user interactions.
 In 2009, Joyent released Node.js to build real-time web services with this paradigm.
@@ -300,7 +299,7 @@ The next paragraph presents a more elaborate form of control.
 
 Since the asynchronous execution flow became more complicated on larger web application, many projects proposed improved asynchronous execution controls on top of callbacks.
 The ECMAScript specification proposes Promises for such purpose.
-It arranges sequence of causally related callbacks into neatly organized pipeline of callbacks communicating their result to the next.
+It arranges sequence of causally related callbacks into cleanly organized pipeline of callbacks communicating their result to the next.
 
 Callbacks are said to be first class citizen.
 They imply higher-order programming, which is part of functional programming.
@@ -341,7 +340,7 @@ Moreover, the concurrency needs to be scalable to adapt to this growth of audien
 \paragraph{Scalability}
 
 The traffic of a popular web application such as Google search remains stable because of its popularity.
-The importance of the average traffic soften the occasional spikes.
+The importance of the average traffic softens the occasional spikes.
 However, the traffic of a less popular web application is much more uncertain.
 For example, it might become viral when it is efficiently relayed in the media.
 The load of the web application increases with the growth of audience.
@@ -364,11 +363,11 @@ This coordination limits the parallelism and imposes to execute some tasks seque
 It limits the scalability.
 The type of possible concurrency, sequential or parallel, is defined by the interdependencies of the tasks.
 
-The previous section presented the event-loop execution model used by Javascript.
+% The previous section presented the event-loop execution model used by Javascript.
 As explained in the previous section, Javascript requires a global memory to coordinate the execution of the callbacks.
 The event-loop is constrained within time-slicing concurrency to assure this coordination.
 
-This thesis argues that the parallel equivalent to the event-loop is the pipeline execution model.
+This thesis argues that there exists a parallel equivalent to the event-loop model, and that it is the pipeline execution model.
 The next section presents this parallel execution model.
 
 \subsubsection{Pipeline Execution Model}
@@ -386,6 +385,7 @@ The difference is that in the pipeline architecture, each task is executed on an
 
 \paragraph{}
 
-This section presented two execution models to build web services, the event-loop and the pipeline.
-It presented briefly their similitudes and differences.
+%This section presented two execution models to build web services, the event-loop and the pipeline.
+% It presented briefly their similitudes and differences.
+\nt{TODO schema to compare the event-loop and the pipeline, and an introducing sentence.}
 The next section details further the incompatibility in their model and the resulting economical consequences.
