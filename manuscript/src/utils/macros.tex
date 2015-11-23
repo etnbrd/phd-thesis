@@ -44,8 +44,10 @@
 }
 
 \newcommand{\cit}[2]{%
-  \textit{``#1''}\\[5pt]
-  \rightline{{\rm ---#2}}\\
+  \textit{``#1''}\\[-25pt]%
+  \begin{flushright}%
+  --- #2%
+  \end{flushright}%
 }
 
 \newcommand{\V}{ \textcolor{green}{V} }

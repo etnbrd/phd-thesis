@@ -3,7 +3,7 @@
 With the rise of SaaS on the Web, the software industry are in charge of both the development and the execution of the software.
 The previous section presented these two aspects individually.
 This section presents the challenges encountered by conducting the two at such a large scale.
-It then focus on the subject and define the objectives of this thesis.
+It then focuses on the subject and defines the objectives of this thesis.
 
 \subsection{Disrupted Development}
 
@@ -21,14 +21,15 @@ This section further details the reasons and consequences of this disruption.
 \illustration{heating chipset / parallel chipsets}
 
 Around 2004, the speed of sequential execution on a processing unit plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
-Manufacturers reached what they called the power wall
+Manufacturers reached what they called the \textit{Power-wall}.
 They started to arrange transistors into several processing units to keep increasing overall performance while avoiding overheating problems.
 Therefore, the performance of the sequential execution plateaued as well.
 % required by the cooperative scheduling 
 Parallelism is the only option to achieve high concurrency on this parallel hardware.
 % Isolating tasks is the only option to achieve high concurrency on this parallel hardware.
-But the isolation required by parallelism is in contradiction with the best practices of software development.
-This power-wall leads to a rupture between performance and maintainability.
+But the isolation required by parallelism is in contradiction with the best practices of software development to achieve maintainability.
+% These best-practices are presented in further details in section \ref{chapter3:software-maintainability}
+This \textit{Power-wall} leads to a rupture between performance and maintainability.
 
 \subsubsection{Unavoidable Modularity}
 
@@ -48,7 +49,7 @@ During the initiation of a web application project, the economical constraint ho
 The development reactivity is crucial to meet the market needs\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}.
 The development team opt for a popular and accessible language to leverage the advantage of its community.
 It is only after a certain threshold of popularity that the  economical constraint on performance requirements exceeds the one on development.
-The development team shifts to an organization providing parallelism.
+The development team then shifts to an organization providing parallelism.
 
 This shift brings two risks.
 The development team needs to rewrite the code base to adapt it to a completely different paradigm.
@@ -58,18 +59,17 @@ The development team cannot react as quickly to user feedbacks to adapt the appl
 The application risks to fall in obsolescence.
 
 The risks implied by this rupture proves that there is economically a need for a solution that continuously follows the evolution of a web application.
-We present in the next section the proposition of this thesis for such a solution.
+The next section presents the proposition of this thesis for such a solution.
 It would allow developers to iterate continuously on the implementation focusing simultaneously on performance, and on maintainability.
 
 \subsection{Seamless Web Development}
 
-This thesis is conducted in the frame of a larger work within the company Worldline : LiquidIT.
-Worldline identified that one of their need was to increase the time to market for its product.
-Worldline defines LiquidIT is defined as \textit{a concept of flexible and cost-effective IT services that can be provisioned, built and configured in real time, allowing end-to-end financial transparency}.
+This thesis is conducted in the frame of a larger work on LiquidIT within the Worldline company.
+Worldline develops and hosts real-time streaming Web services, and identified that one of their need was to increase the time to market for its products.
+Worldline defines LiquidIT as \textit{a concept of flexible and cost-effective IT services that can be provisioned, built and configured in real time, allowing end-to-end financial transparency}.
 It precisely intends to provide \textit{business agility, investment-free charging models, flexibility and ease of use}.
-The goal of this thesis in this larger work, is to allow the developer to focus solely on business logic, and leave the technical constraints of deployment to automated tools.
+The goal of this thesis in this larger work, is to allow the developer to focus solely on business logic, and leave the technical constraints of performance scalability to automated tools.
 This section presents the objective of this work to avoid the disruption in development, and provide a seamless development experience.
-Worldline develops and hosts real-time streaming Web services, as defined in the next paragraph.
 
 \subsubsection{Real-Time Streaming Web Services}
 
@@ -94,25 +94,22 @@ However, these two organizations are incompatible.
 Because of economical constraints, this incompatibility implies ruptures in the development.
 It represents additional development efforts and important costs.
 This thesis argues that it is possible to allow a continuous development between the two organizations, so as to lift these efforts and costs.
-This section presents the two programming models representing each an organization.
-Then it presents the possibility of an equivalence bridging the two.
-This equivalence is detailed further in the the chapter \ref{chapter4} and \ref{chapter5} of this thesis.
+The argumentation of this possibility is based on an equivalence bridging the two organizations.
+This equivalence is presented briefly in the next paragraph, and detailed further in the the chapter \ref{chapter4} and \ref{chapter5}.
 
 \subsubsection{Equivalence}
 
-With this equivalence, it would be possible to express an application following the design principles of software development, hence maintainable.
-And yet, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
-Because of the equivalence between these two models, the development team could iterate testing the two models for their different concerns about the implementation : performance and maintainability.
-In the beginning of a project, the team focuses on maintainability and evolution, discarding the scalable performance concerns.
-And as the project gather audience and the performance concerns become more and more critical, the development team progressively take into account this performance concerns.
+In the beginning of a project, the team adopt the event-loop execution model to focus on maintainability and evolution, discarding the scalable performance concerns.
+And as the project gather audience and the performance concerns become more and more critical, the development team adopt the pipeline execution model to take into account this performance concerns.
+The equivalence would allow a compiler to transform an application expressed in one model into the other.
 
-The goal of conciliating these two concerns is not new.
-The next chapter presents all the results from previous works needed to understand this work, up to the latest results in the field.
+With this equivalence, it would be possible to express an application following the design principles of software development.
+A development team could rely on the common memory store of the event-loop execution model, and focuses on the maintainability of the implementation.
+And yet, because of the equivalence between these two models, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
+The development team could continuously progress with the two models and take advantage of their different concerns about the implementation, performance and maintainability.
 
 \paragraph{}
 
 This thesis proposes to provide an equivalence between the two memory models for streaming web applications.
-The next section further describes the similarities and differences between the two models.
-The equivalence would allow a compiler to transform an application expressed in one model into the other.
-With such a tool, a development team could rely on the common memory store of the event-loop execution model, and focuses on the maintainability of the implementation.
-And continuously compiles during the development the event-loop implementation to the pipeline architecture to assure that the execution can be distributed on a parallel architecture.
+The goal of conciliating these two concerns is not new.
+The next chapter presents all the previous results needed to understand this work, up to the latest advances in the field.
