@@ -1,0 +1,10 @@
+html, body {
+  width: 1000px;
+  height: 100%;
+  margin: auto;
+}
+
+.container {
+  width: 50%;
+  display: inline-block;
+}
