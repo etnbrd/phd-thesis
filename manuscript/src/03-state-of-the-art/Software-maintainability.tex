@@ -64,7 +64,7 @@ The information hiding principle advocates to encapsulate a specific design choi
 The Separation of Concerns advocates each module to be responsible for one and only one specific concern.
 Examples of separation of concerns are the separation of the form and the content in HTML / CSS, or the OSI model for the network stack.
 
-\subsubsection{Programming Models} \label{chapter3:software-design:programming-models}
+\subsubsection{Programming Models} \label{chapter3:software-maintainability:programming-models}
 
 The previous section presented the design choices to build modules.
 This section presents the programming models providing the interfaces to glue the modules together.
@@ -85,7 +85,7 @@ Nowadays, the major emblematic figures of OOP in the software industry are C++ a
 Though, the trend seems to digress from these languages to evolve toward a more dynamic approach, closer to Functional Programming.
 Indeed Javascript adopts some functional features such as dynamic typing and higher-order functions \cite{Ecma1999}.
 
-\paragraph{Functional Programming} \label{chapter3:software-design:programming-models:functional-programming}
+\paragraph{Functional Programming} \label{chapter3:software-maintainability:programming-models:functional-programming}
 
 % \cit{All problems in computer science can be solved by another level of indirection}{Butler Lampson}
 
@@ -125,7 +125,7 @@ The next section addresses the consequences of higher-order programming and lazy
 
 % Pipeline parallelism is relevant for multi-pass algorithms \cite{Conway1963}, and it is particularly efficient for stream processing applications.
 
-\subsubsection{Performance Limitations} \ref{chapter3:software-maintainability:modular-programming:limitations}
+\subsubsection{Performance Limitations} \label{chapter3:software-maintainability:modular-programming:limitations}
 
 Functional programming greatly support modularity to improve the maintainability of an application, and its resilience to evolution.
 However, the closures introduced by higher-order programming require to share the execution context among modules.
@@ -141,6 +141,9 @@ Higher-order programming loosen the couple on the implementation level of the mo
 It improves modularity, but it inherently worsens the parallelization hence the performance scalability.
 
 \paragraph{Scalability Limitations}
+
+\cit{No matter how great the talent or efforts, some things just take time. You can't produce a baby in one month by getting nine women pregnant.}
+{Warren Buffett\ftnt{http://www.goodreads.com/quotes/476827-no-matter-how-great-the-talent-or-efforts-some-things}}
 
 Parallelizing the execution increases the performances \cite{Amdahl1967,Gunther1993}
 But the parallelism is limited because the execution portions sharing state need to be scheduled sequentially.
@@ -265,6 +268,8 @@ Developers tend to use the global memory extensively, and threads require to pro
 This heavy need for synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
 The next paragraph present work intending to improve performance by reducing the lock granularity to a minimum.
 
+\nt{Add Fork-join parallelism : Cilk \cite{Randall1998,Frigo1998,Leiserson2010}}
+
 \paragraph{Lock-Free Data-Structures}
 
 The wait-free and lock-free data-structures reduce the exclusive execution to a few atomic operations \cite{Lamport1977,Herlihy1988,Herlihy1990,Herlihy1991,Anderson1990}.
@@ -305,14 +310,17 @@ This section presents the state of the art to extract parallelization from seque
 
 As the only requirement to parallelism is the commutativity of operations \cite{Rinard1996,Clements2013a}, a compiler needs to identify the commutative operations transform a sequential program so as to parallelize its execution \cite{Rinard1996}.
 
-An important work was done to parallelize loop iterations \cite{Mauras1989,Amarasinghe1995,Banerjee2013,Radoi2014}, particularly using the polyhedral compilation method \cite{Yuki2013,Grosser2011,Trifunovic2010,Bastoul2004}.
+An important work was done to parallelize loop iterations \cite{Mauras1989,Amarasinghe1995,Chen2008,Banerjee2013,Radoi2014}, particularly using the polyhedral compilation method \cite{Yuki2013,Grosser2011,Trifunovic2010,Bastoul2004}.
 However, this data parallelism is limited to scientific applications because of their heavy use of loops on matrices and vectors.
 The performance gains are limited in common sequential programs, as the execution remains sequential outside of loops \cite{Amdahl1967,Clements2013a}.
 
-To improve performance gains further, some compilers identify the data-flow inside sequential programs to allow pipeline parallelism on the whole program, and not only on its loops \cite{Beck1991, Li2012}.
+To improve performance gains further, some compilers identify the data-flow inside sequential programs to allow parallelism on the whole program, and not only on its loops \cite{Beck1991,Catanzaro2009,Li2012}.
 Moreover, the data-flow representation and execution of a program is well suited for modern data processing applications \cite{Fernandez2014a}, as well as web services \cite{Salmito2013}.
-\nt{TODO Extract pipeline parallelism compilers from this :
-Load balanced pipeline parallelism \cite{Kamruzzaman2013}}
+\nt{TODO Extract parallelism compilers from these :
+Load balanced pipeline parallelism \cite{Kamruzzaman2013}, 
+Regent \cite{Slaughter2015},
+Cilk-P, On-the-Fly Pipeline Parallelism\cite{Lee2013}
+}
 
 However, the limitation of modular programming regarding parallelization persists.
 In a purely functional language with immutability, higher-order functions are referentially transparent which implies commutativity hence parallelism \nt{Add reference of parallel purely functional languages}.

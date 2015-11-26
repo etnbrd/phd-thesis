@@ -123,7 +123,7 @@ Examples of MPMD programming languages are
 Mentat \cite{Grimshaw1991},
 Fortran M \cite{Foster1995b} and
 Nexus \cite{Foster1996}.
-SPMD is close to the model presenting parallel improvements over modular programming presented in section \ref{chapter3:software-design:programming-models}.
+SPMD is close to the model presenting parallel improvements over modular programming presented in section \ref{chapter3:software-maintainability:programming-models}.
 While MPMD is closer to the programming models based on isolated process presented in the remaining of this section.
 The coordinations between these threads of execution were done by message passing, using PVM \cite{Sunderam1994}, MPI \cite{Snir1996,Walker1996}, SOAP, or the more recent REST protocols.
 
@@ -363,8 +363,11 @@ Pig Latin \cite{Olston2008},
 Piccolo \cite{Power2010},
 Comet \cite{He2010},
 Nectar \cite{Gunda2010},
-SEEP \cite{Migliavacca2010} and
-SDG \cite{Fernandez2014a}
+SEEP \cite{Migliavacca2010},
+Legion \cite{Bauer2012},
+Halide \cite{Ragan-Kelley2013},
+SDG \cite{Fernandez2014a} and
+Regent \cite{Slaughter2015}
 
 % Similarly to the programming models presented in section \ref{chpater3:concurrent-programming:programming-languages} these frameworks are elitist and not accessible to a large community of developers.
 % Indeed, the pipeline architecture presents a distributed storage, which is hardly compatible with the best practices.
@@ -539,11 +542,16 @@ It attempts to combine the advantage of SPMD programming style for distributed m
 Each computing node executes the same program, and provide its local memory to be shared with all the other nodes.
 The PGAS programming model assure the remote accesses and synchronization of memory across nodes, and enforces locality of reference, to reduce the communication overhead.
 Examples of implementation of the PGAS model are 
-Chapel\cite{Chamberlain2007},
+CoArray Fortran \cite{Numrich1998},
 X10 \cite{Charles2005}.
 Unified Parallel C \cite{El-Ghazawi2006},
-CoArray Fortran \cite{Numrich1998} and
+Chapel\cite{Chamberlain2007},
 OpenSHMEM \cite{Chapman2010}.
+Kokko \cite{Edwards2012},
+UPC++ \cite{Zheng2014},
+RAJA \cite{Hornung2014},
+ACPdl \cite{Ajima2015} and
+HPX \cite{Kaiser2015}.
 
 % These programming models are promising.
 % However, they focus rather on scientific application with intensive computing such as matrix multiplication, and leave out streaming applications, such as web services.
@@ -605,6 +613,9 @@ The next section presents the proposition of this thesis to bring parallel progr
 
 
 \endinput
+
+
+Fork-join parallelism : Cilk \cite{Randall1998,Frigo1998,Leiserson2010}
 
 \subsection{Concurrency Theory} \label{chapter3:parallel-execution:concurrency-theory}
 
