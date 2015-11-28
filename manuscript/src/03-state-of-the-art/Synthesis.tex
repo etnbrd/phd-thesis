@@ -5,8 +5,8 @@
 \begin{tabu} to \linewidth {@{} *2{X[c]} | *2{X[c]} | *3{X[c]} | *1{X[c]} | *2{X[c]} @{}}
 %
 \toprule
-\multicolumn{4}{c}{}    & \multicolumn{3}{|c|}{Modularity}                                  & \multicolumn{1}{|c|}{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-\multicolumn{2}{c|}{} & Model & Examples    & Higher-Order Programming & Closures & Lazy Evaluation / Streams & \multicolumn{1}{|c|}{Synchronization} & Immutability        & Isolation \\
+\multicolumn{4}{c}{}    & \multicolumn{3}{|c|}{\begin{sideways}Modularity\end{sideways}}                                  & \multicolumn{1}{|c|}{\begin{sideways}Concurrency\end{sideways}} & \multicolumn{2}{|c}{\begin{sideways}Parallelism\end{sideways}} \\
+\multicolumn{2}{c|}{} & Model & Examples & \begin{sideways}Higher-Order Programming\end{sideways} & \begin{sideways}Closures\end{sideways} & \begin{sideways}Lazy Evaluation / Streams\end{sideways} & \multicolumn{1}{|c|}{\begin{sideways}Synchronization\end{sideways}} & \begin{sideways}Immutability\end{sideways}        & \begin{sideways}Isolation\end{sideways} \\
 \midrule
 % ✖ ⨯ ✔                                                                       HOP  CLS  LZY  SYN  IMU  ISO
 \multirow{2}{*}{\begin{sideways}Section \ref{chapter3:software-maintainability:modular-programming}\end{sideways}} & %
@@ -20,7 +20,7 @@
 & & Multi-Threading                       & Lock, Mutex                       & \U & \U & \U & \V & \X & \X \\
 & & Lock-Free Data Structure              &                                   & \U & \U & \U & \V & \X & \X \\
 & & \multirow{2}{*}{Compilation}          & Loop parallelization              & \X & \X & \X & \V & \X & \X \\
-& &                                       & CUDA, OpenCL, OpenMP ...          & \X & \X & \X & \V & \V & \V \\
+& &                                       & CUDA, OpenCL, OpenMP ...          & \X & \X & \X & \X & \V & \V \\
 \midrule %
 \multirow{4}{*}{\begin{sideways}Section \ref{chapter3:software-performance:parallel-programming}\end{sideways}} & %
 \multirow{4}{*}{\begin{sideways}\parbox{2.2cm}{Parallel Programming}\end{sideways}} & %

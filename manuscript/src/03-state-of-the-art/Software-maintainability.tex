@@ -1,6 +1,6 @@
 \section{Software Maintainability} \label{chapter3:software-maintainability}
 
-\cit{It is becoming increasingly important to the data-processing industry to be able to produce more programming systems and produce them with fewer errors, at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. P. Stevens, G. J. Myers, L. L. Constantine \cite{Stevens1974}}.
+\cit{It is becoming increasingly important to the data-processing industry to be able to produce more programming systems and produce them with fewer errors, at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. P. Stevens, G. J. Myers, L. L. Constantine \cite{Stevens1974}.}
 
 In order to improve and maintain a software system, it is important to holds in mind the mental representation behind its implementation.
 Architects, and mechanical engineers draw codified plans to share their mental representations with peers and building teams.
@@ -9,6 +9,12 @@ The mental representation is often lost in technical details and optimizations f
 This problem becomes even more critical as the system grows in size.
 Therefore, it is crucial to decompose the system into smaller subsystem easier to grasp individually.
 This section shows the theories, programming languages and frameworks helping this decomposition.
+
+\nt{read and include 
+Octave and python: higher-level scripting languages productivity and performance evaluation, by Chaves, Nehrbass, Guilfoos, Gardiner.
+Haskell vs Ada vs C++ vs Awk vs ... an experiment in software productivity, technical report by Hudak and Jones.
+An empirical comparison of seven programming languages, by Prechelt.
+}
 
 \subsection{Modular Programming} \label{chapter3:software-maintainability:modular-programming}
 
@@ -306,6 +312,8 @@ The next section presents compilation methods to improve parallelism, by extract
 When showing the incompatibility between the two organization, D. Parnas  advocated conciliating the two methods using an assembler to transform the development organization into the execution organization \cite{Parnas1972}.
 This section presents the state of the art to extract parallelization from sequential programs through code transformation and compilation.
 
+\nt{read and include \cite{Catanzaro2009}}
+
 \paragraph{Parallelism Extraction}
 
 As the only requirement to parallelism is the commutativity of operations \cite{Rinard1996,Clements2013a}, a compiler needs to identify the commutative operations transform a sequential program so as to parallelize its execution \cite{Rinard1996}.
@@ -353,6 +361,8 @@ However, this analysis is not sufficient to track the dynamic control-flow of hi
 The Operational Semantics is an example of abstract interpretation technique that allows to statically reason on the behavior of programs\cite{Maffeis2008,Smith2011,Gardner2012,Gardner2013,Bodin2014}.
 \nt{TODO review this paragraph}
 Abstract interpretation techniques are more adapted for program with higher-order functions, and are successfully used for security applications \cite{Huang2004,Jovanovic2006,Yu2007,Maffeis2009a,Chudnov2015,Dolby2015}\nt{Update the citation for Dolby2015}.
+\nt{Read and include \cite{Hackett2012}}
+\nt{Read and include Effective race detection for event-driven programs, by Raychev, Vechev, Sridharan}
 
 However, static analysis techniques are too imprecise, and expensive for the performance gain to be profitable in languages as dynamic as Javascript.
 Instead, some compilers relies on annotations from the developers.
@@ -368,6 +378,9 @@ Some works proposed to rely on annotations from the developer to help the identi
 Many compilers rely on annotations from the developer to build highly parallel executables.
 Such annotations are especially relevant for accelerators such as GPUs or FPGAs, because the development effort yield huge performance improvements.
 Examples of such compilers are OpenMP \cite{Dagum1998}, OpenCL \cite{Stone2010}, CUDA \cite{Nvidia2007} Cg \cite{Mark2003}, Brook \cite{Buck2004}, Liquid Metal \cite{Huang2008}.
+
+\nt{read and include \cite{Catanzaro2009}}
+\nt{read and include Accelerators: Using data parallelism to program gpus for general purpose uses}
 
 However, the burden of detecting commutativity of operations, or independence of operations fall back to the developer.
 In this regard, these solutions successfully improve performances, but are unable to fix the rupture between performance and maintainability.
