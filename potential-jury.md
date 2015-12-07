@@ -2,3 +2,4 @@
 + Albert Cohen
 + Gaël Thomas
 + David Reed
++ Frederic Loulergue

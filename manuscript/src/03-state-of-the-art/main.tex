@@ -43,10 +43,71 @@ The focus on development scalability, noted by number 1, are addressed in sectio
 Each of these direction of development contains works trying to meet the requirements from the opposing category, noted by number 2 and 4.
 And finally, section \ref{chapter3:objectives} presents the objectives for this thesis, noted by number 5.
 
+
+
+
+Present the criteria used for this analysis : 
+- higher-order programming, closures, lazy evaluation / stream (not clear)
+The expressiveness of a language comes from modularity, which comes from hop and lazy evaluation, because it allows abstraction.
+But immutability is difficult, so closures are a good thing too.
+So maintainability requires all three.
+
+- shared state (r/w), immutable shared state (r/ø), isolation (ø/ø)
+Scalability is about shared state at a fine level, and immutability and isolation at a coarser level.
+
+
+The state of the art highlights that
+\begin{itemize}
+\item maintainability requires lazy-evaluation and higher-order programming, section \ref{chapter3:software-maintainability:programming-models:functional-programming}, and
+\item higher-order programming requires a global memory abstraction, section \ref{chapter3:software-maintainability:modular-programming:limitations},
+\end{itemize}
+Javascript is a functional language that features higher-order programming and a global memory abstraction.
+% Moreover, its dynamic natures allows a lot of flexibility for the developers.
+Moreover, node.js features a streaming approach with the event-loop execution model, similar to the lazy evaluation.
+These reasons make Javascript a language of choice for developing web application.
+
+And that
+\begin{itemize}
+\item scalable performance requires parallelism, and
+\item parallelism requires exclusive accesses on the state through isolation and immutability.
+\end{itemize}
+Eventually, web development is heading toward a streaming approach with pipeline processing.
+
+\nt{TODO dependency schema of these highlights}
+
+
+
+These are all the ACADEMIC criteria.
+
+The INDUSTRY criteria are :
+- size of the community (to hire, get help, and make things evolve)
+- number and fitness of available tools
+  ->  web centric
+
+
+A system is maintainable only if there is competences available to maintain it.
+
+The criteria to analyze the solutions presented in this section regarding the organic growth are : 
+\begin{itemize}
+\item adoption by the community
+\item adoption by the industry
+\item supporting web technologies
+\end{itemize}
+The first two criteria make sure that the technology is growing organically with a passionate community, and backed by industrial needs.
+The last criteria assures the fitting of the technologies with our economical context of a web application. 
+
+
+
+
+Maybe take some parts from chapter 2 to put into industry (all the languages comparison stuffs that barely belong in the context).
+
 \input{03-state-of-the-art/Software-maintainability}
 \input{03-state-of-the-art/Software-performance}
-\input{03-state-of-the-art/Synthesis}
-\input{03-state-of-the-art/Objectives}
+\input{03-state-of-the-art/Software-abstraction}
+\input{03-state-of-the-art/Analysis}
+
+% GOTO chapter 4 - proposition
+% \input{03-state-of-the-art/Objectives}
 
 
 
