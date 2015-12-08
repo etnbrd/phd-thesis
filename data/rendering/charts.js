@@ -162,17 +162,6 @@ var soTagCount = {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // We are setting a few options for our chart and override the defaults
 var options = {
   showPoint: false,
@@ -195,13 +184,26 @@ var options = {
   }
 };
 
+var options = {
+  showPoint: false,
+  lineSmooth: false,
+  axisY: {
+    offset: 60,
+  },
+  axisX: {
+    labelInterpolationFnc: function(label) {
+      var date = label.split('/');
+
+      return date[1] === '01' ? date[0] : '';
+    }
+  }
+};
+
+
 var counter = 0;
 
 function addLine(labels) {  
   return function (context) {
-
-    console.log(context.type);
-
     if(context.type === 'line') {
       var label = makeCSSclass(labels.seriesLabels[context.index]);
       context.element.addClass(label);
@@ -214,15 +216,15 @@ function drawAxis(context) {
 
       counter += 1 % 11;
       if (counter !== 0)
-        context.element.text('');      
-
-      console.log(context);
+        context.element.text('');
     }
 }
 
 var chart3 = new Chartist.Line('.chart3', modulecount, options);
 var chart4 = new Chartist.Line('.chart4', soTagCount, options);
+var chart5 = new Chartist.Line('.chart5', tiobe2015, options);
 
 
 chart3.on('draw', addLine(modulecount));
 chart4.on('draw', addLine(soTagCount));
+chart5.on('draw', addLine(tiobe2015));

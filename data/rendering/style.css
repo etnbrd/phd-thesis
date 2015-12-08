@@ -38,37 +38,47 @@ li:before {
   fill: black;
 }
 
-li.Javascript:before   {color: #F0253D}
-li.C:before            {color: #266B85}
-li.Cplusplus:before    {color: #3CADD7}
-li.Java:before         {color: #AFC4DB}
-li.PHP:before          {color: #8996A8}
-li.XML_Schema:before   {color: #F57542}
-li.Ruby:before         {color: #D7503C}
-li.Autoconf:before     {color: #BD4230}
-li.Python:before       {color: #5EEBB8}
-li.Csharp:before       {color: #4ABE95}
-li.Assembler:before    {color: #DDB700}
-li.Shell:before        {color: #F7F09D}
-li.SQL:before          {color: #F3FFB5}
-li.Make:before         {color: #9F3A2C}
-li.Perl:before         {color: #1B2735}
+.ct-line {
+  stroke-width: 0.8pt;
+}
 
-.ct-slice-donut.Javascript,  .ct-line.Javascript       {stroke: #F0253D}
-.ct-slice-donut.C,           .ct-line.C                {stroke: #266B85}
-.ct-slice-donut.Cplusplus,   .ct-line.Cplusplus        {stroke: #3CADD7}
-.ct-slice-donut.Java,        .ct-line.Java             {stroke: #AFC4DB}
-.ct-slice-donut.PHP,         .ct-line.PHP              {stroke: #8996A8}
-.ct-slice-donut.XML_Schema,  .ct-line.XML_Schema       {stroke: #F57542}
-.ct-slice-donut.Ruby,        .ct-line.Ruby             {stroke: #D7503C}
-.ct-slice-donut.Autoconf,    .ct-line.Autoconf         {stroke: #BD4230}
-.ct-slice-donut.Python,      .ct-line.Python           {stroke: #5EEBB8}
-.ct-slice-donut.Csharp,      .ct-line.Csharp           {stroke: #4ABE95}
-.ct-slice-donut.Assembler,   .ct-line.Assembler        {stroke: #DDB700}
-.ct-slice-donut.Shell,       .ct-line.Shell            {stroke: #F7F09D}
-.ct-slice-donut.SQL,         .ct-line.SQL              {stroke: #F3FFB5}
-.ct-slice-donut.Make,        .ct-line.Make             {stroke: #9F3A2C}
-.ct-slice-donut.Perl,        .ct-line.Perl             {stroke: #1B2735}
+.ct-line.Javascript, .ct-line.npm {
+  stroke-width: 2pt;
+}
+
+li.Javascript:before        {color: #F0253D}
+li.C:before                 {color: #266B85}
+li.Cplusplus:before         {color: #3CADD7}
+li.Java:before              {color: #AFC4DB}
+li.PHP:before               {color: #8996A8}
+li.XML_Schema:before        {color: #F57542}
+li.Ruby:before              {color: #D7503C}
+li.Autoconf:before          {color: #BD4230}
+li.Python:before            {color: #5EEBB8}
+li.Csharp:before            {color: #4ABE95}
+li.Assembler:before         {color: #DDB700}
+li.Shell:before             {color: #F7F09D}
+li.SQL:before               {color: #F3FFB5}
+li.Make:before              {color: #9F3A2C}
+li.Perl:before              {color: #1B2735}
+li.VisualBasicNET:before    {color: #43AE88}
+
+.ct-slice-donut.Javascript,     .ct-line.Javascript       {stroke: #F0253D}
+.ct-slice-donut.C,              .ct-line.C                {stroke: #266B85}
+.ct-slice-donut.Cplusplus,      .ct-line.Cplusplus        {stroke: #3CADD7}
+.ct-slice-donut.Java,           .ct-line.Java             {stroke: #AFC4DB}
+.ct-slice-donut.PHP,            .ct-line.PHP              {stroke: #8996A8}
+.ct-slice-donut.XML_Schema,     .ct-line.XML_Schema       {stroke: #F57542}
+.ct-slice-donut.Ruby,           .ct-line.Ruby             {stroke: #D7503C}
+.ct-slice-donut.Autoconf,       .ct-line.Autoconf         {stroke: #BD4230}
+.ct-slice-donut.Python,         .ct-line.Python           {stroke: #5EEBB8}
+.ct-slice-donut.Csharp,         .ct-line.Csharp           {stroke: #4ABE95}
+.ct-slice-donut.Assembler,      .ct-line.Assembler        {stroke: #DDB700}
+.ct-slice-donut.Shell,          .ct-line.Shell            {stroke: #F7F09D}
+.ct-slice-donut.SQL,            .ct-line.SQL              {stroke: #F3FFB5}
+.ct-slice-donut.Make,           .ct-line.Make             {stroke: #9F3A2C}
+.ct-slice-donut.Perl,           .ct-line.Perl             {stroke: #1B2735}
+.ct-slice-donut.VisualBasicNET, .ct-linebefore            {stroke: #43AE88}
 
 
 
