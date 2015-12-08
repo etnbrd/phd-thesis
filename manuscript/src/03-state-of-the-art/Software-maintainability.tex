@@ -2,85 +2,24 @@
 
 \cit{It is becoming increasingly important to the data-processing industry to be able to produce more programming systems and produce them with fewer errors, at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. P. Stevens, G. J. Myers, L. L. Constantine \cite{Stevens1974}.}
 
-
 In order to improve and maintain a software system, it is important to holds in mind a mental representation of its implementation.
 As the system grows in size, the mental representation become more and more difficult to grasp.
 Therefore, it is crucial to decompose the system into smaller subsystem easier to grasp individually.
 This section presents academic propositions for software maintainability, and then presents how the industry adapted these solutions to meet their needs.
 Finally, this section presents the limitations of the presented solutions.
 
-\nt{Interesting, but to be rewritten: 
-Architects, and mechanical engineers draw codified plans to share their mental representations with peers and building teams.
-software design is an exception in that the implementation is both the shared mental representation, and the actual product.
-The mental representation is often lost in technical details and optimizations for the actual product.
-}
+% \nt{Interesting, but to be rewritten: 
+% Architects, and mechanical engineers draw codified plans to share their mental representations with peers and building teams.
+% software design is an exception in that the implementation is both the shared mental representation, and the actual product.
+% The mental representation is often lost in technical details and optimizations for the actual product.
+% }
 
-
-Section \ref{chapter3:software-maintainability:modular-programming:programming-models} presents the different programming models allowing modular programming, and the two features .
-The, section \ref{chapter3:software-maintainability:modular-programming:organic-growth} presents the organic growth allowed by the maintainability of modular programming.
-Finally, section \ref{chapter3:software-maintainability:modular-programming:limitations} presents the consequences of the decomposition on performance.
-
+Section \ref{chapter3:software-maintainability:modularity} presents the modular programming, and its programming models.
+Section \ref{chapter3:software-maintainability:organic-growth} presents the organic growth allowed by the maintainability of modular programming.
+Section \ref{chapter3:software-maintainability:performance-limitations} presents the consequences of the decomposition on performance.
+Finally, section \ref{chapter3:software-maintainability:summary} summarizes the three previous sections in a table.
 
 \subsection{Modularity} \label{chapter3:software-maintainability:modularity}
-
-The modularity of a software implementation is about enclosing subproblems and composing them through relevant interface abstractions.
-It allows greater design to emerge from the composition of smaller components.
-The modularity in software design improves the maintainability of an implementation.
-It allows to limit the understanding required to contribute to a module \cite{Stevens1974}.
-And it reduces development time by allowing several developers to simultaneously implement different modules \cite{Wong2009,Cataldo2006}.
-
-The criteria to analyze the solutions presented in this section regarding the modularity are :
-\begin{itemize}
-\item encapsulation mechanism
-\item presence of higher-order programming
-\item presence of lazy evaluation, or stream composition
-\end{itemize}
-The last criteria lead to the composition abstraction.
-Encapsulation and composition are the features in modular programming that produce maintainability.
-
-\nt{Read and include \cite{Simon1962}}
-
-% \subsubsection{Design Choices} \label{chapter3:software-maintainability:modular-programming:design-choices}
-
-\nt{TODO this introduction is not very clear}
-In the decomposition of a large problem into smaller subproblem, there is two design choices.
-The first one is the granularity, and organization of the subproblems within the system decomposition.
-The second one is the organization of the implementation within the subproblems to improve maintainability.
-
-% \nt{reduce all these paragraph into a concise one and move it into the introduction}
-
-% \paragraph{System Decomposition}
-
-\illustration{spaghetti programming}
-
-Modular Programming stands upon Structured Programming \cite{Dijkstra1970}.
-% Dijkstra firstly developed the concept of Structured Programming \cite{Dijkstra1970}, which later led to modular programming.
-% It is defined as \textit{the systematic use of abstraction to control a mass of details, and also a means of documentation which aids program design} \cite{Knuth1974}.
-It draws clear interfaces around a piece of implementation so that the execution is enclosed inside.
-At a fine level, it helps avoid spaghetti code \cite{Dijkstra1968a}, and at a coarser level, it structures the implementation \cite{Dijkstra1968} into modules, or layers.
-% The next paragraph explains further the criteria to draw the borders around modules.
-
-\illustration{lasagna programming}
-
-% \paragraph{Decomposition Criteria}
-
-% \nt{move this paragraph closer to OOP ?}
-The criteria to define modules to improve maintainability are coupling and cohesion \cite{Stevens1974}.
-The coupling defines the strength of the interdependence between modules, while cohesion defines how strongly the features inside a module are related.
-Low coupling between modules and high cohesion inside modules helps logically organize, and understand the implementation.
-Hence, it improve its maintainability.
-% The next paragraph presents the approach to build modules helping with the evolution of the implementation.
-
-% \paragraph{Development Evolution}
-
-% \nt{maintainability also relies on supporting implementation evolution}
-
-The modular organization should isolate the evolution of a module from impacting the rest of the implementation.
-The Information Hiding Principle \cite{Parnas1972}, and the Separation of Concerns \cite{Tarr1999,Hursch1995} are two similar approach to do so.
-They advocate to encapsulate a specific design choice in each module, so that it is responsible for one and only one concern.
-% The information hiding principle advocates to encapsulate a specific design choice in each module.
-% The Separation of Concerns advocates each module to be responsible for one and only one specific concern.
-Examples of separation of concerns are the separation of the form and the content in HTML / CSS, or the OSI model for the network stack.
 
 \begin{figure}[h!] \label{fig:modular-programming-state-of-the-art}
 \begin{center}
@@ -88,56 +27,78 @@ Examples of separation of concerns are the separation of the form and the conten
 \end{center}
 \end{figure}
 
-Figure \ref{fig:modular-programming-state-of-the-art} illustrates an overview of the direction of modular programming regarding the general trends in software design.
-% Section \ref{chapter3:software-maintainability:modular-programming:design-choices} presents the decomposition.
+The modularity of a software implementation is about enclosing subproblems and composing them through relevant interface abstractions.
+% It allows greater design to emerge from the composition of smaller components.
+It improves the maintainability of an implementation, as illustrated in figure \ref{fig:modular-programming-state-of-the-art}.
+It allows to limit the understanding required to contribute to a module \cite{Stevens1974}.
+And it reduces development time by allowing several developers to simultaneously implement different modules \cite{Wong2009,Cataldo2006}.
+
+% \nt{Read and include \cite{Simon1962}}
+
+% \subsubsection{Design Choices} \label{chapter3:software-maintainability:design-choices}
+
+% \nt{TODO this introduction is not very clear}
+% In the decomposition of a large problem into smaller subproblem, there is two design choices.
+% The first one is the granularity, and organization of the subproblems within the system decomposition.
+% The second one is the organization of the implementation within the subproblems to improve maintainability.
+
+% \nt{reduce all these paragraph into a concise one and move it into the introduction}
+
+% \paragraph{System Decomposition}
+
+\illustration{spaghetti programming}
+Modular Programming stands upon Structured Programming \cite{Dijkstra1970}.
+% Dijkstra firstly developed the concept of Structured Programming \cite{Dijkstra1970}, which later led to modular programming.
+% It is defined as \textit{the systematic use of abstraction to control a mass of details, and also a means of documentation which aids program design} \cite{Knuth1974}.
+It draws clear interfaces around a piece of implementation so that the execution is enclosed inside.
+At a fine level, it helps avoid spaghetti code \cite{Dijkstra1968a}, and at a coarser level, it structures the implementation \cite{Dijkstra1968} into modules, or layers.
+% The next paragraph explains further the criteria to draw the borders around modules.
+\illustration{lasagna programming}
+Encapsulate a specific design choice in each module, so that it is responsible for one and only one concern, isolate its evolution from impacting the rest of the implementation \cite{Parnas1972, Tarr1999, Hursch1995}.
+Examples of such separation of concerns are the separation of the form and the content in HTML / CSS, or the OSI model for the network stack.
+
+The criteria to define modules to improve maintainability are coupling and cohesion \cite{Stevens1974}.
+The coupling defines the strength of the interdependence between modules, while cohesion defines how strongly the features inside a module are related.
+Low coupling between modules and high cohesion inside modules helps logically organize, and understand the implementation.
+Hence, it improve its maintainability.
+
+The composition of modules with low coupling is provided by encapsulation, higher-order programming and lazy evaluation.
+Hence, the criteria to analyze the solutions presented in this section regarding maintainability are :
+\begin{itemize}
+\item encapsulation mechanism
+\item presence of higher-order programming
+\item presence of lazy evaluation, or stream composition
+\end{itemize}
+The last two criteria provide composition abstractions to design solutions from smaller components.
+Encapsulation and composition are the features in modular programming that produce maintainability.
+
+The next paragraphs present the last two criteria \label{chapter3:software-maintainability:modularity:programming-models}, and  then the main programming models, section \label{chapter3:software-maintainability:modularity:programming-models}.
+
+% \paragraph{Decomposition Criteria}
+
+% \nt{move this paragraph closer to OOP ?}
+% The criteria to define modules to improve maintainability are coupling and cohesion \cite{Stevens1974}.
+% The coupling defines the strength of the interdependence between modules, while cohesion defines how strongly the features inside a module are related.
+% Low coupling between modules and high cohesion inside modules helps logically organize, and understand the implementation.
+% Hence, it improve its maintainability.
+% The next paragraph presents the approach to build modules helping with the evolution of the implementation.
+
+% \paragraph{Development Evolution}
+
+% \nt{maintainability also relies on supporting implementation evolution}
+
+% The modular organization should isolate the evolution of a module from impacting the rest of the implementation.
+% Encapsulate a specific design choice in each module, so that it is responsible for one and only one concern, isolate its evolution from impacting the rest of the implementation \cite{Parnas1972, Tarr1999, Hursch1995}.
+% Examples of separation of concerns are the separation of the form and the content in HTML / CSS, or the OSI model for the network stack.
+% The information hiding principle advocates to encapsulate a specific design choice in each module.
+% The Separation of Concerns advocates each module to be responsible for one and only one specific concern.
+
+% Figure \ref{fig:modular-programming-state-of-the-art} illustrates an overview of the direction of modular programming regarding the general trends in software design.
+% Section \ref{chapter3:software-maintainability:design-choices} presents the decomposition.
 
 % \subsubsection{Programming Models} \label{chapter3:software-maintainability:programming-models}
 
-The previous section presented the design choices to build modules.
-This section presents the programming models providing the interfaces to glue the modules together.
-It focuses on two main programming models currently used in the industry, object oriented programming and functional programming.
-
-
-\subsubsection{Programming Models}
-
-
-\paragraph{Imperative Programming}
-
-\nt{present briefly imperative programming as well}
-
-\paragraph{Object Oriented Programming}
-
-\illustration{multiple cells communicating}
-
-Alan Kay, who coined the term, states that Object Oriented Programming (OOP) is about message-passing, encapsulation and late binding.
-(There is no academic reference for that, only a public mail exchange\ftnt{http://userpage.fu-berlin.de/~ram/pub/pub\_jf47ht81Ht/doc\_kay\_oop\_en}.)
-Message-passing and late binding loosen coupling between objects, while encapsulation is intended to increase cohesion \ftnt{http://williamdurand.fr/2013/06/03/object-calisthenics/}.
-% Reducing coupling and increasing cohesion are further sought by object calisthenics, in the chapter 6 of \textit{The Thoughtworks Anthology} \cite{Bay2008}
-
-The very first OOP language was Smalltalk \cite{Goldberg1984}.
-It defined the core concept of OOP.
-\comment{Nowadays, the major emblematic figures of OOP in the software industry are C++ and Java \cite{Gosling2000,Stroustrup1986}.
-Though, the trend seems to digress from these languages to evolve toward a more dynamic approach, closer to Functional Programming \nt{with introspection to allow more stuff, see SEJITS}.
-Indeed Javascript adopts some functional features such as dynamic typing and higher-order functions \cite{Ecma1999}.}
-
-\paragraph{Functional Programming} \label{chapter3:software-maintainability:programming-models:functional-programming}
-
-% \cit{All problems in computer science can be solved by another level of indirection}{Butler Lampson}
-
-The definition of pure Functional Programming resides in manipulating only mathematical expressions - functions - and forbidding state mutability.
-The absence of state mutability makes a function referentially transparent, and thus side-effect free\nt{so what ?}.
-The most important pure Functional Programming languages are Scheme \cite{Rees1986}, Miranda \cite{Turner1986}, Haskell \cite{Hudak1992} and Standard ML \cite{Milner1997}.
-
-\nt{TODO find a better argument to say that immutability is unadapted to every day programming}
-However, the functional programming concepts are also implemented in other languages along with mutable states.
-Major imperative programming languages now commonly present \textbf{higher-order functions} and \textbf{lazy evaluation} to help loosen the couple between modules, define more generic and reusable modules.
-\textit{In fine}, it helps developers to write applications that are more maintainable, and favorable to evolution \cite{Hughes1989,Turner1981}.
-
-\paragraph{Dynamic Scripts}
-
-\nt{TODO talk about Javascript, Ruby, Python, Go, and so on ...}
-
-\subsubsection{Features}
+\subsubsection{Features} \label{chapter3:software-maintainability:modularity:features}
 
 \paragraph{Higher-Order Programming}
 \nt{If possible, include this reference : Continuations and coroutines \cite{Haynes1984}}
@@ -166,6 +127,54 @@ But this concurrency requires immutability of state, or at least isolation of si
 The next section addresses the consequences of higher-order programming and lazy evaluation on parallelism.
 
 
+\subsubsection{Programming Models} \label{chapter3:software-maintainability:modularity:programming-models}
+
+The next paragraphs presents the different programming model regarding their support to modular programming and maintainability.
+
+\paragraph{Imperative Programming}
+
+Imperative programming is the very first programming paradigm, as it evolves directly from the hardware architectures.
+It allows to express the suite of operation to carry sequentially on the computing processor.
+% Lots of programming languages feature imperative programming.
+Most imperative languages provide encapsulation with modules but not higher-order programming, nor lazy evaluation.
+
+\paragraph{Object Oriented Programming}
+
+\illustration{multiple cells communicating}
+
+% Alan Kay, who coined the term, states that Object Oriented Programming (OOP) is about message-passing, encapsulation and late binding.
+% (There is no academic reference for that, only a public mail exchange\ftnt{http://userpage.fu-berlin.de/~ram/pub/pub\_jf47ht81Ht/doc\_kay\_oop\_en}.)
+% Message-passing and late binding loosen coupling between objects, while encapsulation is intended to increase cohesion \ftnt{http://williamdurand.fr/2013/06/03/object-calisthenics/}.
+% % Reducing coupling and increasing cohesion are further sought by object calisthenics, in the chapter 6 of \textit{The Thoughtworks Anthology} \cite{Bay2008}
+
+The very first OOP language was Smalltalk \cite{Goldberg1984}.
+It defined the core concepts of OOP as message passing, encapsulation, and late-binding\ftnt{http://userpage.fu-berlin.de/~ram/pub/pub\_jf47ht81Ht/doc\_kay\_oop\_en}.
+Nowadays, the major emblematic figures of OOP in the software industry are C++ and Java \cite{Gosling2000,Stroustrup1986}.
+% Though, the trend seems to digress from these languages to evolve toward a more dynamic approach.
+% Indeed Javascript adopts some functional features such as dynamic typing and higher-order functions \cite{Ecma1999}.}
+They provide encapsulation with Classes, and higher-order programming with objects, but not lazy evaluation.
+
+\paragraph{Functional Programming} \label{chapter3:software-maintainability:programming-models:functional-programming}
+
+% \cit{All problems in computer science can be solved by another level of indirection}{Butler Lampson}
+
+The definition of pure Functional Programming resides in manipulating only mathematical expressions - functions - and forbidding state mutability, replaced by message passing.
+The absence of state mutability makes a function side-effect free, hence their execution can be scheduled in parallel.
+But it implies heavy message passing, which negatively impact performances.
+The most important pure Functional Programming languages are Scheme \cite{Rees1986}, Miranda \cite{Turner1986}, Haskell \cite{Hudak1992} and Standard ML \cite{Milner1997}.
+They provide encapsulation, higher-order programming and lazy evaluation.
+
+\paragraph{Multi-Paradigm Scripts}
+
+The functional programming concepts are also implemented in other languages along with mutable states and object-oriented concepts.
+Major recent programming languages now commonly present \textbf{higher-order functions} and \textbf{lazy evaluation} to help loosen the couple between modules, define more generic and reusable modules.
+\textit{In fine}, it helps developers to write applications that are more maintainable, and favorable to evolution \cite{Hughes1989,Turner1981}.
+These recent multi-paradigms like Javascript, Ruby, Python and Go combine the different paradigms to help developer building applications faster.
+They provide encapsulation, higher-order programming and stream composition.
+
+\paragraph{}
+
+Table \ref{maintainability-modularity} presents a summary of the analysis of the programming models presented in the previous paragraphs.
 
 \begin{table}[h!]
 \label{maintainability-modularity}
@@ -173,7 +182,7 @@ The next section addresses the consequences of higher-order programming and lazy
 \begin{tabu} to \linewidth {@{} l X[l] c c c c c @{}}
 %
 % \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Higher-Order Programming} & \rot{Lazy evaluation, or streaming composition} & \rot{Encapsulation} & $\to$ & \rot{Modularity} \\
+Model & Implementations    & \rot{Higher-Order Programming} & \rot{Lazy evaluation, or streaming composition} & \rot{Encapsulation} & $\to$ & \rot{Maintainability} \\
 \tabucline[.5pt]{-}%
 Imperative Programming         & C                                             & \X & \X & \V && \X \\ \tabucline[on .5pt]{-}
 Object-Oriented Programming    & C++, Java                                     & \X & \X & \V && \X \\ \tabucline[on .5pt]{-}
@@ -184,14 +193,19 @@ Dynamic Scripting              & Javacript, Python, Ruby, Go                   &
 \caption{Analysis of the state of the art regarding modularity}
 \end{table}
 
+\subsection{Organic Growth} \label{chapter3:software-maintainability:organic-growth}
+
+\begin{figure}[h!] \label{fig:state-of-the-art-2}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-2.pdf}
+\end{center}
+\end{figure}
+
+A system is maintainable only if there is people available to maintain it.
+For people to widely adopt a technology, it needs to be balanced between performance and maintainability.
+It forces the modular programming models to be implemented taking into account this balance, as illustrated in figure \ref{fig:state-of-the-art-2}.
 
 
-
-
-
-\subsection{Organic Growth} \label{chapter3:software-maintainability:modular-programming:organic-growth}
-
-A system is maintainable only if there is competences available to maintain it.
 
 The criteria to analyze the solutions presented in this section regarding the organic growth are : 
 \begin{itemize}
@@ -202,13 +216,12 @@ The criteria to analyze the solutions presented in this section regarding the or
 The first two criteria make sure that the technology is growing organically with a passionate community, and backed by industrial needs.
 The last criteria assures the fitting of the technologies with our economical context of a web application. 
 
+The next paragraphs presents different 
 
-The rise of Javascript is indisputable on the web, and seems to be rising in the software industry as well.
-But it is difficult to give an accurate representation of the situation because the software industry often maintains a fog of war to try to keep an edge.
-The following paragraphs report some efforts to clear up the situation.
+% The rise of Javascript is indisputable on the web, and seems to be rising in the software industry as well.
+% But it is difficult to give an accurate representation of the situation because the software industry often maintains a fog of war to try to keep an edge.
+% The following paragraphs report some efforts to clear up the situation.
 % More detailed informations are available section \ref{appendix:langpop}.
-
-\nt{present dynamic scripts like Javascript, python, go!! and the like}
 
 \subsubsection{Available Resources}
 
@@ -247,68 +260,6 @@ These four languages represent about 80\% of all programming language usage in o
 
 \nt{TODO redo this graph, it is ugly.}
 \includegraphics[width=0.9\linewidth]{../../data/js-trends/modulecounts}
-
-% \begin{figure}[h!]
-% \begin{tikzpicture}
-% [
-%     pie chart,
-%     slice type={c}{gray1},
-%     slice type={js}{red},
-%     slice type={cpp}{gray2},
-%     slice type={java}{gray3},
-%     slice type={php}{gray4},
-%     slice type={autoconf}{gray5},
-%     slice type={python}{gray6},
-%     slice type={ruby}{gray1},
-%     slice type={xml}{gray2},
-%     slice type={sh}{gray3},
-%     slice type={asm}{gray4},
-%     slice type={sql}{gray5},
-%     slice type={make}{gray6},
-%     slice type={perl}{gray1},
-%     slice type={csharp}{gray2},
-%     pie values/.style={font={\small}},
-%     scale=2
-% ]
-
-% \pie{}{%
-%   34.80/c,%
-%   15.45/js,%
-%   15.13/cpp,%
-%   14.02/java,%
-%   2.87/php,%
-%   2.65/autoconf,%
-%   2.15/python,%
-%   1.77/ruby,%
-%   1.73/xml,%
-%   1.18/sh,%
-%   1.16/asm,%
-%   1.07/sql,%
-%   0.94/make,%
-%   0.92/perl,%
-%   0.90/csharp,%
-% }
-
-% \legend[shift={(1.3cm,0.9cm)}]{%
-%   {C}/c,%
-%   {Javascript}/js,%
-%   {C++}/cpp,%
-%   {Java}/java,%
-%   {PHP}/php,%
-%   {Autoconf}/autoconf,%
-%   {Python}/python,%
-%   {Ruby}/ruby,%
-%   {XML Schema}/xml,%
-%   {Shell}/sh,%
-%   {Assembler}/asm,%
-%   {SQL}/sql,%
-%   {Make}/make,%
-%   {Perl}/perl,%
-%   {C\#}/csharp,%
-% }
-% \end{tikzpicture}
-% \caption{Compilation results distribution}
-% \end{figure}
 
 \subsubsection{Jobs}
 
@@ -353,7 +304,7 @@ Dynamic Scripting              & Javacript, Python, Ruby, Go                   &
 
 
 
-\subsection{Performance Limitations} \label{chapter3:software-maintainability:modular-programming:performance-limitations}
+\subsection{Performance Limitations} \label{chapter3:software-maintainability:performance-limitations}
 
 The next paragraphs analyze the solutions presented regarding their performances.
 
@@ -403,7 +354,7 @@ Dynamic Scripting              & Javacript, Python, Ruby, Go                   &
 
 
 
-\subsection{Summary}
+\subsection{Summary} \label{chapter3:software-maintainability:summary}
 
 Finally, table \ref{maintainability-synthesis} summarizes the characteristics of the solutions presented in this section.
 
@@ -477,7 +428,7 @@ An empirical comparison of seven programming languages, by Prechelt.
 
 % Pipeline parallelism is relevant for multi-pass algorithms \cite{Conway1963}, and it is particularly efficient for stream processing applications.
 
-% \subsubsection{Performance Limitations} \label{chapter3:software-maintainability:modular-programming:limitations}
+% \subsubsection{Performance Limitations} \label{chapter3:software-maintainability:limitations}
 
 
 % Functional programming -> immutability is bad for performance at a fine grain because it implies lots of communication aka memory copy.
