@@ -4,7 +4,6 @@
 
 \cit{A designer is responsible for producing the greatest benefit for any given investment of time, talent, money, and other resources.}{K. Sullivan, W. Griswold, Y. Cai, B. Hallen \cite{Sullivan2001a}}
 
-\nt{TODO the next paragraph expresses well the idea, but is not clear enough yet}
 The growth of the web and Software as a Service (SaaS) revealed the importance of previously unknown economic constraints.
 The same company carries both development and exploitation of a service in scale of unprecedented size.
 Development costs are reduced by following best practice, and by building maintainable softwares.
@@ -13,7 +12,8 @@ Similarly, exploitation costs are reduced by following more efficient programmin
 But again, it rises development costs.
 So a SaaS company needs to cleverly allocate its budget between development and exploitation so as to limit the overall cost.
 
-Eventually, a company faces the problem of scalability limitations.Compensating development with hardware becomes unsustainable.
+Eventually, a company faces the problem of scalability limitations.
+Compensating development with hardware becomes unsustainable.
 The company has no choice but to commit huge development efforts to get correct performances.
 This chapter draws a broad view of the relation between the orientation of development toward maintainability or scalable performance, and its consequences.
 
@@ -29,82 +29,87 @@ But this hardware improvement could not anymore increase the execution speed wit
 The best practices of software design then inherited two goals : to assure a scalable implementation evolution by decomposing it into subproblems, as well as assure a scalable parallel execution by decomposing the execution onto the several execution units.
 As D. L. Parnas showed in 1972 \cite{Parnas1972}, it seems challenging to develop a software following a decomposition that satisfies both goals.
 
+\begin{figure}[h!] \label{fig:state-of-the-art}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art.pdf}
 \end{center}
+\end{figure}
 
-The evolution of economic constraints often force an SaaS company to switch from scalable development to scalable performance.
+The evolution of economic constraints often force an SaaS company to switch from a maintainable to a scalable implementation.
 This switch implies huge development efforts.
 There has been many attempts at reconciling the two goals to reduce these costs.
 But none seems really convincing enough to be widely adopted.
 
-The schema above is a graphical representation of the organization of this chapter, and more generally of the state of the art of software design.
-The focus on development scalability, noted by number 1, are addressed in section \ref{chapter3:software-maintainability} while the focus on performance scalability, noted by number 3, are addressed in section \ref{chapter3:software-performance}.
+Figure \ref{fig:state-of-the-art} is a graphical representation of the organization of this chapter, and more generally of the state of the art of software design.
+The solutions focusing on maintainability, noted by number 1, are addressed in section \ref{chapter3:software-maintainability} while the solutions focusing on performance scalability, noted by number 3, are addressed in section \ref{chapter3:software-performance}.
 Each of these direction of development contains works trying to meet the requirements from the opposing category, noted by number 2 and 4.
-And finally, section \ref{chapter3:objectives} presents the objectives for this thesis, noted by number 5.
+The focus on both development and performance scalability is addressed in section \ref{chapter3:software-abstraction}, noted by number 5.
+And finally, section \ref{chapter3:analysis} presents a synthesis of the state of the art presented in this chapter.
 
-
-
-
-Present the criteria used for this analysis : 
-- higher-order programming, closures, lazy evaluation / stream (not clear)
-The expressiveness of a language comes from modularity, which comes from hop and lazy evaluation, because it allows abstraction.
-But immutability is difficult, so closures are a good thing too.
-So maintainability requires all three.
-
-- shared state (r/w), immutable shared state (r/ø), isolation (ø/ø)
-Scalability is about shared state at a fine level, and immutability and isolation at a coarser level.
-
-
-The state of the art highlights that
+All the solutions presented throughout this chapter are analyzed against three criteria.
 \begin{itemize}
-\item maintainability requires lazy-evaluation and higher-order programming, section \ref{chapter3:software-maintainability:programming-models:functional-programming}, and
-\item higher-order programming requires a global memory abstraction, section \ref{chapter3:software-maintainability:modular-programming:limitations},
+\item Maintainability
+\item Organic Growth
+\item Performance Scalability
 \end{itemize}
-Javascript is a functional language that features higher-order programming and a global memory abstraction.
-% Moreover, its dynamic natures allows a lot of flexibility for the developers.
-Moreover, node.js features a streaming approach with the event-loop execution model, similar to the lazy evaluation.
-These reasons make Javascript a language of choice for developing web application.
 
-And that
-\begin{itemize}
-\item scalable performance requires parallelism, and
-\item parallelism requires exclusive accesses on the state through isolation and immutability.
-\end{itemize}
-Eventually, web development is heading toward a streaming approach with pipeline processing.
-
-\nt{TODO dependency schema of these highlights}
-
-
-
-The composition of modules with low coupling is provided by encapsulation, higher-order programming and lazy evaluation.
-Hence, the criteria to analyze the solutions presented in this section regarding maintainability are :
+Maintainability rely on modular programming, which requires three criteria.
+They are explained in section \ref{chapter3:software-maintainability:modularity}.
 \begin{itemize}
 \item encapsulation mechanism
 \item presence of higher-order programming
 \item presence of lazy evaluation, or stream composition
 \end{itemize}
-The last two criteria provide composition abstractions to design solutions from smaller components.
-Encapsulation and composition are the features in modular programming that produce maintainability.
 
-
-
-
-A system is maintainable only if there is competences available to maintain it.
-
-The criteria to analyze the solutions presented in this section regarding the organic growth are : 
+For a solution to be maintainable in regard to the economic context previously stated, it needs an organic growth.
+It needs to be backed by a strong community, and industrial needs.
+And to be relevant in this context, it needs to support web technologies.
+These criteria are explained in section \ref{chapter3:software-maintainability:organic-growth}.
 \begin{itemize}
 \item adoption by the community
 \item adoption by the industry
 \item supporting web technologies
 \end{itemize}
-The first two criteria make sure that the technology is growing organically with a passionate community, and backed by industrial needs.
-The last criteria assures the fitting of the technologies with our economical context of a web application. 
+
+Performance scalability rely on parallelism.
+More precisely, the requirements for scalable performance are an blend of shared states at a fine level, and isolation at a coarse level. 
+These criteria are explained in section \ref{chapter3:software-maintainability:performance-limitations}.
+\begin{itemize}
+\item fine level sequentiality
+\item coarse level message passing
+\end{itemize}
 
 
 
+% Present the criteria used for this analysis : 
+% - higher-order programming, closures, lazy evaluation / stream (not clear)
+% The expressiveness of a language comes from modularity, which comes from hop and lazy evaluation, because it allows abstraction.
+% But immutability is difficult, so closures are a good thing too.
+% So maintainability requires all three.
 
-Maybe take some parts from chapter 2 to put into industry (all the languages comparison stuffs that barely belong in the context).
+% - shared state (r/w), immutable shared state (r/ø), isolation (ø/ø)
+% Scalability is about shared state at a fine level, and immutability and isolation at a coarser level.
+
+
+% The state of the art highlights that
+% \begin{itemize}
+% \item maintainability requires lazy-evaluation and higher-order programming, section \ref{chapter3:software-maintainability:programming-models:functional-programming}, and
+% \item higher-order programming requires a global memory abstraction, section \ref{chapter3:software-maintainability:modular-programming:limitations},
+% \end{itemize}
+% Javascript is a functional language that features higher-order programming and a global memory abstraction.
+% % Moreover, its dynamic natures allows a lot of flexibility for the developers.
+% Moreover, node.js features a streaming approach with the event-loop execution model, similar to the lazy evaluation.
+% These reasons make Javascript a language of choice for developing web application.
+
+% And that
+% \begin{itemize}
+% \item scalable performance requires parallelism, and
+% \item parallelism requires exclusive accesses on the state through isolation and immutability.
+% \end{itemize}
+% Eventually, web development is heading toward a streaming approach with pipeline processing.
+
+% \nt{TODO dependency schema of these highlights}
+
 
 \input{03-state-of-the-art/Software-maintainability}
 \input{03-state-of-the-art/Software-performance}

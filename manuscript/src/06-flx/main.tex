@@ -1,0 +1,22 @@
+\chapter{Pipeline isolation} \label{chapter6}
+
+The previous chapter presented a compiler to identify and extract the underlying pipeline in a Javascript application.
+However, all the operations are not independent, and cannot be executed in parallel, to support the performance scalability.
+This chapter present the second contribution of this thesis.
+The equivalence between a memory shared among all the operations and independent memory for each operation in a pipeline.
+It tackles the problems arising from the translation of the global memory synchronization into message passing.
+
+This equivalence is implemented as a compiler, improving upon the previous one.
+The compiler transforms a Javascript application into a network of independent parts communicating by message streams and executed in parallel.
+We named these parts \textit{fluxions}, by contraction between a flux and a function.
+% Fluxions are executed in an execution model that assure parallelism and communications.
+
+% We present an early version of this tool as a proof of concept for this compilation approach.
+Section \ref{section:model} describes the execution model that executes fluxions in parallel, and assure their communications.
+The compiler, and the equivalence are described in section \ref{section:compiler}.
+Section \ref{section:evaluation} a real-case test of compilation, and expose the limits of this compiler.
+
+\input{06-flx/model}
+\input{06-flx/compiler}
+\input{06-flx/evaluation}
+

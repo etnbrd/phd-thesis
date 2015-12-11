@@ -1,42 +1,39 @@
 \section{Software Performance} \label{chapter3:software-performance}
 
-% The previous section showed that modular programming limits performance scalability of execution.
+With the limitations on performance presented in the previous section, both academy and industry communities proposed alternative solutions with performance in mind.
+Section \ref{chapter3:software-performance:concurrency} presents the concurrent and parallel programming paradigms, and their programming models oriented on performance rather than maintainability.
+Section \ref{chapter3:software-performance:organic-growth} presents the organic growth steered by the performance of parallel programming.
+Section \ref{chapter3:software-performance:maintainability-limitations} presents the consequences of the decomposition on maintainability.
+Finally, section \ref{chapter3:software-performance:summary} summarizes the three previous sections in a table.
 
+\subsection{Concurrency} \label{chapter3:software-performance:concurrency}
 
-
-
-\subsection{Concurrency}
-
-
-
-
-
-The criteria to analyze the solutions presented in this section are :
-\begin{itemize}
-\item fine level sequentiality
-\item coarse level message passing
-\end{itemize}
-
-The sequentiality of execution at a fine level assures the invariance on the shared state.
-The message passing used assures the independence, and immutability at a coarser level of execution, hence the parallelism.
-Both these organizations are needed to 
-
-
-\begin{figure}[h!]
+\begin{figure}[h!]  \label{fig:state-of-the-art-3}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-3.pdf}
 \end{center}
 \end{figure}
 
+Web servers need to be able to process huge amount of concurrent tasks in a scalable fashion.
+Concurrency is the ability to make progress on several tasks simultaneously, it implies decomposition of the execution or the memory into independent tasks.
+When the independence on both the execution and the memory are clearly defined, the tasks can be scheduled in parallel, otherwise, they cannot.
 
+This decomposition allows the fine level sequentiality, and coarse level message passing required by scalability.
+The sequentiality of execution at a fine level assures the invariance on the shared state, and avoid communication overhead.
+The message passed at a coarser level are immutable, it assures the independence, hence the parallelism, and avoid the synchronization overhead.
+The two are indispensable for performance scalability as the need for synchronization are different at the two levels.
+Therefore the solutions presented in this section are analyzed against these two criteria.
+
+\begin{itemize}
+\item fine level sequentiality
+\item coarse level message passing
+\end{itemize}
 
 \subsubsection{Concurrent Programming} \label{chapter3:software-maintainability:concurrency:concurrent-programming}
 
 % \cit{Building concurrent programming is like building a steam engine through a keyhole}{TODO}
 
-IMPORTANT -> Synchronization at a coarse grain is bad for performance.
-
-Concurrent programming provides to the developer the mechanisms for concurrent execution, while conserving a global memory model.
+Concurrent programming provides to the developer the mechanisms to decompose the execution for concurrency, while conserving a global memory model.
 
 \illustration{feu rouge et rond point}
 
@@ -46,8 +43,7 @@ Each concurrent execution has an atomic, exclusive access on the memory.
 On the other hand, preemptive scheduling allows a limited time of execution for each concurrent execution, before preempting it.
 It assures fairness between the tasks, such as in a multi-tasking operating system, but as the preemption happens unexpectedly it breaks atomicity, the developer needs to lock the shared state to assure atomicity and exclusivity.
 The next paragraphs presents the event-driven programing model, based on cooperative scheduling, and the multi-threading programming model, based on preemptive scheduling.
-
-\nt{and then lock-free data-structures}
+Additionally, they present lock-free data-structures, which is independent from the scheduling strategy, as they rely on atomic memory operations.
 
 \paragraph{Event-Driven Programming}
 
@@ -78,23 +74,7 @@ Several execution model proposed this event-based programming model, like TAME \
 % + Vert.X - \ftnt{http://vertx.io/} node like + thread / worker capabilities
 
 However, as the shared memory is global and all the execution portions needs atomic access, they are not parallel, but sequentially concurrent.
-The next paragraph present the multi-threading and associated synchronization mechanisms to try improve the parallelism of execution using finer granularity of atomic execution and exclusivity.
-
-\paragraph{Multi-Threading Programming}
-
-Threads are light processes sharing the same memory execution context within an isolated process \cite{Dijkstra1968}.
-They wait for completion of each operation, and are preemptively scheduled to avoid blocking the global progression.
-This preemption breaks the atomicity of the execution, and the parallel execution breaks the exclusivity.
-To restore atomicity and exclusivity, hence assure the invariance, multi-threading programming model provide synchronization mechanisms, such as semaphores \cite{Dijkstra}, guarded commands \cite{Dijkstra1975}, guarded region \cite{Hansen1978a} or monitors \cite{Hoare1974}.
-They assure an execution region to have exclusive access over a cell of the global state.
-
-\cit{The purpose of explicit synchronization is to manage the timing of side-effects in the presence of parallelism.}{Chris Quenelle\ftnt{http://pchiusano.blogspot.com/2010/01/actors-are-not-good-concurrency-model.html?showComment=1267337235223\#c3014836700278061280}}
-
-Developers tend to use the global memory extensively, and threads require to protect each and every shared memory cell.
-This heavy need for synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
-The next paragraph present work intending to improve performance by reducing the lock granularity to a minimum.
-
-\nt{Add Fork-join parallelism : Cilk \cite{Randall1998,Frigo1998,Leiserson2010}}
+The next paragraph present work intending to improve performance by reducing the sequential portions to a minimum to increase the possibilities of parallelism.
 
 \paragraph{Lock-Free Data-Structures}
 
@@ -104,8 +84,7 @@ Lock-free data-structures arrange these atomic operations so as to keep invarian
 They provide concurrent implementation of basic data-structures such as linked list \cite{Valois1995,Timnat2012}, queue \cite{Sundell2003,Wimmer2015}, tree \cite{Ramachandran2015} or stack \cite{Hendler2004}.
 
 However, even if they are theoretically infinitely scalable, they are hard to come with, and are not fit for every problem.
-
-\nt{Fork-join parallelism : Cilk \cite{Randall1998,Frigo1998,Leiserson2010}}
+The next paragraph present the multi-threading and associated synchronization mechanisms to try improve the parallelism of execution using coarser granularity of atomic execution and exclusivity.
 
 % Reference papers :
 % Concurrent reading and writing \cite{Lamport1977}
@@ -116,10 +95,25 @@ However, even if they are theoretically infinitely scalable, they are hard to co
 % Book :
 % The virtue of Patience: Concurrent Programming With And Without Waiting \cite{Anderson1990}
 
+\paragraph{Multi-Threading Programming}
+
+Threads are light processes sharing the same memory execution context within an isolated process \cite{Dijkstra1968}.
+They wait for completion of each operation, and are preemptively scheduled to avoid blocking the global progression.
+This preemption breaks the atomicity of the execution, and the parallel execution breaks the exclusivity.
+To restore atomicity and exclusivity, hence assure the invariance, multi-threading programming model provide synchronization mechanisms, such as semaphores \cite{Dijkstra}, guarded commands \cite{Dijkstra1975}, guarded region \cite{Hansen1978a} or monitors \cite{Hoare1974}.
+They assure an execution region to have exclusive access over a cell of the global state.
+
+\textit{The purpose of explicit synchronization is to manage the timing of side-effects in the presence of parallelism.}\ftnt{http://pchiusano.blogspot.com/2010/01/actors-are-not-good-concurrency-model.html?showComment=1267337235223\#c3014836700278061280}
+
+\nt{Fork-join parallelism : Cilk \cite{Randall1998,Frigo1998,Leiserson2010}}
+
+Developers tend to use the global memory extensively, and threads require to protect each and every shared memory cell.
+This heavy need for synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
+
 
 
 \begin{table}[h!]
-\label{maintainability-scalability}
+\label{concurrent-actormodel}
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
 %
@@ -128,11 +122,11 @@ Model & Implementations    & \rot{Fine level sequentiality} & \rot{Coarse level 
 \tabucline[.5pt]{-}
 %                                                                               SEQ  MSG   SCL
 Event-driven programming       & Node.js, Vert.X                               & \V & \X && \X \\ \tabucline[on .5pt]{-}
-Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \V & \X && \X \\ \tabucline[on .5pt]{-}
-Lock-free Data Structures      &                                               & \V & \X && \X \\
+Lock-free Data Structures      &                                               & \V & \X && \X \\ \tabucline[on .5pt]{-}
+Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \V & \X && \X \\
 \tabucline[.5pt]{-}
 \end{tabu}
-\caption{Analysis of the state of the art regarding concurrent programming}
+\caption{Analysis of the state of the art in concurrent programming regarding performance}
 \end{table}
 
 
@@ -145,16 +139,12 @@ But as transistors attained a critical size, the reduction in power required by 
 The ever growing number of transistor predicted by Moore's law are arranged in parallel architecture to continue increasing the performance of processing units.
 Parallel programming became the only solution for scalable performance, at the expense of development effort.
 
-This section presents the parallel programming solutions and their limitations in accessibility, and then the improvements to overcome these limitations.
-
-
-
+% This section presents the parallel programming solutions and their limitations in accessibility, and then the improvements to overcome these limitations.
 
 Concurrent programming is a compromise to keep shared states, while introducing different forms of synchronization to keep the execution sequential.
 But because of the lack of clear isolation, the execution is not parallel, hence the performance is limited.
 
-
-\nt{The shared-nothing architecture \cite{Stonebraker1986}}
+% \nt{The shared-nothing architecture \cite{Stonebraker1986}}
 
 
 \subsubsection{Parallel Programming} \label{chapter3:software-performance:parallel-programming}
@@ -169,9 +159,7 @@ This section presents first hand the theoretical and programming model based on 
 It then continues with stream processing programming model. 
 And finally,it concludes on the limitations of parallel programming regarding accessibility. 
 
-
-\nt{read and include The Landscape of Parallel Computing Research: a view from berkeley, by Asonovic, Bodik, Catanzaro, Gebis, Husbands, Keutzer ...}
-
+\nt{read and include \cite{Asanovic2006}}
 
 \paragraph{Asynchronous and Isolated Process Parallelism}
 
@@ -182,26 +170,21 @@ MIMD implies several threads of execution processing several stream of data.
 % The difference between SPMD and MPMD holds on the distinction of instruction pool between the threads of execution.
 % SPMD implies to replicate the same program on all the processing units, while MPMD implies to define different programs for every processing units.
 
-% \begin{figure}
-% \begin{center}
-% \includegraphics[width=0.2\textwidth]{../ressources/SISD.svg}
-% \includegraphics[width=0.2\textwidth]{../ressources/SIMD.svg}
-% \includegraphics[width=0.2\textwidth]{../ressources/MISD.svg}
-% \includegraphics[width=0.2\textwidth]{../ressources/MIMD.svg}\\
-% by I, Cburnett. Licensed under CC BY-SA 3.0 via Commons
-% \url{https://commons.wikimedia.org/wiki/File:SISD.svg#/media/File:SISD.svg}
-% \url{https://commons.wikimedia.org/wiki/File:SIMD.svg#/media/File:SIMD.svg}
-% \url{https://commons.wikimedia.org/wiki/File:MISD.svg#/media/File:MISD.svg}
-% \url{https://commons.wikimedia.org/wiki/File:MIMD.svg#/media/File:MIMD.svg}
-% \end{center}
-% \nt{TODO convert these svg to pdf}
-% \caption{Flynn's taxonomy of parallelism}
-% \end{figure}
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.2\textwidth]{../ressources/SISD.pdf}
+\includegraphics[width=0.2\textwidth]{../ressources/SIMD.pdf}
+\includegraphics[width=0.2\textwidth]{../ressources/MISD.pdf}
+\includegraphics[width=0.2\textwidth]{../ressources/MIMD.pdf}\\
+by I, Cburnett. Licensed under CC BY-SA 3.0 via Commons
+\url{https://commons.wikimedia.org/wiki/File:{SISD,SIMD,MISD,MIMD}.svg}
+% \url{https://commons.wikimedia.org/wiki/File:SIMD.svg}
+% \url{https://commons.wikimedia.org/wiki/File:MISD.svg}
+% \url{https://commons.wikimedia.org/wiki/File:MIMD.svg}
+\end{center}
+\caption{Flynn's taxonomy of parallelism}
+\end{figure}
 
-\nt{schemas SPMD / MPMD}
-
-SPMD -> concurrent programming, multi-threading and so on ...
-MPMD -> Actor model based programming
 
 The difference between SPMD and MPMD is in the representation of the execution in implementation.
 SPMD organizes the implementation as a single execution replicated on many processing units.
@@ -219,7 +202,7 @@ SPMD is close to the model presenting parallel improvements over modular program
 While MPMD is closer to the programming models based on isolated process presented in the remaining of this section.
 The coordinations between these threads of execution were done by message passing, using PVM \cite{Sunderam1994}, MPI \cite{Snir1996,Walker1996}, SOAP, or the more recent REST protocols.
 
-\subparagraph{Theoretical Models}
+\paragraph{Theoretical Models}
 
 The communication in reality are subject to various faults and attacks \cite{Lamport1982} and too slow compared to execution to be synchronous.
 The Actor model is one of the first programming model to be explicitly designed to take these physical limitations in account \cite{Hewitt1977a}.
@@ -236,8 +219,13 @@ Coroutines are autonomous programs which communicate with adjacent modules as if
 It is the first definition of a pipeline to implement multi-pass algorithms.
 Similar works include the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}, and the Kahn Networks \cite{Kahn1974, Kahn1976}.
 
+
+\paragraph{}
+
+Table \ref{scalability-actor-model} presents a summary of the analysis of the paradigm presented in the previous paragraphs.
+
 \begin{table}[h!]
-\label{maintainability-scalability}
+\label{scalability-actor-model}
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
 %
@@ -246,47 +234,47 @@ Model & Implementations    & \rot{Fine level sequentiality} & \rot{Coarse level 
 \tabucline[.5pt]{-}
 %                                                                               SEQ  MSG   SCL
 Event-driven programming       & Node.js, Vert.X                               & \V & \X && \X \\ \tabucline[on .5pt]{-}
-Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \V & \X && \X \\ \tabucline[on .5pt]{-}
-Lock-free Data Structures      &                                               & \V & \X && \X \\
+Lock-free Data Structures      &                                               & \V & \X && \X \\ \tabucline[on .5pt]{-}
+Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \V & \X && \X \\
 \tabucline[.5pt]{-}
 Actor Model                    & Scala, Akka, Play, Erlang                     & \V & \V && \V \\
 \tabucline[.5pt]{-}
 \end{tabu}
-\caption{Analysis of the state of the art regarding scalability}
+\caption{Analysis of the state of the art in concurrent and parallel programming regarding performance}
 \end{table}
 
-\subsection{Organic Growth}
 
 
-A system is maintainable only if there is competences available to maintain it.
 
-The criteria to analyze the solutions presented in this section regarding the organic growth are : 
-\begin{itemize}
-\item adoption by the community
-\item adoption by the industry
-\item supporting web technologies
-\end{itemize}
-The first two criteria make sure that the technology is growing organically with a passionate community, and backed by industrial needs.
-The last criteria assures the fitting of the technologies with our economical context of a web application. 
 
-\begin{figure}[h!]
+\subsection{Organic Growth} \label{chapter3:software-performance:organic-growth}
+
+\begin{figure}[h!]  \label{fig:state-of-the-art-4}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-4.pdf}
 \end{center}
 \end{figure}
 
+The performance improvements comes directly from the industry requirements.
+All these system make sens in industrial context, even the smallest.
+When the need for performance is higher than the need for maintainability, the research merges with the academy.
+% Industries have the money to fund the necessary research.
+If there is industrial need, there will be maintenance.
+The languages on the Mars Rover or in banking systems are 30 years old, and there is no community to maintain it.
+Yet the industry continue to maintain these languages.
 
-\subsubsection{Programming Languages}
+However, the context of this thesis is different from a classical industrial context.
+During the bootstrap of a web application project, the economical context requires technologies with strong community, to pick talents from to grow the team quickly and effortlessly.
+It also requires these technologies to be of industrial standard, to build a reliable product.
+And these technology must be compatible with web technologies.
 
-The theoretical models presented above are implemented in industrial languages such as Akka Scala and Erlang \cite{JoeArmstrong} .
+The context of this thesis requires the technology to meet all the three criteria.
+\begin{itemize}
+\item adoption by the community
+\item adoption by the industry
+\item supporting web technologies
+\end{itemize}
 
-Scala is an attempt at unifying the object model, and functional programming \cite{Odersky2004}.
-% It proposes an actor approach in its design.
-Akka\ftnt{http://akka.io/} is a framework based on Scala, following the Actor model to build higly scalable and resilient applications.
-Play\ftnt{https://www.playframework.com/} is a web framework based on top of Akka.
-
-Erlang borrow the Actor model as well.
-It is a functional concurrent language designed by Ericsson to operate telecommunication devices \cite{JoeArmstrong,Nelson2004} % Nelson2004 is not very good, find another better citation.
 
 \nt{review this paragraph and the transition to the next section}
 The field of concurrent programming is so vast it is impossible to relate here every programming languages.
@@ -296,17 +284,123 @@ The next focus focuses on streaming real-time applications.
 % \comment{transition on lazy evaluation equivalence to stream. lazy evaluation + side effects + concurrency = streams}
 
 
-+ all the solutions that have a great industrial impact (storm, millwheel and co)
 
-Eventually, the research merges with the academy at some level, because the need for performance is higher than the need for maintainability.
-Industries have the money to pay researchers, great engineers and so on ...
+% + all the solutions that have a great industrial impact (storm, millwheel and co)
 
 
 
-\subsubsection{Execution Organization}
+\subsubsection{Exection Decomposition}
 
 
-\paragraph{Stream Processing Systems}
+The programming paradigms presented above are implemented in many existing programming languages.
+All major programming languages implements some form of concurrency or parallelism mechanism.
+The next paragraphs presents these implementations by the industry and the community.
+And more specifically, how they deal with the need to decompose the execution.
+
+\paragraph{Event-Loop}
+
+The event-loop model, featured by the DOM and Node.js with Javascript, allows concurrency but not parallelism.
+It decomposes the execution into sequences of callbacks functions, but keep the memory shared.
+
+As presented in the previous section, Javascript is currently one of the most used language.
+This asynchronous programming model without the memory decomposition seems to be easy to develop with.
+It is used extensively in the community as well as in the industry.
+However, when the programming model requires the memory to be decompose, in order to get parallelism, it becomes more complicated to develop with, as presented in the next paragraphs.
+
+\paragraph{Multi-Threading}
+
+The multi-threading model allows concurrency and parallelism on certain execution region.
+It decomposes the execution into fork-join threads, and the memory is shared, but protected with locks.
+The protection of the shared memory is the reason concurrent programming is difficult to manage for most developers.
+Multi-threading is difficult to program with, and for this reason, it leads to poor performances.
+It is not heavily used in the community, where the need for concurrency is limited.
+In the industry, where the concurrency is often required, multi-threading is abandoned for other paradigms, such as the event loop or the actor model.
+
+\paragraph{}
+
+The event-loop requires an execution decomposition, but not a memory decomposition.
+This paradigm is heavily adopted by both the community and the industry.
+On the other hand, the multi-threading paradigms with locks requires an execution decomposition, and light memory decomposition.
+This paradigms is not heavily used in the community, and is being abandoned by the industry.
+This comparison between the event-loop and the multi-threading paradigms seems to indicate that the memory decomposition heavily restrains the adoption by the community.
+Hence, it impacts the maintainability required for the organic growth in the economical context of this thesis, as shown in table \ref{scalability-execution-decomposition}.
+
+\begin{table}[h!]
+\label{scalability-execution-decomposition}
+\small
+\begin{tabu} to \linewidth {@{} l X[l] c c c c c @{}}
+%
+% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \rot{Community adoption} & \rot{Industrial adoption} & \rot{Web compliant} & $\to$ & \rot{Organic Growth} \\
+\tabucline[.5pt]{-}
+% %                                                                               COM  IND  WEB   GRO
+Event-driven programming       & Node.js, Vert.X                               & \V & \V & \V && \V \\ \tabucline[on .5pt]{-}
+Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \X & \V & \V && \X \\
+\tabucline[.5pt]{-}
+\end{tabu}
+\caption{Analysis of the state of the art in concurrent programming regarding organic growth}
+\end{table}
+
+The next paragraphs present solutions that forces both the execution and memory decomposition to allow parallel execution.
+
+\subsubsection{Actor Model}
+
+The theoretical models presented in section \ref{chapter3:software-performance:parallel-programming} are implemented in industrial languages.
+Example of implementation are Akka Scala and Erlang \cite{JoeArmstrong}.
+
+Scala is an attempt at unifying the object model, and functional programming \cite{Odersky2004}.
+It proposes an actor approach in its design.
+Akka\ftnt{http://akka.io/} is a framework based on Scala, following the actor model to build highly scalable and resilient applications.
+Play\ftnt{https://www.playframework.com/} is a web framework based on top of Akka.
+
+Erlang borrow the Actor model as well.
+It is a functional concurrent language designed by Ericsson to operate telecommunication devices \cite{JoeArmstrong,Nelson2004}
+% Nelson2004 is not very good, find another better citation.
+
+These two example of implementation are heavily used in the industry.
+They are backed by strong, but small communities of passionate people, as the actor model is not trivial to understand.
+
+Moreover, the actor model decomposes the execution into isolated parallel executions, and the memory into independent stores.
+These decompositions are hardly compatible with the modularity programming presented in the previous section.
+It is difficult for developers to manage these decompositions, executions and memory, and the modularity of the implementation.
+It restrain the maintainability of the implementation.
+Most developers are unable to manage efficiently the two decompositions required by the actor model.
+And novice developers seems reluctant to learn it.
+The next paragraphs presents some solutions based on the actor model, with the intent to mitigate the duality between execution decomposition and modularity.
+
+\paragraph{Design Patterns}
+
+To reduce the difficulties of the decomposition of the execution into actors, algorithmic skeletons propose predefined patterns that fit certain type of problems \cite{Cole1988, Dean2008, McCool2010, Gonzalez-Velez2010}.
+A developer implements the problem as a specific case of a skeleton.
+It simplifies the communications, so that the developer can focus on its problem independently of message passing required by the distribution of execution.
+These solutions are hardly used by the community, but are crucial in industrial contexts.
+A famous example in the industry is map/reduce, introduce by Google \cite{Dean2008}.
+
+% \nt{Link with DSMS}
+% As there is similtudes between SQL-like languages, functional structures, and algorithmic skeletons, the latter can be seen as a tentative to merge the more descriptional features of the former into imperative programming.
+% Indeed, among the Algorithmic skeletons, we can cite Map / reduce, which are functional structures, but are somehow equivalent to the select and aggregate functions of SQL.
+% The pipeline architecture for data stream processing presented in section \ref{chapter3:software-efficiency:dataflow-pipeline} can be considered as algorithmic skeletons.
+
+% However, they introduce limitations and difficulties, as the developer must fit its problem into the skeletons.
+% One of this difficulties, it that a common memory is impossible to use.
+% Developers needs to think in terms of message passing instead of a global memory, which, as we saw in previous section, is incompatible with best practices.
+
+% Introducing 'Bones': a parallelizing source-to-source compiler based on algorithmic skeletons \cite{Nugteren2012}
+
+\paragraph{Granularity}
+
+The Service Oriented Architectures (SOA), and more recently Microservice\cite{Namiot2014,Fernandez-Villamor2010,Fowler2014,Namiot2014} allow developers to express an application as an assembly of services connected to each others.
+Some examples of frameworks are OSGi\ftnt{https://www.osgi.org/developer/specifications/}, EJB\ftnt{http://www.oracle.com/technetwork/java/javaee/ejb/index.html}, Spring\ftnt{http://projects.spring.io/spring-framework/}, and Seneca\ftnt{http://senecajs.org/}
+It intends to adjust the granularity of execution decomposition to help developers to fit the two organizations, the modular organization and the parallel execution organization \cite{Adam2008}.
+Microservices are very recent, and it is difficult to asses their usage in the community nor the industry.
+But they seems to be increasingly adopted, both in the industry and in the community.
+
+% In modular programming a module protects the rest of the implementation from the consequences of the design choice its encapsulate, while a service encapsulate a specific task, with possible consequences on the adjacent services.
+
+% In a fine enough granularity of service, each service becomes so simple, it can limits the consequences of its modification.
+
+
+\subsubsection{Stream Processing Systems}
 
 All the solutions previously presented are designed to build general distributed systems.
 In the context of the web, a real-time application must process high volumes streams of requests within a certain time.
@@ -314,7 +408,7 @@ Because these systems are key to business, their reliability and latency are of 
 Otherwise, input data may be lost or output data may lose their value.
 These requirements are challenging to meet in the design of such system.
 
-\subparagraph{Data-stream Management Systems}
+\paragraph{Data-stream Management Systems}
 
 Database Management Systems (DBMS) historically processed large volume of data, and they naturally evolved into Data-stream Management System (DSMS) to processed data streams as well.
 Because of this evolution, they are in rupture with imperative languages presented until now, and borrow the syntax from SQL.
@@ -335,7 +429,7 @@ Timestream \cite{Qian2013} and
 Shark \cite{Xin2013}.
 
 
-\subparagraph{Pipeline Architecture}
+\paragraph{Pipeline Architecture}
 
 As presented in the previous section, streaming and lazy-evaluation composition both allow a loosely coupled yet efficient composition.
 The pipeline architecture takes advantage of this, and composes the parallel execution in a stream, the output of one feeding the input of the next.
@@ -368,71 +462,35 @@ SDG \cite{Fernandez2014a} and
 Regent \cite{Slaughter2015}
 
 
+\paragraph{}
 
-
-All of the parallel programming models presented above decompose the execution into isolated parallel executions, like actors.
-This decomposition is difficult as it implies to manage both the parallel decomposition of execution and the modular decomposition of implementation.
-Most developers are unable to manage efficiently the two decompositions.
-The next paragraphs presents some solutions to mitigate this duality.
-\nt{TODO weak argumentation}
-
-\paragraph{Design Patterns}
-
-To reduce the difficulties of the decomposition of the execution into actors, algorithmic skeletons propose predefined patterns that fit certain type of problems \cite{Cole1988, Dean2008, McCool2010, Gonzalez-Velez2010}.
-A developer implements the problem as a specific case of a skeleton.
-It simplifies the communications, so that the developer can focus on its problem independently of message passing required by the distribution of execution.
-
-% \nt{Link with DSMS}
-% As there is similtudes between SQL-like languages, functional structures, and algorithmic skeletons, the latter can be seen as a tentative to merge the more descriptional features of the former into imperative programming.
-% Indeed, among the Algorithmic skeletons, we can cite Map / reduce, which are functional structures, but are somehow equivalent to the select and aggregate functions of SQL.
-% The pipeline architecture for data stream processing presented in section \ref{chapter3:software-efficiency:dataflow-pipeline} can be considered as algorithmic skeletons.
-
-% However, they introduce limitations and difficulties, as the developer must fit its problem into the skeletons.
-% One of this difficulties, it that a common memory is impossible to use.
-% Developers needs to think in terms of message passing instead of a global memory, which, as we saw in previous section, is incompatible with best practices.
-
-% Introducing 'Bones': a parallelizing source-to-source compiler based on algorithmic skeletons \cite{Nugteren2012}
-
-\paragraph{Granularity}
-
-The Service Oriented Architectures (SOA), and more recently Microservice\cite{Namiot2014,Fernandez-Villamor2010,Fowler2014,Namiot2014} allow developers to express an application as an assembly of services connected to each others.
-Some examples of frameworks are OSGi\ftnt{https://www.osgi.org/developer/specifications/}, EJB\ftnt{http://www.oracle.com/technetwork/java/javaee/ejb/index.html}, Spring\ftnt{http://projects.spring.io/spring-framework/}, and Seneca\ftnt{http://senecajs.org/}
-It intends to adjust the granularity of execution decomposition to help developers to fit the two organizations, the modular organization and the parallel execution organization \cite{Adam2008}.
-
-% In modular programming a module protects the rest of the implementation from the consequences of the design choice its encapsulate, while a service encapsulate a specific task, with possible consequences on the adjacent services.
-
-% In a fine enough granularity of service, each service becomes so simple, it can limits the consequences of its modification.
-
-
-
-
-
-
-
-\subsubsection{Usage}
-
-
-TODO
-
+At the light of this analysis, it appears that parallel programming is not heavily adopted by the community.
+The execution decomposition required by parallel programming improve performance scalability, but reduce the organic growth required for maintainability.
+Eventually, only the event-loop is a viable concurrent programming approach in the economical context of the web.
+And it is exactly what the numbers indicates through the heavy adoption of Javascript in the last few years.
 
 \begin{table}[h!]
-\label{maintainability-scalability}
+\label{scalability-growth}
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c c c @{}}
 %
 % \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Community adoption} & \rot{Industrial adoption} & \rot{Web compliant} & $\to$ & \rot{Growth} \\
+Model & Implementations    & \rot{Community adoption} & \rot{Industrial adoption} & \rot{Web compliant} & $\to$ & \rot{Organic Growth} \\
 \tabucline[.5pt]{-}
 % %                                                                               COM  IND  WEB   GRO
 Event-driven programming       & Node.js, Vert.X                               & \V & \V & \V && \V \\ \tabucline[on .5pt]{-}
-Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \X & \V & \V && \V \\ \tabucline[on .5pt]{-}
-Lock-free Data Structures      &                                               & \X & \V & \V && \V \\
+Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \X & \V & \V && \X \\ \tabucline[on .5pt]{-}
+Lock-free Data Structures      &                                               & \X & \V & \V && \X \\
 \tabucline[.5pt]{-}
-Actor Model                    & Scala, Akka, Play, Erlang                     & \X & \V & \X && \X \\ \tabucline[on .5pt]{-}
+Actor Model                    & Scala, Akka, Play, Erlang                     & \M & \V & \V && \M \\ \tabucline[on .5pt]{-}
+Skeleton                       & MapReduce, ...                                & \X & \V & \V && \X \\ \tabucline[on .5pt]{-}
+Service Oriented Architecture  & OSGi, EJB, Spring                             & \J & \V & \V && \J \\ \tabucline[on .5pt]{-}
+Microservices                  & Seneca                                        & \U & \U & \V && \U \\
+\tabucline[.5pt]{-}
 Data Stream System Management  & DryadLINQ \cite{Isard2007,Yu2009},%
                                  Apache Hive \cite{Thusoo2009}\ftnt{https://hive.apache.org/},%
                                  Timestream \cite{Qian2013},%
-                                 Shark \cite{Xin2013}.                         & \X & \V & \X && \X \\ \tabucline[on .5pt]{-}
+                                 Shark \cite{Xin2013}.                         & \X & \V & \V && \X \\ \tabucline[on .5pt]{-}
 Pipeline Stream Processing     & SEDA, Storm, Spark Streaming,%
                                  Spidle \cite{Consel2003},%
                                  Pig Latin \cite{Olston2008},%
@@ -446,57 +504,28 @@ Pipeline Stream Processing     & SEDA, Storm, Spark Streaming,%
                                  Regent \cite{Slaughter2015}.                  & \X & \V & \V && \X \\
 \tabucline[.5pt]{-}
 \end{tabu}
-\caption{Analysis of the state of the art regarding organic growth}
+\caption{Analysis of the state of the art in concurrent and parallel programming regarding organic growth}
 \end{table}
 
-\subsection{Maintainability Limitations}
+\subsection{Maintainability Limitations} \label{chapter3:software-performance:maintainability-limitations}
 
-
-\nt{to integrate
-In these parallel programming models describing a network of isolated execution, the topology of the network is statically defined. 
-The dynamical modification of the topology is impossible.
-It is not possible to dynamically manipulate execution containers, like it is possible to manipulate functions.
-Therefore, higher-level programming is impossible, so modular programming is limited.
-%
-Moreover, the decomposition of the execution and memory required is difficult for most developers to manage correctly.
-TODO make sure this idea is correctly developed throughout this chapter : parallel programming implies to keep a double mental representation.
-It implies to keep two mental representation of the implementation.
-One for the modularity, and one for the decomposition of execution.
-Parallel programming remains hard, and is accessible only to an elite of developers.
-%
-% \subsubsection{Lack of Higher-Order Programming}
-The programming models of this section lack higher order programming.
-% Moreover, in these solutions, higher-order programming is impossible.
-As showed earlier in section \ref{chapter3:software-design:programming-models:functional-programming}, higher-order programming is important for modular design and maintainability of the implementation.
-In this regards, parallel programming seems currently incompatible with modular programming.
-The next section presents the proposition of this thesis to bring parallel programming to a higher-order programming language.
-% By keeping the modular programming model, the compilation approach allows higher-level programming.
-% \paragraph{Transistion : these methods doesn't allow higher-order programming, which is required for good modularity. WHY ?}
-% \nt{TODO link with 3.1}
-}
-
-
-Because of the hybridization of state access, a granularity of sharing appears.
+Parallel programming requires the decomposition of memory and execution to allow the different levels of state accessibility and execution.
 At a fine level, the state is shared, while at a coarser level, it is isolated.
-Because of this difference, programming languages abandoned shared state, and higher-order programming between execution containers.
-These two features are responsible for the modularity of Functional Programming and Object Oriented Programming models.
+Because of this decomposition, programming languages abandoned shared state, and higher-order programming between execution containers.
 
-To allow a continuous development of a web service, a language must present these three features :
+Indeed, the topology of the network of actors is statically defined, and the dynamical modification of the topology is mostly impossible.
+It is not possible to dynamically manipulate execution containers, like it is possible to manipulate functions.
+Therefore, higher-level programming is impossible, and limits the modularity required for maintainability.
+It implies to keep two mental representation of the implementation, one for the modularity, and one for the decomposition of execution.
+Parallel programming remains hard, and is accessible only to an elite of developers.
+In this regards, the memory decomposition required by parallel programming is incompatible with the economical context required in this thesis.
 
-\begin{itemize}
-\item scalability
-\item maintainability
-\item abstract the decomposition
-\end{itemize}
-
-The first allows the evolution of the performance.
-The second assure the evolution of the implementation.
-The third is required to allow these two first features to coexist.
-
-
+To fit the economical context of this thesis, a solution must provide scalability, hence memory and execution decomposition.
+But at the same time proposes an abstraction for the memory decomposition, to avoid the developers to keep a double mental representation of the implementation.
+The next section presents some works that provides such a memory decomposition abstraction.
 
 \begin{table}[h!]
-\label{maintainability-scalability}
+\label{scalability-maintainability}
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c @{}}
 %
@@ -505,10 +534,14 @@ Model & Implementations    & \rot{Memory decomposition abstraction} & $\to$ & \r
 \tabucline[.5pt]{-}
 %                                                                               ABS   MAI
 Event-driven programming       & Node.js, Vert.X                               & \V && \V \\ \tabucline[on .5pt]{-}
-Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \X && \X \\ \tabucline[on .5pt]{-}
-Lock-free Data Structures      &                                               & \X && \X \\
+Lock-free Data Structures      &                                               & \X && \X \\ \tabucline[on .5pt]{-}
+Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \X && \X \\
 \tabucline[.5pt]{-}
 Actor Model                    & Scala, Akka, Play, Erlang                     & \X && \X \\ \tabucline[on .5pt]{-}
+Skeleton                       & MapReduce, ...                                & \X && \X \\ \tabucline[on .5pt]{-}
+Service Oriented Architecture  & OSGi, EJB, Spring                             & \X && \X \\ \tabucline[on .5pt]{-}
+Microservices                  & Seneca                                        & \X && \X \\
+\tabucline[.5pt]{-}
 Data Stream System Management  & DryadLINQ \cite{Isard2007,Yu2009},%
                                  Apache Hive \cite{Thusoo2009}\ftnt{https://hive.apache.org/},%
                                  Timestream \cite{Qian2013},%
@@ -530,22 +563,28 @@ Pipeline Stream Processing     & SEDA, Storm, Spark Streaming,%
 \end{table}
 
 
-\subsection{Summary}
+\subsection{Summary} \label{chapter3:software-performance:summary}
+
+Table \ref{scalability-synthesis} summarizes the characteristics of the solutions presented in this section.
 
 \begin{table}[h!]
-\label{maintainability-scalability}
+\label{scalability-synthesis}
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c @{}}
 %
 % \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Modularity} & \rot{Organic Growth} & \rot{Scalability} \\
+Model & Implementations    & \rot{Maintainability} & \rot{Organic Growth} & \rot{Scalability} \\
 \tabucline[.5pt]{-}
-%                                                                               MOD  GRO  SCA
+%                                                                               MAI  GRO  SCA
 Event-driven programming       & Node.js, Vert.X                               & \V & \V & \X \\ \tabucline[on .5pt]{-}
-Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \X & \V & \V \\ \tabucline[on .5pt]{-}
-Lock-free Data Structures      &                                               & \X & \V & \V \\
+Lock-free Data Structures      &                                               & \X & \V & \V \\ \tabucline[on .5pt]{-}
+Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \X & \V & \V \\
 \tabucline[.5pt]{-}
-Actor Model                    & Scala, Akka, Play, Erlang                     & \X & \X & \V \\ \tabucline[on .5pt]{-}
+Actor Model                    & Scala, Akka, Play, Erlang                     & \X & \M & \V \\ \tabucline[on .5pt]{-}
+Skeleton                       & MapReduce, ...                                & \X & \X & \V \\ \tabucline[on .5pt]{-}
+Service Oriented Architecture  & OSGi, EJB, Spring                             & \X & \J & \V \\ \tabucline[on .5pt]{-}
+Microservices                  & Seneca                                        & \X & \X & \V \\
+\tabucline[.5pt]{-}
 Data Stream System Management  & DryadLINQ \cite{Isard2007,Yu2009},%
                                  Apache Hive \cite{Thusoo2009}\ftnt{https://hive.apache.org/},%
                                  Timestream \cite{Qian2013},%
@@ -563,7 +602,7 @@ Pipeline Stream Processing     & SEDA, Storm, Spark Streaming,%
                                  Regent \cite{Slaughter2015}.                  & \X & \X & \V \\
 \tabucline[.5pt]{-}
 \end{tabu}
-\caption{Summary of the analysis of the state of the art}
+\caption{Summary of the analysis of the state of the art in concurrent and parallel programming}
 \end{table}
 
 \endinput

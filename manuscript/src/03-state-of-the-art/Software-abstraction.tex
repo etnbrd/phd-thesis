@@ -1,15 +1,20 @@
-\section{Decomposition Abstraction}
+\section{Memory Decomposition Abstraction}
 
 
+\nt{read and include \cite{Catanzaro2009} it is about Productivity language JIT compilation into efficient language
+And get all the paper that cite this one.
+}
+\nt{read and include \cite{Engler1994}}
+
+\nt{read and include \cite{Kovachev2011}}
 
 
-
-\subsection{Memory Abstraction}
+\subsection{Runtime}
 
 The criteria to analyze the solutions presented in this section are :
 \begin{itemize}
-\item unicorn fart
-\item fairy boobs
+\item criteria 1
+\item criteria 2
 \end{itemize}
 
 
@@ -49,7 +54,7 @@ HPX \cite{Kaiser2015}\nt{include as well HPX: A Task Based Programming Model in 
 
 
 
-\subsection{Dynamic Distribution of Execution}
+\subsubsection{Dynamic Distribution of Execution}
 
 An interesting work following SEDA, is Leda \cite{Salmito2013,Salmito2014}.It follows the PCAM design methodology \cite{Foster1995} to propose a model where the stages of the pipeline are defined only by their role in the application.
 % Partition $\to$ Communicate $\to$ Agglomerate $\to$ Map.
@@ -61,7 +66,7 @@ It manages the execution organizations to helps the developer focus on the modul
 
 
 
-\subsubsection{Compilation} \label{chapter3:software-maintainability:performance:compilation}
+\subsection{Compilation} \label{chapter3:software-maintainability:performance:compilation}
 
 \cit{It is a mistake to attempt high concurrency without help from the compiler}{R. Behren, J. Condit, E. Brewer \cite{Behren2003}}.
 
@@ -72,7 +77,7 @@ This section presents the state of the art to extract parallelization from seque
 
 \nt{read and include \cite{Catanzaro2009}}
 
-\paragraph{Parallelism Extraction}
+\subsubsection{Parallelism Extraction}
 
 As the only requirement to parallelism is the commutativity of operations \cite{Rinard1996,Clements2013a}, a compiler needs to identify the commutative operations transform a sequential program so as to parallelize its execution \cite{Rinard1996}.
 
@@ -105,7 +110,7 @@ The first paragraph presents static analysis, while the second presents annotati
 
 % Introducing 'Bones': a parallelizing source-to-source compiler based on algorithmic skeletons \cite{Nugteren2012}
 
-\paragraph{Static analysis}
+\subsubsection{Static analysis}
 
 % Intermediate representation is Abstract Syntax Tree
 % Static Single Assignment Form \cite{Cytron1991}
@@ -126,7 +131,7 @@ However, static analysis techniques are too imprecise, and expensive for the per
 Instead, some compilers relies on annotations from the developers.
 % These results suggest that dataflow graphs can serve as an executable intermediate representation in parallel compilers \cite{Beck1991}.
 
-\paragraph{Annotations}
+\subsubsection{Annotations}
 
 Extracting parallel dataflow from an imperative, sequential implementation is a hard problem \cite{Johnston2004a}.
 Some works proposed to rely on annotations from the developer to help the identify the possible side-effects between operations \cite{Vandierendonck2010a,Fernandez2014a}.
@@ -152,7 +157,7 @@ These solutions are indeed very close to the performance oriented solutions pres
 % Annotations, but not for parallelism.
 % Asynchronism annotations should be sufficient.
 
-\paragraph{Compilation Limitations}
+\subsubsection{Compilation Limitations}
 
 The static analysis of static, low level languages like FORTRAN or C, brings performance improvements.
 However for more dynamic, higher-level languages like Javascript, the static analysis is not sufficient to identify correctly the dependencies between operations to parallelize them.
@@ -345,5 +350,3 @@ Annotations                    & OpenMP \cite{Dagum1998},
 \end{tabu}
 \caption{Summary of the analysis of the state of the art}
 \end{table}
-
-\subsection{}

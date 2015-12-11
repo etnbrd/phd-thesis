@@ -111,6 +111,13 @@ The releases of HTML5 and ECMAScript 5, in 2008 and 2009, represent a milestone 
 Around the same time, Google released the Javascript interpreter V8 for its browser Chrome, improving drastically the execution performance.
 Javascript became the \textit{de facto} programming language to develop on this rising application platform that is the Web\ftnt{http://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/}.
 
+\paragraph{}
+
+Javascript is widely used on the web, in open source projects, and in the software industry.
+With the increasing importance of client web applications, Javascript is assuredly one of most important language in the times to come.
+Moreover, Javascript allows to build the server side of web applications as well.
+The next paragraphs presents the event-loop model used to develop Javascript web applications, both client and server-side.
+
 \begin{figure}
 
 \newcommand{\event}[3][10pt]{\chronoevent[markdepth=-#1]{#2}{#3}}
@@ -141,135 +148,6 @@ Javascript became the \textit{de facto} programming language to develop on this 
 
 \stopchronology
 \end{figure}
-
-\subsubsection{Current Situation}
-
-\nt{reduce this section to almost nothing}
-
-The rise of Javascript is indisputable on the web, and seems to be rising in the software industry as well.
-But it is difficult to give an accurate representation of the situation because the software industry often maintains a fog of war to try to keep an edge.
-The following paragraphs report some efforts to clear up the situation.
-% More detailed informations are available section \ref{appendix:langpop}.
-
-\paragraph{Available Resources}
-
-According to the TIOBE Programming Community index, Javascript ranks 8th, as of October 2015, and was the most rising language in 2014.
-This index measure the popularity of a programming language with the number of results on many search engines.
-However, this measure is controversial as the number of pages doesn't represent the number of readers.
-Alternatively, Javascript ranks 7th on the PYPL, as of October 2015.
-The PYPL index is based on Google trends to measure the number of requests on a programming language.
-However, it is limited to Google searches.
-From these indexes, the major programming languages are Java, then C/C++, C\# and Python.
-Javascript seems not as popular as previously described.
-The following paragraphs rectify this vision.
-
-\nt{TODO graphical ranking of TIOBE and PYPL}
-
-\paragraph{Developers Collaboration Platforms}
-
-Online collaboration tools give an indicator of the number of developers and projects using certain languages.
-Javascript is the most used language on \textit{Github}, the most important collaborative development platform gathering about 9 millions users.
-It represents more than 320 000 repositories, while the second language is Java with more than 220 000 repositories.
-Javascript is the most cited language on \textit{StackOverflow}, the most important Q\&A platform for developers.
-It represents more than 960 000 questions, while the second is Java with around 940 000 questions.
-\nt{Moreover, it is the language the most used, according to a survey by stackOverflow on 26K developers. include infographic \ftnt{http://stackoverflow.com/research/developer-survey-2015}}
-Additionnaly, Javascript has the most important and impressive package repository growth.
-Moreover, Javascript is currently the second language used in open source projects, according to \textit{Black Duck Software}\ftnt{https://www.blackducksoftware.com/}.
-C is first, C++ third and Java fourth.\ftnt{https://www.blackducksoftware.com/resources/data}
-These four languages represent about 80\% of all programming language usage in open source communities.
-
-\nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../data/js-trends/github-ranks}\ftnt{https://github.com/blog/2047-language-trends-on-github}
-
-\nt{TODO graphical ranking of the tags in StackOverflow}
-
-\nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../data/js-trends/black-duck-15}
-
-\nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../data/js-trends/modulecounts}
-
-% \begin{figure}[h!]
-% \begin{tikzpicture}
-% [
-%     pie chart,
-%     slice type={c}{gray1},
-%     slice type={js}{red},
-%     slice type={cpp}{gray2},
-%     slice type={java}{gray3},
-%     slice type={php}{gray4},
-%     slice type={autoconf}{gray5},
-%     slice type={python}{gray6},
-%     slice type={ruby}{gray1},
-%     slice type={xml}{gray2},
-%     slice type={sh}{gray3},
-%     slice type={asm}{gray4},
-%     slice type={sql}{gray5},
-%     slice type={make}{gray6},
-%     slice type={perl}{gray1},
-%     slice type={csharp}{gray2},
-%     pie values/.style={font={\small}},
-%     scale=2
-% ]
-
-% \pie{}{%
-%   34.80/c,%
-%   15.45/js,%
-%   15.13/cpp,%
-%   14.02/java,%
-%   2.87/php,%
-%   2.65/autoconf,%
-%   2.15/python,%
-%   1.77/ruby,%
-%   1.73/xml,%
-%   1.18/sh,%
-%   1.16/asm,%
-%   1.07/sql,%
-%   0.94/make,%
-%   0.92/perl,%
-%   0.90/csharp,%
-% }
-
-% \legend[shift={(1.3cm,0.9cm)}]{%
-%   {C}/c,%
-%   {Javascript}/js,%
-%   {C++}/cpp,%
-%   {Java}/java,%
-%   {PHP}/php,%
-%   {Autoconf}/autoconf,%
-%   {Python}/python,%
-%   {Ruby}/ruby,%
-%   {XML Schema}/xml,%
-%   {Shell}/sh,%
-%   {Assembler}/asm,%
-%   {SQL}/sql,%
-%   {Make}/make,%
-%   {Perl}/perl,%
-%   {C\#}/csharp,%
-% }
-% \end{tikzpicture}
-% \caption{Compilation results distribution}
-% \end{figure}
-
-\paragraph{Jobs}
-
-The actors of the software industry tends to hide their activities trying to keep an edge on the competition.
-The previous metrics represent the visible activity but are barely representative of the software industry.
-The trends on job opportunities give some additional hints on the situation.
-Javascript is the third most wanted skill, according to \textit{Indeed}\ftnt{http://www.indeed.com}, right after SQL and Java.\ftnt{http://www.indeed.com/jobtrends?q=Javascript\%2C+SQL\%2C+Java\%2C+C\%2B\%2B\%2C+C\%2FC\%2B\%2B\%2C+C\%23\%2C+Python\%2C+PHP\%2C+Ruby\&l=}
-Moreover, according to \textit{breaz.io}\ftnt{https://breaz.io/}, Javascript developers get more opportunities than any other developers.
-Javascript is increasingly adopted in the software industry.
-
-\nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../data/js-trends/jobgraph}
-
-\paragraph{}
-
-All these metrics represent different faces of the current situation of the Javascript adoption in the development community and industry.
-It is widely used on the web, in open source projects, and in the software industry.
-With the increasing importance of client web applications, Javascript is assuredly one of most important language in the times to come.
-Moreover, Javascript allows to build the server side of web applications as well.
-The next paragraphs presents the event-loop model used to develop Javascript web applications, both client and server-side.
 
 \subsubsection{Event-Loop Execution Model} \label{chapter2:web-as-a-platform:javascript:event-loop}
 
