@@ -156,6 +156,60 @@ var soTagCount = {
 
 
 
+// SO survey - Most popular languages
+//   2015
+//     Javascript    54.4%
+//     SQL           48.0%
+//     Java          37.4%
+//     C#            31.6%
+//     PHP           29.7%
+//     Python        23.8%
+//     C++           20.6%
+//     C             16.4%
+//     Node.js       13.3%
+//     AngularJS     13.3%
+//     Ruby          8.0%
+//     Objective-C   7.8%
+//   2014
+//     Javascript    58.9%
+//     SQL           57.1%
+//     Java          37.6%
+//     C#            37.6%
+//     PHP           28.9%
+//     Python        23.4%
+//     C++           21.1%
+//     C             17.9%
+//     Node.js       9.8%
+//     Ruby          9.9%
+//     Objective-C   11.9%
+//   2013
+//     Javascript    56.6%
+//     SQL           59.6%
+//     Java          42.5%
+//     C#            44.7%
+//     PHP           34.8%
+//     Python        21.9%
+//     C++           27.6%
+//     C             26.9%
+//     Node.js       7.5%
+//     Ruby          10.4%
+//     Objective-C   11.0%
+// The most wanted technologies (3 Javascript based tech in the top 5, and Android with the mobile revolution is the major reason Java still popular)
+// Android                   17.7%
+// Javascript                15.4%
+// Python                    14.8%
+// Node.js                   14.6%
+// AngularJS                 13.2%
+// Java                      10.5%
+// iOS                       9.4%
+// Arduino / Raspberry Pi    8.5%
+// Swift                     8.5%
+// C#                        8.0%
+
+
+
+
+
 
 
 
