@@ -1,4 +1,4 @@
-\section{Software Maintainability} \label{chapter3:software-maintainability}
+\section{Maintainability Focused Environements} \label{chapter3:software-maintainability}
 
 \cit{It is becoming increasingly important to the data-processing industry to be able to produce more programming systems and produce them with fewer errors, at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. P. Stevens, G. J. Myers, L. L. Constantine \cite{Stevens1974}.}
 
@@ -19,60 +19,60 @@ Section \ref{chapter3:software-maintainability:organic-growth} presents the orga
 Section \ref{chapter3:software-maintainability:performance-limitations} presents the consequences of the modularity on performance.
 Finally, section \ref{chapter3:software-maintainability:summary} summarizes the three previous sections in a table.
 
-\subsection{Modularity} \label{chapter3:software-maintainability:modularity}
+\subsection{Modular Programming} \label{chapter3:software-maintainability:modularity}
 
-\begin{figure}[h!] \label{fig:modular-programming-state-of-the-art}
+\begin{figure}[h!] \label{fig:modular-programming-state-of-the-art-1}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-1.pdf}
 \end{center}
 \end{figure}
 
-The modularity of a software implementation is about enclosing subproblems and composing them through relevant interface abstractions.
-% It allows greater design to emerge from the composition of smaller components.
-It improves the maintainability of an implementation, as illustrated in figure \ref{fig:modular-programming-state-of-the-art}.
-It allows to limit the understanding required to contribute to a module \cite{Stevens1974}.
-And it reduces development time by allowing several developers to simultaneously implement different modules \cite{Wong2009,Cataldo2006}.
+% The modularity of a software implementation is about enclosing subproblems and composing them through relevant interface abstractions.
+% % It allows greater design to emerge from the composition of smaller components.
+% It improves the maintainability of an implementation, as illustrated in figure \ref{fig:modular-programming-state-of-the-art}.
+% It allows to limit the understanding required to contribute to a module \cite{Stevens1974}.
+% And it reduces development time by allowing several developers to simultaneously implement different modules \cite{Wong2009,Cataldo2006}.
 
-% \nt{Read and include \cite{Simon1962}}
+% % \nt{Read and include \cite{Simon1962}}
 
-% \subsubsection{Design Choices} \label{chapter3:software-maintainability:design-choices}
+% % \subsubsection{Design Choices} \label{chapter3:software-maintainability:design-choices}
 
-% \nt{TODO this introduction is not very clear}
-% In the decomposition of a large problem into smaller subproblem, there is two design choices.
-% The first one is the granularity, and organization of the subproblems within the system decomposition.
-% The second one is the organization of the implementation within the subproblems to improve maintainability.
+% % \nt{TODO this introduction is not very clear}
+% % In the decomposition of a large problem into smaller subproblem, there is two design choices.
+% % The first one is the granularity, and organization of the subproblems within the system decomposition.
+% % The second one is the organization of the implementation within the subproblems to improve maintainability.
 
-% \nt{reduce all these paragraph into a concise one and move it into the introduction}
+% % \nt{reduce all these paragraph into a concise one and move it into the introduction}
 
-% \paragraph{System Decomposition}
+% % \paragraph{System Decomposition}
 
-\illustration{spaghetti programming}
-Modular Programming stands upon Structured Programming \cite{Dijkstra1970}.
-% Dijkstra firstly developed the concept of Structured Programming \cite{Dijkstra1970}, which later led to modular programming.
-% It is defined as \textit{the systematic use of abstraction to control a mass of details, and also a means of documentation which aids program design} \cite{Knuth1974}.
-It draws clear interfaces around a piece of implementation so that the execution is enclosed inside.
-At a fine level, it helps avoid spaghetti code \cite{Dijkstra1968a}, and at a coarser level, it structures the implementation \cite{Dijkstra1968} into modules, or layers.
-% The next paragraph explains further the criteria to draw the borders around modules.
-\illustration{lasagna programming}
-Encapsulate a specific design choice in each module, so that it is responsible for one and only one concern, isolate its evolution from impacting the rest of the implementation \cite{Parnas1972, Tarr1999, Hursch1995}.
-Examples of such separation of concerns are the separation of the form and the content in HTML / CSS, or the OSI model for the network stack.
+% \illustration{spaghetti programming}
+% Modular Programming stands upon Structured Programming \cite{Dijkstra1970}.
+% % Dijkstra firstly developed the concept of Structured Programming \cite{Dijkstra1970}, which later led to modular programming.
+% % It is defined as \textit{the systematic use of abstraction to control a mass of details, and also a means of documentation which aids program design} \cite{Knuth1974}.
+% It draws clear interfaces around a piece of implementation so that the execution is enclosed inside.
+% At a fine level, it helps avoid spaghetti code \cite{Dijkstra1968a}, and at a coarser level, it structures the implementation \cite{Dijkstra1968} into modules, or layers.
+% % The next paragraph explains further the criteria to draw the borders around modules.
+% \illustration{lasagna programming}
+% Encapsulate a specific design choice in each module, so that it is responsible for one and only one concern, isolate its evolution from impacting the rest of the implementation \cite{Parnas1972, Tarr1999, Hursch1995}.
+% Examples of such separation of concerns are the separation of the form and the content in HTML / CSS, or the OSI model for the network stack.
 
-The criteria to define modules to improve maintainability are coupling and cohesion \cite{Stevens1974}.
-The coupling defines the strength of the interdependence between modules, while cohesion defines how strongly the features inside a module are related.
-Low coupling between modules and high cohesion inside modules helps logically organize, and understand the implementation.
-Hence, it improve its maintainability.
+% The criteria to define modules to improve maintainability are coupling and cohesion \cite{Stevens1974}.
+% The coupling defines the strength of the interdependence between modules, while cohesion defines how strongly the features inside a module are related.
+% Low coupling between modules and high cohesion inside modules helps logically organize, and understand the implementation.
+% Hence, it improve its maintainability.
 
-The composition of modules with low coupling is provided by encapsulation, higher-order programming and lazy evaluation.
-Hence, the criteria to analyze the solutions presented in this section regarding maintainability are :
-\begin{itemize}
-\item encapsulation mechanism
-\item presence of higher-order programming
-\item presence of lazy evaluation, or stream composition
-\end{itemize}
-The last two criteria provide composition abstractions to design solutions from smaller components.
-Encapsulation and composition are the features in modular programming that produce maintainability.
+% The composition of modules with low coupling is provided by encapsulation, higher-order programming and lazy evaluation.
+% Hence, the criteria to analyze the solutions presented in this section regarding maintainability are :
+% \begin{itemize}
+% \item encapsulation mechanism
+% \item presence of higher-order programming
+% \item presence of lazy evaluation, or stream composition
+% \end{itemize}
+% The last two criteria provide composition abstractions to design solutions from smaller components.
+% Encapsulation and composition are the features in modular programming that produce maintainability.
 
-The next paragraphs present the last two criteria \ref{chapter3:software-maintainability:modularity:features}, and  then the main programming models, section \ref{chapter3:software-maintainability:modularity:programming-models}.
+% The next paragraphs present the last two criteria \ref{chapter3:software-maintainability:modularity:features}, and  then the main programming models, section \ref{chapter3:software-maintainability:modularity:programming-models}.
 
 % \paragraph{Decomposition Criteria}
 
@@ -98,38 +98,39 @@ The next paragraphs present the last two criteria \ref{chapter3:software-maintai
 
 % \subsubsection{Programming Models} \label{chapter3:software-maintainability:programming-models}
 
-\subsubsection{Features} \label{chapter3:software-maintainability:modularity:features}
+% \subsubsection{Features} \label{chapter3:software-maintainability:modularity:features}
 
-\paragraph{Higher-Order Programming}
-\nt{If possible, include this reference : Continuations and coroutines \cite{Haynes1984}}
+% \paragraph{Higher-Order Programming}
+% \nt{If possible, include this reference : Continuations and coroutines \cite{Haynes1984}}
 
-Higher-order programming allows to manipulate functions like any other primary value : to store them in variables, or to pass them as arguments.
-It replaces the need for most modern object oriented programming design patterns \ftnt{http://stackoverflow.com/a/5797892/933670} with Inversion of Control \cite{Johnson}, the Hollywood Principle \cite{Sweet1985}, and Monads \cite{Wadler1992}.
-Higher-order programming help loosen coupling, thus improve maintainability.
+% Higher-order programming allows to manipulate functions like any other primary value : to store them in variables, or to pass them as arguments.
+% It replaces the need for most modern object oriented programming design patterns \ftnt{http://stackoverflow.com/a/5797892/933670} with Inversion of Control \cite{Johnson}, the Hollywood Principle \cite{Sweet1985}, and Monads \cite{Wadler1992}.
+% Higher-order programming help loosen coupling, thus improve maintainability.
 
-In languages allowing mutable state, higher-order functions are implemented as closure, to preserve the lexical scope \cite{Sussman1998}.
-A closure is the association of a function and a reference to the lexical context from its creation.
-It allows this function to access variable from this context, even when invoked outside the scope of this context.
-\nt{next sentence is redundant with the suit}
-It eventually tangles the memory references so that it requires a global memory.
+% In languages allowing mutable state, higher-order functions are implemented as closure, to preserve the lexical scope \cite{Sussman1998}.
+% A closure is the association of a function and a reference to the lexical context from its creation.
+% It allows this function to access variable from this context, even when invoked outside the scope of this context.
+% \nt{next sentence is redundant with the suit}
+% It eventually tangles the memory references so that it requires a global memory.
 
-\paragraph{Lazy Evaluation}
+% \paragraph{Lazy Evaluation}
 
-Lazy evaluation is an evaluation strategy allowing to defer the execution of a function only when its result is needed.
-% And according to \cite{Hughes1989}, \textit{Abelson and Sussman stress that streams (lazy list) is a powerful tool for structuring programs \cite{Sussman1983}.
-The lazy evaluation of lists is equivalent to a stream with a null-sized buffer, while the opposite, eager evaluation, corresponds to an infinite buffer \cite{VanRoy2003}.
-\nt{find another transition}Indeed, the dataflow programming paradigm resulting from lazy lists is particularly adapted for stream processing applications.
+% Lazy evaluation is an evaluation strategy allowing to defer the execution of a function only when its result is needed.
+% % And according to \cite{Hughes1989}, \textit{Abelson and Sussman stress that streams (lazy list) is a powerful tool for structuring programs \cite{Sussman1983}.
+% The lazy evaluation of lists is equivalent to a stream with a null-sized buffer, while the opposite, eager evaluation, corresponds to an infinite buffer \cite{VanRoy2003}.
+% \nt{find another transition}Indeed, the dataflow programming paradigm resulting from lazy lists is particularly adapted for stream processing applications.
 
-\nt{This paragraph is not very clear}
-The lazy evaluation, as well as streams are powerful tools for structuring modular programs \cite{Sussman1983}.
-Lazy evaluation allows the execution to be organized as a concurrent pipeline, as the stages are executed independently for each element of the stream.
-But this concurrency requires immutability of state, or at least isolation of side-effects.\nt{why ? explain or point to the explanation}
-The next section addresses the consequences of higher-order programming and lazy evaluation on parallelism.
+% \nt{This paragraph is not very clear}
+% The lazy evaluation, as well as streams are powerful tools for structuring modular programs \cite{Sussman1983}.
+% Lazy evaluation allows the execution to be organized as a concurrent pipeline, as the stages are executed independently for each element of the stream.
+% But this concurrency requires immutability of state, or at least isolation of side-effects.\nt{why ? explain or point to the explanation}
+% The next section addresses the consequences of higher-order programming and lazy evaluation on parallelism.
 
 
-\subsubsection{Programming Models} \label{chapter3:software-maintainability:modularity:programming-models}
+% \subsubsection{Programming Models} \label{chapter3:software-maintainability:modularity:programming-models}
 
 The next paragraphs presents the different programming model regarding their support to modular programming and maintainability.
+They represent the number \circled{1} in figure \ref{fig:modular-programming-state-of-the-art}.
 
 \paragraph{Imperative Programming}
 
@@ -202,25 +203,26 @@ Dynamic Scripting              & Javacript, Python, Ruby, Go                   &
 \end{center}
 \end{figure}
 
-A system is maintainable only if there is people willing to maintain it.
-For people to widely adopt a programming language, it needs to be features a balance between performance and maintainability.
-It forces the modular programming models to be implemented taking into account not only maintainability, but performance as well.
-The balance is steered back toward performance, as illustrated in figure \ref{fig:state-of-the-art-2}.
+% A system is maintainable only if there is people willing to maintain it.
+% For people to widely adopt a programming language, it needs to be features a balance between performance and maintainability.
+% It forces the modular programming models to be implemented taking into account not only maintainability, but performance as well.
+% The balance is steered back toward performance, as illustrated in figure \ref{fig:state-of-the-art-2}.
 
-Indeed, the immutability of pure functional programming impact performance too negatively to be wildly used in industrial context.
-And the pure object-oriented programming lacks composition abstractions, like higher-order programming and lazy evaluation.
-As a result, the multi-paradigm scripts tends to be better compromises between modularity and performance.
-And the data of this section proves it.
+% Indeed, the immutability of pure functional programming impact performance too negatively to be wildly used in industrial context.
+% And the pure object-oriented programming lacks composition abstractions, like higher-order programming and lazy evaluation.
+% As a result, the multi-paradigm scripts tends to be better compromises between modularity and performance.
+% And the data of this section proves it.
 
-The criteria to analyze the solutions presented in this section regarding the organic growth are the adoption in :
-\begin{itemize}
-\item the community,
-\item the industry,
-\item web technologies
-\end{itemize}
-The first two criteria make sure that the technology is growing organically with a passionate community, and backed by industrial needs.
-The last criteria assures the fitting of the technologies with our economical context of a web application. 
-The next paragraphs presents different sets of data to emphasize the adoption of the previously presented programming model by the community and the industry.
+% The criteria to analyze the solutions presented in this section regarding the organic growth are the adoption in :
+% \begin{itemize}
+% \item the community,
+% \item the industry,
+% \item web technologies
+% \end{itemize}
+% The first two criteria make sure that the technology is growing organically with a passionate community, and backed by industrial needs.
+% The last criteria assures the fitting of the technologies with our economical context of a web application.
+The next paragraphs presents the adoption of the implementation of the previously presented programming model.
+These implementations often break apart from pure maintainability to wander back into performance efficiency, as shown by \circled{2} in figure \ref{fig:modular-programming-state-of-the-art-2}.
 
 % The rise of Javascript is indisputable on the web, and seems to be rising in the software industry as well.
 % But it is difficult to give an accurate representation of the situation because the software industry often maintains a fog of war to try to keep an edge.
@@ -319,25 +321,29 @@ Eventually, the presented languages are hitting a wall on their way to performan
 The next paragraph briefly present the encountered incompatibility between modularity and performance to introduce the next section of this chapter.
 
 
-Parallelizing the execution increases the performances \cite{Amdahl1967,Gunther1993}
-But it is limited because accesses to sharing state need to be scheduled sequentially.
-Hence, to increase the parallelism and performance, the concurrent executions need to be independent, or to coordinate to be scheduled sequentially \cite{Gustafson1988,Gunther1996,Nelson1996,Gunther2002}.
-On the other hand, completely forbidding shared state, with immutable state, increase the need for communication because of the additional required synchronization.
-Eventually, the communications induce a greater overhead than the performance increases from parallelization, and it finally negatively impacts the performances.
+% Parallelizing the execution increases the performances \cite{Amdahl1967,Gunther1993}
+% But it is limited because accesses to sharing state need to be scheduled sequentially.
+% Hence, to increase the parallelism and performance, the concurrent executions need to be independent, or to coordinate to be scheduled sequentially \cite{Gustafson1988,Gunther1996,Nelson1996,Gunther2002}.
+% On the other hand, completely forbidding shared state, with immutable state, increase the need for communication because of the additional required synchronization.
+% Eventually, the communications induce a greater overhead than the performance increases from parallelization, and it finally negatively impacts the performances.
 
-To be scalable, a solution needs to allow shared state at a fine grain, where lots of synchronization is required, and where communication would induce a greater overhead than parallelization could compensate. 
-And immutability at a coarse grain, where lesser synchronization is required, and parallelization can be advantageously used.
+% To be scalable, a solution needs to allow shared state at a fine grain, where lots of synchronization is required, and where communication would induce a greater overhead than parallelization could compensate. 
+% And immutability at a coarse grain, where lesser synchronization is required, and parallelization can be advantageously used.
 
-Encapsulation aims not to provide this decomposition between sharing and immutable space required for performance scalability.
-It aims to draw a clear boundary around the concern of a module to help understanding it.
-To allow higher-order programming and mutable state, despite encapsulation, languages implement closures, and intermingle the memory between modules.
-It reinforces the need for synchronization and sequentiality.
+% Encapsulation aims not to provide this decomposition between sharing and immutable space required for performance scalability.
+% It aims to draw a clear boundary around the concern of a module to help understanding it.
+% To allow higher-order programming and mutable state, despite encapsulation, languages implement closures, and intermingle the memory between modules.
+% It reinforces the need for synchronization and sequentiality.
+% 
+% Finally, the requirement to enforce the decomposition required for performance scalability are :
+% \begin{itemize}
+% \item shared state : fine level sequentiality
+% \item immutable state : coarse level message passing
+% \end{itemize}
 
-Finally, the requirement to enforce the decomposition required for performance scalability are :
-\begin{itemize}
-\item shared state : fine level sequentiality
-\item immutable state : coarse level message passing
-\end{itemize}
+
+TODO
+
 
 \begin{table}[h!]
 \label{maintainability-scalability}

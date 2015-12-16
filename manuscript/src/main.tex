@@ -19,7 +19,6 @@
 \usepackage{svg}
 \usepackage{multirow}
 \usepackage{wrapfig}
-\usepackage{minitoc}
 \usepackage{chronosys}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -31,6 +30,7 @@
 \usepackage{import}
 \usepackage{lscape}
 \usepackage{rotating}
+\usepackage{minitoc}
 
 \input{bibliography}
 \input{utils/code}
@@ -40,7 +40,7 @@
 
 %\def \chron@selectmonth#1 {\ifcase#1\or January\or February\or March\or April\or May\or June\or July\or August\or September\or October\or November\or December\fi}
 \usepgfplotslibrary{external} 
-\tikzexternalize
+\tikzexternalize[prefix=figures/]
 % \setmainfont{Helvetica Neue}
 
 \setcounter{secnumdepth}{3}
