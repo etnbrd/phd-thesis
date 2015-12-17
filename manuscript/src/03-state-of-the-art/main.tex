@@ -7,34 +7,32 @@
 The growth of the web and Software as a Service (SaaS) revealed the importance of previously unknown economic constraints.
 The same company carries both development and exploitation of an application at scale of unprecedented size.
 To allow a continuous growth and sustainability of an application, it needs to address two contradictory goals : maintainability and performance efficiency.
-These goals needs to be enforced by the computing platform supporting the application to build good development habits for the developers.
-In this chapter, computing platform designates any solution that allows to build an application on top of it.
-That includes programming languages, preprocessors, compilers, runtimes, interpreters, frameworks, libraries and so on.
+These goals needs to be enforced by the platform supporting the application to build good development habits for the developers.
+% In this chapter,
+A platform designates any solution that allows to build an application on top of it, including programming languages, compilers, interpreters, frameworks, runtime libraries and so on.
 
 \textit{75\% of your budget is dedicated to software maintenance.}\ftnt{http://www.castsoftware.com/glossary/software-maintainability}
-The maintainability of an application relies on the modularity enforced by the computing platform used to build it.
+The maintainability of an application relies on the modularity enforced by the platform used to build it.
 Especially, higher order programming is crucial to build and compose modules efficiently.
 % \footnote{Without higher-order programming, Object-Oriented Programming relied on numerous design patterns. Higher-order programming was finally adopted in OOP languages such as sJava 8 and C++11.}
 It relies either on mutable states, or immutable states, but hardly on a combination of both.
 
 However, neither mutable states nor immutable states allow performance efficiency.
-Mutable states leads to synchronization overhead at a coarse-grain level, while immutable states leads to communication overhead at a fine-grain level.
-Performance efficiency relies on a combination of mutable state at a fine-grain level, and immutable message passing at a coarse-grain level.
+Mutable states leads to synchronization overhead at coarser-grain level, while immutable states leads to communication overhead at finer-grain level.
+Performance efficiency relies on a combination of shared mutable state at a fine-grain level, and immutable message passing at a coarse-grain level.
 This combination breaks the modularity, hence the maintainability of an application.
 A company has no choice but to commit huge development efforts to get efficient performances.
 
 \illustration{virtuous circle between community and industry}
-Moreover, a balance between these two contradictory goals is required for a computing platform to enter a virtuous circle of adoption.
-The maintainability is required to be appealing to gather a community to support the ecosystem around the computing platform.
+Moreover, a balance between these two contradictory goals is required for a platform to enter a virtuous circle of adoption.
+The maintainability is required to be appealing to gather a community to support the ecosystem around the platform.
 This community is appealing for the industry as a hiring pool.
 The performance efficiency is required to be adopted by the industry to be economically viable.
 And the industrial relevance provides the reason for this ecosystem to exist and the community to gather.
 
 This chapter presents a broad view of the state of the art in the compromises between maintainability and performance efficiency.
 It defines software maintainability, performance efficiency, and adoption in section \ref{chapter3:definitions} and all the underlying concepts, such as higher order programming and state mutability.
-It then analyzes different computing platforms according to their focus.
-computing platforms focusing on maintainability are addressed in section \ref{chapter3:software-maintainability}, those focusing on performance efficiency in section \ref{chapter3:software-performance} and those focusing on a compromise between the two in section \ref{chapter3:software-abstraction}.
-
+It then analyzes different platforms according to their focus. platforms focusing on maintainability are addressed in section \ref{chapter3:software-maintainability}, those focusing on performance efficiency in section \ref{chapter3:software-performance} and those focusing on a compromise between the two in section \ref{chapter3:software-abstraction}.
 
 \input{03-state-of-the-art/Definitions}
 \input{03-state-of-the-art/Software-maintainability}

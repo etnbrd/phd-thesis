@@ -18,7 +18,7 @@ Now, with web services, or Software as a Service (SaaS), the distribution medium
 It stimulates a completely new business model based on an instantaneous and free access for the user, while claiming value for their data.
 The next paragraphs present Javascript, the language that allowed this new business model to emerge.
 
-\subsection{Javascript, The Language of the Web}
+\subsection{The Language of the Web}
 
 In the 80's with Moore's law predicting exponential increase in hardware performance, reducing development time became more profitable than reducing hardware costs.
 Higher-level languages replaced lower-level languages, because the economical gain in development time compensated the decrease in performance.
@@ -39,7 +39,7 @@ And since 2009, it is present on the server as well with Node.js
 This omnipresence became an advantage.
 It allows to develop and maintain the whole application with the same language.
 
-\subsubsection{Historical Context}
+\subsubsection{The Ugly Duckling}
 
 \nt{Reduce the section historical context to the minimum, it just need to show the evolution of Javascript from evil to best language}
 
@@ -84,7 +84,7 @@ All these reasons made the popularity of the Web and Javascript.
 
 % \paragraph{Rising of the unpopular language}
 
-\paragraph{}
+\subsubsection{The Rise of Javascript}
 
 \cit{When JavaScript was first introduced, I dismissed it as being not worth my attention. Much later, I took another look at it and discovered that hidden in the browser was an excellent programming language.}%
 {Douglas Crockford\ftnt{http://javascript.crockford.com/survey.html}}
@@ -151,60 +151,60 @@ The next paragraphs presents the event-loop model used to develop Javascript web
 \stopchronology
 \end{figure}
 
-\subsubsection{Event-Loop Execution Model} \label{chapter2:web-as-a-platform:javascript:event-loop}
+% \subsubsection{Event-Loop Execution Model} \label{chapter2:web-as-a-platform:javascript:event-loop}
 
-\nt{Reduce the event-loop explanation to the bare minimum, the definitions of callbacks and promises should be in the state of the art. It only need to present briefly how the event-loop works to understand the problem}
+% \nt{Reduce the event-loop explanation to the bare minimum, the definitions of callbacks and promises should be in the state of the art. It only need to present briefly how the event-loop works to understand the problem}
 
-Javascript is often associated with an event-based paradigm to react to concurrent user interactions.
-In 2009, Joyent released Node.js to build real-time web services with this paradigm.
-It is a server-side implementation of Javascript based on an event-loop.
-This event-based paradigm proved to be very efficient as well for a web service to react to concurrent requests.
-This section presents the event-loop execution model, and the advantages of Javascript for this paradigm.
+% Javascript is often associated with an event-based paradigm to react to concurrent user interactions.
+% In 2009, Joyent released Node.js to build real-time web services with this paradigm.
+% It is a server-side implementation of Javascript based on an event-loop.
+% This event-based paradigm proved to be very efficient as well for a web service to react to concurrent requests.
+% This section presents the event-loop execution model, and the advantages of Javascript for this paradigm.
 
-The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
-It relies on a queue storing the messages received asynchronously.
-The loop executes tasks previously defined to process these messages one after the other.
-Each task can initiate new communications, leading in turn to the queuing of more messages, which trigger more tasks, and so on.
-Each task is executed atomically and exclusively, until it yields execution to continue with the next task in queue.
+% The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
+% It relies on a queue storing the messages received asynchronously.
+% The loop executes tasks previously defined to process these messages one after the other.
+% Each task can initiate new communications, leading in turn to the queuing of more messages, which trigger more tasks, and so on.
+% Each task is executed atomically and exclusively, until it yields execution to continue with the next task in queue.
 
-\nt{TODO schema of an event-loop}
+% \nt{TODO schema of an event-loop}
 
-\paragraph{Callbacks}
+% \paragraph{Callbacks}
 
-In Javascript, the asynchronous communications are initiated by function calls.
-The callee immediately returns to avoid the caller to wait for the result.
-The task to process the result of the communication, and to continue the execution afterward, is a function passed as an argument to the callee.
-This function is named a callback or a continuation.
-A callback is a function passed as an argument to a callee.
-It is a continuation if the callee calls it to transfer the control back to the caller without the need for synchronization.
+% In Javascript, the asynchronous communications are initiated by function calls.
+% The callee immediately returns to avoid the caller to wait for the result.
+% The task to process the result of the communication, and to continue the execution afterward, is a function passed as an argument to the callee.
+% This function is named a callback or a continuation.
+% A callback is a function passed as an argument to a callee.
+% It is a continuation if the callee calls it to transfer the control back to the caller without the need for synchronization.
 
-In this execution model, the control flow follows the asynchronous function calls and callbacks.
-It organizes the execution of callbacks causally, one after the other, similarly to a pipeline.
-Indeed, the input stream of data flows through a sequence of callbacks until the application outputs it.
-In this model, callbacks are the atoms of the asynchronous execution flow control.
-The next paragraph presents a more elaborate form of control.
+% In this execution model, the control flow follows the asynchronous function calls and callbacks.
+% It organizes the execution of callbacks causally, one after the other, similarly to a pipeline.
+% Indeed, the input stream of data flows through a sequence of callbacks until the application outputs it.
+% In this model, callbacks are the atoms of the asynchronous execution flow control.
+% The next paragraph presents a more elaborate form of control.
 
-\paragraph{Promises}
+% \paragraph{Promises}
 
-Since the asynchronous execution flow became more complicated on larger web application, many projects proposed improved asynchronous execution controls on top of callbacks.
-The ECMAScript specification proposes Promises for such purpose.
-It arranges sequences of causally related callbacks into cleanly organized pipelines of callbacks communicating their results to the next.
+% Since the asynchronous execution flow became more complicated on larger web application, many projects proposed improved asynchronous execution controls on top of callbacks.
+% The ECMAScript specification proposes Promises for such purpose.
+% It arranges sequences of causally related callbacks into cleanly organized pipelines of callbacks communicating their results to the next.
 
-\paragraph{Closures}
+% \paragraph{Closures}
 
-Because callbacks can be passed as an argument, they are first class citizen and imply higher-order programming. %, which is part of functional programming.
-% Javascript features higher-order functions.
-For a callback to continue the execution without needing synchronization with the caller, it needs to have access to the initial context of the caller.
-This context is linked with the function when passed to the callee.
-The association of a function and its initial context is called a closure.
+% Because callbacks can be passed as an argument, they are first class citizen and imply higher-order programming. %, which is part of functional programming.
+% % Javascript features higher-order functions.
+% For a callback to continue the execution without needing synchronization with the caller, it needs to have access to the initial context of the caller.
+% This context is linked with the function when passed to the callee.
+% The association of a function and its initial context is called a closure.
 
-Higher-order programming is convenient for developers, as they allow great modularity in the implementation through \textit{e.g.} inversion of control.
-It is presented in further details in section \ref{chapter3:software-maintainability}.
-However, because the contexts are passed, and shared all over the implementation, this programming model needs a global memory for coordination.
-A global memory is problematic to increase the concurrency of the execution.
+% Higher-order programming is convenient for developers, as they allow great modularity in the implementation through \textit{e.g.} inversion of control.
+% It is presented in further details in section \ref{chapter3:software-maintainability}.
+% However, because the contexts are passed, and shared all over the implementation, this programming model needs a global memory for coordination.
+% A global memory is problematic to increase the concurrency of the execution.
 
-This section presented Javascript as the language of the web, and its programming model.
-The next section presents the realities and technical challenges to assure the performance of web services against billions of users.
+% This section presented Javascript as the language of the web, and its programming model.
+% The next section presents the realities and technical challenges to assure the performance of web services against billions of users.
 
 \subsection{Highly Concurrent Web Servers}
 
@@ -215,7 +215,7 @@ The usage exploded, and the software industry needed innovative solutions to cop
 
 \illustration{busy web servers}
 
-\subsubsection{Scalable Concurrency}
+% \subsubsection{Scalable Concurrency}
 
 The Internet allows communication at an unprecedented scale.
 There is more than 16 billions connected devices, and it is growing fast\ftnt{http://blogs.cisco.com/news/cisco-connections-counter} \cite{Hilbert2011}.
@@ -224,7 +224,31 @@ Such a Web application needs to be highly concurrent to manage this amount of si
 In the 2000s, the limit to break was 10 thousands simultaneous connections with a single commodity machine\ftnt{http://www.kegel.com/c10k.html}.
 In the 2010s, the limit is set at 10 millions simultaneous connections\ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
 With the growing number of connected devices on the internet, concurrency is a very important property in the design of web applications.
-Moreover, the concurrency needs to be scalable to adapt to this growth of audience, as explained in the next paragraph.
+
+\subsubsection{Event-Loop Execution Model} \label{chapter2:web-as-a-platform:javascript:event-loop}
+
+Javascript is often associated with an event-based paradigm to react to concurrent user interactions.
+% In 2009, Joyent released Node.js to build real-time web services with this paradigm.
+% It is a server-side implementation of Javascript based on an event-loop.
+This event-based paradigm proved to be very efficient as well for a web service to react to concurrent requests.
+In 2009, Joyent released Node.js to build real-time web services with this paradigm.
+% This section presents the event-loop execution model, and the advantages of Javascript for this paradigm.
+
+\nt{TODO schema of an event-loop}
+
+At reception, each request from a client queues an event waiting to be processed.
+The event-loop unqueues these events one at a time.
+Processing an event can imply to query remote resources, which respond asynchronously additional event to queue.
+Or an event can respond directly to the client, ending this chain of asynchronous events.
+
+% The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
+% It relies on a queue storing the messages received asynchronously.
+% The loop executes tasks previously defined to process these messages one after the other.
+% Each task can initiate new communications, leading in turn to the queuing of more messages, which trigger more tasks, and so on.
+% Each task is executed atomically and exclusively, until it yields execution to continue with the next task in queue.
+
+This execution model allows a high concurrency to respond to a high number of users simultaneously.
+This concurrency needs to be scalable to adapt to the growth of audience, as explained in the next paragraph.
 
 \paragraph{Scalability}
 
@@ -237,7 +261,9 @@ The available resources needs to increase to meet this load.
 This growth can be steady enough to plan the increase of resources ahead of time, or it might be erratic and challenging.
 An application is scalable, if it is able to spread over resources proportionally as a reaction to the increasing growth of audience.
 
-\subsubsection{Time-slicing and Parallelism}
+\paragraph{Time-slicing and Parallelism}
+
+\nt{This paragraph seems too technical to be here}
 
 Concurrency is achieved differently on hardware with a single or several processing units.
 On a single processing unit, the tasks are executed sequentially, interleaved in time.
@@ -256,6 +282,7 @@ As explained in the previous section, Javascript requires a global memory to coo
 The event-loop is constrained within time-slicing concurrency to assure this coordination.
 This thesis argues that there exists an equivalence between the event-loop model and the pipeline execution model.
 The next section presents this parallel execution model.
+
 
 \subsubsection{Pipeline Execution Model}
 

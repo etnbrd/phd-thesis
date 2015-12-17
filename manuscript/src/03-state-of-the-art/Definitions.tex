@@ -3,7 +3,7 @@
 The continuous growth and sustainability offered by a platform relies on three criteria.
 This section defines these tree criteria, as well as all the underlying concepts.
 
-Additionally, for the context of this thesis, a fourth criterium appear.
+Additionally, for the context of this thesis, a fourth criterium appears in this list.
 It is important for the analyzed platforms to be web compliant.\nt{I don't know where to put this criterium}
 
 \begin{itemize}
@@ -15,19 +15,17 @@ It is important for the analyzed platforms to be web compliant.\nt{I don't know 
 
 \subsection{Maintainability}
 
-\textit{Software maintainability is defined as the degree to which an application is understood, repaired, or enhanced.}\ftnt{http://www.castsoftware.com/glossary/software-maintainability}
+Software maintainability is defined as the degree to which an application can be understood, fixed, and extended.
 % For an application to be maintainable, it needs to be modular.
 %Maintainability relies on modularity.
 For an application to be maintainable, its frameworks need to enforce modularity directly in the design.
-Modularity allows to limit the understanding required to contribute to a module \cite{Stevens1974}.
-Which helps developers to repair and enhance the application. 
-Moreover, it reduces development time by allowing several developers to simultaneously implement different modules \cite{Wong2009,Cataldo2006}.
 % It relies on two factors, module encapsulation and module composition.
 
 \subsubsection{Modularity}
 
-The modularity of a software implementation is about encapsulating subproblems and composing them.
-It allows greater design to emerge from the composition of smaller components.
+The modularity of a software implementation is about encapsulating subproblems and composing them to allow greater design to emerge.
+It allows to limit the understanding required to contribute to a module \cite{Stevens1974}, which helps developers to repair and enhance the application. 
+Additionally, it reduces development time by allowing several developers to simultaneously implement different modules \cite{Wong2009,Cataldo2006}.
 
 The criteria to define modules to improve maintainability are low coupling and high cohesion \cite{Stevens1974}.
 Coupling defines the strength of the interdependence between modules.
@@ -57,7 +55,8 @@ At a fine level, it helps avoid spaghetti code \cite{Dijkstra1968a}, and at a co
 \paragraph{Data Protection}
 
 \illustration{lasagna programming}
-Encapsulate a specific design choice in each module, so that it is responsible for one and only one concern, isolate its evolution from impacting the rest of the implementation \cite{Parnas1972, Tarr1999, Hursch1995}.
+Modular programming encapsulates a specific design choice in each module, so that it is responsible for one and only one concern.
+It isolates its evolution from impacting the rest of the implementation \cite{Parnas1972, Tarr1999, Hursch1995}.
 Examples of such separation of concerns are the separation of the form and the content in HTML / CSS, or the OSI model for the network stack.
 
 \subsubsection{Composition} \label{chapter3:software-maintainability:modularity:features}
@@ -92,7 +91,7 @@ The next section addresses the consequences of higher-order programming and lazy
 
 \paragraph{}
 
-Finally, the criteria for Maintainability are the following.
+The criteria to analyze platform for maintainability are the following.
 
 \begin{itemize}
 \item Encapsulation $\to$ High Cohesion
@@ -115,47 +114,103 @@ Commutativity assures the independence of operations.
 
 \subsubsection{Independence}
 
-The independence, and commutativity of an operations depends on its access to state shared with other operations.
+The independence, and commutativity of an operations depends on its accesses to shared state.
 If the operations doesn't rely on any shared state, it is independent.
-If it relies on shared state for read or modification, it needs to manage the timing of its execution with the other operations to avoid conflicting accesses.
-That is to synchronize with the other operations, which implies communications.
+The independence of operations allows to execute them in parallel, hence to increase performance proportionally to occupied resources \cite{Amdahl1967,Gunther1993}.
+But if they rely on shared state, they need to coordinate their timing of execution to avoid conflicting accesses.
+This coordination can be done in two ways.
+\begin{description}
+\item[Synchronization] Operations are scheduled sequentially to have an exclusive access to a centralized state, or
+\item[Message-passing] Operations communicate their local modifications of the state to other operations, in a decentralized fashion.
+\end{description}
 
-The independence of operations allows to execute them in parallel, hence to deliver performance proportionally to used resources \cite{Amdahl1967,Gunther1993}.
-But if the operations are not independent, the communication overhead due to synchronization might occult the performance increase gained by the parallel execution.
-If the two operations frequently access the state, then the communications overhead is greater than the performance gain.
-On the other hand, if the operations hardly ever access the state, then the communication overhead is compensated by the performance gain.
-Because states tend to be shared locally, the operations at a fine-grain level induce a greater communication overhead than the operations at a coarser-level. 
-% \subsubsection{Sequentiality or Parallelism}
-% In practice, all operations can not be made independent, particularly at a fine-grain level.
-% Enforcing parallelism at this fine-grain level induces overhead because of the synchronization between operations.
+If the operations access the state too frequently, the communication overhead exceed the performance gains of parallelism.
+And if operations access the state too rarely, the centralization of the state limits the parallelism.
+Operations tend to share state closely at a fine-grain level and less at a coarser-grain level.
+% Therefore, at a fine-grain level the operations need to be scheduled sequentially to avoid the communication overhead.
+% And at a coarse-grain level they need to communicate via message-passing, to allow parallelism.
+Therefore, performance efficiency requires the combination of fine-level state sharing to avoid communication overhead, and coarse-level independence to allow parallelization \cite{Gustafson1988,Gunther1996,Nelson1996,Gunther2002}.
 
-Therefore, performance efficiency requires the combination of fine-level state sharing to avoid communication overhead, and coarse-level independence to avoid synchronization overhead \cite{Gustafson1988,Gunther1996,Nelson1996,Gunther2002}.
-The operations need to be independent at a coarse-grain level, and to be scheduled sequentially at a fine-grain level.
+\paragraph{}
+
+The criteria to analyze platform for their performance are the following.
 
 \begin{itemize}
-\item Fine-level state sharing\\
-  \subitem State mutability
-  \subitem $\to$ Sequentiality
-\item Coarse-level independence\\
-  \subitem State immutability
-  \subitem $\to$ Message-passing
+\item Fine-level state sharing
+  \subitem State mutability $\to$ Synchronization
+\item Coarse-level independence
+  \subitem State immutability $\to$ Message-passing
 \end{itemize}
 
-\subsubsection{Atomicity, Concurrency and Asynchronism}
-TODO
+\nt{Is it the right place to put that ?}
+The threshold determining frequent or rare access to the state determines the granularity level between synchronization and parallelization of tasks.
+This granularity needs to be free from the decomposition into modules.
+If the too are related, they interfere with each other, and impact either maintainability, or performance.
 
-\subsubsection{Message-Passing}
-TODO
+
+\subsubsection{Asynchronism}
+TODO ?
 
 
-\subsubsection{Modules and Operations}
+\subsubsection{Atomicity}
+TODO ?
 
-On the difference between modules encapsulation and operations independence.
 
-Encapsulation aims not to provide this decomposition between sharing and immutable space required for performance scalability.
-It aims to draw a clear boundary around the concern of a module to help understanding it.
-To allow higher-order programming and mutable state, despite encapsulation, languages implement closures, and intermingle the memory between modules.
-It reinforces the need for synchronization and sequentiality.
+
+% \subsubsection{Event-Loop Execution Model} \label{chapter2:web-as-a-platform:javascript:event-loop}
+
+% \nt{Reduce the event-loop explanation to the bare minimum, the definitions of callbacks and promises should be in the state of the art. It only need to present briefly how the event-loop works to understand the problem}
+
+% Javascript is often associated with an event-based paradigm to react to concurrent user interactions.
+% In 2009, Joyent released Node.js to build real-time web services with this paradigm.
+% It is a server-side implementation of Javascript based on an event-loop.
+% This event-based paradigm proved to be very efficient as well for a web service to react to concurrent requests.
+% This section presents the event-loop execution model, and the advantages of Javascript for this paradigm.
+
+% The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
+% It relies on a queue storing the messages received asynchronously.
+% The loop executes tasks previously defined to process these messages one after the other.
+% Each task can initiate new communications, leading in turn to the queuing of more messages, which trigger more tasks, and so on.
+% Each task is executed atomically and exclusively, until it yields execution to continue with the next task in queue.
+
+% \nt{TODO schema of an event-loop}
+
+% \paragraph{Callbacks}
+
+% In Javascript, the asynchronous communications are initiated by function calls.
+% The callee immediately returns to avoid the caller to wait for the result.
+% The task to process the result of the communication, and to continue the execution afterward, is a function passed as an argument to the callee.
+% This function is named a callback or a continuation.
+% A callback is a function passed as an argument to a callee.
+% It is a continuation if the callee calls it to transfer the control back to the caller without the need for synchronization.
+
+% In this execution model, the control flow follows the asynchronous function calls and callbacks.
+% It organizes the execution of callbacks causally, one after the other, similarly to a pipeline.
+% Indeed, the input stream of data flows through a sequence of callbacks until the application outputs it.
+% In this model, callbacks are the atoms of the asynchronous execution flow control.
+% The next paragraph presents a more elaborate form of control.
+
+% \paragraph{Promises}
+
+% Since the asynchronous execution flow became more complicated on larger web application, many projects proposed improved asynchronous execution controls on top of callbacks.
+% The ECMAScript specification proposes Promises for such purpose.
+% It arranges sequences of causally related callbacks into cleanly organized pipelines of callbacks communicating their results to the next.
+
+% \paragraph{Closures}
+
+% Because callbacks can be passed as an argument, they are first class citizen and imply higher-order programming. %, which is part of functional programming.
+% % Javascript features higher-order functions.
+% For a callback to continue the execution without needing synchronization with the caller, it needs to have access to the initial context of the caller.
+% This context is linked with the function when passed to the callee.
+% The association of a function and its initial context is called a closure.
+
+% Higher-order programming is convenient for developers, as they allow great modularity in the implementation through \textit{e.g.} inversion of control.
+% It is presented in further details in section \ref{chapter3:software-maintainability}.
+% However, because the contexts are passed, and shared all over the implementation, this programming model needs a global memory for coordination.
+% A global memory is problematic to increase the concurrency of the execution.
+
+% This section presented Javascript as the language of the web, and its programming model.
+% The next section presents the realities and technical challenges to assure the performance of web services against billions of users.
 
 
 
@@ -164,9 +219,8 @@ It reinforces the need for synchronization and sequentiality.
 
 \subsection{Adoption}
 
-% A software project is maintainable only if there is people willing to maintain it.
-An application is sustainable only if the frameworks used to build it generate activity between a community of passionate and the industry.
-A framework needs to present a balance between maintainability and performance effiency to be adopted by both the community and the industry.
+An application is sustainable only if the frameworks used to build it generate reinforcing interactions between a community of passionate and the industry.
+A framework needs to present a balance between maintainability and performance efficiency to be adopted by both the community and the industry.
 The maintainability is required for a framework to be appealing to gather a community to support the ecosystem around it.
 And the performance efficiency is required to be economically viable and needed by the industry, and to provide the reason for this ecosystem to exist.
 
@@ -175,18 +229,12 @@ And the performance efficiency is required to be economically viable and needed 
 \item Industrial Need
 \end{itemize}
 
-This incitation to balance between maintainability and performance efficiency is illsutrated in figure \ref{fig:state-of-the-art}.
+\paragraph{}
+
+This incentive to balance between maintainability and performance efficiency is illsutrated in figure \ref{fig:state-of-the-art}.
 
 \begin{figure}[h!] \label{fig:state-of-the-art}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art.pdf}
 \end{center}
 \end{figure}
-
-\subsection{Web Compliance}
-
-TODO
-
-
-
-
