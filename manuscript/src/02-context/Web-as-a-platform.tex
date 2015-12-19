@@ -8,7 +8,7 @@
   \vspace{-20pt}
 \end{wrapfigure}
 
-Similarly to operating systems, Web browsers started as software products with extension capabilities with scripts and applications.
+Similarly to operating systems, Web browsers started as software products with extension capabilities that transformed it into a platform. % with scripts and applications.
 The distribution of an applications is limited only by the platform it can be deployed on.
 The Web spreads the scalability of software distribution world wide with a near zero latency.
 It eventually became the main distribution medium, and the wider market there can possibly be for software.
@@ -22,47 +22,39 @@ The next paragraphs present Javascript, the language that allowed this new busin
 
 In the 80's with Moore's law predicting exponential increase in hardware performance, reducing development time became more profitable than reducing hardware costs.
 Higher-level languages replaced lower-level languages, because the economical gain in development time compensated the decrease in performance.
-Most of the now popular programming languages were released at this time, Python(1991), Ruby(1993), Java(1994), PHP(1995) and Javascript(1995).
+Most of the now popular programming languages were released at this time, Python in 1991, Ruby in 1993, Java in 1994, PHP and Javascript in 1995.
 
-Java thrived in the software industry.
-However, it then lose the hype that drove the community innovation and creativity, and now struggles to keep up with the latest trends in software development.
+With the democratisation of programming, the involvement of the community became critical for the adoption, evolution and maturation of a language.
+Java thrived in the software industry, but lose the hype that drove the community innovation and creativity.
+Now, it struggles to keep up with the latest trends in software development.
 On the contrary, Ruby on Rails emerged from an industrial context, but is now open source, and backed by a strong community that makes it evolve and mature.
 Other languages like Python and PHP, emerged within a strong community, and were later adopted by the industry for web development.
 Django, the Python web frameworks, is used to develop many web applications in industrial contexts.
-And Wordpress, a PHP publishing platform, is an economical success.
-These examples show that the involvement of the community is critical for the adoption, evolution and maturation of a language.
+Wordpress, a PHP publishing platform, is an economical success.
 
 Since a few years, Javascript is slowly becoming the main language for web development.
-It is the only choice in the browser.
-This position became an incentive to make it fast (V8, ASM.js) and convenient (ES6, ES7).
-And since 2009, it is present on the server as well with Node.js
-This omnipresence became an advantage.
-It allows to develop and maintain the whole application with the same language.
+The next paragraph present its evolution in the industry and the community.
 
 \subsubsection{The Ugly Duckling}
-
-\nt{Reduce the section historical context to the minimum, it just need to show the evolution of Javascript from evil to best language}
 
 \cit{There are only two kinds of languages: the ones people complain about and the ones nobody uses}%
 {B. Stroustrup\ftnt{http://www.stroustrup.com/bs_faq.html\#really-say-that}}
 
-Javascript was created by Brendan Eich at Netscape around May 1995, and released to the public in September.
-At the time, Java was quickly adopted as the default language for web servers development, and everybody was betting on pushing Java inside the browser as well.
-The history proved them wrong\footnote{Except for mobiles, with the success of Dalvik Android. Though, firefox OS is a promising alternative using Javascript.}.
+% Javascript was created by Brendan Eich at Netscape around May 1995, and released to the public in September.
+% At the time, Java was quickly adopted as the default language for web servers development, and everybody was betting on pushing Java inside the browser as well.
+% The history proved them wrong\footnote{Except for mobiles, with the success of Dalvik Android.}.
 
-Javascript was released as a scripting engine in Netscape Navigator and later in its concurrent, Internet Explorer.
+Javascript was released as a scripting engine in Netscape Navigator around September 1995 and later in its concurrent, Internet Explorer.
 The competition between the two was fragmenting the Web.
-So that Web pages could not be universal, and had to be designed for a specific browser.
+Web pages had to be designed for a specific browser.
 To stop this fragmentation, Netscape submitted Javascript to Ecma International for standardization in November 1996.
-ECMA International released ECMAScript -- or ECMA-262 -- in June 1997.
-The first standard for Javascript to which all browsers should refer for their implementations.
+ECMA International released  ECMAScript -- or ECMA-262 -- the first standard for Javascript in June 1997. %, to which all browsers should refer for their implementations.
 
 \paragraph{}
 \illustration{the ugly duckling}
 
-The initial release of Javascript was designed in a rush, within 10 days, and targeted unexperienced developers.
+The initial release of Javascript was designed by Brendan Eich within 10 days, and targeted unexperienced developers.
 For these reasons, the language was considered poorly designed and unattractive by the developer community.
-
 
 {\fontfamily{phv}\fontseries{l}
 \fontsize{10pt}{10pt}\selectfont
@@ -78,9 +70,14 @@ Why do so many people seem to hate Javascript?\ftnt{https://www.quora.com/Why-do
 
 But this situation evolved drastically since.
 All web browsers include a Javascript interpreter, making Javascript the most ubiquitous runtime \cite{Flanagan2006}.
+This position became an incentive to make it fast (V8, ASM.js) and convenient (ES6, ES7).
 Any Javascript code is open, allowing the community to pick, improve and reproduce the best techniques \ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
 Javascript is distributed freely, with all the tools needed to reproduce and experiment on the largest communication network in history.
+And since 2009, it is present on the server as well with Node.js
+This omnipresence became an advantage.
+It allows to develop and maintain the whole application with the same language.
 All these reasons made the popularity of the Web and Javascript.
+
 
 % \paragraph{Rising of the unpopular language}
 
@@ -89,67 +86,68 @@ All these reasons made the popularity of the Web and Javascript.
 \cit{When JavaScript was first introduced, I dismissed it as being not worth my attention. Much later, I took another look at it and discovered that hidden in the browser was an excellent programming language.}%
 {Douglas Crockford\ftnt{http://javascript.crockford.com/survey.html}}
 
-Javascript was initially limited to short interactions on web pages.
-The typical usage was to pre-validate forms on the client to avoid wasting bandwidth with wrongly formated requests to the server.
-This situation hugely improved since the beginning of the language.
+Javascript was initially used for short interactions on web pages.
+% The typical usage was to pre-validate forms on the client to avoid wasting bandwidth with wrongly formated requests to the server.
+% This situation hugely improved since the beginning of the language.
 Nowadays, there is a lot of web-based applications replacing desktop applications, like mail client, word processor, music player, graphics editor\ldots
 
-ECMA International released several versions in the few years following the creation of Javascript.
-The third version contributed to give Javascript a more complete and solid base as a programming language.
-From this point on, the considerations for Javascript kept improving.
-
-In 2005, James Jesse Garrett released \textit{Ajax: A New Approach to Web Applications} \cite{Garrett2005}.
-Ajax uses Javascript to dynamically  reload the content inside a web page, hence improving the user experience.
+ECMA International allowd this progression by releasing several versions to give Javascript a more complete and solid base as a programming language.
+% The third version contributed to give Javascript a more complete and solid base as a programming language.
+% From this point on, the considerations for Javascript kept improving.
+Moreover, % in 2005, James Jesse Garrett released \textit{Ajax: A New Approach to Web Applications} \cite{Garrett2005}.
+Asynchronous Javascript And XML (Ajax) allows to dynamically reload the content inside a web page, hence improving the user experience \cite{Garrett2005}.
 It allows Javascript to develop richer applications inside the browser, from user interactions to network communications.
-The first web applications to use Ajax were Gmail, and Google maps\footnote{A more in-depth analysis of the history of Ajax, given by late Aaron Swartz \url{http://www.aaronsw.com/weblog/ajaxhistory}}.
-The community released Javascript framework to assist the development of these larger applications.
+% The first web applications to use Ajax were Gmail, and Google maps\footnote{A more in-depth analysis of the history of Ajax, given by late Aaron Swartz \url{http://www.aaronsw.com/weblog/ajaxhistory}}.
+The community released frameworks to assist the development of these larger applications.
 Prototype\ftnt{http://prototypejs.org/} and DOJO\ftnt{https://dojotoolkit.org/} are early famous examples, and later jQuery\ftnt{https://jquery.com/} and underscore\ftnt{http://underscorejs.org/}.
 
 \illustration{Javascript with superpowers}
 
-In 2004, the Web Hypertext Application Technology Working Group\ftnt{https://whatwg.org/} was formed to work on the fifth version of the HTML standard.
+Since 2004, the Web Hypertext Application Technology Working Group\ftnt{https://whatwg.org/} worked on the fifth version of the HTML standard.
 The name is misleading, it is really about giving Javascript superpowers like geolocation, storage, audio, video, and many mores.
-The releases of HTML5 and ECMAScript 5, in 2008 and 2009, represent a milestone in the development of web-based applications.
-Around the same time, Google released the Javascript interpreter V8 for its browser Chrome, improving drastically the execution performance.
+The simultaneous release of HTML5, ECMAScript 5 and V8, around 2009, represent a milestone in the development of web-based applications.
+% Around the same time, Google released the Javascript interpreter V8 for its browser Chrome, improving drastically the execution performance.
 Javascript became the \textit{de facto} programming language to develop on this rising application platform that is the Web\ftnt{http://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/}.
 
 \paragraph{}
 
 Javascript is now widely used on the web, in open source projects, and in the software industry.
-With the increasing importance of client web applications, Javascript is assuredly one of most important language in the times to come.
-Moreover, Javascript allows to build the server side of web applications as well.
-The next paragraphs presents the event-loop model used to develop Javascript web applications, both client and server-side.
+With the increasing importance of client web applications, Javascript is assuredly one of the most important language in the times to come.
+Especially that Javascript now allows to build the server side of web applications as well.
+% The next paragraphs present the event-loop model used to develop Javascript web applications, both client and server-side.
+The next section presents the realities and technical challenges to assure the performance of web services against billions of users.
 
-\begin{figure}
+\nt{Frise chronologique Javascript}
+% \begin{figure}
 
-\newcommand{\event}[3][10pt]{\chronoevent[markdepth=-#1]{#2}{#3}}
-\setupchronoevent{textstyle=\scriptsize,datestyle=\tiny\bf,datesseparation=/,conversionmonth=false}
-% \usr\share\texmf-dist\tex\generic\chronosys\chronosyschr.tex:533 +>
-% \vspace{-6pt} % I added this line because the space between date and text is too large for scriptsize font.
+% \newcommand{\event}[3][10pt]{\chronoevent[markdepth=-#1]{#2}{#3}}
+% \setupchronoevent{textstyle=\scriptsize,datestyle=\tiny\bf,datesseparation=/,conversionmonth=false}
+% % \usr\share\texmf-dist\tex\generic\chronosys\chronosyschr.tex:533 +>
+% % \vspace{-6pt} % I added this line because the space between date and text is too large for scriptsize font.
 
-\startchronology[align=left, startyear=1994,stopyear=2016, height=0pt, startdate=false, stopdate=false, arrow=false, box=true]
-%
-\chronograduation[event][dateselevation=10pt]{2}
-
-
-\event[35pt]  {06/2015}     {ECMAScript v6.0}
-\event[10pt]  {14/01/2015}  {io.js}
-\event[110pt] {06/2011}     {ECMAScript V5.1}
-\event[85pt]  {12/2009}     {ECMAScript v5.0}
-\event[60pt]  {27/06/2009}  {Node.js}
-\event[35pt]  {02/09/2008}  {V8}
-\event[10pt]  {22/01/2008}  {HTML5 public draft}
-\event[10pt]  {04/06/2004}  {WHATWG}
-\event[110pt] {12/1999}     {ECMAScript v3.0}
-\event[85pt]  {06/1998}     {ECMAScript v2.0}
-\event[60pt]  {06/1997}     {ECMAScript v1.0}
-\event[35pt]  {11/1996}     {ECMA Standardization}
-\event        {05/1995}     {Javascript Creation}
+% \startchronology[align=left, startyear=1994,stopyear=2016, height=0pt, startdate=false, stopdate=false, arrow=false, box=true]
+% %
+% \chronograduation[event][dateselevation=10pt]{2}
 
 
+% \event[35pt]  {06/2015}     {ECMAScript v6.0}
+% \event[10pt]  {14/01/2015}  {io.js}
+% \event[110pt] {06/2011}     {ECMAScript V5.1}
+% \event[85pt]  {12/2009}     {ECMAScript v5.0}
+% \event[60pt]  {27/06/2009}  {Node.js}
+% \event[35pt]  {02/09/2008}  {V8}
+% \event[10pt]  {22/01/2008}  {HTML5 public draft}
+% \event[10pt]  {04/06/2004}  {WHATWG}
+% \event[110pt] {12/1999}     {ECMAScript v3.0}
+% \event[85pt]  {06/1998}     {ECMAScript v2.0}
+% \event[60pt]  {06/1997}     {ECMAScript v1.0}
+% \event[35pt]  {11/1996}     {ECMA Standardization}
+% \event        {05/1995}     {Javascript Creation}
 
-\stopchronology
-\end{figure}
+
+
+% \stopchronology
+% \end{figure}
 
 % \subsubsection{Event-Loop Execution Model} \label{chapter2:web-as-a-platform:javascript:event-loop}
 
@@ -208,7 +206,7 @@ The next paragraphs presents the event-loop model used to develop Javascript web
 
 \subsection{Highly Concurrent Web Servers}
 
-The previous section presented Javascript, the prolific language to build the Web.
+% The previous section presented Javascript, the prolific language to build the Web.
 With SaaS, a Web service can scale world wide with near zero latency. %, and accessing it is as simple as distributing it world wide.
 With this broad range of distribution, a new business model emerged, allowing instantaneous and free access for the user.
 The usage exploded, and the software industry needed innovative solutions to cope with large network traffic.
@@ -263,8 +261,6 @@ An application is scalable, if it is able to spread over resources proportionall
 
 \paragraph{Time-slicing and Parallelism}
 
-\nt{This paragraph seems too technical to be here}
-
 Concurrency is achieved differently on hardware with a single or several processing units.
 On a single processing unit, the tasks are executed sequentially, interleaved in time.
 While on several processing units, the tasks are executed simultaneously, in parallel.
@@ -278,11 +274,9 @@ It limits the scalability.
 The type of possible concurrency, sequential or parallel, is defined by the interdependencies of the tasks.
 
 % The previous section presented the event-loop execution model used by Javascript.
-As explained in the previous section, Javascript requires a global memory to coordinate the execution of the callbacks.
-The event-loop is constrained within time-slicing concurrency to assure this coordination.
+The Javascript event-loop requires a global memory to assure the interdependency of the tasks.
+% The event-loop is constrained within time-slicing concurrency to assure this coordination.
 This thesis argues that there exists an equivalence between the event-loop model and the pipeline execution model.
-The next section presents this parallel execution model.
-
 
 \subsubsection{Pipeline Execution Model}
 
