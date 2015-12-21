@@ -17,7 +17,7 @@ Especially, higher order programming is crucial to build and compose modules eff
 % \footnote{Without higher-order programming, Object-Oriented Programming relied on numerous design patterns. Higher-order programming was finally adopted in OOP languages such as sJava 8 and C++11.}
 It relies either on mutable states, or immutable states, but hardly on a combination of both.
 
-However, neither mutable states nor immutable states allow performance efficiency.
+However, neither mutable nor immutable states allow performance efficiency.
 Mutable states leads to synchronization overhead at coarser-grain level, while immutable states leads to communication overhead at finer-grain level.
 Performance efficiency relies on a combination of shared mutable state at a fine-grain level, and immutable message passing at a coarse-grain level.
 This combination breaks the modularity, hence the maintainability of an application.

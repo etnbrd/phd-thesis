@@ -1,90 +1,89 @@
 \section{Performance Efficiency Focused Environements} \label{chapter3:software-performance}
 
 With the limitations on performance presented in the previous section, both academy and industry communities proposed alternative solutions with performance in mind.
-Section \ref{chapter3:software-performance:concurrency} presents the concurrent and parallel programming paradigms, and their programming models oriented on performance rather than maintainability.
-Section \ref{chapter3:software-performance:organic-growth} presents the organic growth steered by the performance of parallel programming.
-Section \ref{chapter3:software-performance:maintainability-limitations} presents the consequences of the decomposition on maintainability.
+Section \ref{chapter3:software-performance:concurrency} presents the concurrent and parallel programming paradigms, and their programming models. % oriented on performance rather than maintainability.
+Section \ref{chapter3:software-performance:adoption} presents the adoption steered by the performance efficiency of parallel programming.
+Section \ref{chapter3:software-performance:maintainability-limitations} presents the consequences of parallelism on maintainability.
 Finally, section \ref{chapter3:software-performance:summary} summarizes the three previous sections in a table.
 
 \subsection{Concurrency} \label{chapter3:software-performance:concurrency}
 
-\begin{figure}[h!]  \label{fig:state-of-the-art-3}
+\begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-3.pdf}
 \end{center}
+\caption{}
+\label{fig:state-of-the-art-3}
 \end{figure}
 
-Web servers need to be able to process huge amount of concurrent tasks in a scalable fashion.
-Concurrency is the ability to make progress on several tasks simultaneously, it implies decomposition of the execution or the memory into independent tasks.
-When the independence on both the execution and the memory are clearly defined, the tasks can be scheduled in parallel, otherwise, they cannot.
+Web servers need to be able to process huge amount of concurrent operations in a scalable fashion.
+Concurrency is the ability to make progress on several operations roughly simultaneously.
+It implies to draw boundaries in the memory to define independent regions, and causality in the execution to define independent tasks.
+When both boundaries and causality are clearly defined, the tasks can be scheduled in parallel to make progress strictly simultaneously.
 
-This decomposition allows the fine level sequentiality, and coarse level message passing required by scalability.
-The sequentiality of execution at a fine level assures the invariance on the shared state, and avoid communication overhead.
-The message passed at a coarser level are immutable, it assures the independence, hence the parallelism, and avoid the synchronization overhead.
-The two are indispensable for performance scalability as the need for synchronization are different at the two levels.
-Therefore the solutions presented in this section are analyzed against these two criteria.
-
-\begin{itemize}
-\item fine level sequentiality
-\item coarse level message passing
-\end{itemize}
+The definition of independent tasks allows the fine level synchronization within a task, and coarse level message passing between the tasks required for performence efficiency.
+The synchronization of execution at a fine level assures the invariance on the shared state, and avoid communication overhead.
+The message-passing at a coarser level assures the parallelism.
+The two are indispensable for performance efficiency.
 
 \subsubsection{Concurrent Programming} \label{chapter3:software-maintainability:concurrency:concurrent-programming}
 
 % \cit{Building concurrent programming is like building a steam engine through a keyhole}{TODO}
 
-Concurrent programming provides to the developer the mechanisms to decompose the execution for concurrency, while conserving a global memory model.
-
 \illustration{feu rouge et rond point}
-
+Concurrent programming provides the mechanisms to define the causality of execution and assure the invariance of the global memory.
 There are two scheduling strategies to execute tasks sequentially on a single processing unit, cooperative scheduling and preemptive scheduling.
-Cooperative scheduling allows a concurrent execution to run until it yields back to the scheduler.
+
+\begin{description}
+\item[Cooperative Scheduling] allows a concurrent execution to run until it yields back to the scheduler.
 Each concurrent execution has an atomic, exclusive access on the memory.
-On the other hand, preemptive scheduling allows a limited time of execution for each concurrent execution, before preempting it.
-It assures fairness between the tasks, such as in a multi-tasking operating system, but as the preemption happens unexpectedly it breaks atomicity, the developer needs to lock the shared state to assure atomicity and exclusivity.
+\item[Preemptive Scheduling] allows a limited time of execution for each concurrent execution, before preempting it.
+It assures fairness between the tasks, such as in a multi-tasking operating system.
+But the unexpected preemption breaks atomicity, the developer needs to lock the shared state to assure atomicity and exclusivity.
+\end{description}
+
 The next paragraphs presents the event-driven programing model, based on cooperative scheduling, and the multi-threading programming model, based on preemptive scheduling.
 Additionally, they present lock-free data-structures, which is independent from the scheduling strategy, as they rely on atomic memory operations.
 
 \paragraph{Event-Driven Programming}
 
-Event-driven programming explicitly queues the concurrent executions needing access to shared resources.
-The concurrent executions are schedule sequentially to assure exclusivity, and cooperatively to assure atomicity.
+Event-driven execution model queues explicitly defined concurrent tasks needing access to shared resources.
+The concurrent tasks are schedule sequentially to assure exclusivity, and cooperatively to assure atomicity.
+% Web servers needs to be highly concurrent, and efficient.
+It is very efficient for highly concurrent applications, as it avoids contention due to waiting for shared resources like disks, or network.
+Several execution model rely on this execution model, like TAME \cite{Krohn2007}, Node.js\ftnt{https://nodejs.org/en/} and Vert.X\ftnt{http://vertx.io/}.
+As well as some web servers like Flash \cite{Pai1999}, Ninja \cite{Gribble2001} thttpd\ftnt{http://acme.com/software/thttpd/} and Nginx\ftnt{https://www.nginx.com/}.
 
-\comment{As presented in the previous chapter, }web servers needs to be highly concurrent, and efficient.
-The event-driven model is very efficient to serve websites, as it avoids contention due to waiting for shared resources like disks, or network.
-Web servers like Flash \cite{Pai1999}, Ninja \cite{Gribble2001} thttpd\ftnt{http://acme.com/software/thttpd/} and Nginx\ftnt{https://www.nginx.com/} were designed following this model.
-However, a drawback of this model was that the execution context is lost at each event.
-The developer needs to explicitly transfer the relevant state to continue the execution from one event execution to another.
+% However, a drawback of this model was that the execution context is lost at each event.
+% The developer needs to explicitly transfer the relevant state to continue the execution from one event execution to another.
 
-Cooperative threads, or fibers, addressed this drawback \cite{Adya2002,Behren2003a}.
-The execution is not ripped into several events.
-It yields and resume exactly at the same point after the completion of an asynchronous operation, conserving its context.
-However, the developer needs to be well aware of the asynchronous calls to assure the atomicity\ftnt{https://glyph.twistedmatrix.com/2014/02/unyielding.html}.\nt{more about that, it is important, and transition with the next}
 % + Fibers \cite{Adya2002}
 % + Capricio \cite{Behren2003a} - User cooperative threads (also known as fibers / green threads)
 
-The problem of losing the execution context disappears with closures in higher-order programming.
-\nt{link with the previous paragraph}
-Moreover, the continuation passing style used in higher-order programming requires the developer to be aware of the asynchronous rupture in the execution, so as to assure atomicity \cite{Sussman1998}.
-And because an asynchronous call doesn't wait for the completion of the operation, the asynchronous control flow is not limited to be linear like in threads. \nt{more about that}
-Multiple asynchronous calls are made in parallel.
-Several execution model proposed this event-based programming model, like TAME \cite{Krohn2007}, Node.js\ftnt{https://nodejs.org/en/} and Vert.X\ftnt{http://vertx.io/}.
+% The problem of losing the execution context disappears with closures in higher-order programming.
+% \nt{link with the previous paragraph}
+% Moreover, the continuation passing style used in higher-order programming requires the developer to be aware of the asynchronous rupture in the execution, so as to assure atomicity \cite{Sussman1998}.
+% And because an asynchronous call doesn't wait for the completion of the operation, the asynchronous control flow is not limited to be linear like in threads. \nt{more about that}
+% Multiple asynchronous calls are made in parallel.
+
 % + TAME \cite{Krohn2007} - event-based solution without stack ripping in C (it is like closure, but for C)
 % + Node.js - \ftnt{https://nodejs.org/en/}
 % + Vert.X - \ftnt{http://vertx.io/} node like + thread / worker capabilities
 
-However, as the shared memory is global and all the execution portions needs atomic access, they are not parallel, but sequentially concurrent.
-The next paragraph present work intending to improve performance by reducing the sequential portions to a minimum to increase the possibilities of parallelism.
+But the event-driven model is limited in performance.
+The concurrent tasks share the same memory, and cannot be scheduled in parallel.
+The next paragraph present work intending to improve performance. % by reducing the sequential portions to a minimum to increase the possibilities of parallelism.
 
 \paragraph{Lock-Free Data-Structures}
 
-The wait-free and lock-free data-structures reduce the exclusive execution to a few atomic operations \cite{Lamport1977,Herlihy1988,Herlihy1990,Herlihy1991,Anderson1990}.
-They are based on transactional memories \cite{Harris2010}, which provide atomic read and write operations on a shared memory.
-Lock-free data-structures arrange these atomic operations so as to keep invariance without the need to lock.
+The wait-free and lock-free data-structures reduce the exclusive execution to a minimum of instructions \cite{Lamport1977,Herlihy1988,Herlihy1990,Herlihy1991,Anderson1990}.
+They arrange these instructions into small atomic operations to avoid the need to lock.
+They are based on atomic read and write operations provided by transactional memories \cite{Harris2010}.
 They provide concurrent implementation of basic data-structures such as linked list \cite{Valois1995,Timnat2012}, queue \cite{Sundell2003,Wimmer2015}, tree \cite{Ramachandran2015} or stack \cite{Hendler2004}.
 
-However, even if they are theoretically infinitely scalable, they are hard to come with, and are not fit for every problem.
-The next paragraph present the multi-threading and associated synchronization mechanisms to try improve the parallelism of execution using coarser granularity of atomic execution and exclusivity.
+However these atomic operations are uncommon hence difficult to develop with.
+The next paragraph present the multi-threading improving parallelism with explicit synchronization from the developer.
+% using coarser granularity of atomic execution and exclusivity.
 
 % Reference papers :
 % Concurrent reading and writing \cite{Lamport1977}
@@ -97,52 +96,67 @@ The next paragraph present the multi-threading and associated synchronization me
 
 \paragraph{Multi-Threading Programming}
 
-Threads are light processes sharing the same memory execution context within an isolated process \cite{Dijkstra1968}.
-They wait for completion of each operation, and are preemptively scheduled to avoid blocking the global progression.
-This preemption breaks the atomicity of the execution, and the parallel execution breaks the exclusivity.
-To restore atomicity and exclusivity, hence assure the invariance, multi-threading programming model provide synchronization mechanisms, such as semaphores \cite{Dijkstra}, guarded commands \cite{Dijkstra1975}, guarded region \cite{Hansen1978a} or monitors \cite{Hoare1974}.
-They assure an execution region to have exclusive access over a cell of the global state.
-
-\textit{The purpose of explicit synchronization is to manage the timing of side-effects in the presence of parallelism.}\ftnt{http://pchiusano.blogspot.com/2010/01/actors-are-not-good-concurrency-model.html?showComment=1267337235223\#c3014836700278061280}
-
-\nt{Fork-join parallelism : Cilk \cite{Randall1998,Frigo1998,Leiserson2010}}
+Threads are light processes sharing the same memory execution context within an isolated process \cite{Dijkstra1968}, and scheduled in parallel with fork/join operations \cite{Randall1998,Frigo1998,Leiserson2010}.
+They execute statements sequentially waiting for completion, and are scheduled preemptively to avoid blocking the global progression.
+The preemption breaks the atomicity of the execution, and the parallel execution breaks the exclusivity of memory accesses.
+To restore atomicity and exclusivity, hence assure the invariance, multi-threading programming models provide synchronization mechanisms, such as semaphores \cite{Dijkstra}, guarded commands \cite{Dijkstra1975}, guarded region \cite{Hansen1978a} or monitors \cite{Hoare1974}.
 
 Developers tend to use the global memory extensively, and threads require to protect each and every shared memory cell.
 This heavy need for synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
 
+\paragraph{Fibers}
 
+Cooperative threads, or fibers proposed to join the advantage of threads sequentiality, with the advantage of cooperative scheduling \cite{Adya2002,Behren2003a}.
+It avoids splitting the execution into atomic tasks nor use synchronization mechanisms to protect the memory.
+A fiber yields the execution to another fiber for a long-waiting operation to avoid blocking the execution, and recovers it at the same point when the operation finishes.
+
+However, developers need to be aware of these yielding operation to preserve the atomicity\ftnt{https://glyph.twistedmatrix.com/2014/02/unyielding.html}.
+
+\paragraph{}
+
+The table \ref{tab:performance-concurrency} presents a summary of the analysis of performance of the platforms presented in this section.
 
 \begin{table}[h!]
-\label{concurrent-actormodel}
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
 %
-% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Fine level sequentiality} & \rot{Coarse level message passing} & $\to$ & \rot{Scalability} \\
+% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \lab{Fine level sequentiality} & \lab{Coarse level message passing} & $\to$ & \lab{Performance Efficiency} \\
 \tabucline[.5pt]{-}
 %                                                                               SEQ  MSG   SCL
 Event-driven programming       & Node.js, Vert.X                               & \V & \X && \X \\ \tabucline[on .5pt]{-}
 Lock-free Data Structures      &                                               & \V & \X && \X \\ \tabucline[on .5pt]{-}
-Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \V & \X && \X \\
+Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \V & \X && \X \\ \tabucline[on .5pt]{-}
+Cooperative threads            & Fibers                                        & \V & \X && \X \\
 \tabucline[.5pt]{-}
 \end{tabu}
-\caption{Analysis of the state of the art in concurrent programming regarding performance}
+\caption{Analysis of the state of the art in concurrent programming regarding performance efficiency}
+\label{tab:performance-concurrency}
 \end{table}
 
 
-\paragraph{}
+\paragraph{Performance Limitation of Concurrent Programming}
 
 
 
-Moore's law \cite{Moore1965} which forecasts the density of transistors per processing unit, was wrongly interpreted to promise the exponential evolution in the sequential performance of the processing unit, and the assurance for the software industry of always faster hardware.
-But as transistors attained a critical size, the reduction in power required by transistor predicted by the Dennard's MOSFET scaling \cite{Dennard2007} stopped\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
-The ever growing number of transistor predicted by Moore's law are arranged in parallel architecture to continue increasing the performance of processing units.
-Parallel programming became the only solution for scalable performance, at the expense of development effort.
+% Moore's law \cite{Moore1965} which forecasts the density of transistors per processing unit, was wrongly interpreted to promise the exponential evolution in the sequential performance of the processing unit, and the assurance for the software industry of always faster hardware.
+% But as transistors attained a critical size, the reduction in power required by transistor predicted by the Dennard's MOSFET scaling \cite{Dennard2007} stopped\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
+
+The total ordering imposed by fork/join threads is excessive.
+The causal ordering proposed by the event-driven execution model is sufficient to assure correctness of a concurrent system \cite{Lamport1978,Reed2012}.
+But because of the lack of clear isolation of the memory, the execution is not parallel, hence the performance is limited.
+Synchronization mechanisms define shared memory, and lock-free data structures improve the parallel portion of execution, but the performance remains limited.
+Parallel programming is the only solution for performance efficiency, at the expense of development efforts to explicitely define the memory isolation of concurrent tasks.
+
+% Concurrent programming is a compromise to process operations simultaneously, by introduction synchronization to assure the exclusion required for shared states.
+
+
+% The ever growing number of transistor predicted by Moore's law \cite{Moore1965} are arranged in parallel architecture to continue increasing the performance of processing units.
+% Parallel programming became the only solution for performance efficiency, at the expense of development effort.
+
 
 % This section presents the parallel programming solutions and their limitations in accessibility, and then the improvements to overcome these limitations.
 
-Concurrent programming is a compromise to keep shared states, while introducing different forms of synchronization to keep the execution sequential.
-But because of the lack of clear isolation, the execution is not parallel, hence the performance is limited.
 
 % \nt{The shared-nothing architecture \cite{Stonebraker1986}}
 
@@ -151,13 +165,13 @@ But because of the lack of clear isolation, the execution is not parallel, hence
 
 
 Concurrent programming is based on the causal ordering of execution.
-The ordering of operations is local within a synchronous execution, while the concurrent executions are causally ordered.
-It leads to parallel execution with some coordinations such as synchronization, immutability or isolation.
-As Lamport showed \cite{Lamport1978}, and Reed related later \cite{Reed2012}, This causal order is sufficient to execute correctly a system in parallel, such as in distributed system.
+% The ordering of operations is local within a synchronous execution, while the concurrent executions are causally ordered.
+% It leads to parallel execution with some coordinations such as synchronization, immutability or isolation.
+With isolation of their memory, concurrent tasks can be scheduled in parallel.
 
-This section presents first hand the theoretical and programming model based on asynchronous communication and isolated execution for parallel programming, as illustrated on the schema above.
-It then continues with stream processing programming model. 
-And finally,it concludes on the limitations of parallel programming regarding accessibility. 
+This section presents the theoretical and programming models based on asynchronous communication and isolated execution for parallel programming.
+It then presents with stream processing programming model.
+And finally,it concludes on the limitations of parallel programming regarding maintainability. 
 
 \nt{read and include \cite{Asanovic2006}}
 
@@ -178,11 +192,9 @@ MIMD implies several threads of execution processing several stream of data.
 \includegraphics[width=0.2\textwidth]{../ressources/MIMD.pdf}\\
 by I, Cburnett. Licensed under CC BY-SA 3.0 via Commons
 \url{https://commons.wikimedia.org/wiki/File:{SISD,SIMD,MISD,MIMD}.svg}
-% \url{https://commons.wikimedia.org/wiki/File:SIMD.svg}
-% \url{https://commons.wikimedia.org/wiki/File:MISD.svg}
-% \url{https://commons.wikimedia.org/wiki/File:MIMD.svg}
 \end{center}
 \caption{Flynn's taxonomy of parallelism}
+\label{fig:flynn-taxonomy}
 \end{figure}
 
 
@@ -198,13 +210,18 @@ Examples of MPMD programming languages are
 Mentat \cite{Grimshaw1991},
 Fortran M \cite{Foster1995b} and
 Nexus \cite{Foster1996}.
-SPMD is close to the model presenting parallel improvements over modular programming presented in section \ref{chapter3:software-maintainability:programming-models}.
-While MPMD is closer to the programming models based on isolated process presented in the remaining of this section.
+
+% SPMD is close to the model presenting parallel improvements over modular programming presented in section \ref{chapter3:software-maintainability:programming-models}.
+% While MPMD is closer to the programming models based on isolated process presented in the remaining of this section.
 The coordinations between these threads of execution were done by message passing, using PVM \cite{Sunderam1994}, MPI \cite{Snir1996,Walker1996}, SOAP, or the more recent REST protocols.
 
 \paragraph{Theoretical Models}
 
-The communication in reality are subject to various faults and attacks \cite{Lamport1982} and too slow compared to execution to be synchronous.
+The total ordering of execution imposed by sequential execution is an overkill.
+The causal ordering is sufficient to assure correctness in a distributed system \cite{Lamport1978,Reed2012}.
+% As Lamport showed \cite{Lamport1978}, and Reed related later \cite{Reed2012}, causal order is sufficient to execute correctly a system in parallel, such as a distributed system.
+% The total ordering of execution provided by synchronization is an overkill.
+Moreover, the communication in reality are subject to various faults and attacks \cite{Lamport1982} and too slow compared to execution to be synchronous.
 The Actor model is one of the first programming model to be explicitly designed to take these physical limitations in account \cite{Hewitt1977a}.
 It allows to express the computation as a set of communicating actors \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
 In reaction to a received message, an actor can create other actors, send messages, and choose how to respond to the next message.
@@ -229,13 +246,14 @@ Table \ref{scalability-actor-model} presents a summary of the analysis of the pa
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
 %
-% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Fine level sequentiality} & \rot{Coarse level message passing} & $\to$ & \rot{Scalability} \\
+% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \lab{Fine level sequentiality} & \lab{Coarse level message passing} & $\to$ & \lab{Performance Efficiency} \\
 \tabucline[.5pt]{-}
 %                                                                               SEQ  MSG   SCL
 Event-driven programming       & Node.js, Vert.X                               & \V & \X && \X \\ \tabucline[on .5pt]{-}
 Lock-free Data Structures      &                                               & \V & \X && \X \\ \tabucline[on .5pt]{-}
-Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \V & \X && \X \\
+Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \V & \X && \X \\ \tabucline[on .5pt]{-}
+Cooperative threads            & Fibers                                        & \V & \X && \X \\
 \tabucline[.5pt]{-}
 Actor Model                    & Scala, Akka, Play, Erlang                     & \V & \V && \V \\
 \tabucline[.5pt]{-}
@@ -247,12 +265,14 @@ Actor Model                    & Scala, Akka, Play, Erlang                     &
 
 
 
-\subsection{Organic Growth} \label{chapter3:software-performance:organic-growth}
+\subsection{Adoption} \label{chapter3:software-performance:adoption}
 
-\begin{figure}[h!]  \label{fig:state-of-the-art-4}
+\begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-4.pdf}
 \end{center}
+\caption{}
+\label{fig:state-of-the-art-4}
 \end{figure}
 
 The performance improvements comes directly from the industry requirements.
@@ -270,9 +290,8 @@ And these technology must be compatible with web technologies.
 
 The context of this thesis requires the technology to meet all the three criteria.
 \begin{itemize}
-\item adoption by the community
-\item adoption by the industry
-\item supporting web technologies
+\item Community support
+\item Industrial need
 \end{itemize}
 
 
@@ -323,22 +342,22 @@ This paradigm is heavily adopted by both the community and the industry.
 On the other hand, the multi-threading paradigms with locks requires an execution decomposition, and light memory decomposition.
 This paradigms is not heavily used in the community, and is being abandoned by the industry.
 This comparison between the event-loop and the multi-threading paradigms seems to indicate that the memory decomposition heavily restrains the adoption by the community.
-Hence, it impacts the maintainability required for the organic growth in the economical context of this thesis, as shown in table \ref{scalability-execution-decomposition}.
+Hence, it impacts the maintainability required for the adoption in the economical context of this thesis, as shown in table \ref{scalability-execution-decomposition}.
 
 \begin{table}[h!]
 \label{scalability-execution-decomposition}
 \small
-\begin{tabu} to \linewidth {@{} l X[l] c c c c c @{}}
+\begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
 %
-% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Community adoption} & \rot{Industrial adoption} & \rot{Web compliant} & $\to$ & \rot{Organic Growth} \\
+% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \lab{Community adoption} & \lab{Industrial adoption} & $\to$ & \lab{Adoption} \\
 \tabucline[.5pt]{-}
-% %                                                                               COM  IND  WEB   GRO
-Event-driven programming       & Node.js, Vert.X                               & \V & \V & \V && \V \\ \tabucline[on .5pt]{-}
-Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \X & \V & \V && \X \\
+% %                                                                             COM  IND   GRO
+Event-driven programming       & Node.js, Vert.X                               & \V & \V && \V \\ \tabucline[on .5pt]{-}
+Multi-threading programming    & Lock, Mutex, Semaphores, Guarded regions      & \X & \V && \X \\
 \tabucline[.5pt]{-}
 \end{tabu}
-\caption{Analysis of the state of the art in concurrent programming regarding organic growth}
+\caption{Analysis of the state of the art in concurrent programming regarding adoption}
 \end{table}
 
 The next paragraphs present solutions that forces both the execution and memory decomposition to allow parallel execution.
@@ -465,7 +484,7 @@ Regent \cite{Slaughter2015}
 \paragraph{}
 
 At the light of this analysis, it appears that parallel programming is not heavily adopted by the community.
-The execution decomposition required by parallel programming improve performance scalability, but reduce the organic growth required for maintainability.
+The execution decomposition required by parallel programming improve performance scalability, but reduce the adoption required for maintainability.
 Eventually, only the event-loop is a viable concurrent programming approach in the economical context of the web.
 And it is exactly what the numbers indicates through the heavy adoption of Javascript in the last few years.
 
@@ -474,8 +493,8 @@ And it is exactly what the numbers indicates through the heavy adoption of Javas
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c c c @{}}
 %
-% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Community adoption} & \rot{Industrial adoption} & \rot{Web compliant} & $\to$ & \rot{Organic Growth} \\
+% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \lab{Community adoption} & \lab{Industrial adoption} & \lab{Web compliant} & $\to$ & \lab{Adoption} \\
 \tabucline[.5pt]{-}
 % %                                                                               COM  IND  WEB   GRO
 Event-driven programming       & Node.js, Vert.X                               & \V & \V & \V && \V \\ \tabucline[on .5pt]{-}
@@ -504,7 +523,7 @@ Pipeline Stream Processing     & SEDA, Storm, Spark Streaming,%
                                  Regent \cite{Slaughter2015}.                  & \X & \V & \V && \X \\
 \tabucline[.5pt]{-}
 \end{tabu}
-\caption{Analysis of the state of the art in concurrent and parallel programming regarding organic growth}
+\caption{Analysis of the state of the art in concurrent and parallel programming regarding adoption}
 \end{table}
 
 \subsection{Maintainability Limitations} \label{chapter3:software-performance:maintainability-limitations}
@@ -529,8 +548,8 @@ The next section presents some works that provides such a memory decomposition a
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c @{}}
 %
-% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Memory decomposition abstraction} & $\to$ & \rot{Maintainability} \\
+% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \lab{Memory decomposition abstraction} & $\to$ & \lab{Maintainability} \\
 \tabucline[.5pt]{-}
 %                                                                               ABS   MAI
 Event-driven programming       & Node.js, Vert.X                               & \V && \V \\ \tabucline[on .5pt]{-}
@@ -572,8 +591,8 @@ Table \ref{scalability-synthesis} summarizes the characteristics of the solution
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c @{}}
 %
-% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Maintainability} & \rot{Organic Growth} & \rot{Scalability} \\
+% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \lab{Maintainability} & \lab{Adoption} & \lab{Performance Efficiency} \\
 \tabucline[.5pt]{-}
 %                                                                               MAI  GRO  SCA
 Event-driven programming       & Node.js, Vert.X                               & \V & \V & \X \\ \tabucline[on .5pt]{-}

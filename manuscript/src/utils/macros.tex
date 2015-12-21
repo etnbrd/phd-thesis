@@ -51,8 +51,12 @@
   \end{flushright}%
 }
 
+
 \newcommand*\rot{\rotatebox{90}}
 
+\newcommand\lab[1]{%
+  \rotatebox{90}{\parbox{3cm}{\raggedright #1}}%
+}
 
 \newlength\replength
 \newcommand\repfrac{.33}
@@ -85,6 +89,14 @@
 
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=0.8pt] (char) {#1};}}
+
+\newcommand*\rate[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=0.8pt, fill=blue!#1] (char) {#1};}}
+
+
+
+
+
 
 \makeatletter
 

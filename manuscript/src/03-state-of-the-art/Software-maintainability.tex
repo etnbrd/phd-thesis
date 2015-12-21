@@ -3,7 +3,7 @@
 \cit{It is becoming increasingly important to the data-processing industry to be able to produce more programming systems and produce them with fewer errors, at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. P. Stevens, G. J. Myers, L. L. Constantine \cite{Stevens1974}.}
 
 In order to improve and maintain a software system, it is important to holds in mind a mental representation of its implementation.
-As the system grows in size, the mental representation become more and more difficult to grasp.
+As the system grows in size, the mental representation becomes more and more difficult to grasp.
 Therefore, it is crucial to decompose the system into smaller subsystem easier to grasp individually.
 % This section presents academic propositions for software maintainability, and then presents how the industry adapted these solutions to meet their needs.
 % Finally, this section presents the limitations of the presented solutions.
@@ -15,16 +15,18 @@ Therefore, it is crucial to decompose the system into smaller subsystem easier t
 % }
 
 Section \ref{chapter3:software-maintainability:modularity} presents the modular programming paradigms, and their programming models, oriented toward maintainability.
-Section \ref{chapter3:software-maintainability:organic-growth} presents the organic growth allowed by the maintainability of modular programming.
+Section \ref{chapter3:software-maintainability:adoption} presents the adoption of the implementations of modular programming languages.
 Section \ref{chapter3:software-maintainability:performance-limitations} presents the consequences of the modularity on performance.
 Finally, section \ref{chapter3:software-maintainability:summary} summarizes the three previous sections in a table.
 
 \subsection{Modular Programming} \label{chapter3:software-maintainability:modularity}
 
-\begin{figure}[h!] \label{fig:modular-programming-state-of-the-art-1}
+\begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-1.pdf}
 \end{center}
+\caption{}
+\label{fig:state-of-the-art-1}
 \end{figure}
 
 % The modularity of a software implementation is about enclosing subproblems and composing them through relevant interface abstractions.
@@ -168,39 +170,42 @@ They provide encapsulation, higher-order programming and lazy evaluation.
 \paragraph{Multi-Paradigm}
 
 The functional programming concepts are also implemented in other languages along with mutable states and object-oriented concepts.
-Major recent programming languages now commonly present \textbf{higher-order functions} and \textbf{lazy evaluation} to help loosen the couple between modules, define more generic and reusable modules.
-Moreover, they provide reflective programming, and other meta-programming techniques.
+% The two main references of Object-Oriented Programming, Java and C++, adopted higher-order functions in their last version, Java 8 and C++11.
+Major recent programming languages, including Java 8 and C++ 11, now commonly present \textbf{higher-order functions} and \textbf{lazy evaluation}. % to help loosen the couple between modules. %, define more generic and reusable modules.
+% Moreover, they provide reflective programming, and other meta-programming techniques.
 \textit{In fine}, it helps developers to write applications that are more maintainable, and favorable to evolution \cite{Hughes1989,Turner1981}.
-These recent multi-paradigms languages like Javascript, Ruby, Python and Go combine the different paradigms to help developer building applications faster.
-They provide encapsulation, higher-order programming and stream composition.
+These recent multi-paradigms languages like Javascript, Python, Ruby and Go combine the different paradigms to help developer building applications faster.
+% They provide encapsulation, higher-order programming and stream composition.
 
 \paragraph{}
 
-Table \ref{maintainability-modularity} presents a summary of the analysis of the programming models presented in the previous paragraphs.
+Table \ref{tab:maintainability-modularity} presents a summary of the analysis of the programming models presented in the previous paragraphs.
 
 \begin{table}[h!]
-\label{maintainability-modularity}
 \small
-\begin{tabu} to \linewidth {@{} l X[l] c c c c c @{}}
+\begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
 %
-% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Higher-Order Programming} & \rot{Lazy evaluation, or streaming composition} & \rot{Encapsulation} & $\to$ & \rot{Maintainability} \\
+% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \lab{Composition} & \lab{Encapsulation} & $\to$ & \lab{Maintainability} \\
 \tabucline[.5pt]{-}%
-Imperative Programming         & C                                             & \X & \X & \V && \X \\ \tabucline[on .5pt]{-}
-Object-Oriented Programming    & C++, Java                                     & \X & \X & \V && \X \\ \tabucline[on .5pt]{-}
-Functional Programming         & Scheme, Miranda, Haskell                      & \V & \V & \V && \V \\ \tabucline[on .5pt]{-}
-Dynamic Scripting              & Javacript, Python, Ruby, Go                   & \V & \V & \V && \V \\
+Imperative Programming         & C                                             & \X & \V && \X \\ \tabucline[on .5pt]{-}
+Object-Oriented Programming    & C++, Java                                     & \V & \V && \V \\ \tabucline[on .5pt]{-}
+Functional Programming         & Scheme, Miranda, Haskell                      & \V & \V && \V \\ \tabucline[on .5pt]{-}
+Multi Paradigm                 & Javacript, Python, Ruby, Go                   & \V & \V && \V \\
 \tabucline[.5pt]{-}
 \end{tabu}
 \caption{Analysis of the state of the art in modular programming regarding maintainability}
+\label{tab:maintainability-modularity}
 \end{table}
 
-\subsection{Organic Growth} \label{chapter3:software-maintainability:organic-growth}
+\subsection{Adoption} \label{chapter3:software-maintainability:adoption}
 
-\begin{figure}[h!] \label{fig:state-of-the-art-2}
+\begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-2.pdf}
 \end{center}
+\caption{}
+\label{fig:state-of-the-art-2}
 \end{figure}
 
 % A system is maintainable only if there is people willing to maintain it.
@@ -213,7 +218,7 @@ Dynamic Scripting              & Javacript, Python, Ruby, Go                   &
 % As a result, the multi-paradigm scripts tends to be better compromises between modularity and performance.
 % And the data of this section proves it.
 
-% The criteria to analyze the solutions presented in this section regarding the organic growth are the adoption in :
+% The criteria to analyze the solutions presented in this section regarding the adoption are the adoption in :
 % \begin{itemize}
 % \item the community,
 % \item the industry,
@@ -222,7 +227,7 @@ Dynamic Scripting              & Javacript, Python, Ruby, Go                   &
 % The first two criteria make sure that the technology is growing organically with a passionate community, and backed by industrial needs.
 % The last criteria assures the fitting of the technologies with our economical context of a web application.
 The next paragraphs presents the adoption of the implementation of the previously presented programming model.
-These implementations often break apart from pure maintainability to wander back into performance efficiency, as shown by \circled{2} in figure \ref{fig:modular-programming-state-of-the-art-2}.
+These implementations steer back from maintainability into performance efficiency, as shown by \circled{2} in figure \ref{fig:modular-programming-state-of-the-art-2}.
 
 % The rise of Javascript is indisputable on the web, and seems to be rising in the software industry as well.
 % But it is difficult to give an accurate representation of the situation because the software industry often maintains a fog of war to try to keep an edge.
@@ -235,30 +240,32 @@ These implementations often break apart from pure maintainability to wander back
 
 According to the TIOBE Programming Community index, Javascript ranks 8th, as of October 2015, and was the most rising language in 2014.
 This index measure the popularity of a programming language with the number of results on many search engines.
-However, this measure is controversial as the number of pages doesn't represent the number of readers.
+% However, this measure is controversial as the number of pages doesn't represent the number of readers.
 Alternatively, Javascript ranks 7th on the PYPL, as of October 2015.
 The PYPL index is based on Google trends to measure the number of requests on a programming language.
-However, it is limited to Google searches.
-From these indexes, the major programming languages are Java, then C/C++, C\# and Python.
-The preponderance of Object-Oriented Languages in these results is explained by the lag of these indexes.
-Java and C/C++ were very popular and helped bring the explosion of the web.
-It is not unusual to see these languages ranked high as they are still widely used as the communities and the industry continue to use them.
-Though, the next paragraphs bring a more actual vision.
+% However, it is limited to Google searches.
+
+From these indexes, the major programming languages are Java, C++, C, C\# and Python.
+% The preponderance of Object-Oriented Languages in these results is explained by the lag of these indexes.
+% Java and C/C++ were very popular and helped bring the explosion of the web.
+These languages are still widely used by their communities and in the industry.
+% Though, the next paragraphs bring a more actual vision.
 
 \nt{TODO graphical ranking of TIOBE and PYPL}
 
 \paragraph{Developers Collaboration Platforms}
 
 Online collaboration tools give an indicator of the number of developers and projects using certain languages.
-Javascript is the most used language on \textit{Github}, the most important collaborative development platform gathering about 9 millions users.
-It represents more than 320 000 repositories, while the second language is Java with more than 220 000 repositories.
-Javascript is the most cited language on \textit{StackOverflow}, the most important Q\&A platform for developers.
-It represents more than 960 000 questions, while the second is Java with around 940 000 questions.
-According to \textit{Black Duck Software}\ftnt{https://www.blackducksoftware.com/} it is the second language used in open source projects.
+Javascript is the most used language on \textit{Github}\ftnt{the most important collaborative development platform gathering about 9 millions users.} and the most cited language on \textit{StackOverflow}\ftnt{the most important Q\&A platform for developers.}
+It represents more than $320000$ repositories on \textit{Github}.
+The second language is Java with more than $220000$ repositories.
+It is cited in more than $960000$ questions on \textit{StackOverflow} while the second is Java with around $940000$ questions.
+% According to \textit{Black Duck Software}\ftnt{https://www.blackducksoftware.com/} it is the second language used in open source projects.
 % C is first, C++ third and Java fourth.\ftnt{https://www.blackducksoftware.com/resources/data}
 % These four languages represent about 80\% of all programming language usage in open source communities.
 And according to a survey by \textit{StackOverflow}, it is currently the language the most popular\ftnt{http://stackoverflow.com/research/developer-survey-2015}.
 Moreover, the Javascript package manager, \textit{npm}, has the most important and impressive package repository growth.
+
 \nt{TODO include so survey graph}
 
 \nt{TODO redo this graph, it is ugly.}
@@ -266,8 +273,8 @@ Moreover, the Javascript package manager, \textit{npm}, has the most important a
 
 \nt{TODO graphical ranking of the tags in StackOverflow}
 
-\nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../data/js-trends/black-duck-15}
+% \nt{TODO redo this graph, it is ugly.}
+% \includegraphics[width=0.9\linewidth]{../../data/js-trends/black-duck-15}
 
 \nt{TODO redo this graph, it is ugly.}
 \includegraphics[width=0.9\linewidth]{../../data/js-trends/modulecounts}
@@ -286,30 +293,24 @@ Javascript is increasingly adopted in the software industry.
 
 \paragraph{}
 
-All these metrics represent different faces of the current situation of the Javascript adoption in the development community and industry.
-It is widely used on the web, in open source projects, and in the software industry.
-With the increasing importance of client web applications, Javascript is assuredly one of most important language in the times to come.
-Moreover, Javascript allows to build the server side of web applications as well.
-The next paragraphs presents the event-loop model used to develop Javascript web applications, both client and server-side.
-
-
+Table \ref{tab:maintainability-adoption} presents a summary of the analysis of the programming models presented in the previous paragraphs.
 
 \begin{table}[h!]
-\label{maintainability-growth}
 \small
-\begin{tabu} to \linewidth {@{} l X[l] c c c c c @{}}
+\begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
 %
-% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Community adoption} & \rot{Industrial adoption} & \rot{Web compliant} & $\to$ & \rot{Growth} \\
+% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \lab{Community support} & \lab{Industrial need} & $\to$ & \lab{Adoption} \\
 \tabucline[.5pt]{-}
-%                                                                                                COM  IND  WEB   GRO
-Imperative Programming         & C                                             & \V & \V & \X && \X \\ \tabucline[on .5pt]{-}
-Object-Oriented Programming    & C++, Java                                     & \V & \V & \V && \V \\ \tabucline[on .5pt]{-}
-Functional Programming         & Scheme, Miranda, Haskell                      & \X & \X & \X && \X \\ \tabucline[on .5pt]{-}
-Dynamic Scripting              & Javacript, Python, Ruby, Go                   & \V & \V & \V && \V \\
+%                                                                               COM  IND   ADO
+Imperative Programming         & C                                             & \V & \V && \V \\ \tabucline[on .5pt]{-}
+Object-Oriented Programming    & C++, Java                                     & \V & \V && \V \\ \tabucline[on .5pt]{-}
+Functional Programming         & Scheme, Miranda, Haskell                      & \X & \X && \X \\ \tabucline[on .5pt]{-}
+Dynamic Scripting              & Javacript, Python, Ruby, Go                   & \V & \V && \V \\
 \tabucline[.5pt]{-}
 \end{tabu}
-\caption{Analysis of the state of the art in modular programming regarding organic growth}
+\caption{Analysis of the state of the art in modular programming regarding adoption}
+\label{tab:maintainability-adoption}
 \end{table}
 
 
@@ -318,7 +319,14 @@ Dynamic Scripting              & Javacript, Python, Ruby, Go                   &
 \subsection{Performance Limitations} \label{chapter3:software-maintainability:performance-limitations}
 
 Eventually, the presented languages are hitting a wall on their way to performance.
-The next paragraph briefly present the encountered incompatibility between modularity and performance to introduce the next section of this chapter.
+
+All the languages presented in this section provide either mutable state or immutable state on which to rely to assure encapsulation and composition.
+Functional programming rely on immutable state, comparable to message-passing, which might impacts performance at fine-grain level when used inefficiently, because of heavy memory usage.
+On the other hand, the synchronization required by mutable state is often hard to develop with \cite{Adya2002}, or avoid parallelism \cite{Pai1999,Krohn2007}.
+
+The only solution to provide performance efficiency is to combine mutable state at a fine-grain level, with synchronization, and immutable state at a coarse-grain level, with message-passing.
+
+% The next paragraph briefly presents the encountered incompatibility between modularity and performance to introduce the next section of this chapter.
 
 
 % Parallelizing the execution increases the performances \cite{Amdahl1967,Gunther1993}
@@ -342,16 +350,16 @@ The next paragraph briefly present the encountered incompatibility between modul
 % \end{itemize}
 
 
-TODO
-
+The table \ref{tab:maintainability-performance} presents the performance limitations of the languages presented in this section.
+It only presents programming languages.
+All platforms improving on these languages to provide performances are addressed in the next section.
 
 \begin{table}[h!]
-\label{maintainability-scalability}
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
 %
-% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Shared state} & \rot{Immutable state} & $\to$ & \rot{Scalability} \\
+% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \lab{Synchronization} & \lab{Message-passing} & $\to$ & \lab{Performance Efficiency} \\
 \tabucline[.5pt]{-}
 %                                                                               SHA  IMU  SCL
 Imperative Programming         & C                                             & \V & \X && \X \\ \tabucline[on .5pt]{-}
@@ -361,21 +369,21 @@ Dynamic Scripting              & Javacript, Python, Ruby, Go                   &
 \tabucline[.5pt]{-}
 \end{tabu}
 \caption{Analysis of the state of the art in modular programming regarding scalability}
+\label{tab:maintainability-performance}
 \end{table}
 
 
 
 \subsection{Summary} \label{chapter3:software-maintainability:summary}
 
-Table \ref{maintainability-synthesis} summarizes the characteristics of the solutions presented in this section.
+Table \ref{tab:maintainability-synthesis} summarizes the characteristics of the solutions presented in this section.
 
 \begin{table}[h!]
-\label{maintainability-synthesis}
 \small
 \begin{tabu} to \linewidth {@{} l X[l] c c c @{}}
 %
-% \multicolumn{3}{c}{}  & \rot{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \rot{Maintainability} & \rot{Organic Growth} & \rot{Scalability} \\
+% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+Model & Implementations    & \lab{Maintainability} & \lab{Adoption} & \lab{Performance Efficiency} \\
 \tabucline[.5pt]{-}
 %                                                                                MOD  GRO  SCL
 Imperative Programming         & C                                              & \X & \X & \X \\ \tabucline[on .5pt]{-}
@@ -385,6 +393,7 @@ Dynamic Scripting              & Javacript, Python, Ruby, Go                    
 \tabucline[.5pt]{-}
 \end{tabu}
 \caption{Synthesis of the state of the art in modular programming}
+\label{tab:maintainability-synthesis}
 \end{table}
 
 

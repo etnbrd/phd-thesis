@@ -47,6 +47,9 @@
 \setcounter{tocdepth}{3}
 \setcounter{minitocdepth}{3}
 
+% To speed up the compilation :
+% \includeonly{03-state-of-the-art/main}
+
 \begin{document}
 
 % \title{Operating Systems mutations, how and why integrate the user in the digital era ?\\\comment{TODO change title ?}}
@@ -63,15 +66,15 @@
 \dominitoc % Initialization
 \tableofcontents
 
-\input{01-introduction/main}
-\input{02-context/main}
-\input{03-state-of-the-art/main}
-\input{04-proposition/main}
-\input{05-due/main}
-\input{06-flx/main}
-\input{07-futur-works/main}
-\input{90-conclusion/main}
-\input{91-appendix/main}
+\include{01-introduction/main}
+\include{02-context/main}
+\include{03-state-of-the-art/main}
+\include{04-proposition/main}
+\include{05-due/main}
+\include{06-flx/main}
+\include{07-futur-works/main}
+\include{90-conclusion/main}
+\include{91-appendix/main}
 
 % \subimport*{01-introduction/}{main}
 % \subimport*{02-context/}{main}
