@@ -12,6 +12,9 @@
 \definecolor{gray5}{rgb}{.90,.90,.90}
 \definecolor{gray6}{rgb}{.95,.95,.95}
 
+\definecolor{RED}{RGB}{255, 0, 73}
+\definecolor{GREEN}{RGB}{190, 255, 0}
+
 \newcommand{\TODO}[1]{%
   % \marginpar
   {
@@ -87,16 +90,12 @@
   \hspace*{#1\callStackIndentation}%
 }
 
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+\newcommand*{\circled}[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=0.8pt] (char) {#1};}}
 
-\newcommand*\rate[1]{\tikz[baseline=(char.base)]{
-            \node[shape=circle,draw,inner sep=0.8pt, fill=blue!#1] (char) {#1};}}
-
-
-
-
-
+\newcommand*{\rate}[1]{\tikz[baseline=(char.base)]{
+            \colorlet{tmpcolor}{green!\the\numexpr#1*20!red}
+            \node[shape=circle,inner sep=0.8pt, fill=tmpcolor] (char) {\textcolor{white}{\textbf#1}};}}
 
 \makeatletter
 

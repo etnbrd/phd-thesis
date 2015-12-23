@@ -1,0 +1,297 @@
+\DTLsetseparator{ | }
+\DTLloaddb{platforms}{../../data/platforms-analysis.csv}
+
+\newcommand{\ExtractGroup}[2]{% Name of the group, Headers
+\DTLforeach*[ %
+    \equal{\Group}{#1} %
+  ]{platforms}{ %
+    \Group=Group, %
+    \Model=Model, %
+    \Implementations=Implementations, %
+    \Composition=Composition, %
+    \Encapsulation=Encapsulation, %
+    \Maintainability=Maintainability, %
+    \Synchronization=Synchronization, %
+    \Message=Message, %
+    \Performance=Performance, %
+    \Community=Community, %
+    \Industry=Industry, %
+    \Adoption=Adoption}
+  {\DTLiffirstrow{}{\\\tabucline[on .5pt]{-}}#2}
+  \\\tabucline[.5pt]{-}
+}
+
+%% -------------------------------------------------------------------------------------------
+%%                                          SCHEMAS
+%% -------------------------------------------------------------------------------------------
+
+% MAINTAINABILITY
+\newcommand{\MaintainabilityCol}    {4}
+\newcommand{\MaintainabilityHeader} { Model &  Implementations &   \lab{Composition} &   \lab{Encapsulation} & $\to$ &   \lab{Maintainability} \\ \tabucline[.5pt]{-} }
+\newcommand{\MaintainabilityRow}    {\Model & \Implementations & \rate{\Composition} & \rate{\Encapsulation} &&        \rate{\Maintainability}}
+
+% PERFORMANCE
+\newcommand{\PerformanceCol}        {4}
+\newcommand{\PerformanceHeader}     { Model &  Implementations & \lab{Fine-grain level synchronization} & \lab{Coarse-grain level message passing} & $\to$ & \lab{Performance Efficiency} \\ \tabucline[.5pt]{-} }
+\newcommand{\PerformanceRow}        {\Model & \Implementations & \rate{\Synchronization}                & \rate{\Message}                          &&      \rate{\Performance}}
+
+% ADOPTION
+\newcommand{\AdoptionCol}           {4}
+\newcommand{\AdoptionHeader}        { Model &  Implementations &   \lab{Community support} &   \lab{Industrial need} & $\to$ &   \lab{Adoption} \\ \tabucline[.5pt]{-} }
+\newcommand{\AdoptionRow}           {\Model & \Implementations & \rate{\Community}         & \rate{\Industry}        &&        \rate{\Adoption}}
+
+% SUMMARY
+\newcommand{\SummaryCol}            {3}
+\newcommand{\SummaryHeader}         { Model &  Implementations  &   \lab{Maintainability} &   \lab{Adoption} &   \lab{Performance Efficiency} \\ \tabucline[.5pt]{-} }
+\newcommand{\SummaryRow}            {\Model & \Implementations  & \rate{\Maintainability} & \rate{\Adoption} & \rate{\Performance}}
+
+%% -------------------------------------------------------------------------------------------
+%%                                       EXTRACTIONS
+%% -------------------------------------------------------------------------------------------
+
+% MAINTAINABILITY
+\newcommand{\ModularMaintainability}    {\ExtractGroup{Modular}    {\MaintainabilityRow}}
+\newcommand{\ConcurrentMaintainability} {\ExtractGroup{Concurrent} {\MaintainabilityRow}}
+\newcommand{\ParallelMaintainability}   {\ExtractGroup{Parallel}   {\MaintainabilityRow}}
+\newcommand{\StreamMaintainability}     {\ExtractGroup{Stream}     {\MaintainabilityRow}}
+\newcommand{\RuntimeMaintainability}    {\ExtractGroup{Runtime}    {\MaintainabilityRow}}
+\newcommand{\CompilerMaintainability}   {\ExtractGroup{Compiler}   {\MaintainabilityRow}}
+% PERFORMANCE
+\newcommand{\ModularPerformance}        {\ExtractGroup{Modular}    {\PerformanceRow}}
+\newcommand{\ConcurrentPerformance}     {\ExtractGroup{Concurrent} {\PerformanceRow}}
+\newcommand{\ParallelPerformance}       {\ExtractGroup{Parallel}   {\PerformanceRow}}
+\newcommand{\StreamPerformance}         {\ExtractGroup{Stream}     {\PerformanceRow}}
+\newcommand{\RuntimePerformance}        {\ExtractGroup{Runtime}    {\PerformanceRow}}
+\newcommand{\CompilerPerformance}       {\ExtractGroup{Compiler}   {\PerformanceRow}}
+% ADOPTION
+\newcommand{\ModularAdoption}           {\ExtractGroup{Modular}    {\AdoptionRow}}
+\newcommand{\ConcurrentAdoption}        {\ExtractGroup{Concurrent} {\AdoptionRow}}
+\newcommand{\ParallelAdoption}          {\ExtractGroup{Parallel}   {\AdoptionRow}}
+\newcommand{\StreamAdoption}            {\ExtractGroup{Stream}     {\AdoptionRow}}
+\newcommand{\RuntimeAdoption}           {\ExtractGroup{Runtime}    {\AdoptionRow}}
+\newcommand{\CompilerAdoption}          {\ExtractGroup{Compiler}   {\AdoptionRow}}
+% SUMMARY
+\newcommand{\ModularSummary}            {\ExtractGroup{Modular}    {\SummaryRow}}
+\newcommand{\ConcurrentSummary}         {\ExtractGroup{Concurrent} {\SummaryRow}}
+\newcommand{\ParallelSummary}           {\ExtractGroup{Parallel}   {\SummaryRow}}
+\newcommand{\StreamSummary}             {\ExtractGroup{Stream}     {\SummaryRow}}
+\newcommand{\RuntimeSummary}            {\ExtractGroup{Runtime}    {\SummaryRow}}
+\newcommand{\CompilerSummary}           {\ExtractGroup{Compiler}   {\SummaryRow}}
+
+%% -------------------------------------------------------------------------------------------
+%%                                       TABLES
+%% -------------------------------------------------------------------------------------------
+
+%% MODULAR
+
+\newcommand{\ModularMaintainabilityTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
+  \MaintainabilityHeader
+  \ModularMaintainability
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Maintainability of Modular Programming Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\ModularAdoptionTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \AdoptionHeader
+  \ModularAdoption
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Adoption of Modular Programming Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\ModularPerformanceTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
+  \PerformanceHeader
+  \ModularPerformance
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Performance Efficiency of Modular Programming Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\ModularSummaryTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \SummaryHeader
+  \ModularSummary
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Summary of Modular Programming Platforms}
+  \label{#1}
+  \end{table}
+}
+
+%% PERFORMANCE
+
+\newcommand{\ConcurrentPerformanceTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
+  \PerformanceHeader
+  \ConcurrentPerformance
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Performance Efficiency of Concurrent Programming Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\ParallelPerformanceTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
+  \PerformanceHeader
+  \ConcurrentPerformance
+  \ParallelPerformance
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Performance Efficiency of Concurrent and Parallel Programming Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\ConcurrentAdoptionTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \AdoptionHeader
+  \ConcurrentAdoption
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Adoption of Concurrent Programming Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\ParallelAdoptionTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \AdoptionHeader
+  \ConcurrentAdoption
+  \ParallelAdoption
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Adoption of Concurrent and Parallel Programming Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\PerformanceMaintainabilityTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
+  \MaintainabilityHeader
+  \ConcurrentMaintainability
+  \ParallelMaintainability
+  \StreamMaintainability
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Maintainability of Concurrent, Parallel and Stream Programming Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\PerformanceSummaryTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \SummaryHeader
+  \ConcurrentSummary
+  \ParallelSummary
+  \StreamSummary
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Summary of Concurrent and Parallel Programming Platforms}
+  \label{#1}
+  \end{table}
+}
+
+%% ABSTRACTION
+
+\newcommand{\AbstractionMaintainabilityTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
+  \MaintainabilityHeader
+  \RuntimeMaintainability
+  \CompilerMaintainability
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Maintainability of Compilation and Runtime Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\AbstractionAdoptionTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \AdoptionHeader
+  \RuntimeAdoption
+  \CompilerAdoption
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Adoption of Compilation and Runtime Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\AbstractionPerformanceTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
+  \PerformanceHeader
+  \RuntimePerformance
+  \CompilerPerformance
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Performance Efficiency of Compilation and Runtime Platforms}
+  \label{#1}
+  \end{table}
+}
+
+\newcommand{\AbstractionSummaryTable}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \SummaryHeader
+  \RuntimeSummary
+  \CompilerSummary
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Summary of Compilation and Runtime Platforms}
+  \label{#1}
+  \end{table}
+}
+
+%% Summary
+
+\newcommand{\TableSummary}{ \tikzexternaldisable
+  \begin{longtabu} to \linewidth {@{} l X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \SummaryHeader 
+  \ModularSummary
+  \ConcurrentSummary
+  \ParallelSummary
+  \StreamSummary
+  \RuntimeSummary
+  \CompilerSummary
+  \caption{Maintainability of Modular Programming Platforms}
+  \label{tab:maintainability-modularity}
+  \end{longtabu} \tikzexternalenable
+}

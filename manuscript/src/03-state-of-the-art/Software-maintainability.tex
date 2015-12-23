@@ -1,4 +1,4 @@
-\section{Maintainability Focused Environements} \label{chapter3:software-maintainability}
+\section{Maintainability Focused Platforms} \label{chapter3:software-maintainability}
 
 \cit{It is becoming increasingly important to the data-processing industry to be able to produce more programming systems and produce them with fewer errors, at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. P. Stevens, G. J. Myers, L. L. Constantine \cite{Stevens1974}.}
 
@@ -21,11 +21,11 @@ Finally, section \ref{chapter3:software-maintainability:summary} summarizes the 
 
 \subsection{Modular Programming} \label{chapter3:software-maintainability:modularity}
 
-\begin{figure}[h!]
+\begin{figure}[!h]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-1.pdf}
 \end{center}
-\caption{}
+\caption{Focus on Maintainability}
 \label{fig:state-of-the-art-1}
 \end{figure}
 
@@ -132,7 +132,7 @@ Finally, section \ref{chapter3:software-maintainability:summary} summarizes the 
 % \subsubsection{Programming Models} \label{chapter3:software-maintainability:modularity:programming-models}
 
 The next paragraphs presents the different programming model regarding their support to modular programming and maintainability.
-They represent the number \circled{1} in figure \ref{fig:modular-programming-state-of-the-art}.
+% They represent the number \circled{1} in figure \ref{fig:modular-programming-state-of-the-art}.
 
 \paragraph{Imperative Programming}
 
@@ -181,30 +181,32 @@ These recent multi-paradigms languages like Javascript, Python, Ruby and Go comb
 
 Table \ref{tab:maintainability-modularity} presents a summary of the analysis of the programming models presented in the previous paragraphs.
 
-\begin{table}[h!]
-\small
-\begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
-%
-% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \lab{Composition} & \lab{Encapsulation} & $\to$ & \lab{Maintainability} \\
-\tabucline[.5pt]{-}%
-Imperative Programming         & C                                             & \X & \V && \X \\ \tabucline[on .5pt]{-}
-Object-Oriented Programming    & C++, Java                                     & \V & \V && \V \\ \tabucline[on .5pt]{-}
-Functional Programming         & Scheme, Miranda, Haskell                      & \V & \V && \V \\ \tabucline[on .5pt]{-}
-Multi Paradigm                 & Javacript, Python, Ruby, Go                   & \V & \V && \V \\
-\tabucline[.5pt]{-}
-\end{tabu}
-\caption{Analysis of the state of the art in modular programming regarding maintainability}
-\label{tab:maintainability-modularity}
-\end{table}
+\ModularMaintainabilityTable{tab:maintainability-modularity}
+
+% \begin{table}[h!]
+% \small
+% \begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
+% %
+% % \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
+% Model & Implementations    & \lab{Composition} & \lab{Encapsulation} & $\to$ & \lab{Maintainability} \\
+% \tabucline[.5pt]{-}%
+% Imperative Programming         & C                                             & \X & \V && \X \\ \tabucline[on .5pt]{-}
+% Object-Oriented Programming    & C++, Java                                     & \V & \V && \V \\ \tabucline[on .5pt]{-}
+% Functional Programming         & Scheme, Miranda, Haskell                      & \V & \V && \V \\ \tabucline[on .5pt]{-}
+% Multi Paradigm                 & Javacript, Python, Ruby, Go                   & \V & \V && \V \\
+% \tabucline[.5pt]{-}
+% \end{tabu}
+% \caption{Analysis of the state of the art in modular programming regarding maintainability}
+% \label{tab:maintainability-modularity}
+% \end{table}
 
 \subsection{Adoption} \label{chapter3:software-maintainability:adoption}
 
-\begin{figure}[h!]
+\begin{figure}[!h]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-2.pdf}
 \end{center}
-\caption{}
+\caption{Steer back toward Performence Efficiency}
 \label{fig:state-of-the-art-2}
 \end{figure}
 
@@ -227,7 +229,7 @@ Multi Paradigm                 & Javacript, Python, Ruby, Go                   &
 % The first two criteria make sure that the technology is growing organically with a passionate community, and backed by industrial needs.
 % The last criteria assures the fitting of the technologies with our economical context of a web application.
 The next paragraphs presents the adoption of the implementation of the previously presented programming model.
-These implementations steer back from maintainability into performance efficiency, as shown by \circled{2} in figure \ref{fig:modular-programming-state-of-the-art-2}.
+% ->_>_>_>_> These implementations steer back from maintainability into performance efficiency, as shown by \circled{2} in figure \ref{fig:modular-programming-state-of-the-art-2}.
 
 % The rise of Javascript is indisputable on the web, and seems to be rising in the software industry as well.
 % But it is difficult to give an accurate representation of the situation because the software industry often maintains a fog of war to try to keep an edge.
@@ -295,26 +297,7 @@ Javascript is increasingly adopted in the software industry.
 
 Table \ref{tab:maintainability-adoption} presents a summary of the analysis of the programming models presented in the previous paragraphs.
 
-\begin{table}[h!]
-\small
-\begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
-%
-% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \lab{Community support} & \lab{Industrial need} & $\to$ & \lab{Adoption} \\
-\tabucline[.5pt]{-}
-%                                                                               COM  IND   ADO
-Imperative Programming         & C                                             & \V & \V && \V \\ \tabucline[on .5pt]{-}
-Object-Oriented Programming    & C++, Java                                     & \V & \V && \V \\ \tabucline[on .5pt]{-}
-Functional Programming         & Scheme, Miranda, Haskell                      & \X & \X && \X \\ \tabucline[on .5pt]{-}
-Dynamic Scripting              & Javacript, Python, Ruby, Go                   & \V & \V && \V \\
-\tabucline[.5pt]{-}
-\end{tabu}
-\caption{Analysis of the state of the art in modular programming regarding adoption}
-\label{tab:maintainability-adoption}
-\end{table}
-
-
-
+\ModularAdoptionTable{tab:maintainability-adoption}
 
 \subsection{Performance Limitations} \label{chapter3:software-maintainability:performance-limitations}
 
@@ -354,50 +337,14 @@ The table \ref{tab:maintainability-performance} presents the performance limitat
 It only presents programming languages.
 All platforms improving on these languages to provide performances are addressed in the next section.
 
-\begin{table}[h!]
-\small
-\begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
-%
-% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \lab{Synchronization} & \lab{Message-passing} & $\to$ & \lab{Performance Efficiency} \\
-\tabucline[.5pt]{-}
-%                                                                               SHA  IMU  SCL
-Imperative Programming         & C                                             & \V & \X && \X \\ \tabucline[on .5pt]{-}
-Object-Oriented Programming    & C++, Java                                     & \V & \X && \X \\ \tabucline[on .5pt]{-}
-Functional Programming         & Scheme, Miranda, Haskell                      & \X & \V && \X \\ \tabucline[on .5pt]{-}
-Dynamic Scripting              & Javacript, Python, Ruby, Go                   & \V & \X && \X \\
-\tabucline[.5pt]{-}
-\end{tabu}
-\caption{Analysis of the state of the art in modular programming regarding scalability}
-\label{tab:maintainability-performance}
-\end{table}
 
-
+\ModularPerformanceTable{tab:maintainability-performance}
 
 \subsection{Summary} \label{chapter3:software-maintainability:summary}
 
 Table \ref{tab:maintainability-synthesis} summarizes the characteristics of the solutions presented in this section.
 
-\begin{table}[h!]
-\small
-\begin{tabu} to \linewidth {@{} l X[l] c c c @{}}
-%
-% \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-Model & Implementations    & \lab{Maintainability} & \lab{Adoption} & \lab{Performance Efficiency} \\
-\tabucline[.5pt]{-}
-%                                                                                MOD  GRO  SCL
-Imperative Programming         & C                                              & \X & \X & \X \\ \tabucline[on .5pt]{-}
-Object-Oriented Programming    & C++, Java                                      & \X & \V & \X \\ \tabucline[on .5pt]{-}
-Functional Programming         & Scheme, Miranda, Haskell                       & \V & \X & \X \\ \tabucline[on .5pt]{-}
-Dynamic Scripting              & Javacript, Python, Ruby, Go                    & \V & \V & \X \\
-\tabucline[.5pt]{-}
-\end{tabu}
-\caption{Synthesis of the state of the art in modular programming}
-\label{tab:maintainability-synthesis}
-\end{table}
-
-
-
+\ModularSummaryTable{tab:maintainability-synthesis}
 
 \endinput
 

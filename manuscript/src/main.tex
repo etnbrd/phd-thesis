@@ -31,6 +31,8 @@
 \usepackage{lscape}
 \usepackage{rotating}
 \usepackage{minitoc}
+\usepackage{xparse}
+\usepackage{datatool}
 
 \input{bibliography}
 \input{utils/code}
@@ -66,15 +68,18 @@
 \dominitoc % Initialization
 \tableofcontents
 
-\include{01-introduction/main}
-\include{02-context/main}
+\listoffigures
+\listoftables
+
+% \include{01-introduction/main}
+% \include{02-context/main}
 \include{03-state-of-the-art/main}
-\include{04-proposition/main}
-\include{05-due/main}
-\include{06-flx/main}
-\include{07-futur-works/main}
-\include{90-conclusion/main}
-\include{91-appendix/main}
+% \include{04-proposition/main}
+% \include{05-due/main}
+% \include{06-flx/main}
+% \include{07-futur-works/main}
+% \include{90-conclusion/main}
+% \include{91-appendix/main}
 
 % \subimport*{01-introduction/}{main}
 % \subimport*{02-context/}{main}
