@@ -21,29 +21,38 @@
   \\\tabucline[.5pt]{-}
 }
 
+\newcommand{\ImplementationsOf}[1]{%
+\DTLforeach*[%
+    \equal{\Model}{#1}%
+  ]{platforms}{%
+    \Model=Model,%
+    \Implementations=Implementations}
+  {\Implementations}%
+}
+
 %% -------------------------------------------------------------------------------------------
 %%                                          SCHEMAS
 %% -------------------------------------------------------------------------------------------
 
 % MAINTAINABILITY
 \newcommand{\MaintainabilityCol}    {4}
-\newcommand{\MaintainabilityHeader} { Model &  Implementations &   \lab{Composition} &   \lab{Encapsulation} & $\to$ &   \lab{Maintainability} \\ \tabucline[.5pt]{-} }
-\newcommand{\MaintainabilityRow}    {\Model & \Implementations & \rate{\Composition} & \rate{\Encapsulation} &&        \rate{\Maintainability}}
+\newcommand{\MaintainabilityHeader} { Model &   \lab{Composition} &   \lab{Encapsulation} & $\to$ &   \lab{Maintainability} \\ \tabucline[.5pt]{-} }
+\newcommand{\MaintainabilityRow}    {\Model & \rate{\Composition} & \rate{\Encapsulation} &&        \rate{\Maintainability}}
 
 % PERFORMANCE
 \newcommand{\PerformanceCol}        {4}
-\newcommand{\PerformanceHeader}     { Model &  Implementations & \lab{Fine-grain level synchronization} & \lab{Coarse-grain level message passing} & $\to$ & \lab{Performance Efficiency} \\ \tabucline[.5pt]{-} }
-\newcommand{\PerformanceRow}        {\Model & \Implementations & \rate{\Synchronization}                & \rate{\Message}                          &&      \rate{\Performance}}
+\newcommand{\PerformanceHeader}     { Model & \lab{Fine-grain level synchronization} & \lab{Coarse-grain level message passing} & $\to$ & \lab{Performance Efficiency} \\ \tabucline[.5pt]{-} }
+\newcommand{\PerformanceRow}        {\Model & \rate{\Synchronization}                & \rate{\Message}                          &&      \rate{\Performance}}
 
 % ADOPTION
 \newcommand{\AdoptionCol}           {4}
-\newcommand{\AdoptionHeader}        { Model &  Implementations &   \lab{Community support} &   \lab{Industrial need} & $\to$ &   \lab{Adoption} \\ \tabucline[.5pt]{-} }
-\newcommand{\AdoptionRow}           {\Model & \Implementations & \rate{\Community}         & \rate{\Industry}        &&        \rate{\Adoption}}
+\newcommand{\AdoptionHeader}        { Model &   \lab{Community support} &   \lab{Industrial need} & $\to$ &   \lab{Adoption} \\ \tabucline[.5pt]{-} }
+\newcommand{\AdoptionRow}           {\Model & \rate{\Community}         & \rate{\Industry}        &&        \rate{\Adoption}}
 
 % SUMMARY
 \newcommand{\SummaryCol}            {3}
-\newcommand{\SummaryHeader}         { Model &  Implementations  &   \lab{Maintainability} &   \lab{Adoption} &   \lab{Performance Efficiency} \\ \tabucline[.5pt]{-} }
-\newcommand{\SummaryRow}            {\Model & \Implementations  & \rate{\Maintainability} & \rate{\Adoption} & \rate{\Performance}}
+\newcommand{\SummaryHeader}         { Model  &   \lab{Maintainability} &   \lab{Adoption} &   \lab{Performance Efficiency} \\ \tabucline[.5pt]{-} }
+\newcommand{\SummaryRow}            {\Model  & \rate{\Maintainability} & \rate{\Adoption} & \rate{\Performance}}
 
 %% -------------------------------------------------------------------------------------------
 %%                                       EXTRACTIONS
@@ -87,7 +96,7 @@
 \newcommand{\ModularMaintainabilityTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
   \MaintainabilityHeader
   \ModularMaintainability
   \end{tabu}
@@ -100,7 +109,7 @@
 \newcommand{\ModularAdoptionTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
   \AdoptionHeader
   \ModularAdoption
   \end{tabu}
@@ -113,7 +122,7 @@
 \newcommand{\ModularPerformanceTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
   \PerformanceHeader
   \ModularPerformance
   \end{tabu}
@@ -126,7 +135,7 @@
 \newcommand{\ModularSummaryTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
   \SummaryHeader
   \ModularSummary
   \end{tabu}
@@ -141,7 +150,7 @@
 \newcommand{\ConcurrentPerformanceTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
   \PerformanceHeader
   \ConcurrentPerformance
   \end{tabu}
@@ -154,7 +163,7 @@
 \newcommand{\ParallelPerformanceTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
   \PerformanceHeader
   \ConcurrentPerformance
   \ParallelPerformance
@@ -168,7 +177,7 @@
 \newcommand{\ConcurrentAdoptionTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
   \AdoptionHeader
   \ConcurrentAdoption
   \end{tabu}
@@ -181,7 +190,7 @@
 \newcommand{\ParallelAdoptionTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
   \AdoptionHeader
   \ConcurrentAdoption
   \ParallelAdoption
@@ -195,7 +204,7 @@
 \newcommand{\PerformanceMaintainabilityTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
   \MaintainabilityHeader
   \ConcurrentMaintainability
   \ParallelMaintainability
@@ -210,7 +219,7 @@
 \newcommand{\PerformanceSummaryTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
   \SummaryHeader
   \ConcurrentSummary
   \ParallelSummary
@@ -227,7 +236,7 @@
 \newcommand{\AbstractionMaintainabilityTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
   \MaintainabilityHeader
   \RuntimeMaintainability
   \CompilerMaintainability
@@ -241,7 +250,7 @@
 \newcommand{\AbstractionAdoptionTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
   \AdoptionHeader
   \RuntimeAdoption
   \CompilerAdoption
@@ -255,7 +264,7 @@
 \newcommand{\AbstractionPerformanceTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
   \PerformanceHeader
   \RuntimePerformance
   \CompilerPerformance
@@ -269,7 +278,7 @@
 \newcommand{\AbstractionSummaryTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} l X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
   \SummaryHeader
   \RuntimeSummary
   \CompilerSummary
@@ -283,7 +292,7 @@
 %% Summary
 
 \newcommand{\TableSummary}{ \tikzexternaldisable
-  \begin{longtabu} to \linewidth {@{} l X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
   \SummaryHeader 
   \ModularSummary
   \ConcurrentSummary
