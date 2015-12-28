@@ -2,23 +2,24 @@
 \DTLloaddb{platforms}{../../data/platforms-analysis.csv}
 
 \newcommand{\ExtractGroup}[2]{% Name of the group, Headers
-\DTLforeach*[ %
-    \equal{\Group}{#1} %
-  ]{platforms}{ %
-    \Group=Group, %
-    \Model=Model, %
-    \Implementations=Implementations, %
-    \Composition=Composition, %
-    \Encapsulation=Encapsulation, %
-    \Maintainability=Maintainability, %
-    \Synchronization=Synchronization, %
-    \Message=Message, %
-    \Performance=Performance, %
-    \Community=Community, %
-    \Industry=Industry, %
-    \Adoption=Adoption}
-  {\DTLiffirstrow{}{\\\tabucline[on .5pt]{-}}#2}
-  \\\tabucline[.5pt]{-}
+\hspace{0pt}%
+\DTLforeach*[%
+  \equal{\Group}{#1} %
+]{platforms}{ %
+  \Group=Group, %
+  \Model=Model, %
+  \Implementations=Implementations, %
+  \Composition=Composition, %
+  \Encapsulation=Encapsulation, %
+  \Productivity=Productivity, %
+  \Synchronization=Synchronization, %
+  \Message=Message, %
+  \Efficiency=Efficiency, %
+  \Community=Community, %
+  \Industry=Industry, %
+  \Adoption=Adoption}
+{\DTLiffirstrow{}{\\\tabucline[on .5pt]{-}}#2}%
+\\\tabucline[.5pt]{-}%
 }
 
 \newcommand{\ImplementationsOf}[1]{%
@@ -35,43 +36,43 @@
 %% -------------------------------------------------------------------------------------------
 
 % MAINTAINABILITY
-\newcommand{\MaintainabilityCol}    {4}
-\newcommand{\MaintainabilityHeader} { Model &   \lab{Composition} &   \lab{Encapsulation} & $\to$ &   \lab{Maintainability} \\ \tabucline[.5pt]{-} }
-\newcommand{\MaintainabilityRow}    {\Model & \rate{\Composition} & \rate{\Encapsulation} &&        \rate{\Maintainability}}
+\newcommand{\ProductivityCol}    {4}
+\newcommand{\ProductivityHeader} { Model &   \lab{Composition} &   \lab{Encapsulation} & $\to$ &   \lab{Productivity} \\ \tabucline[.5pt]{-}}
+\newcommand{\ProductivityRow}    {\Model & \rate{\Composition} & \rate{\Encapsulation} &&        \rate{\Productivity}}
 
 % PERFORMANCE
-\newcommand{\PerformanceCol}        {4}
-\newcommand{\PerformanceHeader}     { Model & \lab{Fine-grain level synchronization} & \lab{Coarse-grain level message passing} & $\to$ & \lab{Performance Efficiency} \\ \tabucline[.5pt]{-} }
-\newcommand{\PerformanceRow}        {\Model & \rate{\Synchronization}                & \rate{\Message}                          &&      \rate{\Performance}}
+\newcommand{\EfficiencyCol}        {4}
+\newcommand{\EfficiencyHeader}     { Model & \lab{Fine-grain level synchronization} & \lab{Coarse-grain level message passing} & $\to$ & \lab{Efficiency} \\ \tabucline[.5pt]{-}}
+\newcommand{\EfficiencyRow}        {\Model & \rate{\Synchronization}                & \rate{\Message}                          &&      \rate{\Efficiency}}
 
 % ADOPTION
 \newcommand{\AdoptionCol}           {4}
-\newcommand{\AdoptionHeader}        { Model &   \lab{Community support} &   \lab{Industrial need} & $\to$ &   \lab{Adoption} \\ \tabucline[.5pt]{-} }
+\newcommand{\AdoptionHeader}        { Model &   \lab{Community support} &   \lab{Industrial need} & $\to$ &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
 \newcommand{\AdoptionRow}           {\Model & \rate{\Community}         & \rate{\Industry}        &&        \rate{\Adoption}}
 
 % SUMMARY
 \newcommand{\SummaryCol}            {3}
-\newcommand{\SummaryHeader}         { Model  &   \lab{Maintainability} &   \lab{Adoption} &   \lab{Performance Efficiency} \\ \tabucline[.5pt]{-} }
-\newcommand{\SummaryRow}            {\Model  & \rate{\Maintainability} & \rate{\Adoption} & \rate{\Performance}}
+\newcommand{\SummaryHeader}         { Model  &   \lab{Productivity} &   \lab{Adoption} &   \lab{Efficiency} \\ \tabucline[.5pt]{-}}
+\newcommand{\SummaryRow}            {\Model  & \rate{\Productivity} & \rate{\Adoption} & \rate{\Efficiency}}
 
 %% -------------------------------------------------------------------------------------------
 %%                                       EXTRACTIONS
 %% -------------------------------------------------------------------------------------------
 
 % MAINTAINABILITY
-\newcommand{\ModularMaintainability}    {\ExtractGroup{Modular}    {\MaintainabilityRow}}
-\newcommand{\ConcurrentMaintainability} {\ExtractGroup{Concurrent} {\MaintainabilityRow}}
-\newcommand{\ParallelMaintainability}   {\ExtractGroup{Parallel}   {\MaintainabilityRow}}
-\newcommand{\StreamMaintainability}     {\ExtractGroup{Stream}     {\MaintainabilityRow}}
-\newcommand{\RuntimeMaintainability}    {\ExtractGroup{Runtime}    {\MaintainabilityRow}}
-\newcommand{\CompilerMaintainability}   {\ExtractGroup{Compiler}   {\MaintainabilityRow}}
+\newcommand{\ModularProductivity}    {\ExtractGroup{Modular}    {\ProductivityRow}}
+\newcommand{\ConcurrentProductivity} {\ExtractGroup{Concurrent} {\ProductivityRow}}
+\newcommand{\ParallelProductivity}   {\ExtractGroup{Parallel}   {\ProductivityRow}}
+\newcommand{\StreamProductivity}     {\ExtractGroup{Stream}     {\ProductivityRow}}
+\newcommand{\RuntimeProductivity}    {\ExtractGroup{Runtime}    {\ProductivityRow}}
+\newcommand{\CompilerProductivity}   {\ExtractGroup{Compiler}   {\ProductivityRow}}
 % PERFORMANCE
-\newcommand{\ModularPerformance}        {\ExtractGroup{Modular}    {\PerformanceRow}}
-\newcommand{\ConcurrentPerformance}     {\ExtractGroup{Concurrent} {\PerformanceRow}}
-\newcommand{\ParallelPerformance}       {\ExtractGroup{Parallel}   {\PerformanceRow}}
-\newcommand{\StreamPerformance}         {\ExtractGroup{Stream}     {\PerformanceRow}}
-\newcommand{\RuntimePerformance}        {\ExtractGroup{Runtime}    {\PerformanceRow}}
-\newcommand{\CompilerPerformance}       {\ExtractGroup{Compiler}   {\PerformanceRow}}
+\newcommand{\ModularEfficiency}        {\ExtractGroup{Modular}    {\EfficiencyRow}}
+\newcommand{\ConcurrentEfficiency}     {\ExtractGroup{Concurrent} {\EfficiencyRow}}
+\newcommand{\ParallelEfficiency}       {\ExtractGroup{Parallel}   {\EfficiencyRow}}
+\newcommand{\StreamEfficiency}         {\ExtractGroup{Stream}     {\EfficiencyRow}}
+\newcommand{\RuntimeEfficiency}        {\ExtractGroup{Runtime}    {\EfficiencyRow}}
+\newcommand{\CompilerEfficiency}       {\ExtractGroup{Compiler}   {\EfficiencyRow}}
 % ADOPTION
 \newcommand{\ModularAdoption}           {\ExtractGroup{Modular}    {\AdoptionRow}}
 \newcommand{\ConcurrentAdoption}        {\ExtractGroup{Concurrent} {\AdoptionRow}}
@@ -93,15 +94,15 @@
 
 %% MODULAR
 
-\newcommand{\ModularMaintainabilityTable}[1]{
+\newcommand{\ModularProductivityTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
-  \MaintainabilityHeader
-  \ModularMaintainability
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+  \ProductivityHeader
+  \ModularProductivity
   \end{tabu}
   \tikzexternalenable
-  \caption{Maintainability of Modular Programming Platforms}
+  \caption{Productivity of Modular Programming Platforms}
   \label{#1}
   \end{table}
 }
@@ -119,15 +120,15 @@
   \end{table}
 }
 
-\newcommand{\ModularPerformanceTable}[1]{
+\newcommand{\ModularEfficiencyTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
-  \PerformanceHeader
-  \ModularPerformance
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+  \EfficiencyHeader
+  \ModularEfficiency
   \end{tabu}
   \tikzexternalenable
-  \caption{Performance Efficiency of Modular Programming Platforms}
+  \caption{Efficiency of Modular Programming Platforms}
   \label{#1}
   \end{table}
 }
@@ -147,29 +148,29 @@
 
 %% PERFORMANCE
 
-\newcommand{\ConcurrentPerformanceTable}[1]{
+\newcommand{\ConcurrentEfficiencyTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
-  \PerformanceHeader
-  \ConcurrentPerformance
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+  \EfficiencyHeader
+  \ConcurrentEfficiency
   \end{tabu}
   \tikzexternalenable
-  \caption{Performance Efficiency of Concurrent Programming Platforms}
+  \caption{Efficiency of Concurrent Programming Platforms}
   \label{#1}
   \end{table}
 }
 
-\newcommand{\ParallelPerformanceTable}[1]{
+\newcommand{\ParallelEfficiencyTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
-  \PerformanceHeader
-  \ConcurrentPerformance
-  \ParallelPerformance
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+  \EfficiencyHeader
+  \ConcurrentEfficiency
+  \ParallelEfficiency
   \end{tabu}
   \tikzexternalenable
-  \caption{Performance Efficiency of Concurrent and Parallel Programming Platforms}
+  \caption{Efficiency of Concurrent and Parallel Programming Platforms}
   \label{#1}
   \end{table}
 }
@@ -201,22 +202,22 @@
   \end{table}
 }
 
-\newcommand{\PerformanceMaintainabilityTable}[1]{
+\newcommand{\EfficiencyProductivityTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
-  \MaintainabilityHeader
-  \ConcurrentMaintainability
-  \ParallelMaintainability
-  \StreamMaintainability
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+  \ProductivityHeader
+  \ConcurrentProductivity
+  \ParallelProductivity
+  \StreamProductivity
   \end{tabu}
   \tikzexternalenable
-  \caption{Maintainability of Concurrent, Parallel and Stream Programming Platforms}
+  \caption{Productivity of Concurrent, Parallel and Stream Programming Platforms}
   \label{#1}
   \end{table}
 }
 
-\newcommand{\PerformanceSummaryTable}[1]{
+\newcommand{\EfficiencySummaryTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
   \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
@@ -233,16 +234,16 @@
 
 %% ABSTRACTION
 
-\newcommand{\AbstractionMaintainabilityTable}[1]{
+\newcommand{\AbstractionProductivityTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\MaintainabilityCol}{c} @{}}
-  \MaintainabilityHeader
-  \RuntimeMaintainability
-  \CompilerMaintainability
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+  \ProductivityHeader
+  \RuntimeProductivity
+  \CompilerProductivity
   \end{tabu}
   \tikzexternalenable
-  \caption{Maintainability of Compilation and Runtime Platforms}
+  \caption{Productivity of Compilation and Runtime Platforms}
   \label{#1}
   \end{table}
 }
@@ -261,16 +262,16 @@
   \end{table}
 }
 
-\newcommand{\AbstractionPerformanceTable}[1]{
+\newcommand{\AbstractionEfficiencyTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\PerformanceCol}{c} @{}}
-  \PerformanceHeader
-  \RuntimePerformance
-  \CompilerPerformance
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+  \EfficiencyHeader
+  \RuntimeEfficiency
+  \CompilerEfficiency
   \end{tabu}
   \tikzexternalenable
-  \caption{Performance Efficiency of Compilation and Runtime Platforms}
+  \caption{Efficiency of Compilation and Runtime Platforms}
   \label{#1}
   \end{table}
 }
@@ -291,16 +292,16 @@
 
 %% Summary
 
-\newcommand{\TableSummary}{ \tikzexternaldisable
-  \begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
-  \SummaryHeader 
-  \ModularSummary
-  \ConcurrentSummary
-  \ParallelSummary
-  \StreamSummary
-  \RuntimeSummary
-  \CompilerSummary
-  \caption{Maintainability of Modular Programming Platforms}
-  \label{tab:maintainability-modularity}
-  \end{longtabu} \tikzexternalenable
+\newcommand{\TableSummary}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+\SummaryHeader%
+\ModularSummary%
+\ConcurrentSummary%
+\ParallelSummary%
+\StreamSummary%
+\RuntimeSummary%
+\CompilerSummary%
+\caption{Summary of the state of the art}
+\label{#1}
+\end{longtabu} \tikzexternalenable
 }

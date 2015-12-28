@@ -29,7 +29,7 @@ Finally, section \ref{chapter3:software-productivity:summary} summarizes the thr
 \begin{center}
 \includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-1.pdf}
 \end{center}
-\caption{Focus on Maintainability}
+\caption{Focus on Productivity}
 \label{fig:state-of-the-art-1}
 \end{figure}
 
@@ -188,14 +188,14 @@ These recent multi-paradigms languages such as \ImplementationsOf{Multi Paradigm
 
 Table \ref{tab:productivity-modularity} presents a summary of the analysis of the programming models presented in the previous paragraphs.
 
-\ModularMaintainabilityTable{tab:productivity-modularity}
+\ModularProductivityTable{tab:productivity-modularity}
 
 % \begin{table}[h!]
 % \small
 % \begin{tabu} to \linewidth {@{} l X[l] c c c c @{}}
 % %
 % % \multicolumn{3}{c}{}  & \lab{Concurrency} & \multicolumn{2}{|c}{Parallelism} \\
-% Model & Implementations    & \lab{Composition} & \lab{Encapsulation} & $\to$ & \lab{Maintainability} \\
+% Model & Implementations    & \lab{Composition} & \lab{Encapsulation} & $\to$ & \lab{Productivity} \\
 % \tabucline[.5pt]{-}%
 % Imperative Programming         & C                                             & \X & \V && \X \\ \tabucline[on .5pt]{-}
 % Object-Oriented Programming    & C++, Java                                     & \V & \V && \V \\ \tabucline[on .5pt]{-}
@@ -346,7 +346,7 @@ The table \ref{tab:productivity-performance} presents the performance limitation
 The platforms extending these languages with concurrent or parallel features to provide performances are addressed in the next section.
 
 
-\ModularPerformanceTable{tab:productivity-performance}
+\ModularEfficiencyTable{tab:productivity-performance}
 
 \subsection{Summary} \label{chapter3:software-productivity:summary}
 
@@ -401,7 +401,7 @@ An empirical comparison of seven programming languages, by Prechelt.
 
 % Pipeline parallelism is relevant for multi-pass algorithms \cite{Conway1963}, and it is particularly efficient for stream processing applications.
 
-% \subsubsection{Performance Limitations} \label{chapter3:software-maintainability:limitations}
+% \subsubsection{Efficiency Limitations} \label{chapter3:software-maintainability:limitations}
 
 
 % Functional programming -> immutability is bad for performance at a fine grain because it implies lots of communication aka memory copy.
@@ -450,7 +450,7 @@ A program cannot trivially follow an organization that support both development 
 The next section shows the improvements for performance and parallelism .
 Then, section \ref{chapter3:software-performance} shows the techniques for parallelism.
 
-\subsection{Performance Improvements} \label{chapter3:software-maintainability:performance}
+\subsection{Efficiency Improvements} \label{chapter3:software-maintainability:performance}
 
 INDUSTRY INDUSTRY INDUSTRY
 
