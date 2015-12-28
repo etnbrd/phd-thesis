@@ -2,52 +2,78 @@
 \minitoc
 \eject
 
-\cit{A designer is responsible for producing the greatest benefit for any given investment of time, talent, money, and other resources.}{K. Sullivan, W. Griswold, Y. Cai, B. Hallen \cite{Sullivan2001a}}
+\cit{A designer is responsible for producing the greatest benefit for any given investment of time, talent, money, and other resources.}{K. Sullivan, W. Griswold, Y. Cai, B. Hallen \cite{Sullivan2001}}
 
-\nt{TODO the next paragraph expresses well the idea, but is not clear enough yet}
-The growth of the web and Software as a Service (SaaS) revealed the importance of previously unknown economic constraints.
-The same company carries both development and exploitation of a service in scale of unprecedented size.
-Development costs are reduced by following best practice, and by building maintainable softwares.
-However, as seen in the previous chapter, it is compensated by increasing hardware performance, which eventually rises exploitation costs.
-Similarly, exploitation costs are reduced by following more efficient programming models.
-But again, it rises development costs.
-So a SaaS company needs to cleverly allocate its budget between development and exploitation so as to limit the overall cost.
+With the growth of Software as a Service (SaaS) on the web, the same company carries both development and exploitation of an application at scale of unprecedented size.
+It revealed the importance of previously unknown economic constraints.
+To assure the continuous growth and sustainability of an application, it needs to address two contradictory goals : development productivity and performance efficiency.
+These goals needs to be enforced by the platform supporting the application to build good development habits for the developers.
+% In this chapter,
+A platform designates any solution that allows to build an application on top of it, including programming languages, compilers, interpreters, frameworks, runtime libraries and so on.
 
-Eventually, a company faces the problem of scalability limitations.Compensating development with hardware becomes unsustainable.
-The company has no choice but to commit huge development efforts to get correct performances.
-This chapter draws a broad view of the relation between the orientation of development toward maintainability or scalable performance, and its consequences.
+\textit{75\% of your budget is dedicated to software maintenance.}\ftnt{http://www.castsoftware.com/glossary/software-maintainability}
+The productivity of a platform is the degree to which developers can quickly produce new and modify existing software.
+It impacts the maintainability of the applications and relies on the modularity enforced by its platform.
+Especially, higher order programming is crucial to build and compose modules productively.
+It relies either on mutable states, or immutable states, but hardly on a combination of both.
 
-The best practices in software design advocate to decompose a problem into many subproblems.
-The decomposition of the implementation of a problem improves directly its maintainability, development scalability and evolution.
-This chapter present some of these best practices, \textit{e.g.} modular programming, structured design \cite{Stevens1974}, hierarchical structure \cite{Dijkstra1968} and object-oriented programming.
+However, neither mutable nor immutable states allows performance efficiency.
+Mutable states leads to synchronization overhead at a coarser-grain level, while immutable states leads to communication overhead at a finer-grain level.
+Efficiency relies on a combination of synchronization at a fine-grain level, and immutable message passing at a coarse-grain level.
+This combination breaks the modularity, hence the productivity of an application.
+A company has no choice but to commit huge development efforts to get efficient performances.
 
-A few decades ago, the best practices were not concerned with execution performance.
-Moore's law \cite{Moore1965} was wrongly interpreted as the assurance that hardware could always increase execution speed.
-But eventually, the clock speed of processors plateaued \ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}\cite{Bohr2007}, and the processing units were organized as several execution units to continue improving performances.
-But this hardware improvement could not anymore increase the execution speed without any additional development effort.
+\illustration{virtuous circle between community and industry}
+Moreover, a balance between productivity and efficiency is required for a platform to enter a virtuous circle of adoption.
+The productivity is required to be appealing to gather a community to support the ecosystem around the platform.
+This community is appealing for the industry as a hiring pool.
+Additionally, the efficiency is required to be adopted by the industry to be economically viable.
+And the industrial relevance provides the reason for this ecosystem to exist and the community to gather.
 
-The best practices of software design then inherited two goals : to assure a scalable implementation evolution by decomposing it into subproblems, as well as assure a scalable parallel execution by decomposing the execution onto the several execution units.
-As D. L. Parnas showed in 1972 \cite{Parnas1972}, it seems challenging to develop a software following a decomposition that satisfies both goals.
+This chapter presents a broad view of the state of the art in the compromises between productivity and efficiency.
+It defines software productivity, efficiency, and adoption in section \ref{chapter3:definitions} and all the underlying concepts, such as higher order programming and state mutability.
+It then analyzes different platforms according to their focus. platforms focusing on productivity are addressed in section \ref{chapter3:software-maintainability}, those focusing on efficiency in section \ref{chapter3:software-performance} and those focusing on a compromise between the two in section \ref{chapter3:software-abstraction}.
 
-\begin{center}
-\includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art.pdf}
-\end{center}
+\input{03-state-of-the-art/tables}
 
-The evolution of economic constraints often force an SaaS company to switch from scalable development to scalable performance.
-This switch implies huge development efforts.
-There has been many attempts at reconciling the two goals to reduce these costs.
-But none seems really convincing enough to be widely adopted.
-
-The schema above is a graphical representation of the organization of this chapter, and more generally of the state of the art of software design.
-The focus on development scalability, noted by number 1, are addressed in section \ref{chapter3:software-maintainability} while the focus on performance scalability, noted by number 3, are addressed in section \ref{chapter3:software-performance}.
-Each of these direction of development contains works trying to meet the requirements from the opposing category, noted by number 2 and 4.
-And finally, section \ref{chapter3:objectives} presents the objectives for this thesis, noted by number 5.
-
-\input{03-state-of-the-art/Software-maintainability}
-\input{03-state-of-the-art/Software-performance}
-\input{03-state-of-the-art/Objectives}
+\input{03-state-of-the-art/Definitions}
+\input{03-state-of-the-art/Software-productivity}
+\input{03-state-of-the-art/Software-efficiency}
+\input{03-state-of-the-art/Software-adoption}
 
 
+\section{Analysis}
+
+This chapter presented a broad view of platforms and their balance between productivity or efficiency.
+The platforms favoring one sacrifice the other.
+The adoption, and usage of these platforms prove that none of these compromises are sustainable.
+
+The productive platforms are highly adopted.
+Their productivity feed a reinforcing circle of adoption between the community and the industry.
+However, they lack the efficiency required to strive in the latter stage of a project, where efficiency becomes crucial.
+
+On the other hand, the efficient platforms are not widely adopted by the community.
+These platforms are unable to respond to the need of the community to prototype and to experiment on small projects to make them evolve into larger ones later on.
+
+
+\paragraph{Continuous Development}
+
+It is not possible for a platform to support both productivity and efficiency at the same time.
+These platforms are oriented toward productivity, efficiency or a compromise between both.
+As the two are required at different time in the evolution of the project, to follow a project, a platform need to meet the requirements at the good time.
+They need to supporting productivity to allow the community to experiment, and organically start projects.
+And then continuously shift toward efficiency as the project evolve, and requires it.
+
+None of these platforms are able to support productivity then efficiency to follow the evolution of a project.
+They lack the possibility to make a project evolve from the very early stage until maturation. 
+A project needs to change platform to change the priority.
+These shifts of platforms have economical consequences.
+
+\paragraph{}
+
+The table \ref{tab:summary} summarizes the analysis of the state of the art presented in this chapter.
+
+\TableSummary{tab:summary}
 
 %-----------------------------------------------------------------------------%
                                     \endinput
@@ -78,10 +104,6 @@ https://scholar.google.com/citations?user=MkKZKAMAAAAJ&hl=en
 + Paul Feautrier (Tutor of A. Cohen)
 
 
-SPMD Single program multiple data
-Partitioned global address space
-
-
 Similar problem :
 http://2015.splashcon.org/event/splash2015-splash-i-lindsey-kuper-talk
 http://www.cs.indiana.edu/~lkuper/papers/lindsey-kuper-dissertation.pdf
@@ -95,9 +117,6 @@ http://smallcultfollowing.com/babysteps/blog/2014/04/24/parallel-pipelines-for-j
 
 Some chunks I might find useful later :
 ---------------------------------------
-
-\cit{No matter how great the talent or efforts, some things just take time. You can't produce a baby in one month by getting nine women pregnant.}
-{Warren Buffett}
 
 A good example of declarative sentence in everyday world : in case of fire, 
 the elevators don't work -> you understand that you need to take the stairs.

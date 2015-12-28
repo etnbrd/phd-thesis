@@ -1,6 +1,6 @@
 FILE = main
 NAME = thesis
-PDFLATEX = mkdir -p .tmp && cd src && pdflatex -shell-escape --output-directory ../.tmp ../src/${FILE}.tex && mv ../.tmp/${FILE}.pdf ../${NAME}.pdf && cd ..
+PDFLATEX = mkdir -p .tmp && rsync -av -f"+ [0-9]*/" -f"- *" src/ .tmp/ && mkdir -p .tmp/figures && cd src && pdflatex -shell-escape --output-directory ../.tmp ../src/${FILE}.tex && mv ../.tmp/${FILE}.pdf ../${NAME}.pdf && cd ..
 BIBER = mkdir -p .tmp && cd .tmp && biber ${FILE} && cd ..
 
 .PHONY: all, bib, _main, _bib
@@ -13,7 +13,7 @@ bib: _bib
 pdf: _pre
 
 clean:
-	rm -rf .tmp; rm -rf src/main-figure*
+	rm -rf .tmp
 
 import:
 	rsync -r ~/Documents/PhD/Bib/* ./src/bib

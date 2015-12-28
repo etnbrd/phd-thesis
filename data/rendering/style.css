@@ -1,0 +1,169 @@
+html, body {
+  width: 1000px;
+  height: 100%;
+  margin: auto;
+}
+
+.container {
+  width: 40%;
+  display: inline-block;
+}
+
+.eighty {
+  width: 80%;
+  display: inline-block;
+}
+
+ul {
+  width: 15%;
+  display: inline-block;
+}
+
+li {
+  list-style: none;
+  margin: -3em -1em 0 0;
+  font-size: 0.7em;
+}
+
+li:before {
+  content: "•";
+  font-size: 4em;
+  position: relative;
+  top: 0.3em;
+}
+
+.ct-label, body {
+  font-family: Serif;
+  color: black;
+  fill: black;
+}
+
+.ct-line {
+  stroke-width: 0.8pt;
+}
+
+.ct-line.Javascript, .ct-line.npm {
+  stroke-width: 2pt;
+}
+
+li.Javascript:before        {color: #F0253D}
+li.C:before                 {color: #266B85}
+li.Cplusplus:before         {color: #3CADD7}
+li.Java:before              {color: #AFC4DB}
+li.PHP:before               {color: #8996A8}
+li.XML_Schema:before        {color: #F57542}
+li.Ruby:before              {color: #D7503C}
+li.Autoconf:before          {color: #BD4230}
+li.Python:before            {color: #5EEBB8}
+li.Csharp:before            {color: #4ABE95}
+li.Assembler:before         {color: #DDB700}
+li.Shell:before             {color: #F7F09D}
+li.SQL:before               {color: #F3FFB5}
+li.Make:before              {color: #9F3A2C}
+li.Perl:before              {color: #1B2735}
+li.VisualBasicNET:before    {color: #43AE88}
+
+.ct-slice-donut.Javascript,     .ct-line.Javascript       {stroke: #F0253D}
+.ct-slice-donut.C,              .ct-line.C                {stroke: #266B85}
+.ct-slice-donut.Cplusplus,      .ct-line.Cplusplus        {stroke: #3CADD7}
+.ct-slice-donut.Java,           .ct-line.Java             {stroke: #AFC4DB}
+.ct-slice-donut.PHP,            .ct-line.PHP              {stroke: #8996A8}
+.ct-slice-donut.XML_Schema,     .ct-line.XML_Schema       {stroke: #F57542}
+.ct-slice-donut.Ruby,           .ct-line.Ruby             {stroke: #D7503C}
+.ct-slice-donut.Autoconf,       .ct-line.Autoconf         {stroke: #BD4230}
+.ct-slice-donut.Python,         .ct-line.Python           {stroke: #5EEBB8}
+.ct-slice-donut.Csharp,         .ct-line.Csharp           {stroke: #4ABE95}
+.ct-slice-donut.Assembler,      .ct-line.Assembler        {stroke: #DDB700}
+.ct-slice-donut.Shell,          .ct-line.Shell            {stroke: #F7F09D}
+.ct-slice-donut.SQL,            .ct-line.SQL              {stroke: #F3FFB5}
+.ct-slice-donut.Make,           .ct-line.Make             {stroke: #9F3A2C}
+.ct-slice-donut.Perl,           .ct-line.Perl             {stroke: #1B2735}
+.ct-slice-donut.VisualBasicNET, .ct-linebefore            {stroke: #43AE88}
+
+
+
+li.Bower:before        {color: #B0253D}
+li.Clojars:before      {color: black}
+li.CPAN:before         {color: black}
+li.CPANsearch:before   {color: black}
+li.CRAN:before         {color: black}
+li.Crates:before       {color: black}
+li.GoDoc:before        {color: black}
+li.Hackage:before      {color: black}
+li.Hex:before          {color: black}
+li.LuaRocks:before     {color: black}
+li.Maven:before        {color: #AFC4DB}
+li.MELPA:before        {color: black}
+li.npm:before          {color: #F0253D}
+li.nuget:before        {color: #4ABE95}
+li.Packagist:before    {color: #8996A8}
+li.Pear:before         {color: #8996B8}
+li.PyPI:before         {color: #5EEBB8}
+li.Rubygems:before     {color: #D7503C}
+
+.ct-line.Bower        {stroke: #B0253D}
+.ct-line.Clojars      {stroke: black}
+.ct-line.CPAN         {stroke: black}
+.ct-line.CPANsearch   {stroke: black}
+.ct-line.CRAN         {stroke: black}
+.ct-line.Crates       {stroke: black}
+.ct-line.GoDoc        {stroke: black}
+.ct-line.Hackage      {stroke: black}
+.ct-line.Hex          {stroke: black}
+.ct-line.LuaRocks     {stroke: black}
+.ct-line.Maven        {stroke: #AFC4DB}
+.ct-line.MELPA        {stroke: black}
+.ct-line.npm          {stroke: #F0253D}
+.ct-line.nuget        {stroke: #4ABE95}
+.ct-line.Packagist    {stroke: #8996A8}
+.ct-line.Pear         {stroke: #8996B8}
+.ct-line.PyPI         {stroke: #5EEBB8}
+.ct-line.Rubygems     {stroke: #D7503C}
+
+// #0E151B - Black
+// #D7503C - Red
+// #52EAA9 - Green
+// #FFB454 - Yellow
+// #266B85 - Blue
+// #CB253D - Magenta
+// #8996A8 - Cyan
+// #FEFEFE - White
+
+// #23323F - Bright Black
+// #F05E33 - Bright Red
+// #76FFCD - Bright Green
+// #FFE792 - Bright yellow
+// #3CADD7 - Bright Blue
+// #D73C4D - Bright Magenta
+// #AFC4DB - Bright Cyan
+// #FFFFFF - Bright White
+
+// #F57542 - orange
+// #9F3A2C - brown
+// #1B2735 - Darker
+// #B0B3BA - Grey
+// #FFFFFF - Bright White
+
+// #4ABE95 - green
+// #43AE88 - green 2
+// #5EEBB8 - bright green 2
+// #BD4230 - dark red
+
+
+// #DDB700 - mustard
+// #F7F09D - yellow 2
+// #F3FFB5 - yellow 3 (greener)
+
+// #0C1217 - black
+// #0D1319 - black 2
+// #0E151B - black 3
+// #23323F - black 5
+// #233345 - black 6
+// #263445 - black 7
+
+// #3C444D - grey
+// #3E4751 - grey 2
+// #515C68 - grey 3
+// #B0B3BA - bright grey
+// #EFEFEF - brigher grey
+// #F8F8F8 - white

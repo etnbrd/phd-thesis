@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graphs and plots</title>
+    <link rel="stylesheet" href="chartist-js/dist/chartist.min.css">
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+
+<style>
+
+/*body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 960px;
+  height: 500px;
+  position: relative;
+}*/
+
+svg {
+  width: 100%;
+  height: 500px;
+}
+
+path.slice{
+  stroke-width:1px;
+}
+
+polyline{
+  opacity: .5;
+  stroke: black;
+  stroke-width: 1px;
+  fill: none;
+}
+
+</style>
+
+
+  </head>
+  <body>
+
+    <h1>Black Duck language usage, all time, 2015</h1>
+
+    <div class="container">
+      <div class="chart-1 ct-major-third"></div>
+    </div><!--
+ --><div class="container">
+      <div class="chart-2 ct-major-third"></div>
+    </div><!--
+ --><ul>
+      <li class='Javascript'>Javascript</li>
+      <li class='C'>C</li>
+      <li class='Cplusplus'>C++</li>
+      <li class='Java'>Java</li>
+      <li class='PHP'>PHP</li>
+      <li class='XML_Schema'>XML Schema</li>
+      <li class='Ruby'>Ruby</li>
+      <li class='Autoconf'>Autoconf</li>
+      <li class='Python'>Python</li>
+      <li class='Csharp'>C#</li>
+      <li class='Assembler'>Assembler</li>
+      <li class='Shell'>Shell</li>
+      <li class='SQL'>SQL</li>
+      <li class='Make'>Make</li>
+      <li class='Perl'>Perl</li>
+    </ul>
+
+    <h1>Module counts</h1>
+
+    <div class="chart3 ct-major-twelfth eighty"></div><!--
+ --><ul>
+      <li class = 'npm'>npm (node.js)</li>
+      <li class = 'Bower'>Bower (JS)</li>
+      <!--<li class = 'Clojars'>Clojars (Clojure)</li>-->
+      <!--<li class = 'CPAN'>CPAN</li>-->
+      <!--<li class = 'CPANsearch'>CPAN (search)</li>-->
+      <!--<li class = 'CRAN'>CRAN (R)</li>-->
+      <!--<li class = 'Crates'>Crates.io (Rust)</li>-->
+      <!--<li class = 'GoDoc'>GoDoc (Go)</li>-->
+      <!--<li class = 'Hackage'>Hackage (Haskell)</li>-->
+      <!--<li class = 'Hex'>Hex.pm (Elixir/Erlang)</li>-->
+      <!--<li class = 'LuaRocks'>LuaRocks (Lua)</li>-->
+      <li class = 'Maven'>Maven Central (Java)</li>
+      <!--<li class = 'MELPA'>MELPA (Emacs)</li>-->
+      <li class = 'nuget'>nuget (.NET)</li>
+      <li class = 'Packagist'>Packagist (PHP)</li>
+      <li class = 'Pear'>Pear (PHP)</li>
+      <li class = 'PyPI'>PyPI</li>
+      <li class = 'Rubygems'>Rubygems.org</li>
+    </ul>
+
+    <h1>Stack overflow tags</h1>
+    <div class="chart4 ct-major-twelfth eighty"></div><!--
+ --><ul>
+      <li class = 'Javascript'>javascript</li>
+      <li class = 'C'>c</li>
+      <li class = 'Cplusplus'>c++</li>
+      <li class = 'Java'>java</li>
+      <li class = 'PHP'>php</li>
+      <li class = 'Ruby'>ruby</li>
+      <li class = 'Python'>python</li>
+      <li class = 'SQL'>sql</li>
+    </ul>
+
+    <h1>TIOBE index</h1>
+    <div class="chart5 ct-major-twelfth eighty"></div><!--
+ --><ul>
+
+
+     <li class = 'Java'>Java</li>
+     <li class = 'C'>C</li>
+     <li class = 'Cplusplus'>C++</li>
+     <li class = 'Python'>Python</li>
+     <li class = 'Csharp'>C#</li>
+     <li class = 'PHP'>PHP</li>
+     <li class = 'VisualBasicNET'>Visual Basic .NET</li>
+     <li class = 'Javascript'>Javascript</li>
+     <li class = 'Perl'>Perl</li>
+     <li class = 'Ruby'>Ruby</li>
+    </ul>
+
+    <script src="bower_components/d3/d3.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="chartist-js/dist/chartist.js"></script>
+    <script src="jsPDF/dist/jspdf.debug.js"></script>
+    <script src="tiobe.js"></script>
+    <script src="charts.js"></script>
+
+
+
+<script>
+
+var svg = d3.select("body")
+  .append("svg")
+  .append("g")
+
+svg.append("g")
+  .attr("class", "slices");
+svg.append("g")
+  .attr("class", "labels");
+svg.append("g")
+  .attr("class", "lines");
+
+var width = 960,
+    height = 450,
+  radius = Math.min(width, height) / 2;
+
+var pie = d3.layout.pie()
+  .sort(null)
+  .value(function(d) {
+    return d.value;
+  });
+
+var arc = d3.svg.arc()
+  .outerRadius(radius * 0.8)
+  .innerRadius(radius * 0.4);
+
+var outerArc = d3.svg.arc()
+  .innerRadius(radius * 0.9)
+  .outerRadius(radius * 0.9);
+
+svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+var key = function(d){ return d.data.label; };
+
+
+
+function type(d) {
+  d.percentage = +d.percentage;
+  return d;
+}
+
+d3.csv("blackduck-alltime.csv", type, init);
+init();
+
+
+function init(error, data) {
+  if (error) throw error;
+
+  var color = d3.scale.ordinal()
+    .domain(["Lorem ipsum", "dolor sit", "amet", "consectetur", "adipisicing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt"])
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+  function randomData (){
+    var labels = color.domain();
+    return labels.map(function(label){
+      return { label: label, value: Math.random() }
+    });
+  }
+
+  change(randomData());
+
+  // var fdata = data.map(function(row){
+  //   return { label: row.language, value: row.percentage }
+  // })
+
+  // change(fdata);
+}
+
+// d3.select(".randomize")
+//   .on("click", function(){
+//     change(randomData());
+//   });
+
+
+function change(data) {
+
+  
+
+  /* ------- PIE SLICES -------*/
+  var slice = svg.select(".slices").selectAll("path.slice")
+    .data(pie(data), key);
+
+  slice.enter()
+    .insert("path")
+    .style("fill", function(d) { return /*color(d.data.label);*/ '#98abc5' })
+    .attr("class", "slice");
+
+  slice    
+    .transition().duration(1000)
+    .attrTween("d", function(d) {
+      this._current = this._current || d;
+      var interpolate = d3.interpolate(this._current, d);
+      this._current = interpolate(0);
+      return function(t) {
+        return arc(interpolate(t));
+      };
+    })
+
+  slice.exit()
+    .remove();
+
+  // /* ------- TEXT LABELS -------*/
+
+  // var text = svg.select(".labels").selectAll("text")
+  //   .data(pie(data), key);
+
+  // text.enter()
+  //   .append("text")
+  //   .attr("dy", ".35em")
+  //   .text(function(d) {
+  //     return d.data.label;
+  //   });
+  
+  // function midAngle(d){
+  //   return d.startAngle + (d.endAngle - d.startAngle)/2;
+  // }
+
+  // text.transition().duration(1000)
+  //   .attrTween("transform", function(d) {
+  //     this._current = this._current || d;
+  //     var interpolate = d3.interpolate(this._current, d);
+  //     this._current = interpolate(0);
+  //     return function(t) {
+  //       var d2 = interpolate(t);
+  //       var pos = outerArc.centroid(d2);
+  //       pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+  //       return "translate("+ pos +")";
+  //     };
+  //   })
+  //   .styleTween("text-anchor", function(d){
+  //     this._current = this._current || d;
+  //     var interpolate = d3.interpolate(this._current, d);
+  //     this._current = interpolate(0);
+  //     return function(t) {
+  //       var d2 = interpolate(t);
+  //       return midAngle(d2) < Math.PI ? "start":"end";
+  //     };
+  //   });
+
+  // // text.exit()
+  // //   .remove();
+
+  // /* ------- SLICE TO TEXT POLYLINES -------*/
+
+  // var polyline = svg.select(".lines").selectAll("polyline")
+  //   .data(pie(data), key);
+  
+  // polyline.enter()
+  //   .append("polyline");
+
+  // polyline.transition().duration(1000)
+  //   .attrTween("points", function(d){
+  //     this._current = this._current || d;
+  //     var interpolate = d3.interpolate(this._current, d);
+  //     this._current = interpolate(0);
+  //     return function(t) {
+  //       var d2 = interpolate(t);
+  //       var pos = outerArc.centroid(d2);
+  //       pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+  //       return [arc.centroid(d2), outerArc.centroid(d2), pos];
+  //     };      
+  //   });
+  
+  // polyline.exit()
+  //   .remove();
+};
+
+</script>
+
+    <script>
+
+    var width = 960,
+        height = 400,
+        radius = Math.min(width, height) / 2;
+
+    var color = d3.scale.ordinal()
+        .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+    var arc = d3.svg.arc()
+        .outerRadius(radius - 10)
+        .innerRadius(radius - 70);
+
+    var pie = d3.layout.pie()
+        .sort(null)
+        .value(function(d) { return d.percentage; });
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+      .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    d3.csv("blackduck-alltime.csv", type, function(error, data) {
+      if (error) throw error;
+
+      var g = svg.selectAll(".arc")
+          .data(pie(data))
+        .enter().append("g")
+          .attr("class", "arc");
+
+      g.append("path")
+          .attr("d", arc)
+          .style("fill", function(d) { return color(d.data.language); });
+
+      g.append("text")
+          .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+          .attr("dy", ".35em")
+          .text(function(d) { return d.data.language; });
+    });
+
+    function type(d) {
+      d.percentage = +d.percentage;
+      return d;
+    }
+
+    </script>
+
+
+  </body>
+</html>

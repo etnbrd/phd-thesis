@@ -1,5 +1,6 @@
 \usepackage{marginnote}
 \usepackage{xcolor}
+\usepackage{pifont}
 
 \definecolor{todo}{rgb}{0.9,0.5,0.5}
 \definecolor{text}{gray}{0.8}
@@ -10,6 +11,9 @@
 \definecolor{gray4}{rgb}{.85,.85,.85}
 \definecolor{gray5}{rgb}{.90,.90,.90}
 \definecolor{gray6}{rgb}{.95,.95,.95}
+
+\definecolor{RED}{RGB}{255, 0, 73}
+\definecolor{GREEN}{RGB}{190, 255, 0}
 
 \newcommand{\TODO}[1]{%
   % \marginpar
@@ -29,7 +33,7 @@
 
 \newcommand{\nt}[1]{%
   \textcolor{red}{*}%
-  \marginpar{\textcolor{red}{{\fontencoding{U}\fontfamily{futs}\selectfont\char 66\relax}}\vspace{3mm}\\
+  \marginpar{\textcolor{red}{\fontencoding{U}\fontfamily{futs}\selectfont\char 66\relax}\vspace{3mm}\\
   \tiny{\textcolor{text}{#1}}}%
 }
 
@@ -44,9 +48,41 @@
 }
 
 \newcommand{\cit}[2]{%
-  \textit{``#1''}\\[5pt]
-  \rightline{{\rm ---#2}}\\
+  \textit{``#1''}\\[-25pt]%
+  \begin{flushright}%
+  --- #2%
+  \end{flushright}%
 }
+
+
+\newcommand*\rot{\rotatebox{90}}
+
+\newcommand\lab[1]{%
+  \rotatebox{90}{\parbox{3cm}{\raggedright #1}}%
+}
+
+\newlength\replength
+\newcommand\repfrac{.33}
+\newcommand\dashfrac[1]{\renewcommand\repfrac{#1}}
+\setlength\replength{4.5pt}
+\newcommand\rulewidth{1.6pt}
+
+\newcommand\tdotfill[1][\repfrac]{\cleaders\hbox to \replength{%
+  \smash{\raisebox{\arraystretch\dimexpr\ht\strutbox-.1ex\relax}{.}}}\hfill}
+\newcommand\tabdotline{%
+  \makebox[0pt][r]{\makebox[\tabcolsep]{\tdotfill\hfil}}\tdotfill\hfil%
+  \makebox[0pt][l]{\makebox[\tabcolsep]{\tdotfill\hfil}}%
+  \\[-\arraystretch\dimexpr\ht\strutbox+\dp\strutbox\relax]%
+}
+
+
+
+
+\newcommand{\V}{ \textcolor{green}{\ding{51}} }
+\newcommand{\X}{ \textcolor{red}{\ding{53}} }
+\newcommand{\U}{ \textcolor{gray}{?} }
+\newcommand{\J}{ \textcolor{cyan}{\textbf{+}} }
+\newcommand{\M}{ \textcolor{orange}{--} }
 
 \newlength\callStackIndentation
 \newcommand{\level}[1]{%
@@ -54,8 +90,12 @@
   \hspace*{#1\callStackIndentation}%
 }
 
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+\newcommand*{\circled}[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=0.8pt] (char) {#1};}}
+
+\newcommand*{\rate}[1]{\tikz[baseline=(char.base)]{
+            \colorlet{tmpcolor}{green!\the\numexpr#1*20!red}
+            \node[shape=circle,inner sep=0.8pt, fill=tmpcolor] (char) {\textcolor{white}{\textbf#1}};}}
 
 \makeatletter
 
