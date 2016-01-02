@@ -2,7 +2,7 @@
 \minitoc
 \eject
 
-When the amazed 7 years old I was laid eyes on the first family computer, my life goal became to know everything there is to know about computers.
+When the 7 years old I was laid amazed eyes on the first family computer, my life goal became to know everything there is to know about computers.
 This thesis is a mild achievement.
 It compiles my PhD work on
 % TODO TITLE HERE
@@ -13,14 +13,14 @@ It compiles my PhD work on
 This work is the fruit of a collaboration between the Worldline company and the Inria DICE team (Data on the Internet at the Core of the Economy) from the CITI laboratory (Centre d’Innovation en Télécommunications et Intégration
 de services) at INSA de Lyon.
 For Worldline, this work falls within a larger work named Liquid IT, on the future of the cloud infrastructure and development.
-As defined by Worldline, Liquid IT aims at decreasing the time to market of a web service, allows the development team to focus on service specifications rather than technical optimizations and ease maintenance.
+As defined by Worldline, Liquid IT aims at decreasing the time to market of a web application, allows the development team to focus on application specifications rather than technical optimizations and ease maintenance.
 The purpose of this PhD work, was to separate development scalability from performance scalability, to allow a continuous development from prototyping phase, until runtime on thousands of clusters.
 On the other hand, the DICE team focuses on the consequences of technology on economical and social changes at the digital age.
-This work falls within this scope as it studies the relation between the economical and the technological constraints driving the development of web services.
+This work falls within this scope as it studies the relation between the economical and the technological constraints driving the development of web applications.
 
 \section{Web development}
 
-The growth of web platforms is partially due to Internet's capacity to allow very quick releases of a minimal viable product (MVP).
+The growth of web applications is partially due to Internet's capacity to allow very quick releases of a minimal viable product (MVP).
 In a matter of hours, it is possible to release a prototype and start gathering a user community around.
 \textit{``Release early, release often''}, and \textit{``Fail fast''} are the punchlines of the web entrepreneurial community.
 It is crucial for the prosperity of such project to quickly validate that the proposed solution meets the needs of its users.
@@ -30,13 +30,13 @@ Such as proposed by imperative languages like Java or Ruby.
 
 \section{Performance requirements}
 
-If the service successfully complies with users requirements, its community might grow with its popularity.
-The service is scalable when it can quickly respond to this growth.
+If the application successfully complies with users requirements, its user base might grow with its popularity.
+The application is scalable when it can efficiently respond to this growth.
 However, it is difficult to develop scalable applications with the feature-driven approach mentioned above.
 Eventually this growth requires to discard the initial monolithic approach to adopt a more efficient processing model instead.
-Many of the most efficient models distribute the system on a cluster of commodity machines.
+Many of the most efficient models distribute the application on a cluster of commodity machines.
 
-Once split, the service parts are connected by an asynchronous messaging system.
+Once split, the application parts are connected by an asynchronous messaging system.
 Many tools have been developed to express and manage these parts and their communications.
 However, these tools impose specific interfaces and languages, different from the initial monolithic approach.
 It requires the development team either to be trained or to hire experts, and to start over the initial code base.
@@ -47,29 +47,31 @@ It is a risk for the evolution of the project as the second and third reasons fo
 
 These shifts are a risk for the economical evolution of a web application by disrupting the continuity of its development process.
 The main question addressed by this thesis is how to avoid these shifts, so as to allow a continuous development?
-That is to reconcile the reactivity required in the early stage of development and the performance increasingly required with the growth of popularity.
-To answer this question, this thesis proposes a solution based on an equivalence between two different programming paradigms.
-On one hand, there is the imperative, functional, asynchronous programming model, embodied by Javascript.
-On the other hand, there is the dataflow, distributed, programming model, embodied by the concept of fluxions introduced in chapter \ref{chapter5}.
+That is to reconcile the productivity required in the early stage of development and the efficiency required with the growth of popularity.
+To answer this question, this thesis proposes a solution based on the equivalence between two different programming models.
+On one hand, there is the asynchronous, functional programming model, embodied by the Javascript event-loop.
+On the other hand, there is the distributed, dataflow programming model, embodied by the the pipeline architecture.
 
 This thesis contains two main contributions.
 The first contribution is a compiler allowing to split a program into a pipeline of stages depending on a common memory store.
-The second contribution, stemming from the first one, is a second compiler, allowing to make independent the stages of this pipeline.
-With these two contributions, it is possible to build a compiler that links an imperative representation with a flow-based representation.
-The imperative representation carries the functional modularization of the application, while the flow-based representation carries its execution distribution.
-A development team shall then use these two representations to continuously iterate over the implementation of an application, and reach both maintainability and performance.
+The second contribution, stemming from the first one, is a second compiler, enforcing isolation between the stages of this pipeline.
+With these two contributions, it is possible to transform the functional representation of an applicaiton into a pipeline representation.
+The first representation carries the functional modularization of the application, while the pipeline representation carries its execution distribution.
+A development team shall then use these two representations to continuously iterate over the implementation of an application, and reach the best compromise between productivity and efficiency.
 
 \section{Thesis organization}
 
-This thesis is organized in four main chapters.
+This thesis is organized in six main chapters.
 Chapter \ref{chapter2} introduces the context for this thesis and explains in greater details its objectives.
 It presents the challenge to build web applications at a world wide scale, without jamming the organic evolution of its implementation.
 It concludes drawing a first answer to this challenge.
 Chapter \ref{chapter3} presents the works surrounding this thesis, and how they relate to it.
 It defines into the notions outlined in the precedent chapter to help the reader understand better the context.
 The end of this chapter presents clearly the problematic addressed in this thesis.
-Chapter \ref{chapter4} presents the first contribution allowing to represent a program as a pipeline of stages.
+Chapter \ref{chapter4} introduces the proposition of this thesis, and the articulation of the contributions.
+Chapter \ref{chapter5} presents the first contribution allowing to represent a program as a pipeline of stages.
 It introduces Dues to encapsulate these stages, based on Javascript Promises.
-Chapter \ref{chapter5} presents the second contribution allowing to make these stages independent.
+Chapter \ref{chapter6} presents the second contribution allowing to make these stages independent.
 It introduces Fluxion to encapsulate these stages.
-Chapter \ref{chapter6} concludes this thesis, and draws the possible perspectives beyond this work.
+Chapter \ref{chapter7} draws the possible perspectives beyond this work.
+Finally, chapter \ref{chapter8} concludes this thesis.

@@ -3,18 +3,18 @@
 \begin{wrapfigure}{r}{0.2\textwidth}
   \vspace{-27pt}
   \begin{center}
-    \includegraphics[width=0.18\textwidth]{../ressources/Mac-PC.png}
+    \includegraphics[width=0.18\textwidth]{../resources/Mac-PC.png}
   \end{center}
   \vspace{-20pt}
 \end{wrapfigure}
 
 Similarly to operating systems, Web browsers started as software products with extension capabilities that transformed it into a platform. % with scripts and applications.
-The distribution of an applications is limited only by the platform it can be deployed on.
+The distribution of an application is limited only by the platform it can be deployed on.
 The Web spreads the scalability of software distribution world wide with a near zero latency.
 It eventually became the main distribution medium, and the wider market there can possibly be for software.
 It led the Web to become a major platform, replacing operating systems.
 
-Now, with web services, or Software as a Service (SaaS), the distribution medium is so transparent that owning a software product to have an easier access is no longer relevant.
+Now, with web applications, the distribution medium is so transparent that owning a software product to have an easier access is no longer relevant.
 It stimulates a completely new business model based on an instantaneous and free access for the user, while claiming value for their data.
 The next paragraphs present Javascript, the language that allowed this new business model to emerge.
 
@@ -25,6 +25,10 @@ Higher-level languages replaced lower-level languages, because the economical ga
 Most of the now popular programming languages were released at this time, Python in 1991, Ruby in 1993, Java in 1994, PHP and Javascript in 1995.
 
 With the democratisation of programming, the involvement of the community became critical for the adoption, evolution and maturation of a language.
+The community adopts a language because it allows to experiment and add value in interesting businesses sectors.
+And the industry adopts a language because it responds to business needs and because of the hiring pool in the community.
+The community support and the industrial needs are reinforcing each other in a loop.
+
 Java thrived in the software industry, but lose the hype that drove the community innovation and creativity.
 Now, it struggles to keep up with the latest trends in software development.
 On the contrary, Ruby on Rails emerged from an industrial context, but is now open source, and backed by a strong community that makes it evolve and mature.
@@ -32,7 +36,8 @@ Other languages like Python and PHP, emerged within a strong community, and were
 Django, the Python web frameworks, is used to develop many web applications in industrial contexts.
 Wordpress, a PHP publishing platform, is an economical success.
 
-Since a few years, Javascript is slowly becoming the main language for web development.
+The web acts as a catalyst in the interaction between the community and the industry.
+Because of its position in the web, Javascript is slowly becoming the main language for web development.
 The next paragraph present its evolution in the industry and the community.
 
 \subsubsection{The Ugly Duckling}
@@ -45,9 +50,9 @@ The next paragraph present its evolution in the industry and the community.
 % The history proved them wrong\footnote{Except for mobiles, with the success of Dalvik Android.}.
 
 Javascript was released as a scripting engine in Netscape Navigator around September 1995 and later in its concurrent, Internet Explorer.
-The competition between the two was fragmenting the Web.
-Web pages had to be designed for a specific browser.
-To stop this fragmentation, Netscape submitted Javascript to Ecma International for standardization in November 1996.
+The differences between the two implementations forced Web pages to be designed for a specific browser.
+This competition was fragmenting the Web.
+To stop this fragmentation, Netscape submitted Javascript to ECMA International for standardization in November 1996.
 ECMA International released  ECMAScript -- or ECMA-262 -- the first standard for Javascript in June 1997. %, to which all browsers should refer for their implementations.
 
 \paragraph{}
@@ -56,6 +61,7 @@ ECMA International released  ECMAScript -- or ECMA-262 -- the first standard for
 The initial release of Javascript was designed by Brendan Eich within 10 days, and targeted unexperienced developers.
 For these reasons, the language was considered poorly designed and unattractive by the developer community.
 
+\illustration{stack of newspaper with headlines}
 {\fontfamily{phv}\fontseries{l}
 \fontsize{10pt}{10pt}\selectfont
 Why does Javascript suck?\ftnt{http://whydoesitsuck.com/why-does-javascript-suck/}
@@ -71,7 +77,7 @@ Why do so many people seem to hate Javascript?\ftnt{https://www.quora.com/Why-do
 But this situation evolved drastically since.
 All web browsers include a Javascript interpreter, making Javascript the most ubiquitous runtime \cite{Flanagan2006}.
 This position became an incentive to make it fast (V8, ASM.js) and convenient (ES6, ES7).
-Any Javascript code is open, allowing the community to pick, improve and reproduce the best techniques \ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
+Any Javascript code in the browser is open, allowing the community to pick, improve and reproduce the best techniques \ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
 Javascript is distributed freely, with all the tools needed to reproduce and experiment on the largest communication network in history.
 And since 2009, it is present on the server as well with Node.js
 This omnipresence became an advantage.
@@ -86,7 +92,7 @@ All these reasons made the popularity of the Web and Javascript.
 \cit{When JavaScript was first introduced, I dismissed it as being not worth my attention. Much later, I took another look at it and discovered that hidden in the browser was an excellent programming language.}%
 {Douglas Crockford\ftnt{http://javascript.crockford.com/survey.html}}
 
-Javascript was initially used for short interactions on web pages.
+Javascript was initially used for short interactions on web pages\footnote{True hipsters know it is not true, because they used Server-Side Javascript \url{https://developer.mozilla.org/en-US/docs/Archive/Web/Server-Side_JavaScript}}.
 % The typical usage was to pre-validate forms on the client to avoid wasting bandwidth with wrongly formated requests to the server.
 % This situation hugely improved since the beginning of the language.
 Nowadays, there is a lot of web-based applications replacing desktop applications, like mail client, word processor, music player, graphics editor\ldots
@@ -109,15 +115,15 @@ The simultaneous release of HTML5, ECMAScript 5 and V8, around 2009, represent a
 % Around the same time, Google released the Javascript interpreter V8 for its browser Chrome, improving drastically the execution performance.
 Javascript became the \textit{de facto} programming language to develop on this rising application platform that is the Web\ftnt{http://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/}.
 
+\nt{Frise chronologique Javascript}
+
 \paragraph{}
 
 Javascript is now widely used on the web, in open source projects, and in the software industry.
 With the increasing importance of client web applications, Javascript is assuredly one of the most important language in the times to come.
 Especially that Javascript now allows to build the server side of web applications as well.
 % The next paragraphs present the event-loop model used to develop Javascript web applications, both client and server-side.
-The next section presents the realities and technical challenges to assure the performance of web services against billions of users.
-
-\nt{Frise chronologique Javascript}
+The next section presents the realities and technical challenges to assure the performance of web applications against billions of users.
 % \begin{figure}
 
 % \newcommand{\event}[3][10pt]{\chronoevent[markdepth=-#1]{#2}{#3}}
@@ -154,9 +160,9 @@ The next section presents the realities and technical challenges to assure the p
 % \nt{Reduce the event-loop explanation to the bare minimum, the definitions of callbacks and promises should be in the state of the art. It only need to present briefly how the event-loop works to understand the problem}
 
 % Javascript is often associated with an event-based paradigm to react to concurrent user interactions.
-% In 2009, Joyent released Node.js to build real-time web services with this paradigm.
+% In 2009, Joyent released Node.js to build real-time web applications with this paradigm.
 % It is a server-side implementation of Javascript based on an event-loop.
-% This event-based paradigm proved to be very efficient as well for a web service to react to concurrent requests.
+% This event-based paradigm proved to be very efficient as well for a web application to react to concurrent requests.
 % This section presents the event-loop execution model, and the advantages of Javascript for this paradigm.
 
 % The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
@@ -202,12 +208,12 @@ The next section presents the realities and technical challenges to assure the p
 % A global memory is problematic to increase the concurrency of the execution.
 
 % This section presented Javascript as the language of the web, and its programming model.
-% The next section presents the realities and technical challenges to assure the performance of web services against billions of users.
+% The next section presents the realities and technical challenges to assure the performance of web applications against billions of users.
 
 \subsection{Highly Concurrent Web Servers}
 
 % The previous section presented Javascript, the prolific language to build the Web.
-With SaaS, a Web service can scale world wide with near zero latency. %, and accessing it is as simple as distributing it world wide.
+With SaaS, a web application can scale world wide with near zero latency. %, and accessing it is as simple as distributing it world wide.
 With this broad range of distribution, a new business model emerged, allowing instantaneous and free access for the user.
 The usage exploded, and the software industry needed innovative solutions to cope with large network traffic.
 
@@ -217,7 +223,7 @@ The usage exploded, and the software industry needed innovative solutions to cop
 
 The Internet allows communication at an unprecedented scale.
 There is more than 16 billions connected devices, and it is growing fast\ftnt{http://blogs.cisco.com/news/cisco-connections-counter} \cite{Hilbert2011}.
-A large web application like google search receives about 40 000 requests per seconds\ftnt{http://www.internetlivestats.com/google-search-statistics/}.
+A large web application like google search receives about \num{40000} requests per seconds\ftnt{http://www.internetlivestats.com/google-search-statistics/}.
 Such a Web application needs to be highly concurrent to manage this amount of simultaneous requests.
 In the 2000s, the limit to break was 10 thousands simultaneous connections with a single commodity machine\ftnt{http://www.kegel.com/c10k.html}.
 In the 2010s, the limit is set at 10 millions simultaneous connections\ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
@@ -228,8 +234,8 @@ With the growing number of connected devices on the internet, concurrency is a v
 Javascript is often associated with an event-based paradigm to react to concurrent user interactions.
 % In 2009, Joyent released Node.js to build real-time web services with this paradigm.
 % It is a server-side implementation of Javascript based on an event-loop.
-This event-based paradigm proved to be very efficient as well for a web service to react to concurrent requests.
-In 2009, Joyent released Node.js to build real-time web services with this paradigm.
+This event-based paradigm proved to be very efficient as well for a web application to react to concurrent requests.
+In 2009, Joyent released Node.js to build real-time web applications with this paradigm.
 % This section presents the event-loop execution model, and the advantages of Javascript for this paradigm.
 
 \nt{TODO schema of an event-loop}
@@ -293,7 +299,7 @@ The difference is that in the pipeline architecture, each task is executed on an
 
 \paragraph{}
 
-%This section presented two execution models to build web services, the event-loop and the pipeline.
+%This section presented two execution models to build web applications, the event-loop and the pipeline.
 % It presented briefly their similitudes and differences.
 \nt{TODO schema to compare the event-loop and the pipeline, and an introducing sentence.}
 The next section details further the incompatibility in their model and the resulting economical consequences.

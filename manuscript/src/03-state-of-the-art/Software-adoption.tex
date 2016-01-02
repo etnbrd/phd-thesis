@@ -1,9 +1,9 @@
-\section{Adoption Focused Platforms} \label{chapter3:software-abstraction}
+\section{Adoption Focused Platforms} \label{chapter3:software-adoption}
 
 Section \ref{chapter3:software-productivity} and section \ref{chapter3:software-efficiency} present the platforms focusing respectively on productivity and efficiency, and conclude that favoring on one negatively impacts the other.
 Moreover, a balance between productivity and efficiency is required to be both supported by the community and needed by the industry, hence trigger a virtuous circle of adoption.
 This section presents platforms featuring an abstraction of the tasks organization to allow developers to focus on the modular organization to keep both productivity and efficiency.
-Section \ref{chap3:software-abstraction:compilers} presents Compilers, and section \ref{chap3:software-abstraction:runtimes} presents Runtimes.
+Section \ref{chapter3:software-adoption:compilers} presents Compilers, and section \ref{chapter3:software-adoption:runtimes} presents Runtimes.
 
 % \nt{read and include \cite{Catanzaro2009} it is about Productivity language JIT compilation into efficient language
 % And get all the paper that cite this one.}
@@ -13,7 +13,7 @@ Section \ref{chap3:software-abstraction:compilers} presents Compilers, and secti
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-5.pdf}
+\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-5.pdf}
 \end{center}
 \caption{Focus on Adoption}
 \label{fig:state-of-the-art-5}
@@ -21,7 +21,7 @@ Section \ref{chap3:software-abstraction:compilers} presents Compilers, and secti
 
 \subsection{Abstraction of Tasks Organization}
 
-\subsubsection{Compilers} \label{chapter3:software-abstraction:compilers}
+\subsubsection{Compilers} \label{chapter3:software-adoption:compilers}
 
 \cit{It is a mistake to attempt high concurrency without help from the compiler}{R. Behren, J. Condit, E. Brewer \cite{Behren2003}}.
 
@@ -100,7 +100,7 @@ Hence, the burden of detailing the tasks organization falls back to the develope
 Alternatively, another approach is to rely on the runtime to detect and distribute the commutative operations, and assure the communications.
 The next paragraphs present runtime allowing this dynamic distribution.
 
-\subsubsection{Runtimes} \label{chapter3:software-abstraction:runtimes}
+\subsubsection{Runtimes} \label{chapter3:software-adoption:runtimes}
 
 \paragraph{Partitioned Global Address Space}
 
@@ -131,7 +131,7 @@ Tables \ref{tab:abstraction-maintainability} and \ref{tab:abstraction-performanc
 
 
 
-\subsection{Adoption Limitations}
+\subsection{Limitations}
 
 All the platforms presented in this section come from the need of the industry to reduce the development commitment required for efficiency.
 However, these platforms are limited to scientific applications.

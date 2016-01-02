@@ -1,6 +1,6 @@
-\section{Compiler} \label{section:compiler}
+\section{Compiler} \label{chapter5:compiler}
 
-We build a compiler to automate the application of this equivalence on existing Javascript projects.
+This section presents a compiler to automate the application of this equivalence on existing Javascript projects.
 The compilation process contains two important steps, the identification of the continuations, and the generation of chains.
 
 \subsection{Identification of continuations}
@@ -25,23 +25,24 @@ Because of the highly dynamic nature of Javascript, this understanding is either
 Instead, we choose to leave to the developer the identification of compatible continuations among the identified callbacks.
 They are expected to understand the limitations of this compiler, and the semantic of the code to compile.
 
-We provide a simple interface for developers to interact with the compiler.
-We built this interface around the compiler in a web page available online\ftnt{compiler-due.apps.zone52.org} to reproduce the tests.
-The web technologies allow to quickly build an interface for a wide variety of computing devices.
+% We provide a simple interface for developers to interact with the compiler.
+% We built this interface around the compiler in a web page available online\ftnt{compiler-due.apps.zone52.org} to reproduce the tests.
+The compiler is available as a standalone web application to reproduce the tests \ftnt{compiler-due.apps.zone52.org}.
+% The web technologies allow to quickly build an interface for a wide variety of computing devices.
 
-This interaction prevents the complete automation of the individual compilation process.
-However, we are working on an automation at a global scale.
-We expect to be able to identify a continuation only based on the name of its callee, \textit{e.g.} \texttt{fs.readFile}.
-We built a service to gather these names along with their identification.
-The compiler queries this service to present to the developer an estimated identification.
-After the compilation, it sends back the identification corrected by the developer to refine the future estimations.
-In future works, we would like to study the possibility for such a service to assist, and ease the compilation process.
+% This interaction prevents the complete automation of the individual compilation process.
+% However, we are working on an automation at a global scale.
+% We expect to be able to identify a continuation only based on the name of its callee, \textit{e.g.} \texttt{fs.readFile}.
+% We built a service to gather these names along with their identification.
+% The compiler queries this service to present to the developer an estimated identification.
+% After the compilation, it sends back the identification corrected by the developer to refine the future estimations.
+% In future works, we would like to study the possibility for such a service to assist, and ease the compilation process.
 
 \subsection{Generation of chains}
 
 The compositions of continuations and Dues are arranged differently.
 Continuations structure the execution flow as a tree, while a chain of Dues imposes to arrange it sequentially.
-A parent continuation can execute several children, while a Due allow to chain only one.
+A parent continuation can execute several children, while a Due allows to chain only one.
 The second compilation step is to identify the imbrications of continuations, and trim the extra branches to transform them into chains.
 % We consider an imbrication of continuations as a subtree of the linear execution tree.
 % The compiler trims each tree of continuations to get chains that translate into Dues.

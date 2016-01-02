@@ -1,35 +1,35 @@
 \section{An Economical Problem} \label{chapter2:problem-statement}
 
-With the rise of SaaS on the Web, the software industry are in charge of both the development and the execution of the software.
+With SaaS, the software industry is in charge of both development and execution of the software.
 The previous section presented these two aspects individually.
 This section presents the challenges encountered by conducting the two at world wide scale.
 It then focuses on the subject and defines the objectives of this thesis.
 
 \subsection{Disrupted Development}
 
-The economical context on the Web allows a project to grow from a very early stage to a large business.
-The economical constraints to meet are very different in the beginning and in the maturation of such project.
-In the early steps the constraints hold on the development.
+The Web allows a project to grow quickly from a very early stage to a large business.
+But the economical constraints to meet are very different in the beginning and in the maturation of such project.
+In the early steps the constraints hold on the development productivity.
 The project needs crucially to reduce development costs, and to release a first product as soon as possible.
-On the contrary, in the maturation of the project, the constraints hold on the performance.
+On the contrary, in the maturation of the project, the constraints hold on the performance efficiency.
 The product needs to be highly concurrent to meet the load of usage.
-The team needs to adapt to meet the different constraints, which implies a disruption in the evolution of the project.
+The team needs to adapt to meet these different constraints, which implies a disruption in the evolution of the project.
 This section further details the reasons and consequences of this disruption.
 
 \subsubsection{Power-Wall Disruption}
 
 \illustration{heating chipset / parallel chipsets}
 
-Around 2004, the speed of sequential execution on a processing unit plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
-Manufacturers reached what they called the \textit{Power-wall}.
-They started to arrange transistors into several processing units to keep increasing overall performance while avoiding overheating problems.
-Therefore, the performance of the sequential execution plateaued as well.
+Around 2004, manufacturers reached what they called the \textit{Power-wall}.
+The speed of sequential execution on a processing unit plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
+Therefore, the performance plateaued as well.
+They started to arrange transistors into several processing units to keep increasing overall performance efficiency. % while avoiding overheating problems.
 % required by the cooperative scheduling 
-Parallelism is the only option to achieve high concurrency on this parallel hardware.
+Parallelism became the only option to achieve high concurrency. % on this parallel hardware.
 % Isolating tasks is the only option to achieve high concurrency on this parallel hardware.
-But the isolation required by parallelism is in contradiction with the best practices of software development to achieve maintainability.
+But the memory isolation required by parallelism limits the productivity in software development.
 % These best-practices are presented in further details in section \ref{chapter3:software-maintainability}
-This \textit{Power-wall} leads to a rupture between performance and maintainability.
+This \textit{Power-wall} leads to a rupture between efficiency and productivity.
 
 \subsubsection{Unavoidable Modularity}
 
@@ -44,11 +44,11 @@ The next paragraph presents the disruptions in the development of a web applicat
 
 \subsubsection{Technological Shift}
 
-Between the prototyping, and the maturation of a web application, the needs are radically different.
-During the initiation of a web application project, the economical constraint holds on the pace of development.
+% Between the prototyping, and the maturation of a web application, the needs are radically different.
+During the initiation of a web application project, the economical constraint holds on the development productivity.
 The development reactivity is crucial to meet the market needs\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}.
 The development team opt for a popular and accessible language to leverage the advantage of its community.
-It is only after a certain threshold of popularity that the  economical constraint on performance requirements exceeds the one on development.
+It is only after a certain threshold of user load that the economical constraint on efficiency exceeds the one on development.
 The development team then shifts to an organization providing parallelism.
 
 This shift brings two risks.

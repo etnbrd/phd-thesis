@@ -45,29 +45,39 @@ It then analyzes different platforms according to their focus. platforms focusin
 \section{Analysis}
 
 This chapter presented a broad view of platforms and their balance between productivity or efficiency.
-The platforms favoring one sacrifice the other.
+It establish that the platforms favoring one eventually sacrifice the other.
 The adoption, and usage of these platforms prove that none of these compromises are sustainable.
 
-The productive platforms are highly adopted.
-Their productivity feed a reinforcing circle of adoption between the community and the industry.
-However, they lack the efficiency required to strive in the latter stage of a project, where efficiency becomes crucial.
+Section \ref{chapter3:definitions:productivity} highlighted that productivity requires modularity through encapsulation and composition.
+The latter requires higher-order programming which relies on a global memory abstraction as explained in section \ref{chapter3:software-productivity:efficiency-limitations}.
+On the other hand, section \ref{chapter3:definitions:efficiency} explains that efficiency requires a balance between fine-grain level shared state with synchronization and coarse-grain level independence with message-passing.
+And section \ref{chapter3:software-efficiency:productivity-limitations} explains that this discontinuity between fine-grain level and coarse-grain level avoids productivity.
+The absence of a global memory abstraction reserves efficient platforms for an elite of developers.
+No platform can support simultaneously productivity and efficiency.
 
-On the other hand, the efficient platforms are not widely adopted by the community.
-These platforms are unable to respond to the need of the community to prototype and to experiment on small projects to make them evolve into larger ones later on.
+Moreover, section \ref{chapter3:definitions:adoption} explains that for a platforms to be sustainable, it needs to be adopted both by the industry and the community.
+The industry requires efficiency, while the requires productivity.
+The previous chapter concludes that no platform is able to follow a project from its needs in productivity in the early beginning to its needs in efficiency during the maturation of the project.
+Indeed, no platform can provide either productivity and efficiency.
+All the platforms tends to be stucked in a compromise between these two goals, and cannot follow the evolution required for this compromise.
+They make the most of this compromise only at a certain point in the evolution of the application.
+They either become useless, or are too complicated to begin with.
 
+\nt{TODO dependency schema of these highlights}
 
-\paragraph{Continuous Development}
+\paragraph{Discontinuous Development}
 
 It is not possible for a platform to support both productivity and efficiency at the same time.
 These platforms are oriented toward productivity, efficiency or a compromise between both.
-As the two are required at different time in the evolution of the project, to follow a project, a platform need to meet the requirements at the good time.
-They need to supporting productivity to allow the community to experiment, and organically start projects.
-And then continuously shift toward efficiency as the project evolve, and requires it.
-
+As the two are required at different time in the evolution of the project, a platform meets the requirements of the project only temporarily.
 None of these platforms are able to support productivity then efficiency to follow the evolution of a project.
 They lack the possibility to make a project evolve from the very early stage until maturation. 
 A project needs to change platform to change the priority.
 These shifts of platforms have economical consequences.
+
+To avoid these consequences, platforms would need to support productivity to allow the community to experiment, and organically start projects.
+And then continuously shift toward efficiency as the project evolves, and requires it.
+The next chapter presents a solution oriented toward that goal. 
 
 \paragraph{}
 

@@ -1,38 +1,38 @@
-\section{Evaluation} \label{section:evaluation}
+\section{Evaluation} \label{chapter5:evaluation}
 
-To validate our compiler, we compile several Javascript projects likely to contain continuations.
-We present the results of these tests.
+A set of Javascript projects likely to contain continuations were compiled to validate the compiler.
+This section presents the results of these tests.
 
 % \subsection{Projects selection}
 
 The compilation of a project requires user interaction.
-To conduct the test in a reasonable time, we limit the test set to a minimum.
-We search the \textit{Node Package Manager} database to restrict the set to \textit{Node.js} projects.
-We refine the selection to web applications depending on the web framework \textit{express}, but not on the most common Promises libraries such as \textit{Q} and \textit{Async}.
-We refine further the selection to projects using the test frameworks \textit{mocha} in its default configuration.
-We use these tests to validate the compiler.
-The test set contains 64 projects.
+To conduct the test in a reasonable time, the test set was limited to a minimum of about \num{50} projects.
+All the projects in the set were selected from the \textit{Node Package Manager} database to restrict the set to \textit{Node.js} projects.
+They all depends on the web framework \textit{express}, but not on the most common Promises libraries such as \textit{Q} and \textit{Async}.
+They use the test frameworks \textit{mocha} in its default configuration.
+These tests are used to validate the compilation results.
+The test set finally contains 64 projects.
 This subset is very small, and cannot represent the wide possibilities of Javascript.
-However, we believe it is sufficient to represent a majority of common cases.
+However, it is sufficient to represents a majority of common cases.
 
 % \subsection{Run the tests}
 
-For each project, we verify that is is correctly tested, and passes the tests.
-During the compilation, we identify the compatible continuations among the detected callbacks.
-We apply the unmodified test on the compilation result.
-The compilation result should pass the tests as well.
+Each project passes its own tests before compilation.
+During the compilation, the compatible continuations were manually identified among the detected callbacks.
+The compilation result of each project is then tested again with its unmodified test.
+The compilation result should pass the tests as well as the original project.
 This is not a strong validation, but it assures the compiler to work as expected in most common cases.
 
 % \subsection{Results}
 
 Of the 64 projects tested, almost a half, does not contain any compatible continuations.
-We reckon that these projects use continuations the compiler is unable to detect.
-The other projects were rejected by the compiler because they contain \texttt{with} or \texttt{eval} statements, they use Promises libraries we didn't filter previously.
+These projects might use continuations, but the compiler is unable to detect them.
+The other projects were rejected by the compiler because they contain \texttt{with} or \texttt{eval} statements, they use Promises libraries didn't filtered previously.
 9 projects compiled successfully.
 The compiler did not fail to compile any project of the initial test set.
 
 Over the 9 successfully compiled projects, the compiler detected 172 callbacks.
-We manually identified 56 of them to be compatible continuations.
+56 of them were manually identified as compatible continuations.
 The false positives are mainly the listeners that the web applications register to react to user requests.
 
 One project contains 20 continuations, the others contains between 1 and 9 continuations each.
@@ -45,7 +45,7 @@ On the 64 projects composing the test set
 \begin{description}
 \item[29] (45.3\%) do not contain any compatible continuations,
 \item[10] (15.6\%) are not compilable because they contain \texttt{with} or \texttt{eval} statements,
-\item[5] (7.8\%) use less common asynchronous libraries we didn't filter previously,
+\item[5] (7.8\%) use asynchronous libraries,
 \item[4] (6.3\%) are not syntactically correct,
 \item[4] (6.3\%) fail their tests before the compilation,
 \item[3] (4.7\%) are not tested, and

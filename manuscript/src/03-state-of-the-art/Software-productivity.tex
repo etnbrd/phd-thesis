@@ -27,7 +27,7 @@ Finally, section \ref{chapter3:software-productivity:summary} summarizes the thr
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-1.pdf}
+\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-1.pdf}
 \end{center}
 \caption{Focus on Productivity}
 \label{fig:state-of-the-art-1}
@@ -211,7 +211,7 @@ Table \ref{tab:productivity-modularity} presents a summary of the analysis of th
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-2.pdf}
+\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-2.pdf}
 \end{center}
 \caption{Steering back toward Performence Efficiency}
 \label{fig:state-of-the-art-2}
@@ -306,11 +306,11 @@ Table \ref{tab:productivity-adoption} presents a summary of the analysis of the 
 
 \ModularAdoptionTable{tab:productivity-adoption}
 
-\subsection{Efficiency Limitations} \label{chapter3:software-productivity:performance-limitations}
+\subsection{Efficiency Limitations} \label{chapter3:software-productivity:efficiency-limitations}
 
 Eventually, the presented languages are hitting a wall on their way to performance.
 
-All the languages presented previously provide either mutable state or immutable state on which to rely to assure encapsulation and composition.
+All the languages presented previously provide global memory abstraction on which to rely to assure encapsulation and composition -- either mutable state or immutable state.
 Functional programming relies on immutable message-passing.
 It might impacts performance at a fine-grain level because of heavy memory usage.
 On the other hand, the synchronization required by mutable state is often hard to develop with \cite{Adya2002}, or avoid parallelism \cite{Pai1999,Krohn2007}.
@@ -472,7 +472,7 @@ To increase performance, concurrent executions needs to be as independent as pos
 \end{description}
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-2.pdf}
+\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-2.pdf}
 \end{center}
 
 The next few paragraphs present the different models to assure invariance in concurrent execution, while conserving modular programming, \comment{as illustrated in the schema above}.

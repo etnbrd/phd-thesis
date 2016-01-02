@@ -13,7 +13,7 @@ This section defines these tree criteria, as well as all the underlying concepts
 % \item Web compliance
 \end{itemize}
 
-\subsection{Productivity}
+\subsection{Productivity} \label{chapter3:definitions:productivity}
 
 % Software productivity is defined as the degree to which a platform allows an application the created, and then can be understood, fixed, and extended.
 The productivity of a platform is the degree to which developers can quickly produce new and modify existing software.
@@ -24,7 +24,7 @@ Productivity later leads to maintainability.
 % For an application to be maintainable, its platform needs to be highly productive.
 % It relies on two factors, module encapsulation and module composition.
 
-\subsubsection{Modularity}
+\subsubsection{Modularity} \label{chapter3:definitions:productivity:modularity}
 
 Modularity is about encapsulating subproblems and composing them to allow greater design to emerge.
 It allows to limit the understanding required to contribute to a module \cite{Stevens1974}, which helps developers to repair and enhance the application. 
@@ -43,7 +43,7 @@ Encapsulation and composition improve productivity.
 \item Composition $\to$ Low Coupling
 \end{itemize}
 
-\subsubsection{Encapsulation}
+\subsubsection{Encapsulation} \label{chapter3:definitions:productivity:encapsulation}
 
 \paragraph{Boundary Definition}
 \illustration{spaghetti programming}%
@@ -60,7 +60,7 @@ Modular programming encapsulates a specific design choice in each module, so tha
 It isolates its evolution from impacting the rest of the implementation \cite{Parnas1972, Tarr1999, Hursch1995}.
 Examples of such separation of concerns are the separation of the form and the content in HTML / CSS, or the OSI model for the network stack.
 
-\subsubsection{Composition} \label{chapter3:software-productivity:modularity:features}
+\subsubsection{Composition} \label{chapter3:definitions:productivity:composition}
 
 \paragraph{Higher-Order Programming}
 % \nt{If possible, include this reference : Continuations and coroutines \cite{Haynes1984}}
@@ -107,7 +107,7 @@ The criteria to analyze the productivity of platforms are the following.
 \end{itemize}
 
 
-\subsection{Efficiency}
+\subsection{Efficiency} \label{chapter3:definitions:efficiency}
 
 The efficiency of a software project is the relation between the usage made of available resources and the delivered performance.
 For an application to perform efficiently, the platform based on needs to enforce scalability directly in its design.
@@ -117,7 +117,7 @@ An operation is a sequence of statements.
 Operations are commutative if the order of their executions is irrelevant for the correctness of their results.
 Commutativity assures the independence of operations.
 
-\subsubsection{Independence}
+\subsubsection{Independence} \label{chapter3:definitions:efficiency:independence}
 
 \illustration{Synchronization vs Message-passing}
 The independence, and commutativity of an operations depends on its accesses to shared state.
@@ -130,7 +130,7 @@ This scheduling between the operations can be defined in two ways.
 \item[Message-passing] Operations communicate their local modifications of the state to other operations, in a decentralized fashion.
 \end{description}
 
-\subsubsection{Atomicity}
+\subsubsection{Atomicity} \label{chapter3:definitions:efficiency:atomicity}
 
 An operation is atomic if it happens in a single bulk.
 The beginning and end are indistinguishable for an external observer.
@@ -139,7 +139,7 @@ It assures the developer of the invariance of the memory during the operation.
 It relies either on the causal scheduling of operations -- synchronization -- or exclusivity of their memory accesses -- message-passing.
 % In other words, either operations are executed one after the other, or they access different memory regions.
 
-\subsubsection{Granularity}
+\subsubsection{Granularity} \label{chapter3:definitions:efficiency:granularity}
 
 If the operations access the state too frequently, the communication overhead of message passing exceeds the performance gains of parallelism.
 And if operations access the state too rarely, the synchronization required for sharing state limits the possible parallelism.
@@ -224,7 +224,7 @@ The criteria to analyze the performance of platforms are the following.
 
 
 
-\subsection{Adoption}
+\subsection{Adoption} \label{chapter3:definitions:adoption}
 
 An application is sustainable only if the platform used to build it generates reinforcing interactions between a community of passionate and the industry.
 A platform needs to present a balance between productivity and efficiency to be adopted by both the community and the industry.
@@ -251,7 +251,7 @@ This figure is used throughout this chapter to graphically represent all the pla
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art.pdf}
+\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art.pdf}
 \end{center}
 \caption{Balance between Efficiency and Productivity}
 \label{fig:state-of-the-art}

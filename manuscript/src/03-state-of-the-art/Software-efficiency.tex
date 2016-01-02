@@ -10,7 +10,7 @@ Finally, section \ref{chapter3:software-efficiency:summary} summarizes the three
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-3.pdf}
+\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-3.pdf}
 \end{center}
 \caption{Focus on Efficiency}
 \label{fig:state-of-the-art-3}
@@ -44,7 +44,7 @@ But the unexpected preemption breaks atomicity, the developer needs to lock the 
 \end{description}
 
 The next paragraphs presents the programming model for these scheduling strategy, the event-driven programing model based on cooperative scheduling, and the multi-threading programming model based on preemptive scheduling.
-Additionally, they present two alternatives to these two main programming models, lock-free data-structures and Fibers.
+Additionally, they present two alternatives to these two main programming models, lock-free data-structures and Hybrid models.
 
 \paragraph{Event-Driven Programming}
 
@@ -52,7 +52,13 @@ Event-driven execution model queues concurrent tasks needing access to shared re
 The tasks are explicitely defined by the developer.
 The concurrent tasks are schedule sequentially to assure exclusivity, and cooperatively to assure atomicity.
 % Web servers needs to be highly concurrent, and efficient.
-It is very efficient for highly concurrent applications, as it avoids contention due to waiting for shared resources like disks, or network.
+And they communicates asynchronously to avoid waiting.
+A task yields execution to a future tasks to complete the communication.
+An help with asynchronous programming, promise were introduced \cite{Liskov1988}.
+A promise is a placeholder available immediately and allowing to defer operations for when the expected result is available.
+Promises forms chains of operations similarly to a pipeline.
+
+This execution model is very efficient for highly concurrent applications, as it avoids contention due to waiting for shared resources like disks, or network.
 Several execution model rely on this execution model, like \ImplementationsOf{Event-driven programming}.
 As well as some web servers like Flash \cite{Pai1999}, Ninja \cite{Gribble2001} thttpd\ftnt{http://acme.com/software/thttpd/} and Nginx\ftnt{https://www.nginx.com/}.
 
@@ -67,10 +73,6 @@ As well as some web servers like Flash \cite{Pai1999}, Ninja \cite{Gribble2001} 
 % Moreover, the continuation passing style used in higher-order programming requires the developer to be aware of the asynchronous rupture in the execution, so as to assure atomicity \cite{Sussman1998}.
 % And because an asynchronous call doesn't wait for the completion of the operation, the asynchronous control flow is not limited to be linear like in threads. \nt{more about that}
 % Multiple asynchronous calls are made in parallel.
-
-% + TAME \cite{Krohn2007} - event-based solution without stack ripping in C (it is like closure, but for C)
-% + Node.js - \ftnt{https://nodejs.org/en/}
-% + Vert.X - \ftnt{http://vertx.io/} node like + thread / worker capabilities
 
 But the event-driven model is limited in performance.
 The concurrent tasks share the same memory, and cannot be scheduled in parallel.
@@ -105,10 +107,11 @@ To restore atomicity and exclusivity, hence assure the invariance, multi-threadi
 Developers tend to use the global memory extensively, and threads require to protect each and every shared memory cell.
 This heavy need for synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
 
-\paragraph{Cooperative Threads}
+\paragraph{Hybrid Models}
 
-Cooperative threads, or fibers join the advantage of sequential waiting, with the advantage of cooperative scheduling \cite{Adya2002,Behren2003a}.
-It avoids splitting the execution into atomic tasks nor use synchronization mechanisms to assure exclusivity.
+Hybrid models join the advantage of sequential waiting from thread, with the advantage of cooperative scheduling from events-driven models.
+The implementations of hybrid models are \ImplementationsOf{Hybrid Models}.
+For example, cooperative threads, or fibers, avoid splitting the execution into atomic tasks nor use synchronization mechanisms to assure exclusivity.
 A fiber yields the execution to another fiber to avoid blocking the execution during a long-waiting operation, and recovers it at the same point when the operation finishes.
 However, developers need to be aware of these yielding operation to preserve the atomicity\ftnt{https://glyph.twistedmatrix.com/2014/02/unyielding.html}.
 
@@ -185,10 +188,10 @@ And finally, it concludes on the limitations of parallel programming regarding p
 
 % \begin{figure}
 % \begin{center}
-% \includegraphics[width=0.2\textwidth]{../ressources/SISD.pdf}
-% \includegraphics[width=0.2\textwidth]{../ressources/SIMD.pdf}
-% \includegraphics[width=0.2\textwidth]{../ressources/MISD.pdf}
-% \includegraphics[width=0.2\textwidth]{../ressources/MIMD.pdf}\\
+% \includegraphics[width=0.2\textwidth]{../resources/SISD.pdf}
+% \includegraphics[width=0.2\textwidth]{../resources/SIMD.pdf}
+% \includegraphics[width=0.2\textwidth]{../resources/MISD.pdf}
+% \includegraphics[width=0.2\textwidth]{../resources/MIMD.pdf}\\
 % by I, Cburnett. Licensed under CC BY-SA 3.0 via Commons
 % \url{https://commons.wikimedia.org/wiki/File:{SISD,SIMD,MISD,MIMD}.svg}
 % \end{center}
@@ -252,7 +255,7 @@ Table \ref{tab:efficiency-parallel} presents a summary of the analysis of the pa
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{../ressources/state-of-the-art-4.pdf}
+\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-4.pdf}
 \end{center}
 \caption{Steering back toward Productivity}
 \label{fig:state-of-the-art-4}

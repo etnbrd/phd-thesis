@@ -1,0 +1,25 @@
+\begin{abstract}
+
+The development of a real-time web application often starts with a feature-driven approach allowing to quickly react to users feedbacks.
+However, this approach poorly scales in performance.
+Yet, the user-base can increase by an order of magnitude in a matter of hours. This first approach is unable to deal with the highest connections spikes.
+It leads the development team to shift to a scalable approach often linked to new development paradigm such as dataflow programming.
+This shift of technology is disruptive and continuity-threatening.
+To avoid it, we propose to abstract the feature-driven development into a more scalable high-level language.
+Indeed, reasoning on this high-level language allows to dynamically cope with user-base size evolutions.
+
+We propose a compilation approach that transforms a Javascript, single-threaded real-time web application into a network of small independent parts communicating by message streams.
+We named these parts \textit{fluxions}, by contraction between a flow\footnote{flux in french} and a function.
+The independence of these parts allows their execution to be parallel, and to organize an application on several processors to cope with its load, in a similar way network routers do with IP traffic.
+We test this approach by applying the compiler to a real web application.
+We transform this application to parallelize the execution of an independent part and present the result.
+
+\end{abstract}
+
+\endinput
+
+% The very short abstract 50 words
+
+Web applications starts with a feature-oriented approach to quickly react to users feedbacks, but eventually shift to a more scalable approach.
+To avoid this disruptive shift, we propose an equivalence to compile the feature-oriented approach to a scalable high-level language.
+We test this approach by applying the compiler to a real web application.

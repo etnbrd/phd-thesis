@@ -1,7 +1,12 @@
 \chapter{Pipeline isolation} \label{chapter6}
+\minitoc
+\eject
 
 The previous chapter presented a compiler to identify and extract the underlying pipeline in a Javascript application.
-However, all the operations are not independent, and cannot be executed in parallel, to support the performance scalability.
+However, the stages doesn't enforce the isolation required for parallel execution.
+Moreover, the Dues that constitues the stages of this pipeline 
+
+only parts of the pipeline are identified, 
 This chapter present the second contribution of this thesis.
 The equivalence between a memory shared among all the operations and independent memory for each operation in a pipeline.
 It tackles the problems arising from the translation of the global memory synchronization into message passing.
@@ -19,4 +24,3 @@ Section \ref{section:evaluation} a real-case test of compilation, and expose the
 \input{06-flx/model}
 \input{06-flx/compiler}
 \input{06-flx/evaluation}
-

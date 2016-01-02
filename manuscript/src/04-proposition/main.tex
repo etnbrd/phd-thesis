@@ -1,44 +1,23 @@
-\chapter{Pipeline parallelism for Javascript} \label{chapter4}
+\chapter{Seamless Shift of Focus} \label{chapter4}
+\minitoc
+\eject
 
-%\chapter{A framework for parallel web applications}
- % \section{Fluxions}
+The evolution of the economical constraints of a web application requires to continuously shift from productivity to efficiency.
+The incompatibility of platforms between the two organizations implies technological ruptures during this evolution.
+Huge developing efforts are pulled to translate manually from one organization into the other, and later to maintain the implementation despites its unmaintainable nature.
 
-% \chapter{Fluxion}
+In this chapter, section \ref{chapter4:equivalence} introduces the solution developed in this thesis.
+A platform allowing to follow the development of a web application with a seamless shift of focus, from the productivity required in the early beginning until the efficiency required during maturation.
+It is based on the transformation of an event-driven program to target a pipeline architecture.
+Section \ref{chapter4:event-driven} presents the event-driven execution model on which relies the transformation.
+And section \ref{chapter4:pipeline} presents the pipeline architecture targeted by the transformation.
 
-%   \section{Fluxionnal Compiler}
-%     \comment{Some parts of this are already written in the first paper. It needs a lot additional explanations and rewritting}
-%     \subsection{Identification}
-%       \subsubsection{Continuation and listeners}
-%       \subsubsection{Dues}
-%     \subsection{Isolation}
-%       \subsubsection{Scope identification}
-%         \comment{Scope leaking}
-%       \subsubsection{Execution and variable propagation}
-%     \subsection{distribution}
+\begin{figure}[h!] \label{fig:state-of-the-art-proposition}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-5.pdf}
+\end{center}
+\end{figure}
 
-%   \section{Fluxionnal execution model}
-%     \comment{Everything here is already written in the first paper  : flx-paper. It only needs to be rewritten}
-%     \subsection{Fluxion encapsulation}
-%       \subsubsection{Execution}
-%       \subsubsection{Name}
-%       \subsubsection{Memory}
-%     \subsection{Messaging system}
-
-% \chapter{Evaluation}
-%   \section{Due compiler}
-%   \section{Fluxionnal compiler}
-%   \section{Fluxionnal execution model}
-
-
-The conclusion of the state of the art is that no platform allows to follow a project from the early beginning to the maturation of the project.
-Indeed, no platform can provide alternatively productivity and efficiency.
-All the platform tends to focus on a static compromise between these two goals, and therefore, are useful only at a precise point in the project.
-They either grow useless, or are too complicated to begin with.
-
-This chapter presents the solution developped in this thesis.
-A platform to follow web application projects from the early beginning until the maturation of the project.
-
-To support this evolution, it support a continuous developpement.
-
-\input{04-proposition/Objectives}
-% \input{04-proposition/Compiler}
+\input{04-proposition/Equivalence}
+\input{04-proposition/Event-driven}
+\input{04-proposition/Pipeline}
