@@ -1,0 +1,69 @@
+\section{Due Compiler} \label{chapter5:due-compiler}
+
+This section presents a compiler to automate the application of this equivalence on existing Javascript projects.
+The compilation process contains two important steps, the identification of the continuations, and the generation of chains.
+
+\subsection{Identification of continuations}
+
+The first compilation step is to identify the continuations and their imbrications.
+The nested imbrication of callbacks only occurs when they are defined \textit{in situ}.
+The compiler detects a function definition within the arguments of a function call.
+This detection is based on the syntax, and is trivial.
+
+% The callback hell occurs only when using callbacks defined \textit{in situ}.
+% The compiler detects only such callbacks.
+% This detection is syntactic.
+
+Not all detected callbacks are continuations, but the equivalence is applicable only on the latter.
+A continuation is a callback invoked only once, asynchronously.
+Spotting a continuation implies to identify these two conditions.
+There is no syntactical difference between a synchronous and an asynchronous callee.
+And it is impossible to assure a callback to be invoked only once, because the implementation of the callee is often statically unavailable.
+Therefore, the identification of continuations is necessarily based on semantical differences.
+To recognize these differences, the compiler would need to have a deep understanding of the control and data flows of the program.
+Because of the highly dynamic nature of Javascript, this understanding is either unsound, limited, or complex.
+Instead, we choose to leave to the developer the identification of compatible continuations among the identified callbacks.
+They are expected to understand the limitations of this compiler, and the semantic of the code to compile.
+
+% We provide a simple interface for developers to interact with the compiler.
+% We built this interface around the compiler in a web page available online\ftnt{compiler-due.apps.zone52.org} to reproduce the tests.
+The compiler is available as a standalone web application to reproduce the tests \ftnt{compiler-due.apps.zone52.org}.
+% The web technologies allow to quickly build an interface for a wide variety of computing devices.
+
+% This interaction prevents the complete automation of the individual compilation process.
+% However, we are working on an automation at a global scale.
+% We expect to be able to identify a continuation only based on the name of its callee, \textit{e.g.} \texttt{fs.readFile}.
+% We built a service to gather these names along with their identification.
+% The compiler queries this service to present to the developer an estimated identification.
+% After the compilation, it sends back the identification corrected by the developer to refine the future estimations.
+% In future works, we would like to study the possibility for such a service to assist, and ease the compilation process.
+
+\subsection{Generation of chains}
+
+The compositions of continuations and Dues are arranged differently.
+Continuations structure the execution flow as a tree, while a chain of Dues imposes to arrange it sequentially.
+A parent continuation can execute several children, while a Due allows to chain only one.
+The second compilation step is to identify the imbrications of continuations, and trim the extra branches to transform them into chains.
+% We consider an imbrication of continuations as a subtree of the linear execution tree.
+% The compiler trims each tree of continuations to get chains that translate into Dues.
+
+If a continuation has more than one child, the compiler tries to find a single legitimate child to form the longest chain possible.
+This legitimate child is the only parent among its siblings.
+If there are several parents among the children, none are the legitimate child.
+The non legitimate children start a new tree.
+This step transform each tree of continuations into several chains of continuations that translate into sequences of Dues.
+The code generation from these chains is straightforward from the equivalence.
+
+\paragraph{}
+
+This section presented the identification and extraction of a pipeline of Dues.
+They are placeholders for the outcome of a deferred operation.
+They are not able to compose pipeline of streaming data.
+More exactly, in the case of streaming data, Dues are created for each new datum in the stream.
+This pipeline of Dues represents only a part of the pipeline present in an application.
+It doesn't account for the initiation of the pipeline which allow the streaming of data.
+
+Moreover, the Dues still rely on a shared memory to communicate.
+They are don't enforce the memory isolation required for parallelism.
+
+The next section address these two limitations, with the extraction of a pipeline of fluxions.

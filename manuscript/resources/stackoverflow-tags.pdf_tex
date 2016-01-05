@@ -1,0 +1,101 @@
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'stackoverflow-tags.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{722.6140625bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.50889674)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{stackoverflow-tags.pdf}}%
+    \put(0.17839528,0.00018812){\makebox(0,0)[b]{\smash{2009}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{stackoverflow-tags.pdf}}%
+    \put(0.29342601,0.00018812){\makebox(0,0)[b]{\smash{2010}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{stackoverflow-tags.pdf}}%
+    \put(0.40845674,0.00018812){\makebox(0,0)[b]{\smash{2011}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{stackoverflow-tags.pdf}}%
+    \put(0.52348747,0.00018812){\makebox(0,0)[b]{\smash{2012}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{stackoverflow-tags.pdf}}%
+    \put(0.63883336,0.00018812){\makebox(0,0)[b]{\smash{2013}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{stackoverflow-tags.pdf}}%
+    \put(0.75386409,0.00018812){\makebox(0,0)[b]{\smash{2014}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{stackoverflow-tags.pdf}}%
+    \put(0.86889482,0.00018812){\makebox(0,0)[b]{\smash{2015}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{stackoverflow-tags.pdf}}%
+    \put(0.98392555,0.00018812){\makebox(0,0)[b]{\smash{2016}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.01015194){\makebox(0,0)[rb]{\smash{0}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.04770452){\makebox(0,0)[rb]{\smash{2,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.0852571){\makebox(0,0)[rb]{\smash{4,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.12280967){\makebox(0,0)[rb]{\smash{6,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.16036225){\makebox(0,0)[rb]{\smash{8,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.19791482){\makebox(0,0)[rb]{\smash{10,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.2354674){\makebox(0,0)[rb]{\smash{12,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.27301997){\makebox(0,0)[rb]{\smash{14,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.31057255){\makebox(0,0)[rb]{\smash{16,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.34812513){\makebox(0,0)[rb]{\smash{18,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.3856777){\makebox(0,0)[rb]{\smash{20,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.42323028){\makebox(0,0)[rb]{\smash{22,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.46078285){\makebox(0,0)[rb]{\smash{24,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{stackoverflow-tags.pdf}}%
+    \put(0.11043023,0.49833543){\makebox(0,0)[rb]{\smash{26,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{stackoverflow-tags.pdf}}%
+    \put(0.12703661,0.50834319){\rotatebox{90}{\makebox(0,0)[rb]{\smash{count}}}}%
+    \put(0.00968489,0.25924757){\rotatebox{90}{\makebox(0,0)[b]{\smash{Tags}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{stackoverflow-tags.pdf}}%
+  \end{picture}%
+\endgroup%

@@ -141,20 +141,6 @@ This compiler has been tested over 64 \textit{Node.js} packages from the node pa
 
 \input{05-due/Dues}
 \input{05-due/Equivalence}
-\input{05-due/Compiler}
+\input{05-due/Due-compiler}
 \input{05-due/Evaluation}
-
-
-\section{Conclusion}
-
-This chapter presented the identification and extraction of a pipeline.
-Dues are placeholder for the outcome of a deferred operation.
-They are not able to compose pipeline of streaming data.
-More exactly, in the case of streaming data, Dues are created for each new datum in the stream.
-This pipeline of Dues represents only a part of the pipeline present in an application.
-It doesn't account for the initiation of the pipeline which allow the streaming of data.
-
-Moreover, the Dues still rely on a shared memory to communicate.
-They are don't enforce the memory isolation required for parallelism.
-
-The next chapter address these two limitations.
+\input{05-due/Flx-compiler}

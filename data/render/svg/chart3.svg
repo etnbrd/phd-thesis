@@ -1,0 +1,103 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="chart" filename="chart3.svg" id="chart3" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"><![CDATA[
+html, body  { width: 1000px; height: 100%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; }
+.container { width: 40%; display: inline-block; }
+.eighty { width: 80%; display: inline-block; }
+ul { width: 15%; display: inline-block; }
+li { list-style-type: none; list-style-position: initial; list-style-image: initial; margin-top: -3em; margin-right: -1em; margin-bottom: 0px; margin-left: 0px; font-size: 0.7em; }
+li::before { content: •; font-size: 4em; position: relative; top: 0.3em; }
+.ct-label, body { font-family: serif; color: black; fill: #000000; }
+.ct-line { stroke-width: 0.8pt; }
+.ct-line.Javascript, .ct-line.npm { stroke-width: 2pt; }
+.axis path, .axis line { fill: none; stroke: #000000; shape-rendering: crispedges; }
+.grid .tick { stroke: #d3d3d3; opacity: 0.7; }
+.grid path { stroke-width: 0px; }
+li.Javascript::before { color: rgb(240, 37, 61); }
+li.C::before { color: rgb(38, 107, 133); }
+li.Cplusplus::before { color: rgb(60, 173, 215); }
+li.Java::before { color: rgb(175, 196, 219); }
+li.PHP::before { color: rgb(137, 150, 168); }
+li.XML_Schema::before { color: rgb(245, 117, 66); }
+li.Ruby::before { color: rgb(215, 80, 60); }
+li.Autoconf::before { color: rgb(189, 66, 48); }
+li.Python::before { color: rgb(94, 235, 184); }
+li.Csharp::before { color: rgb(74, 190, 149); }
+li.Assembler::before { color: rgb(221, 183, 0); }
+li.Shell::before { color: rgb(247, 240, 157); }
+li.SQL::before { color: rgb(243, 255, 181); }
+li.Make::before { color: rgb(159, 58, 44); }
+li.Perl::before { color: rgb(27, 39, 53); }
+li.VisualBasicNET::before { color: rgb(67, 174, 136); }
+.slice.Javascript { fill: #f0253d; }
+.slice.C { fill: #266b85; }
+.slice.Cplusplus { fill: #3cadd7; }
+.slice.Java { fill: #afc4db; }
+.slice.PHP { fill: #8996a8; }
+.slice.XML_Schema { fill: #f57542; }
+.slice.Ruby { fill: #d7503c; }
+.slice.Autoconf { fill: #bd4230; }
+.slice.Python { fill: #5eebb8; }
+.slice.Csharp { fill: #4abe95; }
+.slice.Assembler { fill: #ddb700; }
+.slice.Shell { fill: #f7f09d; }
+.slice.SQL { fill: #f3ffb5; }
+.slice.Make { fill: #9f3a2c; }
+.slice.Perl { fill: #1b2735; }
+.slice.VisualBasicNET { fill: #43ae88; }
+.line { stroke-width: 2pt; fill: rgba(0, 0, 0, 0.0); }
+.line.Javascript, .line.JavaScript { stroke: #f0253d; }
+.line.C { stroke: #266b85; }
+.line.Cplusplus { stroke: #3cadd7; }
+.line.Java { stroke: #afc4db; }
+.line.PHP { stroke: #8996a8; }
+.line.XML_Schema { stroke: #f57542; }
+.line.Ruby { stroke: #d7503c; }
+.line.Autoconf { stroke: #bd4230; }
+.line.Python { stroke: #5eebb8; }
+.line.Csharp { stroke: #4abe95; }
+.line.Assembler { stroke: #ddb700; }
+.line.Shell { stroke: #f7f09d; }
+.line.SQL { stroke: #f3ffb5; }
+.line.Make { stroke: #9f3a2c; }
+.line.Perl { stroke: #1b2735; }
+.line.VisualBasicNET { stroke: #43ae88; }
+li.Bower::before { color: rgb(176, 37, 61); }
+li.Clojars::before { color: black; }
+li.CPAN::before { color: black; }
+li.CPANsearch::before { color: black; }
+li.CRAN::before { color: black; }
+li.Crates::before { color: black; }
+li.GoDoc::before { color: black; }
+li.Hackage::before { color: black; }
+li.Hex::before { color: black; }
+li.LuaRocks::before { color: black; }
+li.Maven::before { color: rgb(175, 196, 219); }
+li.MELPA::before { color: black; }
+li.npm::before { color: rgb(240, 37, 61); }
+li.nuget::before { color: rgb(74, 190, 149); }
+li.Packagist::before { color: rgb(137, 150, 168); }
+li.Pear::before { color: rgb(137, 150, 184); }
+li.PyPI::before { color: rgb(94, 235, 184); }
+li.Rubygems::before { color: rgb(215, 80, 60); }
+.line.Bower_JS { stroke: #b0253d; }
+.line.Clojars_Closure { stroke: #000000; }
+.line.CPAN { stroke: #000000; }
+.line.CPAN_search { stroke: #000000; }
+.line.CRAN_R.io { stroke: #000000; }
+.line.Cratesio_Rust { stroke: #000000; }
+.line.Drupal_php { stroke: #000000; }
+.line.GoDoc_Go { stroke: #000000; }
+.line.Hackage_Haskell { stroke: #000000; }
+.line.Hexpm_ElixirErlang { stroke: #000000; }
+.line.LuaRocks_Lua { stroke: #000000; }
+.line.Maven_Central_Java { stroke: #afc4db; }
+.line.MELPA_Emacs { stroke: #000000; }
+.line.npm_nodejs { stroke: #f0253d; }
+.line.nuget_NET { stroke: #4abe95; }
+.line.Packagist_PHP { stroke: #8996a8; }
+.line.Pear_PHP { stroke: #8996b8; }
+.line.Perl_6_Ecosystem_perl_6 { stroke: #8996b8; }
+.line.PyPI { stroke: #5eebb8; }
+.line.Rubygemsorg { stroke: #d7503c; }
+svg { width: 100%; height: 500px; }
+path.slice { stroke-width: 1px; }
+polyline { stroke: #000000; stroke-width: 1px; fill: none; }]]></style></defs><g transform="translate(480,225)"><g class="slices"><path class="slice Android" d="M1.1021821192326179e-14,-180A180,180 0 0,1 143.4433955768288,-108.73818218725843L71.7216977884144,-54.369091093629216A90,90 0 0,0 5.5109105961630896e-15,-90Z"></path><path class="slice Javascript" d="M143.4433955768288,-108.73818218725843A180,180 0 0,1 177.8782383264881,27.55598537278437L88.93911916324404,13.777992686392185A90,90 0 0,0 71.7216977884144,-54.369091093629216Z"></path><path class="slice Python" d="M177.8782383264881,27.55598537278437A180,180 0 0,1 108.36414806539342,143.7261681603649L54.18207403269671,71.86308408018245A90,90 0 0,0 88.93911916324404,13.777992686392185Z"></path><path class="slice Nodejs" d="M108.36414806539342,143.7261681603649A180,180 0 0,1 -20.586210567291765,178.81892498972005L-10.293105283645883,89.40946249486002A90,90 0 0,0 54.18207403269671,71.86308408018245Z"></path><path class="slice AngularJS" d="M-20.586210567291765,178.81892498972005A180,180 0 0,1 -129.41600220351023,125.10594859422568L-64.70800110175512,62.55297429711284A90,90 0 0,0 -10.293105283645883,89.40946249486002Z"></path><path class="slice Java" d="M-129.41600220351023,125.10594859422568A180,180 0 0,1 -175.60549070368268,39.531147652437575L-87.80274535184134,19.765573826218787A90,90 0 0,0 -64.70800110175512,62.55297429711284Z"></path><path class="slice iOS" d="M-175.60549070368268,39.531147652437575A180,180 0 0,1 -173.5595668851915,-47.71872528289856L-86.77978344259574,-23.85936264144928A90,90 0 0,0 -87.80274535184134,19.765573826218787Z"></path><path class="slice Arduino__Raspberry_Pi" d="M-173.5595668851915,-47.71872528289856A180,180 0 0,1 -136.36934878519213,-117.48787474417357L-68.18467439259607,-58.74393737208678A90,90 0 0,0 -86.77978344259574,-23.85936264144928Z"></path><path class="slice Swift" d="M-136.36934878519213,-117.48787474417357A180,180 0 0,1 -72.8697519240017,-164.59039842753418L-36.43487596200085,-82.29519921376709A90,90 0 0,0 -68.18467439259607,-58.74393737208678Z"></path><path class="slice Csharp" d="M-72.8697519240017,-164.59039842753418A180,180 0 0,1 -1.9293757912300106e-13,-180L-9.646878956150053e-14,-90A90,90 0 0,0 -36.43487596200085,-82.29519921376709Z"></path></g><g class="labels"><text dy=".35em" transform="translate(225,-181.35347684775002)" style="text-anchor: start; ">Android</text><text dy=".35em" transform="translate(225,-49.60314795407705)" style="text-anchor: start; ">Javascript</text><text dy=".35em" transform="translate(225,103.97852418675546)" style="text-anchor: start; ">Python</text><text dy=".35em" transform="translate(225,195.39369412965712)" style="text-anchor: start; ">Node.js</text><text dy=".35em" transform="translate(-225,181.58755677765737)" style="text-anchor: end; ">AngularJS</text><text dy=".35em" transform="translate(-225,96.18395109972882)" style="text-anchor: end; ">Java</text><text dy=".35em" transform="translate(-225,-4.747121154660182)" style="text-anchor: end; ">iOS</text><text dy=".35em" transform="translate(-225,-95.25424396305763)" style="text-anchor: end; ">Arduino / Raspberry Pi</text><text dy=".35em" transform="translate(-225,-162.63970473923496)" style="text-anchor: end; ">Swift</text><text dy=".35em" transform="translate(-225,-198.11865149673898)" style="text-anchor: end; ">C#</text></g><g class="lines"><polyline class="line Android" points="60.06354573924222,-120.90231789850002,90.09531860886334,-181.35347684775002,213.75,-181.35347684775002"></polyline><polyline class="line Javascript" points="130.88719097510554,-33.068765302718035,196.33078646265832,-49.60314795407705,213.75,-49.60314795407705"></polyline><polyline class="line Python" points="115.84417984314449,69.31901612450365,173.76626976471672,103.97852418675546,213.75,103.97852418675546"></polyline><polyline class="line Nodejs" points="35.44983494314182,130.26246275310476,53.174752414712735,195.39369412965712,213.75,195.39369412965712"></polyline><polyline class="line AngularJS" points="-59.74839550991607,121.05837118510492,-89.62259326487411,181.58755677765737,-213.75,181.58755677765737"></polyline><polyline class="line Java" points="-118.799359427463,64.12263406648587,-178.1990391411945,96.18395109972882,-213.75,96.18395109972882"></polyline><polyline class="line iOS" points="-134.96289998982513,-3.164747436440122,-202.44434998473773,-4.747121154660182,-213.75,-4.747121154660182"></polyline><polyline class="line Arduino__Raspberry_Pi" points="-119.13182055936804,-63.50282930870509,-178.69773083905207,-95.25424396305763,-213.75,-95.25424396305763"></polyline><polyline class="line Swift" points="-80.42823286034292,-108.42646982615665,-120.64234929051437,-162.63970473923496,-213.75,-162.63970473923496"></polyline><polyline class="line Csharp" points="-27.930468660695297,-132.07910099782598,-41.895702991042945,-198.11865149673898,-213.75,-198.11865149673898"></polyline></g></g></svg>

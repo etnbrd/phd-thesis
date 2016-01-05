@@ -1,0 +1,101 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="950" height="600" class="chart" filename="blackduck-2015.svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"><![CDATA[
+html, body  { width: 1000px; height: 100%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; }
+.container { width: 40%; display: inline-block; }
+.eighty { width: 80%; display: inline-block; }
+ul { width: 15%; display: inline-block; }
+li { list-style-type: none; list-style-position: initial; list-style-image: initial; margin-top: -3em; margin-right: -1em; margin-bottom: 0px; margin-left: 0px; font-size: 0.7em; }
+li::before { content: •; font-size: 4em; position: relative; top: 0.3em; }
+.ct-label, body { font-family: serif; color: black; fill: #000000; }
+.ct-line { stroke-width: 0.8pt; }
+.ct-line.Javascript, .ct-line.npm { stroke-width: 2pt; }
+.axis path, .axis line { fill: none; stroke: #000000; shape-rendering: crispedges; }
+.grid .tick { stroke: #d3d3d3; opacity: 0.7; }
+.grid path { stroke-width: 0px; }
+li.Javascript::before { color: rgb(240, 37, 61); }
+li.C::before { color: rgb(38, 107, 133); }
+li.Cplusplus::before { color: rgb(60, 173, 215); }
+li.Java::before { color: rgb(175, 196, 219); }
+li.PHP::before { color: rgb(137, 150, 168); }
+li.XML_Schema::before { color: rgb(245, 117, 66); }
+li.Ruby::before { color: rgb(215, 80, 60); }
+li.Autoconf::before { color: rgb(189, 66, 48); }
+li.Python::before { color: rgb(94, 235, 184); }
+li.Csharp::before { color: rgb(74, 190, 149); }
+li.Assembler::before { color: rgb(221, 183, 0); }
+li.Shell::before { color: rgb(247, 240, 157); }
+li.SQL::before { color: rgb(243, 255, 181); }
+li.Make::before { color: rgb(159, 58, 44); }
+li.Perl::before { color: rgb(27, 39, 53); }
+li.VisualBasicNET::before { color: rgb(67, 174, 136); }
+.slice.Javascript { fill: #f0253d; }
+.slice.C { fill: #266b85; }
+.slice.Cplusplus { fill: #3cadd7; }
+.slice.Java { fill: #afc4db; }
+.slice.PHP { fill: #8996a8; }
+.slice.XML_Schema { fill: #f57542; }
+.slice.Ruby { fill: #d7503c; }
+.slice.Autoconf { fill: #bd4230; }
+.slice.Python { fill: #5eebb8; }
+.slice.Csharp { fill: #4abe95; }
+.slice.Assembler { fill: #ddb700; }
+.slice.Shell { fill: #f7f09d; }
+.slice.SQL { fill: #f3ffb5; }
+.slice.Make { fill: #9f3a2c; }
+.slice.Perl { fill: #1b2735; }
+.slice.VisualBasicNET { fill: #43ae88; }
+.line { stroke-width: 2pt; fill: rgba(0, 0, 0, 0.0); }
+.line.Javascript, .line.JavaScript { stroke: #f0253d; }
+.line.C { stroke: #266b85; }
+.line.Cplusplus { stroke: #3cadd7; }
+.line.Java { stroke: #afc4db; }
+.line.PHP { stroke: #8996a8; }
+.line.XML_Schema { stroke: #f57542; }
+.line.Ruby { stroke: #d7503c; }
+.line.Autoconf { stroke: #bd4230; }
+.line.Python { stroke: #5eebb8; }
+.line.Csharp { stroke: #4abe95; }
+.line.Assembler { stroke: #ddb700; }
+.line.Shell { stroke: #f7f09d; }
+.line.SQL { stroke: #f3ffb5; }
+.line.Make { stroke: #9f3a2c; }
+.line.Perl { stroke: #1b2735; }
+.line.VisualBasicNET { stroke: #43ae88; }
+li.Bower::before { color: rgb(176, 37, 61); }
+li.Clojars::before { color: black; }
+li.CPAN::before { color: black; }
+li.CPANsearch::before { color: black; }
+li.CRAN::before { color: black; }
+li.Crates::before { color: black; }
+li.GoDoc::before { color: black; }
+li.Hackage::before { color: black; }
+li.Hex::before { color: black; }
+li.LuaRocks::before { color: black; }
+li.Maven::before { color: rgb(175, 196, 219); }
+li.MELPA::before { color: black; }
+li.npm::before { color: rgb(240, 37, 61); }
+li.nuget::before { color: rgb(74, 190, 149); }
+li.Packagist::before { color: rgb(137, 150, 168); }
+li.Pear::before { color: rgb(137, 150, 184); }
+li.PyPI::before { color: rgb(94, 235, 184); }
+li.Rubygems::before { color: rgb(215, 80, 60); }
+.line.Bower_JS { stroke: #b0253d; }
+.line.Clojars_Closure { stroke: #000000; }
+.line.CPAN { stroke: #000000; }
+.line.CPAN_search { stroke: #000000; }
+.line.CRAN_R.io { stroke: #000000; }
+.line.Cratesio_Rust { stroke: #000000; }
+.line.Drupal_php { stroke: #000000; }
+.line.GoDoc_Go { stroke: #000000; }
+.line.Hackage_Haskell { stroke: #000000; }
+.line.Hexpm_ElixirErlang { stroke: #000000; }
+.line.LuaRocks_Lua { stroke: #000000; }
+.line.Maven_Central_Java { stroke: #afc4db; }
+.line.MELPA_Emacs { stroke: #000000; }
+.line.npm_nodejs { stroke: #f0253d; }
+.line.nuget_NET { stroke: #4abe95; }
+.line.Packagist_PHP { stroke: #8996a8; }
+.line.Pear_PHP { stroke: #8996b8; }
+.line.Perl_6_Ecosystem_perl_6 { stroke: #8996b8; }
+.line.PyPI { stroke: #5eebb8; }
+.line.Rubygemsorg { stroke: #d7503c; }
+svg { border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-style: dotted; border-right-style: dotted; border-bottom-style: dotted; border-left-style: dotted; border-top-color: black; border-right-color: black; border-bottom-color: black; border-left-color: black; }]]></style></defs><g transform="translate(475,300)"><g class="slices"><path class="slice Javascript" d="M7.34788079488412e-15,-120A120,120 0 0,1 119.99954946878277,-0.32882714175488065L59.99977473439139,-0.16441357087744032A60,60 0 0,0 3.67394039744206e-15,-60Z"></path><path class="slice C" d="M119.99954946878277,-0.32882714175488065A120,120 0 0,1 4.370505370023058,119.92038476760571L2.185252685011529,59.960192383802855A60,60 0 0,0 59.99977473439139,-0.16441357087744032Z"></path><path class="slice Cplusplus" d="M4.370505370023058,119.92038476760571A120,120 0 0,1 -111.37122658032497,44.68165048421911L-55.685613290162486,22.340825242109556A60,60 0 0,0 2.185252685011529,59.960192383802855Z"></path><path class="slice Java" d="M-111.37122658032497,44.68165048421911A120,120 0 0,1 -106.08760584470502,-56.084043061627675L-53.04380292235251,-28.042021530813837A60,60 0 0,0 -55.685613290162486,22.340825242109556Z"></path><path class="slice PHP" d="M-106.08760584470502,-56.084043061627675A120,120 0 0,1 -94.24551560791485,-74.28177964883635L-47.12275780395743,-37.140889824418174A60,60 0 0,0 -53.04380292235251,-28.042021530813837Z"></path><path class="slice XML_Schema" d="M-94.24551560791485,-74.28177964883635A120,120 0 0,1 -81.8405891167944,-87.761711315448L-40.9202945583972,-43.880855657724A60,60 0 0,0 -47.12275780395743,-37.140889824418174Z"></path><path class="slice Ruby" d="M-81.8405891167944,-87.761711315448A120,120 0 0,1 -68.67504229130013,-98.4059884676138L-34.337521145650065,-49.2029942338069A60,60 0 0,0 -40.9202945583972,-43.880855657724Z"></path><path class="slice Autoconf" d="M-68.67504229130013,-98.4059884676138A120,120 0 0,1 -54.763037167264066,-106.77551105106852L-27.381518583632033,-53.38775552553426A60,60 0 0,0 -34.337521145650065,-49.2029942338069Z"></path><path class="slice Python" d="M-54.763037167264066,-106.77551105106852A120,120 0 0,1 -41.014141689886685,-112.773401923689L-20.507070844943343,-56.3867009618445A60,60 0 0,0 -27.381518583632033,-53.38775552553426Z"></path><path class="slice Csharp" d="M-41.014141689886685,-112.773401923689A120,120 0 0,1 -32.02562895464997,-115.6475641337036L-16.012814477324984,-57.8237820668518A60,60 0 0,0 -20.507070844943343,-56.3867009618445Z"></path><path class="slice Assembler" d="M-32.02562895464997,-115.6475641337036A120,120 0 0,1 -24.20471541367055,-117.53353458372304L-12.102357706835274,-58.76676729186152A60,60 0 0,0 -16.012814477324984,-57.8237820668518Z"></path><path class="slice Shell" d="M-24.20471541367055,-117.53353458372304A120,120 0 0,1 -17.50062210797797,-118.71700899969538L-8.750311053988986,-59.35850449984769A60,60 0 0,0 -12.102357706835274,-58.76676729186152Z"></path><path class="slice SQL" d="M-17.50062210797797,-118.71700899969538A120,120 0 0,1 -11.356543943236879,-119.46141180174178L-5.6782719716184396,-59.73070590087089A60,60 0 0,0 -8.750311053988986,-59.35850449984769Z"></path><path class="slice Make" d="M-11.356543943236879,-119.46141180174178A120,120 0 0,1 -5.646011612650096,-119.86710371436286L-2.823005806325048,-59.93355185718143A60,60 0 0,0 -5.6782719716184396,-59.73070590087089Z"></path><path class="slice Perl" d="M-5.646011612650096,-119.86710371436286A120,120 0 0,1 -2.2043642384652355e-14,-120L-1.1021821192326178e-14,-60A60,60 0 0,0 -2.823005806325048,-59.93355185718143Z"></path></g><g class="labels"><text dy=".35em" transform="translate(165,-106.21124019866974)" style="text-anchor: start; ">Javascript (      24.32%)</text><text dy=".35em" transform="translate(165,103.96855086126502)" style="text-anchor: start; ">C (               23.84%)</text><text dy=".35em" transform="translate(-165,125.76326117313447)" style="text-anchor: end; ">C++ (             19.01%)</text><text dy=".35em" transform="translate(-165,-7.854417660404136)" style="text-anchor: end; ">Java (            13.46%)</text><text dy=".35em" transform="translate(-165,-81.8141062489198)" style="text-anchor: end; ">PHP (              2.81%)</text><text dy=".35em" transform="translate(-165,-101.8141062489198)" style="text-anchor: end; ">XML Schema (       2.37%)</text><text dy=".35em" transform="translate(-165,-121.8141062489198)" style="text-anchor: end; ">Ruby (             2.19%)</text><text dy=".35em" transform="translate(-165,-141.8141062489198)" style="text-anchor: end; ">Autoconf (         2.10%)</text><text dy=".35em" transform="translate(-165,-161.8141062489198)" style="text-anchor: end; ">Python (           1.94%)</text><text dy=".35em" transform="translate(-165,-181.8141062489198)" style="text-anchor: end; ">C# (               1.22%)</text><text dy=".35em" transform="translate(-165,-201.8141062489198)" style="text-anchor: end; ">Assembler (        1.04%)</text><text dy=".35em" transform="translate(-165,-221.8141062489198)" style="text-anchor: end; ">Shell (            0.88%)</text><text dy=".35em" transform="translate(-165,-241.8141062489198)" style="text-anchor: end; ">SQL (              0.80%)</text><text dy=".35em" transform="translate(-165,-261.8141062489198)" style="text-anchor: end; ">Make (             0.74%)</text><text dy=".35em" transform="translate(-165,-281.8141062489198)" style="text-anchor: end; ">Perl (             0.73%)</text></g><g class="lines"><polyline fill="none" class="line Javascript" points="63.55235702919108,-63.72674411920184,105.92059504865179,-106.21124019866974,159,-106.21124019866974"></polyline><polyline fill="none" class="line C" points="64.87368153150457,62.38113051675901,108.12280255250764,103.96855086126502,159,103.96855086126502"></polyline><polyline fill="none" class="line Cplusplus" points="-49.051980286990144,75.45795670388068,-81.7533004783169,125.76326117313447,-159,125.76326117313447"></polyline><polyline fill="none" class="line Java" points="-89.87653155500459,-4.712650596242481,-149.79421925834097,-7.854417660404136,-159,-7.854417660404136"></polyline><polyline fill="none" class="line PHP" points="-75.43422781952876,-49.08846374935188,-125.72371303254792,-81.8141062489198,-159,-81.8141062489198"></polyline><polyline fill="none" class="line XML_Schema" points="-66.2254935232791,-60.94410560175709,-110.63726946830259,-101.8141062489198,-159,-101.8141062489198"></polyline><polyline fill="none" class="line Ruby" points="-56.58432637008809,-69.98724176050484,-98.48608076392559,-121.8141062489198,-159,-121.8141062489198"></polyline><polyline fill="none" class="line Autoconf" points="-46.39556069116481,-77.11972476709471,-85.31598100493223,-141.8141062489198,-159,-141.8141062489198"></polyline><polyline fill="none" class="line Python" points="-35.98679969855061,-82.49212233575032,-70.59064144669516,-161.8141062489198,-159,-161.8141062489198"></polyline><polyline fill="none" class="line Csharp" points="-27.411112065280644,-85.724156078346,-58.136785119041576,-181.8141062489198,-159,-181.8141062489198"></polyline><polyline fill="none" class="line Assembler" points="-21.098236230660504,-87.49208208721086,-48.66636599269741,-201.8141062489198,-159,-201.8141062489198"></polyline><polyline fill="none" class="line Shell" points="-15.645797211926679,-88.62961711303545,-39.15687146306007,-221.8141062489198,-159,-221.8141062489198"></polyline><polyline fill="none" class="line SQL" points="-10.825037176864374,-89.34662036204561,-29.29765758825237,-241.8141062489198,-159,-241.8141062489198"></polyline><polyline fill="none" class="line Make" points="-6.377773088320707,-89.7737378660034,-18.599993724996008,-261.8141062489198,-159,-261.8141062489198"></polyline><polyline fill="none" class="line Perl" points="-2.1178407967204858,-89.97507849599103,-6.633363607811442,-281.8141062489198,-159,-281.8141062489198"></polyline></g></g></svg>

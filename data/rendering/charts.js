@@ -1,52 +1,3 @@
-var lang = {
-
-  description: 'The data below reflect an analysis of approximately one million open source projects currently tracked in the Black Duck Knowledgebase. The chart reflects the breakdown by language for the last release of all projects. These projects come from the many forges, foundations and organizations that make up the overall open source community, and span many years including projects that were written in the early days of the Internet.  A significant percentage of these releases occurred more than twelve months ago.',
-
-  labels: [
-    {label: 'C',                 value: 50.11},
-    {label: 'C++',               value: 11.19},
-    {label: 'Java',              value:  8.54},
-    {label: 'Javascript',        value:  8.04},
-    {label: 'PHP',               value:  4.19},
-    {label: 'Shell',             value:  2.29},
-    {label: 'Autoconf',          value:  2.19},
-    {label: 'Python',            value:  1.81},
-    {label: 'Ruby',              value:  1.72},
-    {label: 'Assembler',         value:  1.67},
-    {label: 'Perl',              value:  1.33},
-    {label: 'C#',                value:  1.03},
-    {label: 'XML Schema',        value:  0.98},
-    {label: 'SQL',               value:  0.85},
-    {label: 'Make',              value:  0.75},
-  ]
-}
-
-
-var lang2015 = {
-
-  description: 'The data below reflect a language analysis of open source projects that have been active in the most recent twelve month period. These projects are tracked in the Black Duck Knowledgebase, reflecting the many forges, foundations and organizations that make up the overall open source community.',
-
-  labels: [
-    {label: 'Javascript',      value: 24.32},
-    {label: 'C',               value: 23.84},
-    {label: 'C++',             value: 19.01},
-    {label: 'Java',            value: 13.46},
-    {label: 'PHP',             value:  2.81},
-    {label: 'XML Schema',      value:  2.37},
-    {label: 'Ruby',            value:  2.19},
-    {label: 'Autoconf',        value:  2.10},
-    {label: 'Python',          value:  1.94},
-    {label: 'C#',              value:  1.22},
-    {label: 'Assembler',       value:  1.04},
-    {label: 'Shell',           value:  0.88},
-    {label: 'SQL',             value:  0.80},
-    {label: 'Make',            value:  0.74},
-    {label: 'Perl',            value:  0.73},
-  ]
-}
-
-
-
 var options = {
   labelInterpolationFnc: function(item, i) {
     return item.value > 5 ? item.label + ' ' + item.value + '%' : '';
@@ -81,11 +32,11 @@ function makeCSSclass(str) {
             .replace('++', 'plusplus');
 }
 
-var chart1 = new Chartist.Pie('.chart-1', dataFormating(lang), options);
-var chart2 = new Chartist.Pie('.chart-2', dataFormating(lang2015), options);
+// var chart1 = new Chartist.Pie('.chart-1', dataFormating(lang), options);
+// var chart2 = new Chartist.Pie('.chart-2', dataFormating(lang2015), options);
 
-chart1.on('draw', addLabel(lang));
-chart2.on('draw', addLabel(lang2015));
+// chart1.on('draw', addLabel(lang));
+// chart2.on('draw', addLabel(lang2015));
 
 
 

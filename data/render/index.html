@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graphs and plots</title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+
+<style>
+
+svg {
+/*  width: 100%;
+  height: 600px;*/
+  border: 2px dotted black;
+}
+
+</style>
+
+
+  </head>
+  <body id='body'>
+
+  <div id='charts'></div>
+
+    <ul>
+      <li class='Javascript'>Javascript</li>
+      <li class='C'>C</li>
+      <li class='Cplusplus'>C++</li>
+      <li class='Java'>Java</li>
+      <li class='PHP'>PHP</li>
+      <li class='XML_Schema'>XML Schema</li>
+      <li class='Ruby'>Ruby</li>
+      <li class='Autoconf'>Autoconf</li>
+      <li class='Python'>Python</li>
+      <li class='Csharp'>C#</li>
+      <li class='Assembler'>Assembler</li>
+      <li class='Shell'>Shell</li>
+      <li class='SQL'>SQL</li>
+      <li class='Make'>Make</li>
+      <li class='Perl'>Perl</li>
+    </ul>
+
+    <!-- <div class="chart3 ct-major-twelfth eighty"></div> --><!--
+ --><ul>
+      <li class = 'npm'>npm (node.js)</li>
+      <li class = 'Bower'>Bower (JS)</li>
+      <!--<li class = 'Clojars'>Clojars (Clojure)</li>-->
+      <!--<li class = 'CPAN'>CPAN</li>-->
+      <!--<li class = 'CPANsearch'>CPAN (search)</li>-->
+      <!--<li class = 'CRAN'>CRAN (R)</li>-->
+      <!--<li class = 'Crates'>Crates.io (Rust)</li>-->
+      <!--<li class = 'GoDoc'>GoDoc (Go)</li>-->
+      <!--<li class = 'Hackage'>Hackage (Haskell)</li>-->
+      <!--<li class = 'Hex'>Hex.pm (Elixir/Erlang)</li>-->
+      <!--<li class = 'LuaRocks'>LuaRocks (Lua)</li>-->
+      <li class = 'Maven'>Maven Central (Java)</li>
+      <!--<li class = 'MELPA'>MELPA (Emacs)</li>-->
+      <li class = 'nuget'>nuget (.NET)</li>
+      <li class = 'Packagist'>Packagist (PHP)</li>
+      <li class = 'Pear'>Pear (PHP)</li>
+      <li class = 'PyPI'>PyPI</li>
+      <li class = 'Rubygems'>Rubygems.org</li>
+    </ul>
+
+    <script src="d3.js"></script>
+
+
+<script>
+
+function type(d) {
+  // d.percentage = +d.percentage;
+  return d;
+}
+
+function typeLanguage(row){
+  return { label: row.language, value: row.percentage }
+}
+
+function typeDate(format) {
+  var parse = d3.time.format(format).parse;
+
+
+  return function(row) {
+    row.date = parse(row.date);
+    return row;
+  }
+}
+
+function key(d) {
+  return d.data.label;
+};
+
+function cleanse(label) {
+  return label.replace(/[+]/g, 'plus')
+              .replace(/ /g, '_')
+              .replace(/[#]/g, 'sharp')
+              .replace(/[()./]/g, '');
+}
+
+function threshold(d) {
+  return d.value > 1.6;
+}
+
+    
+function midAngle(d){
+  return d.startAngle + (d.endAngle - d.startAngle)/2;
+}
+
+var parent = d3.select('#charts');
+
+
+d3.csv('csv/blackduck-alltime.csv')
+  .row(typeLanguage)
+  .get(pieChartFactory(parent, 'blackduck-alltime'));
+
+d3.csv('csv/blackduck-2015.csv')
+  .row(typeLanguage)
+  .get(pieChartFactory(parent, 'blackduck-2015'));
+
+d3.csv('csv/stackoverflow-mostwanted.csv')
+  .row(typeLanguage)
+  .get(pieChartFactory(parent, 'stackoverflow-mostwanted'));
+
+d3.csv('csv/modulecounts.csv')
+  .row(typeDate('%Y\/%m\/%d'))
+  .get(lineChartFactory(parent, 'modulecounts', {xLabel: 'Modules'}));
+
+d3.csv('csv/stackoverflow-tags.csv')
+  .row(typeDate('%Y%m'))
+  .get(lineChartFactory(parent, 'stackoverflow-tags', {xLabel: 'Tags'}));
+
+d3.csv('csv/tiobe.csv')
+  .row(typeDate('%Y%m%d'))
+  .get(lineChartFactory(parent, 'tiobe', {xLabel: 'Percentages'}));
+
+
+function pieChartFactory(parent, name) {
+  return function (error, data) {
+      if (error) throw error;
+      var svg = parent
+        .append('svg')
+        .attr('width', 950)
+        .attr('height', 600)
+        .attr('class', 'chart')
+        .attr('filename', name + '.svg')
+        .append('g');
+
+      piechart(svg, data, 950, 600);
+    }
+}
+
+function piechart(svg, data, width, height) {
+  svg.append('g')
+    .attr('class', 'slices');
+  svg.append('g')
+    .attr('class', 'labels');
+  svg.append('g')
+    .attr('class', 'lines');
+
+  var radius = Math.min(width, height) / 2;
+
+  var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) {
+      return d.value;
+    });
+
+  var arc = d3.svg.arc()
+    .outerRadius(radius * 0.4)
+    .innerRadius(radius * 0.2);
+
+  var outerArc = d3.svg.arc()
+    .innerRadius(radius * 0.5)
+    .outerRadius(radius * 0.5);
+
+  svg.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+
+  /* ------- PIE SLICES -------*/
+  var slice = svg.select('.slices').selectAll('path.slice')
+    .data(pie(data), key);
+
+  slice.enter()
+    .insert('path')
+    .attr('class', function(d) { return 'slice ' + cleanse(d.data.label) })
+    .attr('d', function(d) {return arc(d)});
+
+  // /* ------- TEXT LABELS -------*/
+
+  var text = svg.select('.labels').selectAll('text')
+    .data(pie(data), key);
+
+  var lastPos;
+  var lastSide;
+  var offset = 20;
+
+  text.enter()
+    .append('text')
+    // .filter(threshold)
+    .attr('dy', '.35em')
+    .attr('transform', function(d) {
+
+      var pos = outerArc.centroid(d);
+      var side = (midAngle(d) < Math.PI ? 1 : -1);
+      pos[0] = radius * 0.55 * side;
+      // pos[1] -= 10;
+
+      if (lastSide && side !== lastSide)
+        lastPos = undefined;
+      if (lastPos &&  side * (lastPos[1] - pos[1]) > side * offset )
+        pos[1] = lastPos[1] + offset * side;
+
+      lastPos = pos;
+      lastSide = side;
+
+      return 'translate('+ pos +')';
+    })
+    .style('text-anchor', function(d) {
+      return midAngle(d) < Math.PI ? 'start':'end';
+    })
+    .text(function(d) {
+      return d.data.label + ' (' + d.data.value + '%)';
+    });
+
+  // /* ------- SLICE TO TEXT POLYLINES -------*/
+
+  var polyline = svg.select('.lines').selectAll('polyline')
+    .data(pie(data), key);
+
+  lastPos = undefined;
+  lastSide = undefined;
+  
+  polyline.enter()
+    .append('polyline')
+    // .filter(threshold)
+    .attr('fill', 'none') // The default value seems to be black
+    .attr('class', function(d) { return 'line ' + cleanse(d.data.label) })
+    .attr('points', function(d) {
+      // var pos = outerArc.centroid(d);
+      // pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1.3 : -1.3);
+
+      var pos = outerArc.centroid(d);
+      var side = (midAngle(d) < Math.PI ? 1 : -1);
+      pos[0] = radius * 0.53 * side;
+
+      if (lastSide && side !== lastSide)
+        lastPos = undefined;
+      if (lastPos &&  side * (lastPos[1] - pos[1]) > side * offset )
+        pos[1] = lastPos[1] + offset * side;
+
+      lastPos = pos;
+      lastSide = side;
+
+      var midPoint = outerArc.centroid(d);
+      midPoint[0] += Math.tan(midAngle(d)) * side * (pos[1] - midPoint[1]);
+      midPoint[1] = pos[1];
+      return [arc.centroid(d), midPoint, pos];
+    });
+}
+
+
+function lineChartFactory(parent, name, options) {
+
+  var margin = {top: 20, right: 80, bottom: 30, left: 100},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+  return function (error, data) {
+      if (error) throw error;
+      var svg = parent
+        .append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .attr('class', 'chart')
+        .attr('filename', name + '.svg')
+        .append('g');
+
+      lineChart(svg, data, width, height, margin, options);
+    }
+}
+
+function lineChart(svg, data, width, height, margin, options) {
+
+  var x = d3.time.scale()
+      .range([0, width]);
+
+  var y = d3.scale.linear()
+      .range([height, 0]);
+
+  var color = d3.scale.category10();
+
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient('bottom');
+      // .ticks();
+
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient('left');
+      // .ticks(5);
+      
+  // var yTicks = d3.svg.axis()
+  //     .scale(y)
+  //     .orient('left')
+  //     .ticks(5)
+  //     .tickSize(-width, 0, 0)
+  //     .tickFormat('bite');
+
+
+  var line = d3.svg.line()
+      .defined(function(d) { return (d.count !== 0) })
+      .interpolate('basis')
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.count); });
+
+  svg.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== 'date'; }));
+
+  var series = color.domain().map(function(name) {
+    return {
+      name: name,
+      values: data.map(function(d) {
+        return {date: d.date, count: +d[name], serie: name};
+      })
+    };
+  });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+
+  y.domain([
+    d3.min(series, function(c) { return d3.min(c.values, function(v) { return v.count; }); }),
+    d3.max(series, function(c) { return d3.max(c.values, function(v) { return v.count; }); })
+  ]);
+
+  svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis);
+
+  svg.append('g')
+      .attr('class', 'y axis')
+      .call(yAxis)
+    .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 6)
+      .attr('dy', '.71em')
+      .style('text-anchor', 'end')
+      .text('count');
+
+  svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text(options.xLabel);
+
+  var series = svg.selectAll('.serie')
+      .data(series)
+    .enter().append('g')
+      .attr('class', 'serie');
+
+  series.append('path')
+      .attr('class', function(d) { return 'line ' + cleanse(d.name) })
+      .attr('d', function(d) { return line(d.values); });
+      // .style('stroke', function(d) { return color(d.name); });
+
+  // managers.append('text')
+  //     .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+  //     .attr('transform', function(d) { return 'translate(' + x(d.value.date) + ',' + y(d.value.temperature) + ')'; })
+  //     .attr('x', 3)
+  //     .attr('dy', '.35em')
+  //     .text(function(d) { return d.name; });
+
+
+}
+</script>
+
+
+  </body>
+</html>

@@ -1,0 +1,93 @@
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'modulecounts.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{722.02468691bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.51325898)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{modulecounts.pdf}}%
+    \put(0.23812054,0.00018827){\makebox(0,0)[b]{\smash{2011}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{modulecounts.pdf}}%
+    \put(0.38719723,0.00018827){\makebox(0,0)[b]{\smash{2012}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{modulecounts.pdf}}%
+    \put(0.53668235,0.00018827){\makebox(0,0)[b]{\smash{2013}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{modulecounts.pdf}}%
+    \put(0.68575905,0.00018827){\makebox(0,0)[b]{\smash{2014}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{modulecounts.pdf}}%
+    \put(0.83483574,0.00018827){\makebox(0,0)[b]{\smash{2015}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{modulecounts.pdf}}%
+    \put(0.98391243,0.00018827){\makebox(0,0)[b]{\smash{2016}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{modulecounts.pdf}}%
+    \put(0.11092938,0.01016023){\makebox(0,0)[rb]{\smash{0}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{modulecounts.pdf}}%
+    \put(0.11092938,0.05499938){\makebox(0,0)[rb]{\smash{20,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{modulecounts.pdf}}%
+    \put(0.11092938,0.09983853){\makebox(0,0)[rb]{\smash{40,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{modulecounts.pdf}}%
+    \put(0.11092938,0.14467768){\makebox(0,0)[rb]{\smash{60,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{modulecounts.pdf}}%
+    \put(0.11092938,0.18951684){\makebox(0,0)[rb]{\smash{80,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{modulecounts.pdf}}%
+    \put(0.11092938,0.23435599){\makebox(0,0)[rb]{\smash{100,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{modulecounts.pdf}}%
+    \put(0.11092938,0.27919514){\makebox(0,0)[rb]{\smash{120,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{modulecounts.pdf}}%
+    \put(0.11092938,0.32403429){\makebox(0,0)[rb]{\smash{140,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{modulecounts.pdf}}%
+    \put(0.11092938,0.36887344){\makebox(0,0)[rb]{\smash{160,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{modulecounts.pdf}}%
+    \put(0.11092938,0.41371259){\makebox(0,0)[rb]{\smash{180,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{modulecounts.pdf}}%
+    \put(0.11092938,0.45855174){\makebox(0,0)[rb]{\smash{200,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{modulecounts.pdf}}%
+    \put(0.11092938,0.50339089){\makebox(0,0)[rb]{\smash{220,000}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{modulecounts.pdf}}%
+    \put(0.12754931,0.50875814){\rotatebox{90}{\makebox(0,0)[rb]{\smash{count}}}}%
+    \put(0.0101018,0.25945919){\rotatebox{90}{\makebox(0,0)[b]{\smash{Modules}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{modulecounts.pdf}}%
+  \end{picture}%
+\endgroup%

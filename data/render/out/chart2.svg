@@ -1,0 +1,103 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="chart" filename="chart2.svg" id="chart2" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"><![CDATA[
+html, body  { width: 1000px; height: 100%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; }
+.container { width: 40%; display: inline-block; }
+.eighty { width: 80%; display: inline-block; }
+ul { width: 15%; display: inline-block; }
+li { list-style-type: none; list-style-position: initial; list-style-image: initial; margin-top: -3em; margin-right: -1em; margin-bottom: 0px; margin-left: 0px; font-size: 0.7em; }
+li::before { content: •; font-size: 4em; position: relative; top: 0.3em; }
+.ct-label, body { font-family: serif; color: black; fill: #000000; }
+.ct-line { stroke-width: 0.8pt; }
+.ct-line.Javascript, .ct-line.npm { stroke-width: 2pt; }
+.axis path, .axis line { fill: none; stroke: #000000; shape-rendering: crispedges; }
+.grid .tick { stroke: #d3d3d3; opacity: 0.7; }
+.grid path { stroke-width: 0px; }
+li.Javascript::before { color: rgb(240, 37, 61); }
+li.C::before { color: rgb(38, 107, 133); }
+li.Cplusplus::before { color: rgb(60, 173, 215); }
+li.Java::before { color: rgb(175, 196, 219); }
+li.PHP::before { color: rgb(137, 150, 168); }
+li.XML_Schema::before { color: rgb(245, 117, 66); }
+li.Ruby::before { color: rgb(215, 80, 60); }
+li.Autoconf::before { color: rgb(189, 66, 48); }
+li.Python::before { color: rgb(94, 235, 184); }
+li.Csharp::before { color: rgb(74, 190, 149); }
+li.Assembler::before { color: rgb(221, 183, 0); }
+li.Shell::before { color: rgb(247, 240, 157); }
+li.SQL::before { color: rgb(243, 255, 181); }
+li.Make::before { color: rgb(159, 58, 44); }
+li.Perl::before { color: rgb(27, 39, 53); }
+li.VisualBasicNET::before { color: rgb(67, 174, 136); }
+.slice.Javascript { fill: #f0253d; }
+.slice.C { fill: #266b85; }
+.slice.Cplusplus { fill: #3cadd7; }
+.slice.Java { fill: #afc4db; }
+.slice.PHP { fill: #8996a8; }
+.slice.XML_Schema { fill: #f57542; }
+.slice.Ruby { fill: #d7503c; }
+.slice.Autoconf { fill: #bd4230; }
+.slice.Python { fill: #5eebb8; }
+.slice.Csharp { fill: #4abe95; }
+.slice.Assembler { fill: #ddb700; }
+.slice.Shell { fill: #f7f09d; }
+.slice.SQL { fill: #f3ffb5; }
+.slice.Make { fill: #9f3a2c; }
+.slice.Perl { fill: #1b2735; }
+.slice.VisualBasicNET { fill: #43ae88; }
+.line { stroke-width: 2pt; fill: rgba(0, 0, 0, 0.0); }
+.line.Javascript, .line.JavaScript { stroke: #f0253d; }
+.line.C { stroke: #266b85; }
+.line.Cplusplus { stroke: #3cadd7; }
+.line.Java { stroke: #afc4db; }
+.line.PHP { stroke: #8996a8; }
+.line.XML_Schema { stroke: #f57542; }
+.line.Ruby { stroke: #d7503c; }
+.line.Autoconf { stroke: #bd4230; }
+.line.Python { stroke: #5eebb8; }
+.line.Csharp { stroke: #4abe95; }
+.line.Assembler { stroke: #ddb700; }
+.line.Shell { stroke: #f7f09d; }
+.line.SQL { stroke: #f3ffb5; }
+.line.Make { stroke: #9f3a2c; }
+.line.Perl { stroke: #1b2735; }
+.line.VisualBasicNET { stroke: #43ae88; }
+li.Bower::before { color: rgb(176, 37, 61); }
+li.Clojars::before { color: black; }
+li.CPAN::before { color: black; }
+li.CPANsearch::before { color: black; }
+li.CRAN::before { color: black; }
+li.Crates::before { color: black; }
+li.GoDoc::before { color: black; }
+li.Hackage::before { color: black; }
+li.Hex::before { color: black; }
+li.LuaRocks::before { color: black; }
+li.Maven::before { color: rgb(175, 196, 219); }
+li.MELPA::before { color: black; }
+li.npm::before { color: rgb(240, 37, 61); }
+li.nuget::before { color: rgb(74, 190, 149); }
+li.Packagist::before { color: rgb(137, 150, 168); }
+li.Pear::before { color: rgb(137, 150, 184); }
+li.PyPI::before { color: rgb(94, 235, 184); }
+li.Rubygems::before { color: rgb(215, 80, 60); }
+.line.Bower_JS { stroke: #b0253d; }
+.line.Clojars_Closure { stroke: #000000; }
+.line.CPAN { stroke: #000000; }
+.line.CPAN_search { stroke: #000000; }
+.line.CRAN_R.io { stroke: #000000; }
+.line.Cratesio_Rust { stroke: #000000; }
+.line.Drupal_php { stroke: #000000; }
+.line.GoDoc_Go { stroke: #000000; }
+.line.Hackage_Haskell { stroke: #000000; }
+.line.Hexpm_ElixirErlang { stroke: #000000; }
+.line.LuaRocks_Lua { stroke: #000000; }
+.line.Maven_Central_Java { stroke: #afc4db; }
+.line.MELPA_Emacs { stroke: #000000; }
+.line.npm_nodejs { stroke: #f0253d; }
+.line.nuget_NET { stroke: #4abe95; }
+.line.Packagist_PHP { stroke: #8996a8; }
+.line.Pear_PHP { stroke: #8996b8; }
+.line.Perl_6_Ecosystem_perl_6 { stroke: #8996b8; }
+.line.PyPI { stroke: #5eebb8; }
+.line.Rubygemsorg { stroke: #d7503c; }
+svg { width: 100%; height: 500px; }
+path.slice { stroke-width: 1px; }
+polyline { stroke: #000000; stroke-width: 1px; fill: none; }]]></style></defs><g transform="translate(480,225)"><g class="slices"><path class="slice Javascript" d="M1.1021821192326179e-14,-180A180,180 0 0,1 179.99932420317415,-0.493240712632321L89.99966210158708,-0.2466203563161605A90,90 0 0,0 5.5109105961630896e-15,-90Z"></path><path class="slice C" d="M179.99932420317415,-0.493240712632321A180,180 0 0,1 6.555758055034587,179.88057715140854L3.2778790275172933,89.94028857570427A90,90 0 0,0 89.99966210158708,-0.2466203563161605Z"></path><path class="slice Cplusplus" d="M6.555758055034587,179.88057715140854A180,180 0 0,1 -167.05683987048744,67.02247572632866L-83.52841993524372,33.51123786316433A90,90 0 0,0 3.2778790275172933,89.94028857570427Z"></path><path class="slice Java" d="M-167.05683987048744,67.02247572632866A180,180 0 0,1 -159.13140876705754,-84.12606459244151L-79.56570438352877,-42.063032296220754A90,90 0 0,0 -83.52841993524372,33.51123786316433Z"></path><path class="slice PHP" d="M-159.13140876705754,-84.12606459244151A180,180 0 0,1 -141.36827341187228,-111.42266947325453L-70.68413670593614,-55.711334736627265A90,90 0 0,0 -79.56570438352877,-42.063032296220754Z"></path><path class="slice XML_Schema" d="M-141.36827341187228,-111.42266947325453A180,180 0 0,1 -122.76088367519161,-131.642566973172L-61.380441837595804,-65.821283486586A90,90 0 0,0 -70.68413670593614,-55.711334736627265Z"></path><path class="slice Ruby" d="M-122.76088367519161,-131.642566973172A180,180 0 0,1 -103.01256343695019,-147.6089827014207L-51.506281718475094,-73.80449135071035A90,90 0 0,0 -61.380441837595804,-65.821283486586Z"></path><path class="slice Autoconf" d="M-103.01256343695019,-147.6089827014207A180,180 0 0,1 -82.14455575089609,-160.16326657660278L-41.072277875448044,-80.08163328830139A90,90 0 0,0 -51.506281718475094,-73.80449135071035Z"></path><path class="slice Python" d="M-82.14455575089609,-160.16326657660278A180,180 0 0,1 -61.52121253483003,-169.1601028855335L-30.760606267415014,-84.58005144276675A90,90 0 0,0 -41.072277875448044,-80.08163328830139Z"></path><path class="slice Csharp" d="M-61.52121253483003,-169.1601028855335A180,180 0 0,1 -48.03844343197495,-173.4713462005554L-24.019221715987474,-86.7356731002777A90,90 0 0,0 -30.760606267415014,-84.58005144276675Z"></path><path class="slice Assembler" d="M-48.03844343197495,-173.4713462005554A180,180 0 0,1 -36.30707312050583,-176.30030187558455L-18.153536560252913,-88.15015093779228A90,90 0 0,0 -24.019221715987474,-86.7356731002777Z"></path><path class="slice Shell" d="M-36.30707312050583,-176.30030187558455A180,180 0 0,1 -26.250933161966955,-178.07551349954306L-13.125466580983478,-89.03775674977153A90,90 0 0,0 -18.153536560252913,-88.15015093779228Z"></path><path class="slice SQL" d="M-26.250933161966955,-178.07551349954306A180,180 0 0,1 -17.03481591485532,-179.19211770261265L-8.51740795742766,-89.59605885130632A90,90 0 0,0 -13.125466580983478,-89.03775674977153Z"></path><path class="slice Make" d="M-17.03481591485532,-179.19211770261265A180,180 0 0,1 -8.469017418975143,-179.80065557154427L-4.234508709487572,-89.90032778577213A90,90 0 0,0 -8.51740795742766,-89.59605885130632Z"></path><path class="slice Perl" d="M-8.469017418975143,-179.80065557154427A180,180 0 0,1 -3.3065463576978534e-14,-180L-1.6532731788489267e-14,-90A90,90 0 0,0 -4.234508709487572,-89.90032778577213Z"></path></g><g class="labels"><text dy=".35em" transform="translate(225,-143.38517426820414)" style="text-anchor: start; ">Javascript</text><text dy=".35em" transform="translate(225,140.35754366270777)" style="text-anchor: start; ">C</text><text dy=".35em" transform="translate(-225,169.78040258373153)" style="text-anchor: end; ">C++</text><text dy=".35em" transform="translate(-225,-10.603463841545583)" style="text-anchor: end; ">Java</text><text dy=".35em" transform="translate(-225,-110.44904343604173)" style="text-anchor: end; ">PHP</text><text dy=".35em" transform="translate(-225,-137.12423760395345)" style="text-anchor: end; ">XML Schema</text><text dy=".35em" transform="translate(-225,-157.4712939611359)" style="text-anchor: end; ">Ruby</text><text dy=".35em" transform="translate(-225,-173.51938072596312)" style="text-anchor: end; ">Autoconf</text><text dy=".35em" transform="translate(-225,-185.60727525543822)" style="text-anchor: end; ">Python</text><text></text><text></text><text></text><text></text><text></text><text></text></g><g class="lines"><polyline class="line Javascript" points="95.32853554378661,-95.59011617880276,142.99280331567994,-143.38517426820414,213.75,-143.38517426820414"></polyline><polyline class="line C" points="97.31052229725687,93.57169577513851,145.9657834458853,140.35754366270777,213.75,140.35754366270777"></polyline><polyline class="line Cplusplus" points="-73.57797043048521,113.18693505582101,-110.36695564572781,169.78040258373153,-213.75,169.78040258373153"></polyline><polyline class="line Java" points="-134.81479733250688,-7.068975894363722,-202.22219599876033,-10.603463841545583,-213.75,-10.603463841545583"></polyline><polyline class="line PHP" points="-113.15134172929312,-73.63269562402782,-169.7270125939397,-110.44904343604173,-213.75,-110.44904343604173"></polyline><polyline class="line XML_Schema" points="-99.33824028491864,-91.41615840263563,-149.00736042737796,-137.12423760395345,-213.75,-137.12423760395345"></polyline><polyline class="line Ruby" points="-84.87648955513214,-104.98086264075727,-127.31473433269821,-157.4712939611359,-213.75,-157.4712939611359"></polyline><polyline class="line Autoconf" points="-69.59334103674722,-115.67958715064208,-104.39001155512084,-173.51938072596312,-213.75,-173.51938072596312"></polyline><polyline class="line Python" points="-53.980199547825926,-123.73818350362549,-80.97029932173888,-185.60727525543822,-213.75,-185.60727525543822"></polyline><polyline></polyline><polyline></polyline><polyline></polyline><polyline></polyline><polyline></polyline><polyline></polyline></g></g></svg>

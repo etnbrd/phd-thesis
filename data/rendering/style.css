@@ -46,6 +46,21 @@ li:before {
   stroke-width: 2pt;
 }
 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+
 li.Javascript:before        {color: #F0253D}
 li.C:before                 {color: #266B85}
 li.Cplusplus:before         {color: #3CADD7}
@@ -63,24 +78,42 @@ li.Make:before              {color: #9F3A2C}
 li.Perl:before              {color: #1B2735}
 li.VisualBasicNET:before    {color: #43AE88}
 
-.ct-slice-donut.Javascript,     .ct-line.Javascript       {stroke: #F0253D}
-.ct-slice-donut.C,              .ct-line.C                {stroke: #266B85}
-.ct-slice-donut.Cplusplus,      .ct-line.Cplusplus        {stroke: #3CADD7}
-.ct-slice-donut.Java,           .ct-line.Java             {stroke: #AFC4DB}
-.ct-slice-donut.PHP,            .ct-line.PHP              {stroke: #8996A8}
-.ct-slice-donut.XML_Schema,     .ct-line.XML_Schema       {stroke: #F57542}
-.ct-slice-donut.Ruby,           .ct-line.Ruby             {stroke: #D7503C}
-.ct-slice-donut.Autoconf,       .ct-line.Autoconf         {stroke: #BD4230}
-.ct-slice-donut.Python,         .ct-line.Python           {stroke: #5EEBB8}
-.ct-slice-donut.Csharp,         .ct-line.Csharp           {stroke: #4ABE95}
-.ct-slice-donut.Assembler,      .ct-line.Assembler        {stroke: #DDB700}
-.ct-slice-donut.Shell,          .ct-line.Shell            {stroke: #F7F09D}
-.ct-slice-donut.SQL,            .ct-line.SQL              {stroke: #F3FFB5}
-.ct-slice-donut.Make,           .ct-line.Make             {stroke: #9F3A2C}
-.ct-slice-donut.Perl,           .ct-line.Perl             {stroke: #1B2735}
-.ct-slice-donut.VisualBasicNET, .ct-linebefore            {stroke: #43AE88}
+.slice.Javascript           {fill: #F0253D}
+.slice.C                    {fill: #266B85}
+.slice.Cplusplus            {fill: #3CADD7}
+.slice.Java                 {fill: #AFC4DB}
+.slice.PHP                  {fill: #8996A8}
+.slice.XML_Schema           {fill: #F57542}
+.slice.Ruby                 {fill: #D7503C}
+.slice.Autoconf             {fill: #BD4230}
+.slice.Python               {fill: #5EEBB8}
+.slice.Csharp               {fill: #4ABE95}
+.slice.Assembler            {fill: #DDB700}
+.slice.Shell                {fill: #F7F09D}
+.slice.SQL                  {fill: #F3FFB5}
+.slice.Make                 {fill: #9F3A2C}
+.slice.Perl                 {fill: #1B2735}
+.slice.VisualBasicNET       {fill: #43AE88}
 
+.line                       {stroke-width: 2pt}
 
+.line.Javascript,
+.line.JavaScript            {stroke: #F0253D}
+.line.C                     {stroke: #266B85}
+.line.Cplusplus             {stroke: #3CADD7}
+.line.Java                  {stroke: #AFC4DB}
+.line.PHP                   {stroke: #8996A8}
+.line.XML_Schema            {stroke: #F57542}
+.line.Ruby                  {stroke: #D7503C}
+.line.Autoconf              {stroke: #BD4230}
+.line.Python                {stroke: #5EEBB8}
+.line.Csharp                {stroke: #4ABE95}
+.line.Assembler             {stroke: #DDB700}
+.line.Shell                 {stroke: #F7F09D}
+.line.SQL                   {stroke: #F3FFB5}
+.line.Make                  {stroke: #9F3A2C}
+.line.Perl                  {stroke: #1B2735}
+.line.VisualBasicNET        {stroke: #43AE88}
 
 li.Bower:before        {color: #B0253D}
 li.Clojars:before      {color: black}
@@ -101,24 +134,26 @@ li.Pear:before         {color: #8996B8}
 li.PyPI:before         {color: #5EEBB8}
 li.Rubygems:before     {color: #D7503C}
 
-.ct-line.Bower        {stroke: #B0253D}
-.ct-line.Clojars      {stroke: black}
-.ct-line.CPAN         {stroke: black}
-.ct-line.CPANsearch   {stroke: black}
-.ct-line.CRAN         {stroke: black}
-.ct-line.Crates       {stroke: black}
-.ct-line.GoDoc        {stroke: black}
-.ct-line.Hackage      {stroke: black}
-.ct-line.Hex          {stroke: black}
-.ct-line.LuaRocks     {stroke: black}
-.ct-line.Maven        {stroke: #AFC4DB}
-.ct-line.MELPA        {stroke: black}
-.ct-line.npm          {stroke: #F0253D}
-.ct-line.nuget        {stroke: #4ABE95}
-.ct-line.Packagist    {stroke: #8996A8}
-.ct-line.Pear         {stroke: #8996B8}
-.ct-line.PyPI         {stroke: #5EEBB8}
-.ct-line.Rubygems     {stroke: #D7503C}
+.line.Bower_JS                {stroke: #B0253D}
+.line.Clojars_Closure         {stroke: black}
+.line.CPAN                    {stroke: black}
+.line.CPAN_search             {stroke: black}
+.line.CRAN_R.io               {stroke: black}
+.line.Cratesio_Rust           {stroke: black}
+.line.Drupal_php              {stroke: black}
+.line.GoDoc_Go                {stroke: black}
+.line.Hackage_Haskell         {stroke: black}
+.line.Hexpm_ElixirErlang      {stroke: black}
+.line.LuaRocks_Lua            {stroke: black}
+.line.Maven_Central_Java      {stroke: #AFC4DB}
+.line.MELPA_Emacs             {stroke: black}
+.line.npm_nodejs              {stroke: #F0253D}
+.line.nuget_NET               {stroke: #4ABE95}
+.line.Packagist_PHP           {stroke: #8996A8}
+.line.Pear_PHP                {stroke: #8996B8}
+.line.Perl_6_Ecosystem_perl_6 {stroke: #8996B8}
+.line.PyPI                    {stroke: #5EEBB8}
+.line.Rubygemsorg             {stroke: #D7503C}
 
 // #0E151B - Black
 // #D7503C - Red
