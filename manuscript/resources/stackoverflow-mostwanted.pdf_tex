@@ -48,7 +48,7 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.48589348)%
+  \begin{picture}(1,0.48591226)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{stackoverflow-mostwanted.pdf}}%
     \put(0.81890681,0.45138771){\makebox(0,0)[lb]{\smash{Android ( 17.7%)}}}%
     \put(0.81890681,0.29493458){\makebox(0,0)[lb]{\smash{Javascript ( 15.4%)}}}%
@@ -59,7 +59,7 @@
     \put(0.28987685,0.24166818){\makebox(0,0)[rb]{\smash{iOS ( 9.4%)}}}%
     \put(0.28987685,0.34914512){\makebox(0,0)[rb]{\smash{Arduino / Raspberry Pi ( 8.5%)}}}%
     \put(0.28987685,0.42916516){\makebox(0,0)[rb]{\smash{Swift ( 8.5%)}}}%
-    \put(0.28987685,0.47129631){\makebox(0,0)[rb]{\smash{C# ( 8.0%)}}}%
+    \put(0.28987685,0.47129631){\makebox(0,0)[rb]{\smash{C sharp ( 8.0%)}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{stackoverflow-mostwanted.pdf}}%
   \end{picture}%
 \endgroup%

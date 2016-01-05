@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{722.02468691bp}%
+    \setlength{\unitlength}{791.2078125bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,46 +48,46 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.51325898)%
+  \begin{picture}(1,0.39935897)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{modulecounts.pdf}}%
-    \put(0.23812054,0.00018827){\makebox(0,0)[b]{\smash{2011}}}%
+    \put(0.20632807,0.00017181){\makebox(0,0)[b]{\smash{2011}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{modulecounts.pdf}}%
-    \put(0.38719723,0.00018827){\makebox(0,0)[b]{\smash{2012}}}%
+    \put(0.32841654,0.00017181){\makebox(0,0)[b]{\smash{2012}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{modulecounts.pdf}}%
-    \put(0.53668235,0.00018827){\makebox(0,0)[b]{\smash{2013}}}%
+    \put(0.45083951,0.00017181){\makebox(0,0)[b]{\smash{2013}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{modulecounts.pdf}}%
-    \put(0.68575905,0.00018827){\makebox(0,0)[b]{\smash{2014}}}%
+    \put(0.57292798,0.00017181){\makebox(0,0)[b]{\smash{2014}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{modulecounts.pdf}}%
-    \put(0.83483574,0.00018827){\makebox(0,0)[b]{\smash{2015}}}%
+    \put(0.69501645,0.00017181){\makebox(0,0)[b]{\smash{2015}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{modulecounts.pdf}}%
-    \put(0.98391243,0.00018827){\makebox(0,0)[b]{\smash{2016}}}%
+    \put(0.81710492,0.00017181){\makebox(0,0)[b]{\smash{2016}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{modulecounts.pdf}}%
-    \put(0.11092938,0.01016023){\makebox(0,0)[rb]{\smash{0}}}%
+    \put(0.10122973,0.0406163){\makebox(0,0)[rb]{\smash{0}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{modulecounts.pdf}}%
-    \put(0.11092938,0.05499938){\makebox(0,0)[rb]{\smash{20,000}}}%
+    \put(0.10122973,0.1201799){\makebox(0,0)[rb]{\smash{50,000}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=9]{modulecounts.pdf}}%
-    \put(0.11092938,0.09983853){\makebox(0,0)[rb]{\smash{40,000}}}%
+    \put(0.10122973,0.1997435){\makebox(0,0)[rb]{\smash{100,000}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=10]{modulecounts.pdf}}%
-    \put(0.11092938,0.14467768){\makebox(0,0)[rb]{\smash{60,000}}}%
+    \put(0.10122973,0.27930709){\makebox(0,0)[rb]{\smash{150,000}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=11]{modulecounts.pdf}}%
-    \put(0.11092938,0.18951684){\makebox(0,0)[rb]{\smash{80,000}}}%
+    \put(0.10122973,0.35887069){\makebox(0,0)[rb]{\smash{200,000}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=12]{modulecounts.pdf}}%
-    \put(0.11092938,0.23435599){\makebox(0,0)[rb]{\smash{100,000}}}%
+    \put(0.0092185,0.21756097){\rotatebox{90}{\makebox(0,0)[b]{\smash{Modules}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=13]{modulecounts.pdf}}%
-    \put(0.11092938,0.27919514){\makebox(0,0)[rb]{\smash{120,000}}}%
+    \put(0.87371957,0.38186673){\makebox(0,0)[lb]{\smash{CPAN (Perl)}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=14]{modulecounts.pdf}}%
-    \put(0.11092938,0.32403429){\makebox(0,0)[rb]{\smash{140,000}}}%
+    \put(0.87371957,0.34142223){\makebox(0,0)[lb]{\smash{GoDoc (Go)}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=15]{modulecounts.pdf}}%
-    \put(0.11092938,0.36887344){\makebox(0,0)[rb]{\smash{160,000}}}%
+    \put(0.87371957,0.30097774){\makebox(0,0)[lb]{\smash{Maven Central (Java)}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=16]{modulecounts.pdf}}%
-    \put(0.11092938,0.41371259){\makebox(0,0)[rb]{\smash{180,000}}}%
+    \put(0.87371957,0.26053324){\makebox(0,0)[lb]{\smash{nuget (.NET)}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=17]{modulecounts.pdf}}%
-    \put(0.11092938,0.45855174){\makebox(0,0)[rb]{\smash{200,000}}}%
+    \put(0.87371957,0.22008875){\makebox(0,0)[lb]{\smash{Packagist (PHP)}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=18]{modulecounts.pdf}}%
-    \put(0.11092938,0.50339089){\makebox(0,0)[rb]{\smash{220,000}}}%
+    \put(0.87371957,0.17964425){\makebox(0,0)[lb]{\smash{PyPI (Python)}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=19]{modulecounts.pdf}}%
-    \put(0.12754931,0.50875814){\rotatebox{90}{\makebox(0,0)[rb]{\smash{count}}}}%
-    \put(0.0101018,0.25945919){\rotatebox{90}{\makebox(0,0)[b]{\smash{Modules}}}}%
+    \put(0.87371957,0.13919976){\makebox(0,0)[lb]{\smash{Rubygems.org}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=20]{modulecounts.pdf}}%
+    \put(0.87371957,0.09875527){\makebox(0,0)[lb]{\smash{npm (node.js)}}}%
   \end{picture}%
 \endgroup%

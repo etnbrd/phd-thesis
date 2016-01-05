@@ -4,47 +4,47 @@ html, body {
   margin: auto;
 }
 
-.container {
-  width: 40%;
-  display: inline-block;
-}
+// .container {
+//   width: 40%;
+//   display: inline-block;
+// }
 
-.eighty {
-  width: 80%;
-  display: inline-block;
-}
+// .eighty {
+//   width: 80%;
+//   display: inline-block;
+// }
 
-ul {
-  width: 15%;
-  display: inline-block;
-}
+// ul {
+//   width: 15%;
+//   display: inline-block;
+// }
 
-li {
-  list-style: none;
-  margin: -3em -1em 0 0;
-  font-size: 0.7em;
-}
+// li {
+//   list-style: none;
+//   margin: -3em -1em 0 0;
+//   font-size: 0.7em;
+// }
 
-li:before {
-  content: "•";
-  font-size: 4em;
-  position: relative;
-  top: 0.3em;
-}
+// li:before {
+//   content: "•";
+//   font-size: 4em;
+//   position: relative;
+//   top: 0.3em;
+// }
 
-.ct-label, body {
-  font-family: Serif;
-  color: black;
-  fill: black;
-}
+// .ct-label, body {
+//   font-family: Serif;
+//   color: black;
+//   fill: black;
+// }
 
-.ct-line {
-  stroke-width: 0.8pt;
-}
+// .ct-line {
+//   stroke-width: 0.8pt;
+// }
 
-.ct-line.Javascript, .ct-line.npm {
-  stroke-width: 2pt;
-}
+// .ct-line.Javascript, .ct-line.npm {
+//   stroke-width: 2pt;
+// }
 
 .axis path,
 .axis line {
@@ -60,6 +60,25 @@ li:before {
 .grid path {
       stroke-width: 0;
 }
+
+
+circle.Javascript        {fill: #F0253D}
+circle.C                 {fill: #266B85}
+circle.Cplusplus         {fill: #3CADD7}
+circle.Java              {fill: #AFC4DB}
+circle.PHP               {fill: #8996A8}
+circle.XML_Schema        {fill: #F57542}
+circle.Ruby              {fill: #D7503C}
+circle.Autoconf          {fill: #BD4230}
+circle.Python            {fill: #5EEBB8}
+circle.Csharp            {fill: #4ABE95}
+circle.Assembler         {fill: #DDB700}
+circle.Shell             {fill: #F7F09D}
+circle.SQL               {fill: #F3FFB5}
+circle.Make              {fill: #9F3A2C}
+circle.Perl              {fill: #1B2735}
+circle.VisualBasicNET    {fill: #43AE88}
+
 
 li.Javascript:before        {color: #F0253D}
 li.C:before                 {color: #266B85}

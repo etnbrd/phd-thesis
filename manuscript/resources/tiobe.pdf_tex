@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{711.97440562bp}%
+    \setlength{\unitlength}{773.409375bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,52 +48,54 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.51655669)%
+  \begin{picture}(1,0.4085494)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{tiobe.pdf}}%
-    \put(0.15282133,0.00019093){\makebox(0,0)[b]{\smash{2002}}}%
+    \put(0.13779031,0.00017576){\makebox(0,0)[b]{\smash{2002}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{tiobe.pdf}}%
-    \put(0.27365103,0.00019093){\makebox(0,0)[b]{\smash{2004}}}%
+    \put(0.23761365,0.00017576){\makebox(0,0)[b]{\smash{2004}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{tiobe.pdf}}%
-    \put(0.39464624,0.00019093){\makebox(0,0)[b]{\smash{2006}}}%
+    \put(0.33757372,0.00017576){\makebox(0,0)[b]{\smash{2006}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{tiobe.pdf}}%
-    \put(0.51547594,0.00019093){\makebox(0,0)[b]{\smash{2008}}}%
+    \put(0.43739706,0.00017576){\makebox(0,0)[b]{\smash{2008}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{tiobe.pdf}}%
-    \put(0.63647116,0.00019093){\makebox(0,0)[b]{\smash{2010}}}%
+    \put(0.53735714,0.00017576){\makebox(0,0)[b]{\smash{2010}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{tiobe.pdf}}%
-    \put(0.75730086,0.00019093){\makebox(0,0)[b]{\smash{2012}}}%
+    \put(0.63718047,0.00017576){\makebox(0,0)[b]{\smash{2012}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{tiobe.pdf}}%
-    \put(0.87829607,0.00019093){\makebox(0,0)[b]{\smash{2014}}}%
+    \put(0.73714055,0.00017576){\makebox(0,0)[b]{\smash{2014}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{tiobe.pdf}}%
-    \put(0.11208049,0.01030365){\makebox(0,0)[rb]{\smash{0}}}%
+    \put(0.10317749,0.04155101){\makebox(0,0)[rb]{\smash{0}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=9]{tiobe.pdf}}%
-    \put(0.11208049,0.0484764){\makebox(0,0)[rb]{\smash{2}}}%
+    \put(0.10317749,0.10987982){\makebox(0,0)[rb]{\smash{5}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=10]{tiobe.pdf}}%
-    \put(0.11208049,0.08664914){\makebox(0,0)[rb]{\smash{4}}}%
+    \put(0.10317749,0.17820863){\makebox(0,0)[rb]{\smash{10}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=11]{tiobe.pdf}}%
-    \put(0.11208049,0.12482188){\makebox(0,0)[rb]{\smash{6}}}%
+    \put(0.10317749,0.24653744){\makebox(0,0)[rb]{\smash{15}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=12]{tiobe.pdf}}%
-    \put(0.11208049,0.16299463){\makebox(0,0)[rb]{\smash{8}}}%
+    \put(0.10317749,0.31486625){\makebox(0,0)[rb]{\smash{20}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=13]{tiobe.pdf}}%
-    \put(0.11208049,0.20116737){\makebox(0,0)[rb]{\smash{10}}}%
+    \put(0.10317749,0.38319506){\makebox(0,0)[rb]{\smash{25}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=14]{tiobe.pdf}}%
-    \put(0.11208049,0.23934011){\makebox(0,0)[rb]{\smash{12}}}%
+    \put(0.00904881,0.22256769){\rotatebox{90}{\makebox(0,0)[b]{\smash{Percentages}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=15]{tiobe.pdf}}%
-    \put(0.11208049,0.27751285){\makebox(0,0)[rb]{\smash{14}}}%
+    \put(0.89344461,0.39065461){\makebox(0,0)[lb]{\smash{Java}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=16]{tiobe.pdf}}%
-    \put(0.11208049,0.3156856){\makebox(0,0)[rb]{\smash{16}}}%
+    \put(0.89344461,0.34927937){\makebox(0,0)[lb]{\smash{C}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=17]{tiobe.pdf}}%
-    \put(0.11208049,0.35385834){\makebox(0,0)[rb]{\smash{18}}}%
+    \put(0.89344461,0.30790413){\makebox(0,0)[lb]{\smash{C++}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=18]{tiobe.pdf}}%
-    \put(0.11208049,0.39203108){\makebox(0,0)[rb]{\smash{20}}}%
+    \put(0.89344461,0.26652888){\makebox(0,0)[lb]{\smash{C sharp}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=19]{tiobe.pdf}}%
-    \put(0.11208049,0.43020383){\makebox(0,0)[rb]{\smash{22}}}%
+    \put(0.89344461,0.22515364){\makebox(0,0)[lb]{\smash{Python}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=20]{tiobe.pdf}}%
-    \put(0.11208049,0.46837657){\makebox(0,0)[rb]{\smash{24}}}%
+    \put(0.89344461,0.1837784){\makebox(0,0)[lb]{\smash{PHP}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=21]{tiobe.pdf}}%
-    \put(0.11208049,0.50654931){\makebox(0,0)[rb]{\smash{26}}}%
+    \put(0.89344461,0.14240316){\makebox(0,0)[lb]{\smash{Visual Basic .NET}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=22]{tiobe.pdf}}%
-    \put(0.12893502,0.51593981){\rotatebox{90}{\makebox(0,0)[rb]{\smash{count}}}}%
-    \put(0.00982962,0.26312173){\rotatebox{90}{\makebox(0,0)[b]{\smash{Percentages}}}}%
+    \put(0.89344461,0.10102792){\makebox(0,0)[lb]{\smash{Assembler}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=23]{tiobe.pdf}}%
+    \put(0.89344461,0.05965267){\makebox(0,0)[lb]{\smash{Ruby}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{tiobe.pdf}}%
+    \put(0.89344461,0.01827743){\makebox(0,0)[lb]{\smash{Javascript}}}%
   \end{picture}%
 \endgroup%

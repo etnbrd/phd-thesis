@@ -61,7 +61,7 @@
     \put(0.24829947,0.5463087){\makebox(0,0)[rb]{\smash{Ruby ( 1.72%)}}}%
     \put(0.24829947,0.58387813){\makebox(0,0)[rb]{\smash{Assembler ( 1.67%)}}}%
     \put(0.24829947,0.62144756){\makebox(0,0)[rb]{\smash{Perl ( 1.33%)}}}%
-    \put(0.24829947,0.659017){\makebox(0,0)[rb]{\smash{C# ( 1.03%)}}}%
+    \put(0.24829947,0.659017){\makebox(0,0)[rb]{\smash{C sharp ( 1.03%)}}}%
     \put(0.24829947,0.69658643){\makebox(0,0)[rb]{\smash{XML Schema ( 0.98%)}}}%
     \put(0.24829947,0.73415587){\makebox(0,0)[rb]{\smash{SQL ( 0.85%)}}}%
     \put(0.24829947,0.7717253){\makebox(0,0)[rb]{\smash{Make ( 0.75%)}}}%

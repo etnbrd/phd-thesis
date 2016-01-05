@@ -59,7 +59,7 @@
     \put(0.22681024,0.42753216){\makebox(0,0)[rb]{\smash{Ruby ( 2.19%)}}}%
     \put(0.22681024,0.46185013){\makebox(0,0)[rb]{\smash{Autoconf ( 2.10%)}}}%
     \put(0.22681024,0.49616809){\makebox(0,0)[rb]{\smash{Python ( 1.94%)}}}%
-    \put(0.22681024,0.53048606){\makebox(0,0)[rb]{\smash{C# ( 1.22%)}}}%
+    \put(0.22681024,0.53048606){\makebox(0,0)[rb]{\smash{C sharp ( 1.22%)}}}%
     \put(0.22681024,0.56480402){\makebox(0,0)[rb]{\smash{Assembler ( 1.04%)}}}%
     \put(0.22681024,0.59912198){\makebox(0,0)[rb]{\smash{Shell ( 0.88%)}}}%
     \put(0.22681024,0.63343995){\makebox(0,0)[rb]{\smash{SQL ( 0.80%)}}}%
