@@ -115,7 +115,13 @@ The simultaneous release of HTML5, ECMAScript 5 and V8, around 2009, represent a
 % Around the same time, Google released the Javascript interpreter V8 for its browser Chrome, improving drastically the execution performance.
 Javascript became the \textit{de facto} programming language to develop on this rising application platform that is the Web\ftnt{http://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/}.
 
-\nt{Frise chronologique Javascript}
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{../resources/javascript-timeline.pdf}
+  \label{fig:js-timeline}
+  \caption{Javascript timeline}
+\end{figure}
+
 
 \paragraph{}
 
@@ -124,13 +130,6 @@ With the increasing importance of client web applications, Javascript is assured
 Especially that Javascript now allows to build the server side of web applications as well.
 % The next paragraphs present the event-loop model used to develop Javascript web applications, both client and server-side.
 The next section presents the realities and technical challenges to assure the performance of web applications against billions of users.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{../resources/javascript-timeline.pdf}
-  \label{fig:js-timeline}
-  \caption{Javascript timeline}
-\end{figure}
 
 % \subsubsection{Event-Loop Execution Model} \label{chapter2:web-as-a-platform:javascript:event-loop}
 
@@ -215,7 +214,12 @@ This event-based paradigm proved to be very efficient as well for a web applicat
 In 2009, Joyent released Node.js to build real-time web applications with this paradigm.
 % This section presents the event-loop execution model, and the advantages of Javascript for this paradigm.
 
-\nt{TODO schema of an event-loop}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\linewidth]{../resources/event-loop.pdf}
+  \label{fig:event-loop}
+  \caption{Event-loop}
+\end{figure}
 
 At reception, each request from a client queues an event waiting to be processed.
 The event-loop unqueues these events one at a time.
@@ -268,7 +272,12 @@ It is well suited for streaming application, as the stream of data flows from st
 Each stage has an independent memory to hold its own state.
 As the stages are independent, the state coordination between the stages are communicated along with the stream of data.
 
-\nt{TODO schema of a pipeline}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{../resources/pipeline.pdf}
+  \label{fig:pipeline}
+  \caption{Pipeline}
+\end{figure}
 
 Each stage is organized in a similar fashion than the event-loop presented in section \ref{chapter2:web-as-a-platform:javascript:event-loop}.
 It receives and queues messages from upstream stages, processes them one after the other, and outputs the result to downstream stages.
