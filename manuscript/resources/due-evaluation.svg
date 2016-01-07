@@ -1,0 +1,108 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="560" height="560" class="chart" filename="due-evaluation.svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"><![CDATA[
+html, body  { width: 1000px; height: 100%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; }
+text { font-family: Helvetica; color: blue; }
+.axis path, .axis line { fill: none; stroke: #000000; shape-rendering: crispedges; }
+.grid .tick { stroke: #d3d3d3; opacity: 0.7; }
+.grid path { stroke-width: 0px; }
+.line { stroke-width: 1.5pt; fill: rgba(0, 0, 0, 0.0); }
+.label.Javascript, .slice.Javascript { fill: #e31a1c; }
+.line.Javascript { stroke: #e31a1c; }
+.label.Ruby, .slice.Ruby { fill: #fc4e2a; }
+.line.Ruby { stroke: #fc4e2a; }
+.label.Python, .slice.Python { fill: #fd8d3c; }
+.line.Python { stroke: #fd8d3c; }
+.label.Csharp, .slice.Csharp { fill: #bd0026; }
+.line.Csharp { stroke: #bd0026; }
+.label.PHP, .slice.PHP { fill: #78c679; }
+.line.PHP { stroke: #78c679; }
+.label.XML_Schema, .slice.XML_Schema { fill: #41ab5d; }
+.line.XML_Schema { stroke: #41ab5d; }
+.label.SQL, .slice.SQL { fill: #238443; }
+.line.SQL { stroke: #238443; }
+.label.Perl, .slice.Perl { fill: #006837; }
+.line.Perl { stroke: #006837; }
+.label.C, .slice.C { fill: #41b6c4; }
+.line.C { stroke: #41b6c4; }
+.label.Cplusplus, .slice.Cplusplus { fill: #1d91c0; }
+.line.Cplusplus { stroke: #1d91c0; }
+.label.Java, .slice.Java { fill: #225ea8; }
+.line.Java { stroke: #225ea8; }
+.label.VisualBasicNET, .slice.VisualBasicNET { fill: #253494; }
+.line.VisualBasicNET { stroke: #253494; }
+.label.Autoconf, .slice.Autoconf { fill: #f768a1; }
+.line.Autoconf { stroke: #f768a1; }
+.label.Assembler, .slice.Assembler { fill: #dd3497; }
+.line.Assembler { stroke: #dd3497; }
+.label.Shell, .slice.Shell { fill: #ae017e; }
+.line.Shell { stroke: #ae017e; }
+.label.Make, .slice.Make { fill: #7a0177; }
+.line.Make { stroke: #7a0177; }
+.label.Swift, .slice.Swift { fill: #addd8e; }
+.line.Swift { stroke: #addd8e; }
+.label.ObjectiveC, .slice.ObjectiveC, .label.iOS, .slice.iOS { fill: #78c679; }
+.line.ObjectiveC, .line.iOS { stroke: #78c679; }
+.label.CSS, .slice.CSS { fill: #41ab5d; }
+.line.CSS { stroke: #41ab5d; }
+.slice.Arduino__Raspberry_Pi { fill: #7fcdbb; }
+.line.Arduino__Raspberry_Pi { stroke: #7fcdbb; }
+.slice.Android { fill: #41b6c4; }
+.line.Android { stroke: #41b6c4; }
+.label.AngularJS, .slice.AngularJS { fill: #feb24c; }
+.line.AngularJS { stroke: #feb24c; }
+.label.Nodejs, .slice.Nodejs { fill: #fd8d3c; }
+.line.Nodejs { stroke: #fd8d3c; }
+.label.Bower { fill: #bd0026; }
+.line.Bower { stroke: #bd0026; }
+.label.npm { fill: #e31a1c; }
+.line.npm { stroke: #e31a1c; }
+.label.PyPI { fill: #fd8d3c; }
+.line.PyPI { stroke: #fd8d3c; }
+.label.Rubygems { fill: #fc4e2a; }
+.line.Rubygems { stroke: #fc4e2a; }
+.label.Clojars { fill: #000000; }
+.line.Clojars { stroke: #000000; }
+.label.Hackage { fill: #000000; }
+.line.Hackage { stroke: #000000; }
+.label.Hex { fill: #000000; }
+.line.Hex { stroke: #000000; }
+.label.LuaRocks { fill: #000000; }
+.line.LuaRocks { stroke: #000000; }
+.label.CPAN { fill: #41ab5d; }
+.line.CPAN { stroke: #41ab5d; }
+.label.CPAN_search { fill: #000000; }
+.line.CPAN_search { stroke: #000000; }
+.label.CRAN { fill: #000000; }
+.line.CRAN { stroke: #000000; }
+.label.Perl { fill: #006837; }
+.line.Perl { stroke: #006837; }
+.label.Drupal { fill: #000000; }
+.line.Drupal { stroke: #000000; }
+.label.Packagist { fill: #dd3497; }
+.line.Packagist { stroke: #dd3497; }
+.label.Pear { fill: #8996b8; }
+.line.Pear { stroke: #8996b8; }
+.label.MELPA { fill: #000000; }
+.line.MELPA { stroke: #000000; }
+.label.Crates { fill: #000000; }
+.line.Crates { stroke: #000000; }
+.label.GoDoc { fill: #41b6c4; }
+.line.GoDoc { stroke: #41b6c4; }
+.label.Maven { fill: #225ea8; }
+.line.Maven { stroke: #225ea8; }
+.label.nugets { fill: #253494; }
+.line.nugets { stroke: #253494; }
+.slice.nocont { fill: #feb24c; }
+.line.nocont { stroke: #feb24c; }
+.slice.eval { fill: #fd8d3c; }
+.line.eval { stroke: #fd8d3c; }
+.slice.lib { fill: #fc4e2a; }
+.line.lib { stroke: #fc4e2a; }
+.slice.err { fill: #e31a1c; }
+.line.err { stroke: #e31a1c; }
+.slice.fail { fill: #bd0026; }
+.line.fail { stroke: #bd0026; }
+.slice.notest { fill: #800026; }
+.line.notest { stroke: #800026; }
+.slice.ok { fill: #7fcdbb; }
+.line.ok { stroke: #7fcdbb; }
+svg { overflow-x: visible; overflow-y: visible; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-style: dotted; border-right-style: dotted; border-bottom-style: dotted; border-left-style: dotted; border-top-color: black; border-right-color: black; border-bottom-color: black; border-left-color: black; }]]></style></defs><g transform="translate(280,280)"><g class="slices"><path class="slice nocont" d="M4.2862637970157365e-15,-70A70,70 0 0,1 20.37253167797902,66.96984360911814L14.668222808144893,48.21828739856506A50.4,50.4 0 0,0 3.08610993385133e-15,-50.4Z"></path><path class="slice eval" d="M20.37253167797902,66.96984360911814A70,70 0 0,1 -44.27991133391871,54.215214213911366L-31.88153616042147,39.03495423401618A50.4,50.4 0 0,0 14.668222808144893,48.21828739856506Z"></path><path class="slice lib" d="M-44.27991133391871,54.215214213911366A70,70 0 0,1 -64.58709179090803,26.99087945941778L-46.50270608945378,19.4334332107808A50.4,50.4 0 0,0 -31.88153616042147,39.03495423401618Z"></path><path class="slice err" d="M-64.58709179090803,26.99087945941778A70,70 0 0,1 -70,8.572527594031473e-15L-50.4,6.17221986770266e-15A50.4,50.4 0 0,0 -46.50270608945378,19.4334332107808Z"></path><path class="slice fail" d="M-70,8.572527594031473e-15A70,70 0 0,1 -64.58709179090803,-26.990879459417766L-46.50270608945378,-19.43343321078079A50.4,50.4 0 0,0 -50.4,6.17221986770266e-15Z"></path><path class="slice notest" d="M-64.58709179090803,-26.990879459417766A70,70 0 0,1 -53.935926994305234,-44.6196792824083L-38.83386743589977,-32.12616908333397A50.4,50.4 0 0,0 -46.50270608945378,-19.43343321078079Z"></path><path class="slice ok" d="M-53.935926994305234,-44.6196792824083A70,70 0 0,1 4.9313697987961557e-14,-70L3.5505862551332317e-14,-50.4A50.4,50.4 0 0,0 -38.83386743589977,-32.12616908333397Z"></path></g><g class="labels"><text dy=".35em" transform="translate(84,-11.534122688149164)" style="font-family: cmr10; text-anchor: start; ">No Detected Continuations (45.3%)</text><text dy=".35em" transform="translate(-84,76.9174965675574)" style="font-family: cmr10; text-anchor: end; ">Presence of eval or with statements (15.6%)</text><text dy=".35em" transform="translate(-84,46.8757506717095)" style="font-family: cmr10; text-anchor: end; ">Promises Libraries (7.8%)</text><text dy=".35em" transform="translate(-84,15.415846457848952)" style="font-family: cmr10; text-anchor: end; ">Syntax errors (6.3%)</text><text dy=".35em" transform="translate(-84,-15.415846457848932)" style="font-family: cmr10; text-anchor: end; ">Failed to test (6.3%)</text><text dy=".35em" transform="translate(-84,-40.54306962683151)" style="font-family: cmr10; text-anchor: end; ">No test provided (4.7%)</text><text dy=".35em" transform="translate(-84,-70.93844091333595)" style="font-family: cmr10; text-anchor: end; ">Successful compilation (14.0%)</text></g><g class="lines"><polyline fill="none" class="line nocont" points="59.5449525288721,-8.856558492685965,77.54691492132181,-11.534122688149164,78.39999999999999,-11.534122688149164"></polyline><polyline fill="none" class="line eval" points="-11.651677976661803,59.06164915008871,-15.174278295187465,76.9174965675574,-78.39999999999999,76.9174965675574"></polyline><polyline fill="none" class="line lib" points="-48.25433248922676,35.99387998006265,-62.84285161387672,46.8757506717095,-78.39999999999999,46.8757506717095"></polyline><polyline fill="none" class="line err" points="-59.02475292705125,11.837167815848302,-76.86944567243884,15.415846457848952,-78.39999999999999,15.415846457848952"></polyline><polyline fill="none" class="line fail" points="-59.02475292705126,-11.837167815848288,-76.86944567243884,-15.415846457848932,-78.39999999999999,-15.415846457848932"></polyline><polyline fill="none" class="line notest" points="-51.52555731380222,-31.131285606317054,-67.10305138541683,-40.54306962683151,-78.39999999999999,-40.54306962683151"></polyline><polyline fill="none" class="line ok" points="-25.631913352217346,-54.470588558454395,-33.38109645870166,-70.93844091333595,-78.39999999999999,-70.93844091333595"></polyline></g></g></svg>

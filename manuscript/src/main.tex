@@ -1,31 +1,22 @@
 \documentclass[12pt]{report}
 
-% \usepackage{xltxtra}
 \usepackage[french, english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[hidelinks=true]{hyperref}
 \usepackage{geometry}
-\usepackage{textcomp}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{tabu}
-\tabulinestyle{.2pt}
-\tabulinesep=2mm
-
-\usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{svg}
-\usepackage{multirow}
+% \usepackage{svg}
 \usepackage{wrapfig}
-\usepackage{chronosys}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{longtable}
 \usepackage{amsmath}
 \usepackage{backnaur}
-\usepackage{pdfpages}
 \usepackage[normalem]{ulem}
 \usepackage{import}
 \usepackage{lscape}
@@ -44,6 +35,8 @@
 %\def \chron@selectmonth#1 {\ifcase#1\or January\or February\or March\or April\or May\or June\or July\or August\or September\or October\or November\or December\fi}
 \usepgfplotslibrary{external} 
 \tikzexternalize[prefix=figures/]
+\tabulinestyle{.2pt}
+\tabulinesep=2mm
 % \setmainfont{Helvetica Neue}
 
 \setcounter{secnumdepth}{3}
@@ -83,10 +76,9 @@
 \include{02-context/main}
 \include{03-state-of-the-art/main}
 \include{04-proposition/main}
-\include{05-due/main}
-\include{06-flx/main}
-\include{07-future-works/main}
-% \include{90-conclusion/main}
+\include{05-implementation/main}
+\include{06-evaluation/main}
+\include{90-conclusion/main}
 % \include{91-appendix/main}
 
 \printbibliography[]

@@ -30,7 +30,7 @@ Both the pipeline architecture and the event-loop present these rupture points.
 The detection of rupture points allows to map a pipeline architecture onto the implementation following the event-loop model.
 To allow the transformation from one to the other, this thesis studies the possibility to detect rupture points, and to distribute the global memory into the parts defined by these rupture points.
 
-The detection of rupture points is addressed in chapter \ref{chapter5}.
+The detection of rupture points is addressed in sections \ref{chapter5:due:compiler} and \ref{chapter5:flx:compiler}.
 It presents the extraction of a pipeline of concurent tasks from a Javascript application.
 Such pipeline is similar to the one exposed by Promises.
 % The chapter proposes a simpler alternative to the latter called Dues.
@@ -54,7 +54,7 @@ Yet, to preserve the correctness as expressed by the developer, it is important 
 The global memory needs not to be distributed into each of the stages of the pipeline, so that each stage have an exclusive access to its memory.
 
 To assure the missing coordinations assured by the shared memory between the stages, the transformation should provide equivalent coordination with message passing.
-The isolation and replacement of the global memory is addressed in chapter \ref{chapter6}, with the introduction of isolated containers called Fluxions.
+The isolation and replacement of the global memory is addressed in chapter \ref{chapter5:flx:isolation}.
 
 
 

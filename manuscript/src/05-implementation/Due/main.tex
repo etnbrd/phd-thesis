@@ -1,0 +1,134 @@
+\section{Dues} \label{chapter5:due}
+
+% The previous chapter presented globally the state of the art in designing systems to scale in performance, and in maintenance.
+% It refined the scope of this thesis to the study of the opposition between maintenance scalability and performance scalability in streaming web applications.
+% It concluded with the objectives of this thesis, which is to find an equivalence between the two opposed organizations.
+% The maintenance scalability organization, supported by modular programming, higher-order programming and a global memory store.
+% The performance scalability organization, supported by the parallelism of memory and execution distribution.
+This section presents the first step in the transformation from the event-driven execution model to the pipeline architecture, as presented in figure \ref{fig:roadmap}.
+That is to identify and extract a pipeline of execution inside an application following the event-driven execution model.
+% In this work, we focus on Javascript, and specifically on \textit{Node.js} applications.
+%
+% Javascript allows higher-order programming.
+% It allows to manipulate functions like any object.
+% For example to link them to react to asynchronous events, \textit{e.g.} user inputs and remote requests.
+% These asynchronously triggered functions are named callbacks, and allow to efficiently cope with the distributed and inherently asynchronous architecture of the Internet.
+% To execute a suite of asynchronous functions, callbacks are nested one into the other.
+% This nesting, if not organized properly, can result in unreadable layer of callbacks, commonly presented as \textit{callback hell}\ftnt{http://maxogden.github.io/callback-hell/}, or \textit{pyramid of doom}.
+%
+% Promises are another way to organize a suite of asynchronous operations avoiding this callback hell.
+% They organize the operations as a well-defined pipeline.
+% Moreover, Promises provide additional control over the asynchronous execution flow, than callbacks.
+% They are part of the next version of the Javascript language, ECMAScript 6\ftnt{http://people.mozilla.org/~jorendorff/es6-draft.html}.
+% To avoid the equivalence being unnecessarily incomplete, we present an alternative to Promise, called Due.
+% Due organize the operations like Promises, as a well-defined pipeline, while discarding the unnecessary additional control over the asynchronous flow.
+%
+
+It focuses on the identification of the chains of causality in continuations.
+Promises bring more control over the asynchronous flow than the chaining of causal sequentiality.
+But they force another control over the execution flow.
+According to the outcome of the operation, they call one function to continue the execution with the result, or another to handle errors.
+This conditional execution is indivisible from the Promise structure.
+As a result, Promises impose a convention on how to hand back the outcome of the deferred computation, while classic continuations leave this conditional execution to the developer.
+To rule out this differences between continuations and Promises, section \ref{chapter5:due} introduces a simpler specification to Promise, called Due.
+
+This section presents a compiler to identify the pipeline of operating underlying in a Javascript application. % using callbacks, and extract it to express it as Dues.
+The compiler expresses this pipeline as chains of Dues.
+
+Section \ref{chapter5:due:equivalence} explains the transformation from imbrications of continuations to sequences of Dues.
+Section \ref{chapter5:due:compiler} presents a compiler to automate the application of this equivalence.
+And finally, the developed compiler is evaluated in section \ref{chapter5:due:evaluation}.
+This compiler has been tested over 64 \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}).
+55 packages were incompatible with the compiler, 9 packages were compiled with success.
+
+
+% \subsection{From continuations to Promises} \label{seciton:definitions:analysis}
+
+% As detailed in the previous sections, continuations provide the control over the sequentiality of the asynchronous execution flow.
+% Promises improve this control to allow chained compositions, and unify the syntax for the synchronous and asynchronous paradigm.
+% This chained composition brings a greater clarity and expressiveness to source codes.
+% At the light of these insights, it makes sense for a developer to switch from continuations to Promises.
+% However, the refactoring of existing code bases might be an operation impossible to carry manually within reasonable time.
+% We want to automatically transform an imbrication of continuations into a chained composition of Promises.
+
+% We identify two steps in this transformation.
+% The first is to provide an equivalence between a continuation and a Promise.
+% The second is the composition of this equivalence.
+% Both steps are required to transform imbrications of continuations into chains of Promises.
+% to be able to compose this equivalence for imbrications of continuations to obtain chains of Promises.
+
+% Because Promises bring chained composition, the first step might seem trivial as it does not imply any imbrication to transform into chain.
+% However, as explained in section \ref{section:definitions:promise}, Promises impose a control over the execution flow that continuations leave free.
+% This control induces a common convention to hand back the outcome to the continuation.
+
+% In the Javascript landscape, there is no dominant convention for handing back outcomes to continuations.
+% In the browser, many conventions coexist.
+% For example, \textit{jQuery}'s \texttt{ajax}\ftnt{http://api.jquery.com/jquery.ajax/} method expects an object with different continuations for success, errors and various other events during the asynchronous operation.
+% \textit{Q}\ftnt{http://documentup.com/kriskowal/q/}, a popular library to control the asynchronous flow, exposes two methods to define continuations: \texttt{then} for successes, and \texttt{catch} for errors.
+% % The conventions for continuations are very heterogeneous in the browser.
+% On the other hand, the \textit{Node.js} API always used the \textit{error-first} convention, encouraging developers to provide libraries using the same convention.
+% In this large ecosystem the \textit{error-first} convention is predominant.
+% All these examples use different conventions than the Promise specification detailed in section \ref{section:definitions:promise}.
+% They present strong semantic differences, despite small syntactic differences.
+% % Some conventions include the conditional execution over the outcome, while other conventions let developers provide it.
+% % These conventions uses different control-flow.
+
+% To translate these different conventions into the Promises one, the compiler would need to identify them.
+% Such an identification might be possible with static analysis methods such as the points-to analysis~\cite{Wei2014}, or a program logic~\cite{Gardner2013,Bodin2014}.
+% However, it seems impracticable because of the number and semantical heterogeneity of these conventions.
+% Indeed, in the browser, each library seems to provide its own convention.
+
+% In this paper, we are interested in the transformation from imbrications to chains, not from one convention to another.
+% The \textit{error-first} convention, used in \textit{Node.js}, is likely to represent a large, coherent code base to test the equivalence.
+% Indeed contains currently more than 125 000 packages.
+% For this reason, we focus only on the \textit{error-first} convention.
+% Thus, our compiler is only able to compile code that follows this convention.
+% The convention used by Promises is incompatible.
+% We propose an alternative specification to Promise following the \textit{error-first} convention.
+% In the next section we present this specification called Due.
+
+% The choice to focus on \textit{Node.js} is also motivated by our intention to compare later the chained sequentiality of Promises with the data-flow paradigm.
+% \textit{Node.js} allows to manipulate streams of messages.
+% This proved to be efficient for real-time web applications manipulating streams of user requests.
+% Both Promises and data-flow arrange the computation in chains of independent operations.
+% % In section \ref{section:equivalence}, we explain the two steps of the transformation from continuations to Dues.
+
+% Dues are further defined in section \ref{section:definitions}.
+
+% This made Javascript a language of choice to develop both client and, more recently, server applications for the web.
+
+% Callbacks are well-suited for small interactive scripts.
+% But in a complete application, they are ill-suited to control the larger asynchronous execution flow.
+% Their use leads to intricate imbrications of function calls and callbacks, commonly presented as \textit{callback hell}\ftnt{http://maxogden.github.io/callback-hell/}, or \textit{pyramid of doom}.
+% This is widely recognized as a bad practice and reflects the unsuitability of callbacks in complete applications.
+% Eventually, developers enhanced callbacks to meet their needs with the concept of Promise~\cite{Liskov1988}.
+
+% Promises bring a different way to control the asynchronous execution flow, better suited for large applications.
+% They fulfill this task well enough to be part of the next version of the Javascript language, ECMAScript 6\ftnt{http://people.mozilla.org/~jorendorff/es6-draft.html}.
+% However, because Javascript started as a scripting language, beginners are often not introduced to Promises early enough.
+% Most APIs use the classical callback approach encouraging beginner in this practice.
+% Moreover, despite its benefits, the concept of Promise is not yet widely acknowledged.
+% Developers may implement their own library for asynchronous flow control before discovering existing ones.
+% There is such a disparity between the needs for and the adoption of Promises libraries, that there are almost 40 different implementations\ftnt{https://github.com/promises-aplus/promises-spec/blob/master/implementations.md}.
+
+% With the upcoming introduction of Promise as a language feature, we expect an increase of interest, and believe that many developers will shift to this better practice.
+% In this paper, we propose a compiler to automate this shift in existing code bases.
+% We present the transformation from an imbrication of callbacks to a sequence of Promise operations, while preserving the semantic.
+
+% Promises bring a better way to control the asynchronous execution flow, but they also impose a conditional control over the result of the execution.
+% Callbacks, on the other hand, leave this conditional control to the developer.
+% This paper focuses on the transformation from imbrication of callbacks to chain of Promises.
+% To avoid unnecessary modifications on this conditional control, we introduce an alternative to Promises leaving this conditional control to the developer, like callbacks.
+% We call this simpler specification Dues.
+% Our approach enables us to compile legacy Javascript code and brings a first automated step toward full Promises integration.
+% This simple and pragmatic compiler has been tested over 64 \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}), 9 of them with success.
+
+% In section \ref{section:definitions} we define callbacks, Promises and Dues.
+% In section \ref{section:equivalence}, we explain the transformation from imbrications of callbacks to sequences of Dues.
+% In section \ref{section:compiler}, we present a compiler to automate the application of this equivalence.
+% In section \ref{section:evaluation}, we evaluate the developed compiler.
+
+\input{05-implementation/Due/Definition}
+\input{05-implementation/Due/Continuation}
+\input{05-implementation/Due/Compiler}
+\input{05-implementation/Due/Evaluation}

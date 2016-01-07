@@ -2,6 +2,12 @@ html, body {
   width: 1000px;
   height: 100%;
   margin: auto;
+  // font-family: cmr10;
+}
+
+text {
+  font-family: Helvetica;
+  color: blue;
 }
 
 // .container {
@@ -61,7 +67,7 @@ html, body {
       stroke-width: 0;
 }
 
-.line                       {stroke-width: 2pt; fill: transparent}
+.line                       {stroke-width: 1.5pt; fill: transparent}
 
 .label.Javascript, .slice.Javascript                {fill:   #e31a1c}
 .line.Javascript                                    {stroke: #e31a1c}
@@ -99,20 +105,23 @@ html, body {
 .label.Make, .slice.Make                            {fill:   #7a0177}
 .line.Make                                          {stroke: #7a0177}
 
-
-.slice.Swift                                        {fill:   #addd8e}
+.label.Swift, .slice.Swift                          {fill:   #addd8e}
 .line.Swift                                         {stroke: #addd8e}
-.slice.iOS                                          {fill:   #78c679}
+.label.ObjectiveC, .slice.ObjectiveC,
+.label.iOS, .slice.iOS                              {fill:   #78c679}
+.line.ObjectiveC,
 .line.iOS                                           {stroke: #78c679}
+.label.CSS, .slice.CSS                              {fill:   #41ab5d}
+.line.CSS                                           {stroke: #41ab5d}
 
 .slice.Arduino__Raspberry_Pi                        {fill:   #7fcdbb}
 .line.Arduino__Raspberry_Pi                         {stroke: #7fcdbb}
 .slice.Android                                      {fill:   #41b6c4}
 .line.Android                                       {stroke: #41b6c4}
 
-.slice.AngularJS                                    {fill:   #feb24c}
+.label.AngularJS, .slice.AngularJS                  {fill:   #feb24c}
 .line.AngularJS                                     {stroke: #feb24c}
-.slice.Nodejs                                       {fill:   #fd8d3c}
+.label.Nodejs, .slice.Nodejs                        {fill:   #fd8d3c}
 .line.Nodejs                                        {stroke: #fd8d3c}
 
 
@@ -162,6 +171,21 @@ html, body {
 .line.nugets            {stroke: #253494}
 
 
+
+.slice.nocont         {fill:   #feb24c}
+.line.nocont          {stroke: #feb24c}
+.slice.eval           {fill:   #fd8d3c}
+.line.eval            {stroke: #fd8d3c}
+.slice.lib            {fill:   #fc4e2a}
+.line.lib             {stroke: #fc4e2a}
+.slice.err            {fill:   #e31a1c}
+.line.err             {stroke: #e31a1c}
+.slice.fail           {fill:   #bd0026}
+.line.fail            {stroke: #bd0026}
+.slice.notest         {fill:   #800026}
+.line.notest          {stroke: #800026}
+.slice.ok             {fill:   #7fcdbb}
+.line.ok              {stroke: #7fcdbb}
 
 
 // PINKS

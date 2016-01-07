@@ -263,12 +263,10 @@ These languages are still widely used by their communities and in the industry.
 \nt{TODO graphical ranking of TIOBE and PYPL}
 
 \begin{figure}
-    \centering
-    \small
-    \def\svgwidth{0.9\columnwidth}
-    \import{../resources/}{tiobe.pdf_tex}
-    \label{fig:tiobe}
-    \caption{TIOBE ranking}
+  \centering
+  \includegraphics[width=\linewidth]{../resources/tiobe.pdf}
+  \label{fig:tiobe}
+  \caption{TIOBE ranking}
 \end{figure}
 
 \paragraph{Developers Collaboration Platforms}
@@ -286,6 +284,49 @@ Moreover, the Javascript package manager, \textit{npm}, has the most important a
 
 \nt{TODO include so survey graph}
 
+
+\begin{figure}
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../resources/blackduck-alltime.pdf}
+    \label{fig:blackduck-alltime}
+    \caption{Blackduck analysis total}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../resources/blackduck-2015.pdf}
+    \label{fig:blackduck-2015}
+    \caption{Blackduck analysis for 2015}
+  \end{minipage}
+\end{figure}
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\linewidth]{../resources/stackoverflow-mostwanted.pdf}
+  \label{fig:so-tags}
+  \caption{Most Wanted Technologies in 2015}
+\end{figure}
+
+% \begin{figure}[!h]
+%   \begin{floatrow}
+%     \ffigbox{
+%        \includegraphics[width=0.9\linewidth]{../resources/blackduck-alltime.pdf}
+%     }{
+%       \label{fig:blackduck-alltime}
+%       \caption{Blackduck analysis total}
+%     }
+%     \ffigbox{
+%        \includegraphics[width=0.9\linewidth]{../resources/blackduck-2015.pdf}
+%     }{
+%       \label{fig:blackduck-2015}
+%       \caption{Blackduck analysis for 2015}
+%     }
+%   \end{floatrow}
+% \end{figure}
+
 % \begin{figure}
 %     \centering
 %     \def\svgwidth{0.4\columnwidth}
@@ -302,30 +343,32 @@ Moreover, the Javascript package manager, \textit{npm}, has the most important a
 %     \caption{Blackduck analysis for 2015}
 % \end{figure}
 
-\nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../data/js-trends/github-ranks}\ftnt{https://github.com/blog/2047-language-trends-on-github}
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{../resources/github-languages.pdf}
+  \label{fig:github-languages}
+  \caption{Languages Ranks from number of Github projects}
+\end{figure}
+
+% \includegraphics[width=0.9\linewidth]{../../data/js-trends/github-ranks}\ftnt{https://github.com/blog/2047-language-trends-on-github}
 
 \nt{TODO graphical ranking of the tags in StackOverflow}
 
 \begin{figure}
-    \centering
-    \small
-    \def\svgwidth{0.9\columnwidth}
-    \import{../resources/}{stackoverflow-tags.pdf_tex}
-    \label{fig:so-tags}
-    \caption{StackOverflow Tags evolution}
+  \centering
+  \includegraphics[width=\linewidth]{../resources/stackoverflow-tags.pdf}
+  \label{fig:so-tags}
+  \caption{StackOverflow Tags evolution}
 \end{figure}
 
 % \nt{TODO redo this graph, it is ugly.}
 % \includegraphics[width=0.9\linewidth]{../../data/js-trends/black-duck-15}
 
 \begin{figure}
-    \centering
-    \small
-    \def\svgwidth{0.9\columnwidth}
-    \import{../resources/}{modulecounts.pdf_tex}
-    \label{fig:modulecounts}
-    \caption{Module Counts per package manager}    
+  \centering
+  \includegraphics[width=\linewidth]{../resources/modulecounts.pdf}
+  \label{fig:modulecounts}
+  \caption{Module Counts per package manager}    
 \end{figure}
 
 \subsubsection{Industry}
@@ -338,7 +381,7 @@ Moreover, according to \textit{breaz.io}\ftnt{https://breaz.io/}, Javascript dev
 Javascript is increasingly adopted in the software industry.
 
 \nt{TODO redo this graph, it is ugly.}
-\includegraphics[width=0.9\linewidth]{../../data/js-trends/jobgraph}
+% \includegraphics[width=0.9\linewidth]{../../data/js-trends/jobgraph}
 
 \paragraph{}
 

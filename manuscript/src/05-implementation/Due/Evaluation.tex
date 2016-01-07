@@ -1,0 +1,232 @@
+\subsubsection{Evaluation} \label{chapter5:due:evaluation}
+
+A set of Javascript projects likely to contain continuations were compiled to validate the compiler.
+This section presents the results of these tests.
+
+% \subsection{Projects selection}
+
+The compilation of a project requires user interaction.
+To conduct the test in a reasonable time, the test set was limited to a minimum of about \num{50} projects.
+All the projects in the set were selected from the \textit{Node Package Manager} database to restrict the set to \textit{Node.js} projects.
+They all depends on the web framework \textit{express}, but not on the most common Promises libraries such as \textit{Q} and \textit{Async}.
+They use the test frameworks \textit{mocha} in its default configuration.
+These tests are used to validate the compilation results.
+The test set finally contains 64 projects.
+This subset is very small, and cannot represent the wide possibilities of Javascript.
+However, it is sufficient to represents a majority of common cases.
+
+% \subsection{Run the tests}
+
+Each project passes its own tests before compilation.
+During the compilation, the compatible continuations were manually identified among the detected callbacks.
+The compilation result of each project is then tested again with its unmodified test.
+The compilation result should pass the tests as well as the original project.
+This is not a strong validation, but it assures the compiler to work as expected in most common cases.
+
+% \subsection{Results}
+
+Of the 64 projects tested, almost a half, does not contain any compatible continuations.
+These projects might use continuations, but the compiler is unable to detect them.
+The other projects were rejected by the compiler because they contain \texttt{with} or \texttt{eval} statements, they use Promises libraries didn't filtered previously.
+9 projects compiled successfully.
+The compiler did not fail to compile any project of the initial test set.
+
+Over the 9 successfully compiled projects, the compiler detected 172 callbacks.
+56 of them were manually identified as compatible continuations.
+The false positives are mainly the listeners that the web applications register to react to user requests.
+
+One project contains 20 continuations, the others contains between 1 and 9 continuations each.
+On the 56 continuations, 36 are single. %, and 20 continuations are involved in an imbrication.
+The others 20 continuations belong to imbrications of 2 to 4 continuations.
+% There are 5 imbrications of 2 continuations, 2 imbrications of 3 continuations, and 1 imbrication of 4 continuations.
+The result of this evaluation prove the compiler to be able to successfully transform imbrications of continuations.
+
+On the 64 projects composing the test set
+\begin{description}
+\item[29] (45.3\%) do not contain any compatible continuations,
+\item[10] (15.6\%) are not compilable because they contain \texttt{with} or \texttt{eval} statements,
+\item[5] (7.8\%) use asynchronous libraries,
+\item[4] (6.3\%) are not syntactically correct,
+\item[4] (6.3\%) fail their tests before the compilation,
+\item[3] (4.7\%) are not tested, and
+\item[10] (14.0\%) compile successfully.
+\end{description}
+The compiler do not fail to compile any project.
+The details of these projects are available in Appendix \ref{section:results}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{../resources/due-evaluation.pdf}
+  \label{fig:due-evaluation}
+  \caption{Results of the Due compiler evaluation}
+\end{figure}
+
+% \begin{figure}[h!]
+% \begin{tikzpicture}
+% [
+%     pie chart,
+%     slice type={nocont}{gray1},
+%     slice type={eval}{gray2},
+%     slice type={lib}{gray3},
+%     slice type={err}{gray4},
+%     slice type={fail}{gray5},
+%     slice type={notest}{gray6},
+%     slice type={ok}{red},
+%     pie values/.style={font={\small}},
+%     scale=2
+% ]
+
+% \pie{}{%
+%   45.3/nocont,%
+%   15.6/eval,%
+%   7.8/lib,%
+%   6.3/err,%
+%   6.3/fail,%
+%   4.7/notest,%
+%   14.0/ok%
+% }
+
+% \legend[shift={(1.3cm,0.9cm)}]{%
+%   {No continuations}/nocont,%
+%   {\texttt{with} or \texttt{eval} statments}/eval,%
+%   {Promises libraries}/lib,%
+%   {Syntax errors}/err,%
+%   {Tests fail before compilation}/fail,%
+%   {Not tested}/notest,%
+%   {Compiled}/ok%
+% }
+% \end{tikzpicture}
+% \caption{Compilation results distribution}
+% \end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Tested applications :
+
+% rest-api-express            -> OK
+
+% socket-testing              -> OK (partial) the project is broken, but it seems broken in the same way before and after the compilation :)
+% nodeExample                 -> OK (partial) read-simple.js and write-simple.js compile successfully (the only two files to contain continuation). but the project compiler breaks, I suspect it is because of some !# stuffs. 
+
+% fligg                       -> NOK not functionnal : impossible to log, or sign in
+% colors                      -> NOK no continuations
+% request                     -> NOK no continuations=:
+% async                       -> NOK presence of with or eval
+% penguin                     -> NOK not functionnal : syntax error
+% expression.io               -> NOK tests not passed before compilation
+
+% blog-experiment             -> NOK already use thenable
+
+
+
+% NPM
+
+% app-json-fetcher              -> NOK no continuations
+% express-resource-plus         -> NOK no continuations
+% fizzbuzz-hypermedia-server    -> NOK no continuations
+% flair                         -> NOK no continuations
+% generator-wikismith           -> NOK no continuations
+% brokowski                     -> NOK no continuations
+% claus                         -> NOK no continuations
+% costa                         -> NOK no continuations
+% express-device                -> NOK no continuations
+% heroku-proxy                  -> NOK no continuations
+% http-test-servers             -> NOK no continuations
+% jellyjs-plugin-httpserver     -> NOK no continuations
+% loopback-angular-cli          -> NOK no continuations
+% loopback-explorer             -> NOK no continuations
+% monami                        -> NOK no continuations
+% mongoose-epxress              -> NOK no continuations
+% nodebootstrap-server          -> NOK no continuations
+% oauth-express                 -> NOK no continuations
+% public-server                 -> NOK no continuations
+% scrapit                       -> NOK no continuations
+% sik                           -> NOK no continuations
+% sonea                         -> NOK no continuations (coffee)
+% vsoft-explorer                -> NOK no continuations
+% webs-weeia                    -> NOK no continuations
+% code-connect-server           -> NOK no continuations
+% csp-endpoint                  -> NOK no continuations
+% glsl-transition-minify        -> NOK no continuations
+% moby                          -> NOK no continuations
+% squirrel-server               -> NOK no continuations
+%   >> 29 no continuations
+
+% arkhaios                      -> NOK presence of with or eval
+% browserman                    -> NOK presence of with or eval
+% infectwit                     -> NOK presence of with or eval
+% ldapp                         -> NOK presence of with or eval
+% levelhud                      -> NOK presence of with or eval
+% manet                         -> NOK presence of with or eval
+% solid                         -> NOK presence of with or eval
+% swac                          -> NOK presence of with or eval
+% swac-odm                      -> NOK presence of with or eval
+% adnoce                        -> NOK presence of with or eval
+%   >> 10 with or eval
+
+% boomerang-server              -> NOK already use thenable (es6-promise)
+% hyper.io                      -> NOK already use thenable (when)
+% node-lanetix-microservice     -> NOK already use thenable (bluebird)
+% librarian                     -> NOK already use thenable (bluebird)
+% webtasks                      -> NOK already use async stuffs (subtask)
+%   >> 5 async frameworks
+
+% xtc                           -> NOK unexpected token < use templating engine to generate js@
+% agenda-ui                     -> NOK unexpected reserved word use ES6 specifications
+% traffic-light                 -> NOK illegal return statement
+% ellipsis                      -> NOK illegal return statement
+%   >> 4 incorrect code
+
+% express-orm-mvc               -> NOK test failed (this project is just a template)
+% hangout                       -> NOK test failed (unfinished ?)
+% derp                          -> NOK test failed + this project use generators
+% ord                           -> NOK however test failed similarly after and before compilation
+%   >> 4 test failed
+
+% tuzi                          -> NOK no tests
+% inchi-server                  -> NOK no tests
+% otwo                          -> NOK no tests
+%   >> 3 no tests
+
+% to compile
+% express-couchUser             >> 13 chains (20 continuations / 40)   1: 9,      2: 2,      3: 1,      4: 1
+% gifsockets-server             >> 1 chains (1 continuation / 3)       1: 1
+% node-heroku-bouncer           >> 3 chains (3 continuations / 7)      1: 3
+% moonridge ( +install morgan)  >> 4 chains (6 continuations / 37)     1: 2      2: 2
+% redis-key-overview            >> 7 chains (9 continuations / 14)     1: 6                  3: 1
+% slack-integrator              >> 2 chains (3 continuations / 6)      1: 1      2: 1
+% timbits                       >> 8 chains (8 continuations / 34)     1: 8
+% tingo-rest                    >> 4 chains (4 continuations / 12)     1: 4
+% express-endpoint              >> 2 chains (2 continuations / 19)     1: 2 and already use async stuffs (step)
+%   >> 9 OK total of 56 continuations / 172, 1:36 2:5 3:2 4:1
+
+
+% 29 no continuations
+% 10 with ot eval
+% 5 async
+% 4 incorrect code
+% 4 test failed
+% 3 no tests
+% 9 OK
+
+% total 64 Projects

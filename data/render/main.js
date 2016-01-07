@@ -29,7 +29,7 @@ function convertToPdf(files) {
       return
 
     var destination = file.replace('.svg', '.pdf');
-    var cmd = 'inkscape -D -z --file=' + file + ' --export-pdf=' + destination + ' --export-latex';
+    var cmd = 'inkscape -D -z --file=' + file + ' --export-pdf=' + destination;
 
 //     console.log(cmd);
 

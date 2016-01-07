@@ -1,17 +1,16 @@
 \section{Definitions} \label{chapter3:definitions}
 
 The continuous growth and sustainability of a platform relies on three criteria.
-This section defines these tree criteria, as well as all the underlying concepts.
+This section defines these tree criteria, Productivity, Efficiency and Adoption, as well as all the underlying concepts.
 
 % Additionally, for the context of this thesis, a fourth criterium appears in this list.
 % It is important for the analyzed platforms to be web compliant.\nt{I don't know where to put this criterium}
 
-\begin{itemize}
-\item Productivity
-\item Efficiency
-\item Adoption
-% \item Web compliance
-\end{itemize}
+% \begin{itemize}
+% \item Productivity
+% \item Efficiency
+% \item Adoption
+% \end{itemize}
 
 \subsection{Productivity} \label{chapter3:definitions:productivity}
 
@@ -30,27 +29,46 @@ Modularity is about encapsulating subproblems and composing them to allow greate
 It allows to limit the understanding required to contribute to a module \cite{Stevens1974}, which helps developers to repair and enhance the application. 
 Additionally, it reduces development time by allowing several developers to simultaneously implement different modules \cite{Wong2009,Cataldo2006}.
 
-The criteria to define modules to improve productivity are high cohesion and low coupling \cite{Stevens1974}.
-Cohesion defines how strongly the features inside a module are related.
-Coupling defines the strength of the interdependences between modules.
+% The criteria to define modules to improve productivity are high cohesion and low coupling \cite{Stevens1974}.
+% To improve productivity, the definition of modules needs to increase cohesion, and decrease coupling.
+% Cohesion defines how strongly the features inside a module are related.
+% Coupling defines the strength of the interdependences between modules.
 % Encapsulating a subproblem into a module helps increase cohesion.
 % Composition abstractions helps decrease their coupling.
-The encapsulation of modules helps increase their cohesion, and their composition helps decrease coupling.
-Encapsulation and composition improve productivity.
+% The encapsulation of modules helps increase their cohesion, and their composition helps decrease coupling.
+
+% \begin{itemize}
+% \item Encapsulation $\to$ High Cohesion
+% \item Composition $\to$ Low Coupling
+% \end{itemize}
+
+% The criteria to analyze the productivity of platforms are the following.
+The criteria to define modules to improve productivity are high cohesion enforced by enccapsulation and low coupling enforced by composition \cite{Stevens1974}.
+Cohesion defines how strongly the features inside a module are related.
+Coupling defines the strength of the interdependences between modules.
+
+In this thesis, the criteria retained for productivity are the encapsulation and composition allowed by a platform.
+Encapsulation relies on the definition of boundaries, and the protection of data.
+Composition relies on higher-order programming and lazy evaluation.
+The next paragraphs define these requirements.
+
+% The productivity of a platform depends on the modularity allowed by the platform
 
 \begin{itemize}
-\item Encapsulation $\to$ High Cohesion
-\item Composition $\to$ Low Coupling
+\item Encapsulation (Boundary definition, Data protection)
+  \subitem $\to$ increases Cohesion
+\item Composition (Higher-order programming / Lambda Expressions, Lazy evaluation / Stream composition)
+  \subitem $\to$ decreases Coupling
 \end{itemize}
 
 \subsubsection{Encapsulation} \label{chapter3:definitions:productivity:encapsulation}
 
 \paragraph{Boundary Definition}
 \illustration{spaghetti programming}%
-Modular Programming stands upon Structured Programming \cite{Dijkstra1970}.
+% Modular Programming stands upon Structured Programming 
 % Dijkstra firstly developed the concept of Structured Programming \cite{Dijkstra1970}, which later led to modular programming.
 % It is defined as \textit{the systematic use of abstraction to control a mass of details, and also a means of documentation which aids program design} \cite{Knuth1974}.
-It draws clear interfaces around a piece of implementation so that the execution remains enclosed inside.
+Modular Programming draws clear interfaces around a piece of implementation so that the execution remains enclosed inside \cite{Dijkstra1970}.
 At a fine level, it helps avoid spaghetti code \cite{Dijkstra1968a}, and at a coarser level, it structures the implementation \cite{Dijkstra1968} into modules, or layers.
 % The next paragraph explains further the criteria to draw the borders around modules.
 
@@ -94,23 +112,24 @@ But this concurrency requires the isolation of side-effects to avoid conflicts b
 
 
 
-\paragraph{}
+% \paragraph{}
 
-The criteria to analyze the productivity of platforms are the following.
-\begin{itemize}
-\item Encapsulation $\to$ High Cohesion
-  \subitem Boundary definition
-  \subitem Data protection
-\item Composition $\to$ Low Coupling
-  \subitem Higher-order programming, Lambda Expressions
-  \subitem Lazy evaluation, Stream composition
-\end{itemize}
+% % The criteria to analyze the productivity of platforms are the following.
+
+% \begin{itemize}
+% \item Encapsulation $\to$ High Cohesion
+%   \subitem Boundary definition
+%   \subitem Data protection
+% \item Composition $\to$ Low Coupling
+%   \subitem Higher-order programming, Lambda Expressions
+%   \subitem Lazy evaluation, Stream composition
+% \end{itemize}
 
 
 \subsection{Efficiency} \label{chapter3:definitions:efficiency}
 
 The efficiency of a software project is the relation between the usage made of available resources and the delivered performance.
-For an application to perform efficiently, the platform based on needs to enforce scalability directly in its design.
+For an application to perform efficiently, its platform needs to enforce scalability directly in its design.
 
 Scalability relies on the parallelism allowed by the commutativity of operations execution \cite{Clements2013a}.
 An operation is a sequence of statements.
@@ -120,8 +139,8 @@ Commutativity assures the independence of operations.
 \subsubsection{Independence} \label{chapter3:definitions:efficiency:independence}
 
 \illustration{Synchronization vs Message-passing}
-The independence, and commutativity of an operations depends on its accesses to shared state.
-If the operations doesn't rely on any shared state, it is independent.
+The independence, and commutativity of an operation depends on its accesses to shared state.
+If the operation doesn't rely on any shared state, it is independent.
 The independence of operations allows to execute them in parallel, hence to increase performance proportionally to occupied resources \cite{Amdahl1967,Gunther1993}.
 But if they rely on shared state, they need to coordinate the causal scheduling and atomicity of their executions to avoid conflicting accesses.
 This scheduling between the operations can be defined in two ways.
@@ -155,14 +174,23 @@ The threshold determining frequent or rare access to the state determines the gr
 
 \paragraph{}
 
-The criteria to analyze the performance of platforms are the following.
+% The criteria to analyze the performance efficiency of platforms are the following.
+
+The criteria to analyze the performance efficiency of paltforms are the synchronization available at a fine-level, and the message-passing available at a coarse-level.
 
 \begin{itemize}
-\item Fine-level state sharing
-  \subitem State mutability $\to$ Synchronization
-\item Coarse-level independence
-  \subitem State immutability $\to$ Message-passing
+\item Fine-level Synchronization
+  \subitem $\to$ avoids communication overhead
+\item Coarse-level Message-passing
+  \subitem $\to$ allows parallelism
 \end{itemize}
+
+% \begin{itemize}
+% \item Fine-level state sharing
+%   \subitem State mutability $\to$ Synchronization
+% \item Coarse-level state independence
+%   \subitem State immutability $\to$ Message-passing
+% \end{itemize}
 
 % \subsubsection{Event-Loop Execution Model} \label{chapter2:web-as-a-platform:javascript:event-loop}
 
@@ -234,11 +262,13 @@ Additionally, the web acts as a tremendous catalyst fueling these interactions.
 
 \paragraph{}
 
-The criteria to analyze the adoption of platforms are the following.
+The criteria to analyze the adoption of platforms are the support of the community, and the industrial need.
 
 \begin{itemize}
 \item Community Support
+  \subitem $\to$ grows an ecosystem
 \item Industrial Need
+  \subitem $\to$ gives a goal for this ecosystem to grow
 \end{itemize}
 
 \paragraph{}
