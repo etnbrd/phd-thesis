@@ -279,13 +279,30 @@ As the stages are independent, the state coordination between the stages are com
   \caption{Pipeline}
 \end{figure}
 
-Each stage is organized in a similar fashion than the event-loop presented in section \ref{chapter2:web-as-a-platform:javascript:event-loop}.
+The execution model of each stage is organized in a similar fashion than the event-loop presented in section \ref{chapter2:web-as-a-platform:javascript:event-loop}.
 It receives and queues messages from upstream stages, processes them one after the other, and outputs the result to downstream stages.
 The difference is that in the pipeline architecture, each task is executed on an isolated stage, whereas in the event-loop execution model, all handlers share the same queue, loop and memory store.
+This parallelism in the execution model impacts the productivity in programming model.
+The next section details further the incompatibility between the two programming model and the resulting economical consequences.
 
-\paragraph{}
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../resources/run-equivalence.pdf}
+    \label{fig:run-equivalence}
+    \caption{Execution equivalence}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../resources/mem-equivalence.pdf}
+    \label{fig:mem-equivalence}
+    \caption{Memory Equivalence}
+  \end{minipage}
+\end{figure}
+
+%% \paragraph{}
 
 %This section presented two execution models to build web applications, the event-loop and the pipeline.
 % It presented briefly their similitudes and differences.
-\nt{TODO schema to compare the event-loop and the pipeline, and an introducing sentence.}
-The next section details further the incompatibility in their model and the resulting economical consequences.
