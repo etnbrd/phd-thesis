@@ -22,18 +22,18 @@ This section further details the reasons and consequences of this disruption.
 
 Around 2004, manufacturers reached what they called the \textit{Power-wall}.
 The speed of sequential execution on a processing unit plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
-Therefore, the performance plateaued as well.
+Therefore, the performance of sequential programming plateaued as well.
 They started to arrange transistors into several processing units to keep increasing overall performance efficiency. % while avoiding overheating problems.
 % required by the cooperative scheduling 
-Parallelism became the only option to achieve high concurrency. % on this parallel hardware.
+Parallel programming became the only option to achieve high concurrency. % on this parallel hardware.
 % Isolating tasks is the only option to achieve high concurrency on this parallel hardware.
-But the memory isolation required by parallelism limits the productivity in software development.
+But the memory isolation required in parallel programming limits the productivity.
 % These best-practices are presented in further details in section \ref{chapter3:software-maintainability}
 This \textit{Power-wall} leads to a rupture between efficiency and productivity.
 
 \subsubsection{Unavoidable Modularity}
 
-The best practices in software development advocate to gather features logically into distinct modules.
+The best practices for productivity in software development advocate to gather features logically into distinct modules.
 This modularity allows a developer to understand and contribute to an application one module at a time, instead of understanding the whole application.
 It allows to develop and maintain a large code-base by a multitude of developers bringing small, independent contributions.
 

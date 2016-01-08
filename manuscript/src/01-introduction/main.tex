@@ -6,7 +6,7 @@ When the 7 years old I was laid amazed eyes on the first family computer, my lif
 This thesis is a mild achievement.
 It compiles my PhD work on
 % TODO TITLE HERE
-\textit{bridging the gap between development scalability and performance scalability, in the case of real-time web applications}.
+\textit{bridging the gap between development productivity and performance efficiency, in the case of real-time web applications}.
 
 \illustration{amazed child in front of a computer}
 
@@ -14,7 +14,7 @@ This work is the fruit of a collaboration between the Worldline company and the 
 de services) at INSA de Lyon.
 For Worldline, this work falls within a larger work named Liquid IT, on the future of the cloud infrastructure and development.
 As defined by Worldline, Liquid IT aims at decreasing the time to market of a web application, allows the development team to focus on application specifications rather than technical optimizations and ease maintenance.
-The purpose of this PhD work, was to separate development scalability from performance scalability, to allow a continuous development from prototyping phase, until runtime on thousands of clusters.
+The purpose of this PhD work, was to separate development productivity from performance efficiency, to allow a continuous development from prototyping phase, until runtime on thousands of clusters.
 On the other hand, the DICE team focuses on the consequences of technology on economical and social changes at the digital age.
 This work falls within this scope as it studies the relation between the economical and the technological constraints driving the development of web applications.
 
@@ -55,8 +55,8 @@ On the other hand, there is the distributed, dataflow programming model, embodie
 This thesis contains two main contributions.
 The first contribution is a compiler allowing to split a program into a pipeline of stages depending on a common memory store.
 The second contribution, stemming from the first one, is a second compiler, enforcing isolation between the stages of this pipeline.
-With these two contributions, it is possible to transform the functional representation of an applicaiton into a pipeline representation.
-The first representation carries the functional modularization of the application, while the pipeline representation carries its execution distribution.
+With these two contributions, it is possible to transform the modular representation of an applicaiton into a pipeline representation.
+The modular representation allows develoment productivity, while the pipeline representation carries its execution efficiently.
 A development team shall then use these two representations to continuously iterate over the implementation of an application, and reach the best compromise between productivity and efficiency.
 
 \section{Thesis organization}
@@ -66,12 +66,13 @@ Chapter \ref{chapter2} introduces the context for this thesis and explains in gr
 It presents the challenge to build web applications at a world wide scale, without jamming the organic evolution of its implementation.
 It concludes drawing a first answer to this challenge.
 Chapter \ref{chapter3} presents the works surrounding this thesis, and how they relate to it.
-It defines into the notions outlined in the precedent chapter to help the reader understand better the context.
+It defines into the notions outlined in chapter \ref{chapter2} to help the reader understand better the context.
 The end of this chapter presents clearly the problematic addressed in this thesis.
 Chapter \ref{chapter4} introduces the proposition of this thesis, and the articulation of the contributions.
-Chapter \ref{chapter5} presents the first contribution allowing to represent a program as a pipeline of stages.
-It introduces Dues to encapsulate these stages, based on Javascript Promises.
-Chapter \ref{chapter6} presents the second contribution allowing to make these stages independent.
-It introduces Fluxion to encapsulate these stages.
-Chapter \ref{chapter7} draws the possible perspectives beyond this work.
-Finally, chapter \ref{chapter8} concludes this thesis.
+Chapter \ref{chapter5} presents the implementations of the two contributions.
+The first contribution allows to represent a program as a pipeline of stages.
+It introduces Dues, based on Javascript Promises, to layout the pipeline.
+The second contribution allows to make these stages independent.
+It introduces Fluxions to isolate these stages, and distribute the execution.
+Chapter \ref{chapter6} evaluates this proposition at the light of the previous works, and draws the possible perspectives beyond this work.
+Finally, chapter \ref{chapter7} concludes this thesis.
