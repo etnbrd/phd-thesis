@@ -1,6 +1,11 @@
 \section{Proposition} \label{chapter4:proposition}
 
-Javascript features higher-order programming and a global memory abstraction.
+This thesis proposes a platform allowing a seamless shift of focus to follow the development of a web application from the productivity required in the early beginning until the efficiency required during maturation.
+The proposition transforms the programs of an event-driven platform allowing productivity, to target a pipeline architecture allowing efficiency.
+% It is based on the transformation of an event-driven program to target a pipeline architecture.
+
+The event-driven platform is Javascript.
+It features higher-order programming and a global memory abstraction.
 Its dynamic natures allows a lot of flexibility for the developers.
 These reasons make Javascript a language of choice for developing web application.
 Moreover, \textit{Node.js} features an efficient event-driven execution model.
@@ -13,29 +18,41 @@ But this isolation limits the productivity of this execution model.
 \subsection{Equivalence}
 
 Despite these differences, this two execution models present interesting similarities.
-This thesis proposes an equivalence between the global memory abstraction and control flow from the event-driven execution model, and memory isolation with message passing from the pipeline execution model.
+This thesis proposes an equivalence between the event-driven execution model and the pipeline execution model.
+It transforms the global memory and control flow abstractions from the former into memory isolation with message passing from the latter.
 % As explained below, the concurrency model of the event-loop execution model, and the parallel approach of the pipeline execution model are very similar.
 This equivalence allows the transformation of an event-driven application to execute on a pipeline architecture.
 
-It proposes this equivalence as a solution to allow the same platform to propose different continuous compromise between productivity and efficiency.
-However, it doesn't intends to enforce both at the same time.
-
-\begin{figure}
+\begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\linewidth]{../resources/equivalence.pdf}
-  \label{fig:equivalence}
-  \caption{equivalence}
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../resources/run-equivalence.pdf}
+    \label{fig:run-equivalence}
+    \caption{Execution equivalence}
+  \end{minipage}
+  \vrule
+  \hfill
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{../resources/mem-equivalence.pdf}
+    \label{fig:mem-equivalence}
+    \caption{Memory Equivalence}
+  \end{minipage}
 \end{figure}
 
 \subsection{Continuous Development}
 
+%It proposes this equivalence as a solution to allow the same platform to propose a continuity of compromises between productivity and efficiency.
+This equivalence allows to propose a continuity of compromises between productivity and efficiency.
+It doesn't intends to enforce both at the same time, but can continuously follow the shift of focus during development.
 
-This transformation allows developers to constantly keep two organizations of their implementation. %, allowing them to start with productivity, and seamlessly abandon it for efficiency as the project matures.
+It allows developers to constantly keep two organizations of their implementation. %, allowing them to start with productivity, and seamlessly abandon it for efficiency as the project matures.
 At first, developers start development with the productivity of the multi-paradigms languages, such as Javascript, following the global memory abstraction and the asynchronous control glow of the event-driven execution model.
 The focus remains on productivity of development rather than the efficiency of execution.
-The transformation of the application yields an execution at least as efficient as the original event-driven execution model.
-Then, continuously during the maturation of the application, the focus shift towards efficiency.
+The application is at least as efficient as with the original event-driven execution model.
+Then, during the maturation of the application, the continuously  focus shift towards efficiency.
 The transformation of the application helps developers to enforce efficiency through continuous iteration to isolate stages.
-They can identify, and arrange the implementation so as to remove the dependencies avoiding parallelism.
+They can identify the dependencies avoiding parallelism, and arrange the implementation.
 
 The next paragraphs present the event-driven execution model as the source of this transformation, and the pipeline architecture as the target.
