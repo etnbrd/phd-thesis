@@ -223,7 +223,7 @@ In 2009, Joyent released Node.js to build real-time web applications with this p
 
 At reception, each request from a client queues an event waiting to be processed.
 A loop unqueues these events one at a time, and run the appropriate handler to process them.
-Processing an event can imply to query remote resources, which respond asynchronously additional event to queue.
+Processing an event can imply to query remote resources, which respond asynchronously by queueing additional events.
 Or an event can respond directly to the client, ending this chain of asynchronous events.
 
 % The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
