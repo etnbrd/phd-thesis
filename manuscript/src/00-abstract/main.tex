@@ -6,29 +6,30 @@
 \begin{abstract}
 
 % Internet étend l'économie à une échelle spatiale et temporelle sans précédent.
-Internet étend nos moyens de communications, et réduit leur latence ce qui permet de développer l'économie à l’échelle planétaire.
-Il permet à chacun de mettre un service à disposition de milliards d'utilisateurs, en seulement quelques heures.
+Internet démultiplie nos moyens de communications.
+Tout en réduisant leur latence de manière à développer l'économie à l’échelle planétaire.
+Il permet de mettre un service à disposition de milliards d'utilisateurs en seulement quelques heures.
 La plupart des grands services actuels ont commencé comme de simples applications créées dans un garage par une poignée de personnes.
-C'est cette facilité à l'entrée qui a permis jusqu'à maintenant une telle croissance sur le web.
+C'est cette promesse qui a permis jusqu'à maintenant une telle croissance sur le web.
 Google, Facebook ou Twitter en sont quelques exemples.
 Au cours du développement d'une application, il est important de suivre cette croissance, au risque de se faire rattraper par la concurrence.
-Le développement est guidé par les besoins en terme de fonctionnalités, afin de vérifier rapidement si le service peut satisfaire l'audience.
+Ce développement est guidé par les besoins en terme de fonctionnalités, afin de vérifier rapidement si le service peut satisfaire l'audience.
 On parle d'approche modulaire des fonctionnalités.
-Des langages tel que Ruby ou Java se sont imposés comme les langages du web, justement parce qu'ils suivent cette approche qui permet d'intégrer facilement de nouvelles fonctionnalités.
+Des langages tel que Ruby ou Java se sont imposés comme les langages du web parce qu'ils intégrent cette approche et permettent d'intégrer facilement de nouvelles fonctionnalités.
 
-Si une application répond correctement aux besoins, elle atteindra de manière virale un nombre important d'utilisateurs.
-Son audience peut prendre plusieurs ordres de grandeurs en quelques jours seulement, ou même en quelques heures suivant comment elle est relayée.
+Une application qui répond correctement aux besoins atteindra de manière virale un nombre important d'utilisateurs.
+Son audience peut prendre plusieurs ordres de grandeurs en quelques jours voire en quelques heures si elle est correctement relayée.
 Une application est dite \textit{scalable} si elle peut absorber ces augmentations d'audience.
-Or il est difficile pour une application suivant l'approche modulaire d'être \textit{scalable}.
+Or il est difficile pour une application d'être à la fois modulaire et \textit{scalable}.
 
-Au moment où l'audience commence à devenir trop importante, il est nécessaire de modifier l'approche de développement de l'application.
+Au moment où l'audience devient très importante, il est souvent nécessaire de modifier l'approche de développement de l'application.
 Le plus souvent cela implique de la réécrire complètement en utilisant des infrastructures \textit{scalables} qui imposent des modèles de programmation et des API spécifiques, qui représentent une charge de travail conséquente et incertaine.
-De plus, l'équipe de développement dois concilier cette nouvelle approche de développement \textit{scalable}, avec la demande en fonctionnalités.
-Aucun langage n'a clairement réussi le compromis entre ces deux objectifs.
+De plus, l'équipe de développement doit concilier cette nouvelle approche de développement \textit{scalable}, avec la demande en fonctionnalités.
+Aucun langage ne concilie ces deux objectifs.
 
-Pour ces raisons, ce changement est un risque pour la pérennité de l'application.
-D'autant plus que le cadre économique accorde peu de marges d'erreurs, comme c'est le cas dans la plupart des start-up, mais également dans de plus grandes structures.
-
+La maitrise de ces enjeux ne est clé pour la pérennité de l'application.
+% Pour ces raisons, ce changement est un risque pour la pérennité de l'application.
+% D'autant plus que le cadre économique accorde peu de marges d'erreurs, comme c'est le cas dans la plupart des start-up, mais également dans de plus grandes structures.
 Cette thèse est source de propositions pour écarter ce risque.
 Elle repose sur les deux observations suivantes.
 D'une part, Javascript est un langage qui a gagné en popularité ces dernières années.
@@ -41,8 +42,8 @@ La boucle événementielle de Javascript exécute une suite de fonctions dont l�
 
 L'objectif de cette thèse est de maintenir une double représentation d'un code Javascript grâce à une équivalence entre l'approche modulaire, et l'approche pipeline d'un même programme.
 % L'objectif de cette thèse est d'étudier une équivalence entre l'approche modulaire, et l'approche pipeline d'un même programme.
-La première répondant aux besoins en fonctionnalités, et favorisant les bonnes pratiques de développement pour une meilleure maintenabilité.
-La seconde proposant une exécution plus efficace que la première en permettant de rendre certaines parties du code relocalisables en cours d’exécution.
+La première répondant aux besoins en fonctionnalités, et favorise les bonnes pratiques de développement pour une meilleure maintenabilité.
+La seconde propose une exécution plus efficace que la première en permettant de rendre certaines parties du code relocalisables en cours d’exécution.
 
 Nous étudions la possibilité pour cette équivalence de transformer un code d'une approche vers l'autre.
 % Pour cela nous avons développé un compilateur.

@@ -7,14 +7,15 @@ It then focuses on the subject and defines the objectives of this thesis.
 
 \subsection{Disrupted Development}
 
-The Web allows a project to grow quickly from a very early stage to a large business.
-But the economical constraints to meet are very different in the beginning and in the maturation of such project.
+% The Web allows a project to grow quickly from a very early stage to a large business.
+The economical constraints to meet are very different in the beginning and during the maturation of a web application.
 In the early steps the constraints hold on the development productivity.
-The project needs crucially to reduce development costs, and to release a first product as soon as possible.
-On the contrary, in the maturation of the project, the constraints hold on the performance efficiency.
+The project needs to reduce development costs, and to release a first product as soon as possible.
+On the contrary, during the maturation of the project, the constraints hold on the performance efficiency.
 The product needs to be highly concurrent to meet the load of usage.
-The team needs to adapt to meet these different constraints, which implies a disruption in the evolution of the project.
-This section further details the reasons and consequences of this disruption.
+The team needs to revise their approach to meet these different constraints.
+These revisions leads to disruptions in the evolution of the project.
+This section further details the reasons and consequences of these disruptions.
 
 \subsubsection{Power-Wall Disruption}
 
@@ -45,10 +46,10 @@ The next paragraph presents the disruptions in the development of a web applicat
 \subsubsection{Technological Shift}
 
 % Between the prototyping, and the maturation of a web application, the needs are radically different.
-During the initiation of a web application project, the economical constraint holds on the development productivity.
-The development reactivity is crucial to meet the market needs\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}.
-The development team opt for a popular and accessible language to leverage the advantage of its community.
-It is only after a certain threshold of user load that the economical constraint on efficiency exceeds the one on development.
+% During the initiation of a web application project, the economical constraint holds on the development productivity.
+% The development reactivity is crucial to meet the market needs\ftnt{https://www.cbinsights.com/blog/startup-failure-post-mortem/}.
+The development team opt for a popular and accessible language to be productive in the beginning of the project. %  leverage the advantage of its community.
+It is only after a certain threshold of user load that the economical constraint on efficiency exceeds the one on productivity.
 The development team then shifts to an organization providing parallelism.
 
 This shift brings two risks.
@@ -59,8 +60,8 @@ The development team cannot react as quickly to user feedbacks to adapt the appl
 The application risks to fall in obsolescence.
 
 The risks implied by this rupture proves that there is economically a need for a solution that continuously follows the evolution of a web application.
-The next section presents the proposition of this thesis for such a solution.
-It would allow developers to iterate continuously on the implementation focusing simultaneously on performance, and on maintainability.
+The proposition of this thesis is presented in the next section.
+The proposed solution would allow developers to iterate continuously on the implementation focusing simultaneously on performance, and on maintainability.
 
 \subsection{Seamless Web Development}
 
@@ -68,8 +69,9 @@ This thesis is conducted in the frame of a larger work on LiquidIT within the Wo
 Worldline develops and hosts real-time streaming Web services, and identified that one of their need was to increase the time to market for its products.
 Worldline defines LiquidIT as \textit{a concept of flexible and cost-effective IT services that can be provisioned, built and configured in real time, allowing end-to-end financial transparency}.
 It precisely intends to provide \textit{business agility, investment-free charging models, flexibility and ease of use}.
-The goal of this thesis in this larger work, is to allow the developer to focus solely on business logic, and leave the technical constraints of performance scalability to automated tools.
-This section presents the objective of this work to avoid the disruption in development, and provide a seamless development experience.
+This thesis intends to allow the developer to focus solely on business logic, and leave the technical constraints of performance scalability to automated tools.
+The objective of this work are avoid the disruption in development, and provide a seamless development experience.
+They are presented in the next paragraphs.
 
 \subsubsection{Real-Time Streaming Web Services}
 
@@ -80,14 +82,14 @@ The stream of requests flows through the tasks, and is not stored.
 On the other hand, the state of the application remains in memory to impact the future behaviors of the application.
 This state might be shared by several tasks within the application, and imply coordination between them.
 
-The next section introduces the similarities and differences between the two programming models from the previous section.
-And then draws an equivalence.
+As presented in the previous section, such applications are often implemented with the event-driven programming model or the pipeline programming model.
+The next section introduces the differences between these two programming models and outlines an equivalence to map these differences.
 This equivalence is developed throughout this thesis.
 
 \subsubsection{Differences}
 
-Both paradigms encapsulate the execution in tasks assured to have an exclusive access to the memory.
-However, they provide two different models to provide this exclusivity resulting in two distinct programming models.
+Both programmng models encapsulate the execution in tasks assured to have an exclusive access to the memory.
+However, they use two different models to provide this exclusivity.
 Contrary to the pipeline architecture, the event-loop provides a common memory store allowing the best practice of software development to improve maintainability.
 
 However, these two organizations are incompatible.

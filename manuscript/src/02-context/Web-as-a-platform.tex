@@ -20,13 +20,15 @@ The next paragraphs present Javascript, the language that allowed this new busin
 
 \subsection{The Language of the Web}
 
-In the 80's with Moore's law predicting exponential increase in hardware performance, reducing development time became more profitable than reducing hardware costs.
-Higher-level languages replaced lower-level languages, because the economical gain in development time compensated the decrease in performance.
+In the 80's, reducing development time became more profitable than reducing hardware costs.
+% with Moore's law predicting exponential increase in hardware performance,
+Higher-level languages replaced lower-level languages.
+The economical gain in development time brought by productive languages compensated the decrease in performance.
 Most of the now popular programming languages were released at this time, Python in 1991, Ruby in 1993, Java in 1994, PHP and Javascript in 1995.
 
-With the democratisation of programming, the involvement of the community became critical for the adoption, evolution and maturation of a language.
-The community adopts a language because it allows to quickly experiment and enter businesses sectors.
-And the industry adopts a language because it responds to business needs and its community represents a hiring pool.
+With the democratisation of programming, the involvement of a community became critical for the adoption, evolution and maturation of a language.
+Communities adopts a language because it allows to quickly experiment and enter businesses sectors.
+The industry adopts a language because it responds to business needs and its community represents a hiring pool.
 The community support and the industrial needs are reinforcing each other in a loop.
 
 Java thrived in the software industry, but lose the hype that drove the community innovation and creativity.
@@ -34,7 +36,7 @@ Now, it struggles to keep up with the latest trends in software development.
 On the contrary, Ruby on Rails emerged from an industrial context, but is now open source, and backed by a strong community that makes it evolve and mature.
 Other languages like Python and PHP, emerged within a strong community, and were later adopted by the industry for web development.
 Django, the Python web frameworks, is used to develop many web applications in industrial contexts.
-Another example, Wordpress, a PHP publishing platform, is an economical success.
+The Wordpress publishing platform is another example of an economical success with PHP.
 
 The web acts as a catalyst in the interaction between the community and the industry.
 Because of its position in the web, Javascript is slowly becoming the main language for web development.
@@ -123,6 +125,7 @@ The name is misleading, it is really about giving Javascript superpowers like ge
 The simultaneous release of HTML5, ECMAScript 5 and V8, around 2009, represent a milestone in the development of web-based applications.
 % Around the same time, Google released the Javascript interpreter V8 for its browser Chrome, improving drastically the execution performance.
 Javascript became the \textit{de facto} programming language to develop on this rising application platform that is the Web\ftnt{http://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/}.
+The milestones in the history of Javascript presented in the previous chapters are summariezed in figure \ref{fig:js-timeline}.
 
 \begin{figure}
   \centering
@@ -198,9 +201,10 @@ The next section presents the realities and technical challenges to assure the p
 \subsection{Highly Concurrent Web Servers}
 
 % The previous section presented Javascript, the prolific language to build the Web.
-With SaaS, a web application can scale world wide with near zero latency. %, and accessing it is as simple as distributing it world wide.
-With this broad range of distribution, a new business model emerged, allowing instantaneous and free access for the user.
-The usage exploded, and the software industry needed innovative solutions to cope with large network traffic.
+% With SaaS, a web application can scale world wide with near zero latency. %, and accessing it is as simple as distributing it world wide.
+% With this broad range of distribution, a new business model emerged, allowing instantaneous and free access for the user.
+
+Since the web allowed an application to scale world wide with near zero latency, the software industry needed innovative solutions to cope with large network traffic.
 
 \illustration{busy web servers}
 
@@ -230,10 +234,11 @@ In 2009, Joyent released Node.js to build real-time web applications with this p
   \caption{Event-driven execution model}
 \end{figure}
 
+The event-driven execution model is presented in figure \ref{fig:pipeline}.
 At reception, each request from a client queues an event waiting to be processed.
 A loop unqueues these events one at a time, and run the appropriate handler to process them.
-Processing an event can imply to query remote resources, which respond asynchronously by queueing additional events.
-Or an event can respond directly to the client, ending this chain of asynchronous events.
+To process an event, a handler can query remote resources, which respond asynchronously by queueing additional events, processed by new handlers.
+Alternatively, a handler can respond directly to the client, ending this chain of asynchronous events.
 
 % The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
 % It relies on a queue storing the messages received asynchronously.
@@ -246,14 +251,18 @@ This concurrency needs to be scalable to adapt to the growth of audience, as exp
 
 \paragraph{Scalability}
 
-The traffic of a popular web application such as Google search remains stable because of its popularity.
-The importance of the average traffic softens the occasional spikes.
-However, the traffic of a less popular web application is much more uncertain.
-For example, it might become viral when it is efficiently relayed in the media.
-The load of the web application increases with the growth of audience.
-The available resources needs to increase to meet this load.
-This growth can be steady enough to plan the increase of resources ahead of time, or it might be erratic and challenging.
-An application is scalable, if it is able to spread over resources proportionally as a reaction to the increasing growth of audience.
+% because of its popularity.
+% The importance of the average traffic softens the occasional spikes.
+The traffic of a popular web application such as Google search remains stable, while the traffic of a less popular web application is much more uncertain.
+% For example, it might become viral when it is efficiently relayed in the media.
+Moreover, the load of the web application grows with its user base.
+The available resources need to increase as well to meet this load.
+For stable traffic, this growth is steady enough to plan the increase of resources ahead of time.
+But for unstable traffic, it is erratic and challenging to meet.
+
+An application is scalable, if it is able to spread over resources proportionally as a reaction to its load to use these resources efficiently.
+It is a desirable property, as it helps to meet the growth, without spending time to manually spread the application on available resources to react to this erratic growth.
+% It allows to use  provisionning of Platform as a Service (PaaS) solutions. 
 
 \paragraph{Time-slicing and Parallelism}
 
@@ -276,7 +285,7 @@ This thesis argues that there exists an equivalence between the event-driven mod
 
 \subsubsection{Pipeline Execution Model}
 
-The pipeline execution model is composed of isolated stages communicating by message passing to leverage the parallelism of a multi-core hardware architectures.
+The pipeline execution model, presented in figure \ref{fig:pipeline}, is composed of isolated stages communicating by message passing to leverage the parallelism of a multi-core hardware architectures.
 It is well suited for streaming application, as the stream of data flows from stage to stage.
 Each stage has an independent memory to hold its own state.
 As the stages are independent, the state coordination between the stages are communicated along with the stream of data.
@@ -290,26 +299,36 @@ As the stages are independent, the state coordination between the stages are com
 
 The execution model of each stage is organized in a similar fashion than the event-loop presented in section \ref{chapter2:web-as-a-platform:javascript:event-loop}.
 It receives and queues messages from upstream stages, processes them one after the other, and outputs the result to downstream stages.
-The difference is that in the pipeline architecture, each task is executed on an isolated stage, whereas in the event-loop execution model, all handlers share the same queue, loop and memory store.
+The pipeline architecture is difference as each task is executed on an isolated stage.
+Whereas in the event-loop execution model, all handlers share the same queue, loop and memory store.
+This difference is illustrated in figure \ref{fig-models-difference}.
 This parallelism in the execution model impacts the productivity in programming model.
 The next section details further the incompatibility between the two programming model and the resulting economical consequences.
 
 \begin{figure}[h!]
   \centering
-  \begin{minipage}{0.49\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../resources/run-equivalence.pdf}
-    \label{fig:run-equivalence}
-    \caption{Execution equivalence}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.49\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../resources/mem-equivalence.pdf}
-    \label{fig:mem-equivalence}
-    \caption{Memory Equivalence}
-  \end{minipage}
+  \includegraphics[width=0.8\linewidth]{../resources/models-difference.pdf}
+  \label{fig:models-difference}
+  \caption{Difference between the two execution models}
 \end{figure}
+
+
+% \begin{figure}[h!]
+%   \centering
+%   \begin{minipage}{0.49\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../resources/run-equivalence.pdf}
+%     \label{fig:run-equivalence}
+%     \caption{Execution equivalence}
+%   \end{minipage}
+%   \hfill
+%   \begin{minipage}{0.49\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{../resources/mem-equivalence.pdf}
+%     \label{fig:mem-equivalence}
+%     \caption{Memory Equivalence}
+%   \end{minipage}
+% \end{figure}
 
 %% \paragraph{}
 
