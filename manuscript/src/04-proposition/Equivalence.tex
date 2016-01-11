@@ -1,8 +1,8 @@
 \section{Equivalence} \label{chapter4:equivalence}
 
-The goal of this thesis is not to propose a new high-level language but to automate the architectural shift.
-The next paragraphs introduces the equivalence between the memory abstraction of the event-driven execution model and of the pipeline architecture previously presented.
-The equivalence is broken down in two steps, as illustrated in figure \ref{fig:chapter4:roadmap}.
+% The goal of this thesis is not to propose a new high-level language but to automate the architectural shift.
+The next paragraphs introduces the equivalence between the memory abstraction of the event-driven execution model and of the fluxional execution model previously presented.
+The equivalence is broken down in two steps, as illustrated in figure \ref{fig:roadmap}.
 The first step identifies the stages of the pipeline and the rupture points between them in the control flow.
 The second step enforces isolation of memory between these stages to preserve invariance.
 
@@ -18,12 +18,12 @@ The second step enforces isolation of memory between these stages to preserve in
 
 The pipeline architecture enforces the memory isolation between stages.
 Each stage has its own thread of execution, and is independent from the others.
-On the other hand, the execution flow of the event-loop jumps from one concurrent task to the other.
+On the other hand, the execution flow of the event-loop jumps from one concurrent handler to the other.
 %  because of the continuation passing style and the common memory store.
 % The message passing linking the callbacks is transparently handled by the event-loop.
-However, the executions of these tasks are as distinct as the execution of the different stages of a pipeline.
-The call stacks of two concurrent tasks are distinct.
-The asynchronous function call between the caller and its continuation represents the rupture between two call stacks.
+However, the executions of these handlers are as distinct as the execution of the different stages of a pipeline.
+The call stacks of two concurrent handlers are isolated.
+The asynchronous function call - the callee - between the caller and its continuation represents the rupture between two call stacks.
 It is a rupture point, and is equivalent to a data stream between two stages in the pipeline architecture.
 
 Both the pipeline architecture and the event-loop present these rupture points.
@@ -43,18 +43,18 @@ They can't be executed in parallel.
 % The conservation of the invariance.
 % The equivalence between the coordinations.
 
-The global memory assures the total ordering of tasks, and requires sequentiality, while message passing assures causal ordering of tasks and allows parallelism.
+A global memory allows the total ordering of tasks, and requires sequentiality, whereas message passing only assures causal ordering of tasks and allows parallelism.
 The causal ordering of tasks, by opposition to total ordering, is sufficient to assure the correctness of the execution.
-Therefore, to assure the correctness of the execution, the ordering allowd by the global memory is partially equivalent to message passing ordering.
+Therefore, in the correctness of the execution, the ordering allowed by the global memory can be mapped to an equivalent message passing ordering.
 And it is possible to transform the global memory coordination into message passing.
 % Given that the tasks are independent and communicate by messages.
 
 % This result was used by Lamport to prove the correctness of distributed systems.
-Yet, to preserve the correctness as expressed by the developer, it is important to preserve the invariance.
-The global memory needs not to be distributed into each of the stages of the pipeline, so that each stage have an exclusive access to its memory.
+Yet, to preserve the correctness as expressed by the developer, it is important to preserve the invariance provided by the global memory.
+The global memory needs to be distributed into each of the stages of the pipeline, so that each stage have an exclusive access to its memory.
 
-To assure the missing coordinations assured by the shared memory between the stages, the transformation should provide equivalent coordination with message passing.
-The isolation and replacement of the global memory is addressed in chapter \ref{chapter5:flx:isolation}.
+Moreover to assure the missing coordinations assured by the shared memory between the stages, the stages need to provide an equivalent coordination with message passing.
+The isolation and replacement of the global memory is addressed in section \ref{chapter5:flx:isolation}.
 
 
 

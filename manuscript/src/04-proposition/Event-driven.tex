@@ -1,8 +1,17 @@
 
 \section{Event-Driven Execution Model} \label{chapter4:event-driven}
 
-The event-driven execution model cooperatively schedules a queue of tasks to process events sequentially.
-The developer defines the concurrent tasks as continuations.
+The event-driven execution model sequentially processes a queue of asynchronous events by cooperatively scheduling concurrent handlers.
+To respond to an event, the associated handler can directly respond to the source of the event.
+Or it can request an external resource, and chain another handler to later process the initial event with the resource response, as illustred in figure \ref{fig:cont-chain}.
+The developer defines each handler as a continuation and defines their causality using the continuation passing style \cite{Wand1980,Haynes1984}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\linewidth]{../resources/cont-chain.pdf}
+  \label{fig:cont-chain}
+  \caption{Chain of continuations}
+\end{figure}
 
 \subsection{Continuation Passing Style} \label{chapter4:event-loop:continuation}
 
@@ -19,15 +28,12 @@ The developer defines the concurrent tasks as continuations.
 % In a synchronous paradigm, the sequentiality of the execution flow is trivial.
 % An operation needs to complete before executing the next one.
 % In an asynchronous paradigm, parallelism is trivial, but the sequentiality of operations needs to be explicit.
-In event-driven execution model, the scheduling between asynchronous, concurrent tasks is defined only by their causality.
-They are not globally ordered.
-% of the asynchronous execution flow
-The causality between two tasks is defined using a continuation  \cite{Wand1980,Haynes1984}.
+
 % A continuation is the functional way of defining the causality between two tasks \cite{Wand1980,Haynes1984}.
-It is a function passed as an argument to a function call.
+A continuation is a function passed as an argument to a function call.
 % The caller is able to continue the execution while the callee runs in background.
 The continuation is invoked later, at the completion of the callee, to continue the execution. % as soon as possible and process the result; hence the name continuation.
-It allows the callee not to block the caller until its completion.
+When the callee is asynchronous, it allows not to block the caller until its completion.
 % It provides a necessary control over the asynchronous execution flow.
 % It also brings a control over the data flow which essentially replaces the \texttt{return} statement at the end of a synchronous function.
 At its invocation, the continuation retrieves both the caller context, through a closure, and the result.
@@ -44,12 +50,11 @@ Listing \ref{lst:continuation} illustrates an example of continuation in \textit
 \begin{code}[js, %
              caption={Example of a continuation}, %
              label={lst:continuation}] %
-my_fn(input, function continuation(error, result) {
-  if (!error) {
-    console.log(result);
-  } else {
+callee(input, function continuation(error, result) {
+  if (error)
     throw error;
-  }
+  
+  console.log(result);
 });
 \end{code}
 
@@ -61,33 +66,33 @@ my_fn(input, function continuation(error, result) {
 % It produces an imbrication of calls and function definitions, as shown in listing \ref{lst:cbhell}.
 
 The continuation passing style lacks the chained composition of multiple asynchronous operations.
-It forces to stack calls of continuations, as illustrated in listing \ref{lst:cbhell}.
-Promises allow to arrange such a sequence of asynchronous operations in a chain, similar to a pipeline.
+% It forces to stack calls of continuations, as illustrated in listing \ref{lst:cbhell}.
+Promises improve the composition of continuation.
+They allow to arrange such a sequence of asynchronous operations in a chain, similar to a pipeline.
 
-
-\begin{code}[js, %
-             caption={Example of a sequence of continuations}, %
-             label={lst:cbhell}] %
-my_fn_1(input, function cont(error, result) {
-  if (!error) {
-    my_fn_2(result, function cont(error, result) {
-      if (!error) {
-        my_fn_3(result, function cont(error, result) {
-          if (!error) {
-            console.log(result);
-          } else {
-            throw error;
-          }
-        });
-      } else {
-        throw error;
-      }
-    });
-  } else {
-    throw error;
-  }
-});
-\end{code}
+% \begin{code}[js, %
+%              caption={Example of a sequence of continuations}, %
+%              label={lst:cbhell}] %
+% my_fn_1(input, function cont(error, result) {
+%   if (!error) {
+%     my_fn_2(result, function cont(error, result) {
+%       if (!error) {
+%         my_fn_3(result, function cont(error, result) {
+%           if (!error) {
+%             console.log(result);
+%           } else {
+%             throw error;
+%           }
+%         });
+%       } else {
+%         throw error;
+%       }
+%     });
+%   } else {
+%     throw error;
+%   }
+% });
+% \end{code}
 
 \subsection{Promise} \label{chapter4:event-loop:promise}
 
@@ -114,27 +119,27 @@ Promises expose a \texttt{then} method which expects a continuation to continue 
 % As a result of this difference, Promises and continuations use two different conventions to handle errors and results.
 % The two conventions are illustrated in listings \ref{lst:continuation} and \ref{lst:then}.
 
-\begin{code}[js, %
-             caption={Example of a Promise}, %
-             label={lst:then}] %
-var promise = my_fn_pr(input)
+% \begin{code}[js, %
+%              caption={Example of a Promise}, %
+%              label={lst:then}] %
+% var promise = my_fn_pr(input)
 
-promise.then(function onSuccess(result) {
-  console.log(result);
-}, function onError(error) {
-  throw error;
-});
-\end{code}
+% promise.then(function onSuccess(result) {
+%   console.log(result);
+% }, function onError(error) {
+%   throw error;
+% });
+% \end{code}
 
 % Continuations lack the chained composition of asynchronous operations.
-Promises are designed to fill the lack of chained composition from continuations.
-They allow to arrange successions of asynchronous operations as a chain of continuations, by opposition to the imbrication of continuations illustrated in listing \ref{lst:cbhell}.
-That is to arrange them, one operation after the other, in the same indentation level.
+% Promises are designed to fill the lack of chained composition from continuations.
+% They allow to arrange successions of asynchronous operations as a chain of continuations, by opposition to the imbrication of continuations illustrated in listing \ref{lst:cbhell}.
+% That is to arrange them, one operation after the other, in the same indentation level.
 % The \texttt{then} method synchronously returns a Promise linked with the Promise asynchronously returned by its continuation.
 % This link allow to compose chains of asynchronous operations.
 
 The listing \ref{lst:promises-sequence} illustrates this chained composition.
-The functions \texttt{my\_fn\_pr\_2} and \texttt{my\_fn\_pr\_3} return promises when they are executed, asynchronously.
+The functions \texttt{callee\_promise\_2} and \texttt{callee\_promise\_3} return promises when they are executed, asynchronously.
 Because these promises are not available synchronously, the method \texttt{then} synchronously returns intermediary Promises.
 The latter resolve only when the former resolve.
 This behavior allows to arrange the continuations as a flat chain of calls, instead of an imbrication of continuations.
@@ -142,9 +147,9 @@ This behavior allows to arrange the continuations as a flat chain of calls, inst
 \begin{code}[js, %
              caption={Example of a chain of Promises}, %
              label={lst:promises-sequence}] %
-my_fn_pr_1(input)
-.then(my_fn_pr_2, onError)
-.then(my_fn_pr_3, onError)
+callee_promise_1(input)
+.then(callee_promise_2, onError)
+.then(callee_promise_3, onError)
 .then(console.log, onError);
 
 function onError(error) {
@@ -157,4 +162,4 @@ function onError(error) {
 Promises allow to easily arrange the execution flow in parallel or in sequence according to the required causality.
 This control over the execution leads to a modification of the control over the data flow.
 Programmers are encouraged to arrange the computation as series of coarse-grained steps to carry over inputs.
-In this sense, Promises are comparable to the pipeline execution model.
+In this sense, Promises are comparable to an intermediate step toward the pipeline execution model.
