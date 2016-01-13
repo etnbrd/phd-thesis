@@ -2,14 +2,14 @@
 
 \subsection{Event-Driven Execution Model} \label{chapter4:event-driven}
 
-The event-driven execution model sequentially processes a queue of asynchronous events by cooperatively scheduling concurrent handlers.
+The event-driven execution model processes a queue of asynchronous events by cooperatively scheduling handlers.
 To respond to an event, the associated handler can directly respond to the source of the event.
 Or it can request an external resource, and chain another handler to later process the initial event with the resource response, as illustred in figure \ref{fig:cont-chain}.
 The developer defines each handler as a continuation and defines their causality using the continuation passing style \cite{Wand1980,Haynes1984}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\linewidth]{../resources/cont-chain.pdf}
+  \includegraphics[width=0.7\linewidth]{../resources/cont-chain.pdf}
   \caption{Chain of continuations}
   \label{fig:cont-chain}
 \end{figure}
@@ -163,23 +163,20 @@ function onError(error) {
 % The Promises syntax is more concise, and also more readable because it is closer to the familiar synchronous paradigm.
 % Indeed, Promises allow to arrange both the synchronous and asynchronous execution flow with the same syntax.
 Promises allow to easily arrange the execution flow in parallel or in sequence according to the required causality.
-This control over the execution leads to a modification of the control over the data flow.
-Programmers are encouraged to arrange the computation as series of coarse-grained steps to carry over inputs.
-In this sense, Promises are comparable to an intermediate step toward the pipeline execution model.
+% This control over the execution leads to a modification of the control over the data flow.
+Programmers are encouraged to arrange the computation as series of steps to process incoming events and yield outcoming events.
+In this sense, Promises are an intermediate step toward the pipeline execution model.
 
 
 
 \subsection{Fluxional execution model} \label{chapter4:flx-model}
 
 This section presents an execution model inspired by the pipeline architecture.
+It is the targeet for the transformation presented in this thesis.
 It intends to provide scalability to web applications with a granularity of parallelism at the function level.
 
 Functions are encapsulated in autonomous execution containers with their state, so as to be mobile and parallel, similarly to the actors model.
 And the communications are similar to the dataflow programming model, which allows to reason on the throughput of these streams, and to react to load increases \cite{Bartenstein2014}.
-
-The fluxional execution model executes programs written in the fluxional language, whose grammar is presented in figure \ref{fig:flx-lang}.
-An application $\bnfpn{program}$ is partitioned into parts encapsulated in autonomous execution containers named \textit{fluxions} $\bnfpn{flx}$.
-The following paragraphs present the \textit{fluxions} and the messaging system to carry the communications between \textit{fluxions}, and then an example application using this execution model.
 
 \begin{figure}[h]
 \vspace{-0.6\baselineskip}
@@ -202,7 +199,12 @@ The following paragraphs present the \textit{fluxions} and the messaging system 
 \label{fig:flx-lang}
 \end{figure}
 
-\subsubsection{Fluxions and Messaging System}
+The fluxional execution model executes programs written in the fluxional language, whose grammar is presented in figure \ref{fig:flx-lang}.
+An application $\bnfpn{program}$ is partitioned into parts encapsulated in autonomous execution containers named \textit{fluxions} $\bnfpn{flx}$.
+The following paragraphs present the \textit{fluxions} and the messaging system to carry the communications between \textit{fluxions}.
+% , and then an example application using this execution model.
+
+% \subsubsection{Fluxions and Messaging System}
 
 A \textit{fluxion} $\bnfpn{flx}$ is named by a unique identifier $\bnfpn{id}$ to receive messages, and might be part of one or more groups indicated by tags $\bnfpn{tags}$.
 A \textit{fluxion} is composed of a processing function $\bnfpn{fn}$, and a local memory called a \textit{context} $\bnfpn{ctx}$.
@@ -215,6 +217,11 @@ In addition to message passing, the execution model allows \textit{fluxions} to 
 The fluxions that need this synchronization are grouped with the same tag, and loose their independence.
 
 There are two types of streams, \textit{start} and \textit{post}, which correspond to the nature of the rupture point producing the stream.
-A variable created within a chain of \textit{post} streams requires more synchronization than a variable created upstream a \textit{start} stream.
+A \textit{start} rupture point starts a chain of continuations, while a \textit{post} rupture point is a continuation in a chain.
+The variables defined before the \textit{start} are available for the whole chain, and require synchronization for concurrent execution of the same chain.
+Whereas the varaibles defined inside the chain are available only in one chain, and doesn't require synchronization.
+% A variable created within a chain of \textit{post} streams requires more synchronization than a variable created upstream a \textit{start} stream.
 The two types and implications of rupture points are further detailed in section \ref{chapter5:flx:compiler}.
 \textit{Start} rupture points are indicated with a double arrow ($\to$ \hspace{-1.4em} $\to$ or \texttt{>>}) and \textit{post} rupture points with a simple arrow ($\to$ or \texttt{->}).
+
+The fluxional execution model is illustrated through an example transformation in the next section.

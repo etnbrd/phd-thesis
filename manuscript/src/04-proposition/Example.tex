@@ -17,21 +17,32 @@ app.get('/', function handler(req, res){ //@\label{lst:source-handler}@
 app.listen(8080);
 \end{code}
 
-The fluxional execution model is illustrated with an example application presented in listing \ref{lst:source}.
-This application reads a file, and sends it back along with a request counter.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\linewidth]{../resources/schema-message.pdf}
+  \caption{The fluxional execution model in details}
+  \label{fig:MesSys}
+\end{figure}
+
+% \begin{wrapfigure}{r}{0.60\textwidth}
+%   \vspace{-25pt}
+%   \begin{center}
+%     \includegraphics[width=\linewidth]{../resources/schema-message.pdf}
+%     \caption{The fluxional execution model in details}
+%     \label{fig:MesSys}
+%   \end{center}
+%   \vspace{-10pt}
+% \end{wrapfigure}
+
+% The fluxional execution model is illustrated with an example application presented in listing \ref{lst:source}.
+The example application in listing \ref{lst:source} reads a file, and sends it back along with a request counter.
 The \texttt{handler} function, line \ref{lst:source-handler} to \ref{lst:source-handler-end}, receives the input stream of requests.
 The \texttt{count} variable at line \ref{lst:source-counter} counts the requests, and needs to be saved between two messages receptions.
 The \texttt{template} function formats the output stream to be sent back to the client.
 The \texttt{app.get} and \texttt{res.send} functions, lines \ref{lst:source-handler} and \ref{lst:source-send}, interface the application with the clients.
 Between these two interface functions is a chain of three functions to process the client requests : \texttt{app.get} $\to$ \hspace{-1.4em} $\to$ \texttt{handler} $\to$ \texttt{reply}.
 This chain of functions is transformed into a pipeline, expressed in the high-level fluxional language in listing \ref{lst:fluxional}.
-The transformation process between the source and the fluxional code is explained in section \ref{section:compiler}.
-
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{../resources/schema-message.pdf}
-  \caption{The fluxional execution model in details}
-  \label{fig:MesSys}
-\end{figure}
+The transformation process between the source and the fluxional code is explained in \ref{chapter5}, in section \ref{chapter5:flx:compiler}.
 
 The execution is illustrated in figure \ref{fig:MesSys}.
 The dashed arrows between fluxions represent the message streams as seen in the fluxional application.
@@ -72,8 +83,8 @@ flx reply & grp_res {count, template}
 The chain of functions from listing \ref{lst:source} is expressed in the fluxional language in listing \ref{lst:fluxional}.
 The fluxion \texttt{handler} doesn't have any dependencies, so it can be executed in a parallel event-loop.
 The fluxions \texttt{main} and \texttt{reply} belong to the group \texttt{grp\_res}, indicating their dependency over the variable \texttt{res}.
-The group name is arbitrarily chosen by the compiler.
-All the fluxions inside a group are executed sequentially on the same event-loop, to protect against concurrent accesses.
+The group name is chosen arbitrarily.
+All the fluxions inside a group are executed sequentially on the same event-loop, to protect the shared variables against concurrent accesses.
 
 The variable \texttt{res} is created and consumed within a chain of \textit{post} stream.
 Therefore, it is exclusive to one request and cannot be propagated to another request.
@@ -81,8 +92,15 @@ It doesn't prevent the whole group from being replicated.
 However, the fluxion \texttt{reply} depends on the variable \texttt{count} created upstream the \textit{start} stream, which prevents this replication.
 If it did not rely on this state, the group \texttt{grp\_res} would be stateless, and could be replicated to cope with the incoming traffic.
 
+\paragraph{}
+
 This execution model allows to parallelize the execution of an application as a pipeline, as with the fluxion \texttt{handler}.
 And some parts are replicated, as could be the group \texttt{grp\_res}.
-This parallelization improves the scalability of the application.
+This parallelization improves the efficiency of the application.
 Indeed, as a fluxion contains its state and expresses its dependencies, it can be migrated.
 It allows to adapt the number of fluxions per core to adjust the resource usage in function of the desired throughput.
+
+Yet, the parallelization is limited by the dependencies between fluxions.
+A developer can ignore these dependencies at first, to focus on productivity.
+And then continuously tune the implementation to remove these dependencies and improve efficiency.
+This continuous tuning avoid the disruptive shifts of technology required by current platforms.
