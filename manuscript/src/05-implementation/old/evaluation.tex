@@ -124,7 +124,7 @@ We explain further modification of this function in the next paragraph.
 
 The function \texttt{next} is a closure provided by the \texttt{express} \texttt{Router} to continue the execution with the next function to handle the client request.
 Because it indirectly relies on network sockets, it is impossible to isolate its execution with the \texttt{anonymous\-\_1000} fluxion.
-Instead, we modify \texttt{express}, so as to be compatible with the fluxionnal execution model.
+Instead, we modify \texttt{express}, so as to be compatible with the fluxional execution model.
 We explain the modification below.% , and illustrate them in listing \ref{lst:mflx-gifsocket}.
 % The \texttt{req} and \texttt{next} objects needs to stay on the master worker to preserve their closures.
 
@@ -177,7 +177,7 @@ The fluxion \texttt{express\-\_dispatcher} receives the stream from the upstream
 
 % In the original application, the anonymous callback finishes by calling the function \texttt{next} to let the \texttt{Router} call the next function to process the request.
 % In the compiled application, this function \texttt{next} is not available on the isolated worker.
-% Instead, the anonymous callback inside \texttt{anonymous\-\_1000} calls a function \texttt{next} specially provided by the fluxionnal execution model to send a message to the fluxion \texttt{express\-\_dispatcher} with the modified copies of \texttt{req} and \texttt{res}.
+% Instead, the anonymous callback inside \texttt{anonymous\-\_1000} calls a function \texttt{next} specially provided by the fluxional execution model to send a message to the fluxion \texttt{express\-\_dispatcher} with the modified copies of \texttt{req} and \texttt{res}.
 % and call the original function \texttt{next} on the master worker.
 
 % In the original application, \textit{express} relies on side-effects on the objects \texttt{req} and \texttt{res} to get their modifications.
@@ -196,12 +196,12 @@ We intend to implement the compilation process presented into the runtime.
 A just-in-time compiler would allow to identify callbacks dynamically evaluated, and to analyze the memory to identify side-effects propagations instead of relying only on the source code.
 Moreover, this memory analysis would allow the closure serialization required to compile application using higher-order functions.
 
-% \subsubsection{Fluxionnal web framework}
+% \subsubsection{Fluxional web framework}
 
 % In case of error, the anonymous callback calls \texttt{res.writeHead} and \texttt{res.end}.
 % These two closures are similar to the closure \texttt{next}.
 % It is possible to extend the modifications presented above to build a complete web application framework, with some limitations detailed below.
-% Indeed, the evaluation proves that it is possible to modify the \textit{express} framework to be compatible with the fluxionnal execution model.
+% Indeed, the evaluation proves that it is possible to modify the \textit{express} framework to be compatible with the fluxional execution model.
 
 % The closure \texttt{next} is assured to be called only once at the end of the callback.
 % It can be called asynchronously, and can be assimilated to a rupture point.

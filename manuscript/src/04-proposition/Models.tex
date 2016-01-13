@@ -1,5 +1,6 @@
+\section{Execution Models} \label{chapter4:execution-models}
 
-\section{Event-Driven Execution Model} \label{chapter4:event-driven}
+\subsection{Event-Driven Execution Model} \label{chapter4:event-driven}
 
 The event-driven execution model sequentially processes a queue of asynchronous events by cooperatively scheduling concurrent handlers.
 To respond to an event, the associated handler can directly respond to the source of the event.
@@ -9,11 +10,11 @@ The developer defines each handler as a continuation and defines their causality
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\linewidth]{../resources/cont-chain.pdf}
-  \label{fig:cont-chain}
   \caption{Chain of continuations}
+  \label{fig:cont-chain}
 \end{figure}
 
-\subsection{Continuation Passing Style} \label{chapter4:event-loop:continuation}
+\subsubsection{Continuation Passing Style} \label{chapter4:event-loop:continuation}
 
 % A callback is a function passed as a parameter to a function call.
 % It is invoked by the callee to continue the execution with data not available in the caller context.
@@ -94,7 +95,7 @@ They allow to arrange such a sequence of asynchronous operations in a chain, sim
 % });
 % \end{code}
 
-\subsection{Promise} \label{chapter4:event-loop:promise}
+\subsubsection{Promise} \label{chapter4:event-loop:promise}
 
 % TODO insert these :
 % Promise also provide few methods to enhance the asynchronous control flow tools\footnote{\texttt{all} and \texttt{race}}.
@@ -109,7 +110,7 @@ In the asynchronous paradigm, the control over the asynchronous execution flow i
 % The ECMAScript 6 specification\ftnt{https://people.mozilla.org/~jorendorff/es6-draft.html\#sec-promise-objects} defines
 A Promise is used as a placeholder for the eventual outcome of a deferred (and possibly asynchronous) operation.
 % A Promise is an object returned by a function to represent its result
-Promises expose a \texttt{then} method which expects a continuation to continue with the result. %; this result being synchronously or asynchronously available.
+In Javascript, promises expose a \texttt{then} method which expects a continuation to continue with the result. %; this result being synchronously or asynchronously available.
 
 % However, unlike continuations, the Promises specification imposes a convention on how to handle the result.
 % Because it is possibly unavailable synchronously, it still requires a continuation to defer the execution when the result is made available.
@@ -139,9 +140,11 @@ Promises expose a \texttt{then} method which expects a continuation to continue 
 % This link allow to compose chains of asynchronous operations.
 
 The listing \ref{lst:promises-sequence} illustrates this chained composition.
-The functions \texttt{callee\_promise\_2} and \texttt{callee\_promise\_3} return promises when they are executed, asynchronously.
-Because these promises are not available synchronously, the method \texttt{then} synchronously returns intermediary Promises.
-The latter resolve only when the former resolve.
+The functions \texttt{callee\_promise\_2} and \texttt{callee\_promise\_3} return promises when they are executed.
+They are executed asynchronously, so these promises are not available synchronously.
+The method \texttt{then} synchronously returns intermediary Promises to bridge with the asynchronous promises.
+The former resolve when the latter resolve.
+% The latter resolve only when the former resolve.
 This behavior allows to arrange the continuations as a flat chain of calls, instead of an imbrication of continuations.
 
 \begin{code}[js, %
@@ -163,3 +166,55 @@ Promises allow to easily arrange the execution flow in parallel or in sequence a
 This control over the execution leads to a modification of the control over the data flow.
 Programmers are encouraged to arrange the computation as series of coarse-grained steps to carry over inputs.
 In this sense, Promises are comparable to an intermediate step toward the pipeline execution model.
+
+
+
+\subsection{Fluxional execution model} \label{chapter4:flx-model}
+
+This section presents an execution model inspired by the pipeline architecture.
+It intends to provide scalability to web applications with a granularity of parallelism at the function level.
+
+Functions are encapsulated in autonomous execution containers with their state, so as to be mobile and parallel, similarly to the actors model.
+And the communications are similar to the dataflow programming model, which allows to reason on the throughput of these streams, and to react to load increases \cite{Bartenstein2014}.
+
+The fluxional execution model executes programs written in the fluxional language, whose grammar is presented in figure \ref{fig:flx-lang}.
+An application $\bnfpn{program}$ is partitioned into parts encapsulated in autonomous execution containers named \textit{fluxions} $\bnfpn{flx}$.
+The following paragraphs present the \textit{fluxions} and the messaging system to carry the communications between \textit{fluxions}, and then an example application using this execution model.
+
+\begin{figure}[h]
+\vspace{-0.6\baselineskip}
+\begin{bnf*}
+  \bnfprod{program}    {\bnfpn{flx} \bnfor \bnfpn{flx} \bnfsp \bnftd{eol} \bnfsp \bnfpn{program}}\\
+  \bnfprod{flx}        {\bnfts{\texttt{flx}} \bnfsp \bnfpn{id} \bnfsp \bnfpn{tags} \bnfsp \bnfpn{ctx} \bnfsp \bnftd{eol} \bnfsp \bnfpn{streams} \bnfsp \bnftd{eol} \bnfsp \bnfpn{fn}}\\
+  \bnfprod{tags}       {\bnfts{\texttt{\&}} \bnfsp \bnfpn{list} \bnfor \bnftd{empty string}}\\
+  \bnfprod{streams}    {\bnfts{\texttt{null}} \bnfor \bnfpn{stream} \bnfor \bnfpn{stream} \bnfsp \bnftd{eol} \bnfsp \bnfpn{streams}}\\
+  \bnfprod{stream}     {\bnfpn{type} \bnfsp \bnfpn{dest} \bnfsp [\bnfpn{msg}]}\\
+  \bnfprod{dest}       {\bnfpn{list}}\\
+  \bnfprod{ctx}        {\bnfts{\texttt{\{}} \bnfpn{list} \bnfts{\texttt{\}}}}\\
+  \bnfprod{msg}        {\bnfts{\texttt{[}} \bnfpn{list} \bnfts{\texttt{]}}}\\
+  \bnfprod{list}       {\bnfpn{id} \bnfor \bnfpn{id} \bnfsp \bnfts{,} \bnfsp \bnfpn{list}}\\
+  \bnfprod{type}       {\bnfts{\texttt{>}\texttt{>}} \bnfor \bnfts{\texttt{-}\texttt{>}}}\\
+  \bnfprod{id}         {\bnftd{Identifier}}\\
+  \bnfprod{fn}         {\bnftd{Source language with~} \bnfpn{stream} \bnftd{~placeholders}}\\
+\end{bnf*}
+\vspace{-2.5\baselineskip}
+\caption{Syntax of a high-level language to represent a program in the fluxional form}
+\label{fig:flx-lang}
+\end{figure}
+
+\subsubsection{Fluxions and Messaging System}
+
+A \textit{fluxion} $\bnfpn{flx}$ is named by a unique identifier $\bnfpn{id}$ to receive messages, and might be part of one or more groups indicated by tags $\bnfpn{tags}$.
+A \textit{fluxion} is composed of a processing function $\bnfpn{fn}$, and a local memory called a \textit{context} $\bnfpn{ctx}$.
+
+At a message reception, the \textit{fluxion} modifies its \textit{context}, and sends messages to downstream \textit{fluxions} on its output streams $\bnfpn{streams}$.
+The \textit{context} stores the state on which a \textit{fluxion} relies between two message receptions.
+The messaging system queues the output messages for the event loop to process them later by calling the downstream \textit{fluxions}.
+
+In addition to message passing, the execution model allows \textit{fluxions} to communicate by sharing state between their \textit{contexts}.
+The fluxions that need this synchronization are grouped with the same tag, and loose their independence.
+
+There are two types of streams, \textit{start} and \textit{post}, which correspond to the nature of the rupture point producing the stream.
+A variable created within a chain of \textit{post} streams requires more synchronization than a variable created upstream a \textit{start} stream.
+The two types and implications of rupture points are further detailed in section \ref{chapter5:flx:compiler}.
+\textit{Start} rupture points are indicated with a double arrow ($\to$ \hspace{-1.4em} $\to$ or \texttt{>>}) and \textit{post} rupture points with a simple arrow ($\to$ or \texttt{->}).

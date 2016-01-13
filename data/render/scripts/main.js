@@ -67,7 +67,7 @@ var languageDict = {
   nugets: 'nuget (.NET)',
   Packagist: 'Packagist (PHP)',
   Pear: 'Pear (PHP)',
-  Perl: 'Perl 6 Ecosystem (perl 6)',
+  Perl6Eco: 'Perl 6 Ecosystem (perl 6)',
   PyPI: 'PyPI (Python)',
   Rubygems: 'Rubygems.org',
   npm: 'npm (node.js)'
@@ -163,10 +163,10 @@ d3.csv('csv/github-languages.csv')
       Cplusplus: row['C++'],
       Csharp: row['C#'],
       C: row['C'],
-      ObjectiveC: row['Objective-C']
+      ObjectiveC: row['Objective-C'],
+      Perl: row['Perl']
       // HTML: row['HTML'],
       // Shell: row['Shell'],
-      // Perl: row['Perl'],
       // VimL: row['VimL'],
       // EmacsLisp: row['Emacs Lisp'],
     };

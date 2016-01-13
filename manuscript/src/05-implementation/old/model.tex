@@ -23,7 +23,7 @@ It allows to reason on the throughput of these streams, and to react to load inc
 % This execution model is also close to the functional paradigm, as the execution container contains function to execute at each message reception.
 % The function receives parameters from the input message, and sends one, or more, output streams of messages to other execution container.
 
-The fluxional execution model executes programs written in our high-level fluxionnal language, whose grammar is presented in figure \ref{fig:flx-lang}.
+The fluxional execution model executes programs written in our high-level fluxional language, whose grammar is presented in figure \ref{fig:flx-lang}.
 An application $\bnfpn{program}$ is partitioned into parts encapsulated in autonomous execution containers named \textit{fluxions} $\bnfpn{flx}$.
 In the following paragraphs, we present the \textit{fluxions}.
 Then we present the messaging system to carry the communications between \textit{fluxions}.
@@ -41,7 +41,7 @@ Finally, we present an example application using this execution model.
 % The fluxional execution model manages and invokes fluxions.
 A \textit{fluxion} $\bnfpn{flx}$ is named by a unique identifier $\bnfpn{id}$ to receive messages, and might be part of one or more groups indicated by tags $\bnfpn{tags}$.
 A \textit{fluxion} is composed of a processing function $\bnfpn{fn}$, and a local memory called a \textit{context} $\bnfpn{ctx}$.
-% Figure \ref{fig:flx-lang} presents the fluxionnal language we designed to express fluxions.
+% Figure \ref{fig:flx-lang} presents the fluxional language we designed to express fluxions.
 % The function encapsulated by a \textit{fluxion} consumes an input stream and generates one or more outputs streams.
 At a message reception, the \textit{fluxion} modifies its \textit{context}, and sends messages on its output streams $\bnfpn{streams}$ to downstream \textit{fluxions}.
 The \textit{context} handles the state on which a \textit{fluxion} relies between two message receptions.
@@ -100,7 +100,7 @@ The two types of rupture points are further detailed in section \ref{section:com
   \bnfprod{fn}         {\bnftd{imperative language and stream syntax}}\\
 \end{bnf*}
 \vspace{-2.5\baselineskip}
-\caption{Syntax of a high-level language to represent a program in the fluxionnal form}
+\caption{Syntax of a high-level language to represent a program in the fluxional form}
 \label{fig:flx-lang}
 \end{figure}
 
@@ -138,7 +138,7 @@ The execution cycle of an example fluxional application is illustrated in figure
 Circles represent registered fluxions.
 The source code for this application is in listing \ref{lst:source} and the fluxional code for this application is in listing \ref{lst:fluxional}.
 The fluxion \textit{reply} has a context containing the variable \texttt{count} and \texttt{tem\-plate}.
-The plain arrows represent the actual message paths in the messaging system, while the dashed arrows between fluxions represent the message streams as seen in the fluxionnal application.
+The plain arrows represent the actual message paths in the messaging system, while the dashed arrows between fluxions represent the message streams as seen in the fluxional application.
 % The streams between workers are serialized.
 
 % To assure the consistency of their shared contexts, all the fluxions grouped with the same tag are executed sequentially and share the same message queue.
@@ -154,7 +154,7 @@ This cycle starts again for each new incoming request causing another \texttt{st
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{resources/schema-message.pdf}
-  \caption{The fluxionnal execution model in details}
+  \caption{The fluxional execution model in details}
   \label{fig:MesSys}
 \end{figure}
 
@@ -218,7 +218,7 @@ This object needs to be persisted in the fluxion \textit{context}.
 The \texttt{template} function formats the output stream to be sent back to the client.
 The \texttt{app.get} and \texttt{res.send} functions, respectively line 5 and 8, interface the application with the clients.
 And between these two interface functions is a chain of three functions to process the client requests : \texttt{app.get} $\to$ \hspace{-1.4em} $\to$ \texttt{handler} $\to$ \texttt{reply}.
-This application is transformed into the high-level fluxionnal language in listing \ref{lst:fluxional} which is illustred in Figure \ref{fig:MesSys}.
+This application is transformed into the high-level fluxional language in listing \ref{lst:fluxional} which is illustred in Figure \ref{fig:MesSys}.
 % We expect a similar result with the compiler described in section \ref{section:compiler}.
 % Horizontal dashed lines show virtual transmission of messages between fluxions although they all go through the messaging system.
 
