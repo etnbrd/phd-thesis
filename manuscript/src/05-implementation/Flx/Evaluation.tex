@@ -101,7 +101,7 @@ We explain further modification of this function in the next paragraph.
 
 The function \texttt{next} is a closure provided by the \texttt{express} \texttt{Router} to continue the execution with the next function to handle the client request.
 Because it indirectly relies on the variable \texttt{req}, it is impossible to isolate its execution with the \texttt{anonymous\_\-1000} fluxion.
-Instead, we modify \texttt{express}, so as to be compatible with the fluxionnal execution model.
+Instead, we modify \texttt{express}, so as to be compatible with the fluxional execution model.
 We explain the modifications below.
 
 \begin{code}[flx, caption={Simplified modification on the compiled result},label={lst:mflx-gifsocket}]

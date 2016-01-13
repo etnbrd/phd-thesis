@@ -1,4 +1,4 @@
-\section{Fluxionnal compiler} \label{section:compiler}
+\section{Fluxional compiler} \label{section:compiler}
 
 % Since 2009, \textit{Node.js} proposes an alternative to the difficult threading model adopted almost universally \cite{Adya2002}.
 % % It provides a Javascript execution environment for real-time web applications.
@@ -145,7 +145,7 @@ We present these three alternatives with the example figure \ref{fig:states}.
 \begin{figure}[h!]
 \begin{center}
   \includegraphics[width=\linewidth]{resources/states.pdf}
-  \caption{Variable management from Javascript to the high-level fluxionnal language}
+  \caption{Variable management from Javascript to the high-level fluxional language}
   \label{fig:states}
 \end{center}
 \end{figure}
@@ -174,7 +174,7 @@ Therefore, no reading of the variable by the upstream fluxion happens after the 
 
 % Additionally, it is currently impossible to stream variables containing closures.
 % Indeed, it is impossible to serialize closure from within Javascript.
-% As the fluxionnal execution model is currently confined inside the Javascript execution environment, it is unable to send closures from one worker to the other.
+% As the fluxional execution model is currently confined inside the Javascript execution environment, it is unable to send closures from one worker to the other.
 
 \paragraph{Share}
 If a variable is needed for modification by several application parts, or is read by an upstream application part, then it needs to be synchronized between the fluxions.

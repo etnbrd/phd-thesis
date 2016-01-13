@@ -1,51 +1,3 @@
-\section{Fluxional execution model} \label{chapter4:flx-model}
-
-This section presents an execution model to provide scalability to web applications with a granularity of parallelism at the function level.
-Functions are encapsulated in autonomous execution containers with their state, so as to be mobile and parallel, similarly to the actors model.
-The communications are similar to the dataflow programming model, which allows to reason on the throughput of these streams, and to react to load increases \cite{Bartenstein2014}.
-
-The fluxional execution model executes programs written in our high-level fluxionnal language, whose grammar is presented in figure \ref{fig:flx-lang}.
-An application $\bnfpn{program}$ is partitioned into parts encapsulated in autonomous execution containers named \textit{fluxions} $\bnfpn{flx}$.
-The following paragraphs present the \textit{fluxions} and the messaging system to carry the communications between \textit{fluxions}, and then an example application using this execution model.
-
-\subsection{Fluxions and Messaging System}
-
-A \textit{fluxion} $\bnfpn{flx}$ is named by a unique identifier $\bnfpn{id}$ to receive messages, and might be part of one or more groups indicated by tags $\bnfpn{tags}$.
-A \textit{fluxion} is composed of a processing function $\bnfpn{fn}$, and a local memory called a \textit{context} $\bnfpn{ctx}$.
-
-At a message reception, the \textit{fluxion} modifies its \textit{context}, and sends messages to downstream \textit{fluxions} on its output streams $\bnfpn{streams}$.
-The \textit{context} stores the state on which a \textit{fluxion} relies between two message receptions.
-The messaging system queues the output messages for the event loop to process them later by calling the downstream \textit{fluxions}.
-
-In addition to message passing, the execution model allows \textit{fluxions} to communicate by sharing state between their \textit{contexts}.
-The fluxions that need this synchronization are grouped with the same tag, and loose their independence.
-
-There are two types of streams, \textit{start} and \textit{post}, which correspond to the nature of the rupture point producing the stream.
-A variable created within a chain of \textit{post} streams requires more synchronization than a variable created upstream a \textit{start} stream.
-The two types and implications of rupture points are further detailed in section \ref{section:compiler}.
-\textit{Start} rupture points are indicated with a double arrow ($\to$ \hspace{-1.4em} $\to$ or \texttt{>>}) and \textit{post} rupture points with a simple arrow ($\to$ or \texttt{->}).
-
-\begin{figure}[h]
-\vspace{-0.6\baselineskip}
-\begin{bnf*}
-  \bnfprod{program}    {\bnfpn{flx} \bnfor \bnfpn{flx} \bnfsp \bnftd{eol} \bnfsp \bnfpn{program}}\\
-  \bnfprod{flx}        {\bnfts{\texttt{flx}} \bnfsp \bnfpn{id} \bnfsp \bnfpn{tags} \bnfsp \bnfpn{ctx} \bnfsp \bnftd{eol} \bnfsp \bnfpn{streams} \bnfsp \bnftd{eol} \bnfsp \bnfpn{fn}}\\
-  \bnfprod{tags}       {\bnfts{\texttt{\&}} \bnfsp \bnfpn{list} \bnfor \bnftd{empty string}}\\
-  \bnfprod{streams}    {\bnfts{\texttt{null}} \bnfor \bnfpn{stream} \bnfor \bnfpn{stream} \bnfsp \bnftd{eol} \bnfsp \bnfpn{streams}}\\
-  \bnfprod{stream}     {\bnfpn{type} \bnfsp \bnfpn{dest} \bnfsp [\bnfpn{msg}]}\\
-  \bnfprod{dest}       {\bnfpn{list}}\\
-  \bnfprod{ctx}        {\bnfts{\texttt{\{}} \bnfpn{list} \bnfts{\texttt{\}}}}\\
-  \bnfprod{msg}        {\bnfts{\texttt{[}} \bnfpn{list} \bnfts{\texttt{]}}}\\
-  \bnfprod{list}       {\bnfpn{id} \bnfor \bnfpn{id} \bnfsp \bnfts{,} \bnfsp \bnfpn{list}}\\
-  \bnfprod{type}       {\bnfts{\texttt{>}\texttt{>}} \bnfor \bnfts{\texttt{-}\texttt{>}}}\\
-  \bnfprod{id}         {\bnftd{Identifier}}\\
-  \bnfprod{fn}         {\bnftd{Source language with~} \bnfpn{stream} \bnftd{~placeholders}}\\
-\end{bnf*}
-\vspace{-2.5\baselineskip}
-\caption{Syntax of a high-level language to represent a program in the fluxionnal form}
-\label{fig:flx-lang}
-\end{figure}
-
 \subsection{Example}
 
 \begin{code}[js,
@@ -72,17 +24,17 @@ The \texttt{count} variable at line \ref{lst:source-counter} counts the requests
 The \texttt{template} function formats the output stream to be sent back to the client.
 The \texttt{app.get} and \texttt{res.send} functions, lines \ref{lst:source-handler} and \ref{lst:source-send}, interface the application with the clients.
 Between these two interface functions is a chain of three functions to process the client requests : \texttt{app.get} $\to$ \hspace{-1.4em} $\to$ \texttt{handler} $\to$ \texttt{reply}.
-This chain of functions is transformed into a pipeline, expressed in the high-level fluxionnal language in listing \ref{lst:fluxional}.
+This chain of functions is transformed into a pipeline, expressed in the high-level fluxional language in listing \ref{lst:fluxional}.
 The transformation process between the source and the fluxional code is explained in section \ref{section:compiler}.
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{../resources/schema-message.pdf}
-  \caption{The fluxionnal execution model in details}
+  \caption{The fluxional execution model in details}
   \label{fig:MesSys}
 \end{figure}
 
 The execution is illustrated in figure \ref{fig:MesSys}.
-The dashed arrows between fluxions represent the message streams as seen in the fluxionnal application.
+The dashed arrows between fluxions represent the message streams as seen in the fluxional application.
 The plain arrows represent the operations of the messaging system during the execution.
 These steps are indicated by numeroted circles.
 The \textit{program} registers its fluxions in the messageing system, \circled{1}.

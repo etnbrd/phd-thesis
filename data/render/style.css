@@ -149,8 +149,8 @@ text {
 .line.CPAN_search       {stroke: black}
 .label.CRAN             {fill:   black}
 .line.CRAN              {stroke: black}
-.label.Perl             {fill:   #006837}
-.line.Perl              {stroke: #006837}
+.label.Perl6Eco         {fill:   #006837}
+.line.Perl6Eco          {stroke: #006837}
 
 .label.Drupal           {fill:   black}
 .line.Drupal            {stroke: black}

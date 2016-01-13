@@ -1,4 +1,4 @@
-\section{Fluxionnal compiler} \label{section:compiler}
+\section{Fluxional compiler} \label{section:compiler}
 
 Web applications are currently, mostly written in Java.
 The langage proposes both data encapsulation in objects and a threading model that allows the development of parallel applications.
@@ -210,7 +210,7 @@ To avoid such race conditions, we avoid retro propagation.
 
 Additionally, it is currently impossible to stream variables containing closures.
 Indeed, it is impossible to serialize closure from within Javascript.
-As the fluxionnal execution model is currently confined inside the Javascript execution environment, it is unable to send closures from one worker to the other.
+As the fluxional execution model is currently confined inside the Javascript execution environment, it is unable to send closures from one worker to the other.
 
 \paragraph{Share}
 If a variable is needed for modification by more than one fluxion, or is read by an upstream fluxion, then it needs to be synchronized between the fluxions.

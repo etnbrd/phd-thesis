@@ -73,8 +73,8 @@ text { font-family: Helvetica; color: blue; }
 .line.CPAN_search { stroke: #000000; }
 .label.CRAN { fill: #000000; }
 .line.CRAN { stroke: #000000; }
-.label.Perl { fill: #006837; }
-.line.Perl { stroke: #006837; }
+.label.Perl6Eco { fill: #006837; }
+.line.Perl6Eco { stroke: #006837; }
 .label.Drupal { fill: #000000; }
 .line.Drupal { stroke: #000000; }
 .label.Packagist { fill: #dd3497; }
