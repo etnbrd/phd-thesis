@@ -260,8 +260,7 @@ d3.csv('csv/Javascript-timeline.csv')
   .row(function(row) {
     return {
       date: parseDate('%d\/%m\/%Y',row.date),
-      event: row.event,
-      y: +row.y
+      event: row.event
     };
   })
   .get(timelineFactory(parent, 'javascript-timeline', {
@@ -590,6 +589,7 @@ function timelineFactory(parent, name, options) {
   options.width = 600 - options.margin.left - options.margin.right;
   options.height = 300 - options.margin.top - options.margin.bottom;
   options.dict = options.dict || {};
+  options.interline = options.interline || 30;
   // options.xDomain = function() {return undefined};
   // options.yDomain = function() {return undefined};
 
@@ -649,7 +649,7 @@ function timeline(svg, data, options) {
       })
 
   var events = svg.selectAll('.events')
-    .data(data)
+    .data(data.reverse())
     .enter()
     .append('g')
       .attr('class', 'event')
@@ -657,9 +657,25 @@ function timeline(svg, data, options) {
         return 'translate(' + x(d.date) + ',' + options.height + ')';
       })
 
-  events.append('text')
-      .attr('y',function(d) { return  - 15 - d.y })
-      .attr('x','-5pt')
+   // var lastd = 0;
+   // var lastt = options.width + 100;
+
+  data.reduce(function(last, event) {
+    var c = Math.cos(Math.PI/4),
+        t = x(event.date),
+        dt = last.t - t;
+    // If the space between the current and previous text line is less than the interline
+    // Pull up the current text line so that it fit the interline.
+    event.y = (c*(dt - last.d) < options.interline) ? options.interline / c - dt + last.d : 0;
+
+    return {d: event.y, t: t}
+  }, {d: 0, t: options.width + 100})
+
+  events.append('g')
+      .attr('transform', function (d) {
+        return 'translate(5,' + (-25 - d.y) + ') rotate(-45)';
+      })
+      .append('text')
       .style('text-anchor', 'left')
       .style('font-family', 'cmr10')
       .text(function(d) { 
@@ -675,7 +691,7 @@ function timeline(svg, data, options) {
       // .attr('class', 'line')
       .attr('x1', 0)
       .attr('x2', 0)
-      .attr('y1', function(d) { return - 10 - d.y })
+      .attr('y1', function(d) { return - 20 - d.y })
       .attr('y2', -7)
       .attr('stroke-width', '1px')
       .attr('stroke', 'black')
