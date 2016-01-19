@@ -27,6 +27,20 @@
 
 \usepackage{pdfpages}
 
+
+
+
+% \DeclareTextFontCommand{\textgr}
+% {\fontencoding{T1}\fontfamily{gothamrounded}\selectfont}
+
+\newcommand\textgr[1]{{\usefont{T1}{custom}{m}{n} #1 }}
+
+
+% \renewcommand{\thefigure}{\textgr\arabic{figure}}
+
+
+
+
 \input{bibliography}
 \input{utils/code}
 \input{utils/macros}

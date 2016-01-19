@@ -1,6 +1,6 @@
-\subsection{Definfion} \label{chapter5:due:definition}
+% \subsection{Definition} \label{chapter5:due:definition}
 
-% \subsection{Due} \label{section:definitions:due}
+\subsection{Due} \label{chapter5:due:definition}
 
 A Due is an object used as placeholder for the eventual outcome of a deferred operation.
 % Dues are a simplification of the Promise specification.
@@ -8,11 +8,13 @@ They are essentially similar to ECMAScript Promises\ftnt{http://www.ecma-interna
 % They leave the control over the conditional execution over the outcome to the developer.
 They use the \textit{error-first} convention, like \textit{Node.js}, as illustrated line \ref{lst:due:error-first} in listing \ref{lst:due}.
 The implementation of Dues and its tests are available online\ftnt{https://www.npmjs.com/package/due}.
-A more in-depth description of Dues and their creation follows in the next paragraphs.
+% A more in-depth description of Dues and their creation follows in the next paragraphs.
 % The \texttt{mock} method is implemented in listing \ref{lst:due-creation}.
 % While a promise expects two continuations, \texttt{onSuccess} and \texttt{onErrors}, the method \texttt{then} of a due expects only one continuation, following the convention \textit{error-first}.
 % \footnotemark{\ref{ftn:error-conventions}}
 % \footnotemark{\ref{ftn:error-first}}.
+
+\subsubsection{Usage}
 
 \begin{code}[js, %
              caption={Example of a due}, %
@@ -30,31 +32,13 @@ due.then(function continuation(error, result) { //@\label{lst:due:error-first}@
 });
 \end{code}
 
-A due is typically created inside the function which returns it.
-In listing \ref{lst:due}, line \ref{lst:due:mock}, the \texttt{mock} method wraps the original function \texttt{my\_fn} in a Due-compatible function \texttt{mocked\_fn}.
-The rest of this code is similar to the Promise example, listing \ref{lst:then}.
 
-We illustrate in listing \ref{lst:due-creation} the creation of a Due.
-The \texttt{mock} method, defined line \ref{lst:due-creation:new}, returns a Due compatible function.
-That is a function that returns a Due, instead of expecting a continuation.
-
-At its creation, line \ref{lst:due-creation:new}, the Due expects the original function as argument, which is \texttt{my\_fn} here.
-The original function is executed immediatly at the call of the Due-compatible function \textit{mocked\_fn}.
-The \texttt{settle} function passed as argument, line \ref{lst:due-creation:new}, is used as a continuation for the original function to settle the Due. %, synchronously or asynchronously.
-Therefore, the \texttt{settle} function is pushed at the end of the list of arguments, line \ref{lst:due-creation:push}.
-% Indeed, the operation might be synchronous, or asynchronous.
-The callback invokes the deferred operation with this list of arguments, and the current context, line \ref{lst:due-creation:call}.
-% \texttt{my\_fn} being asynchronous, it expects a callback as last argument : \texttt{settle}.
-When finished, the latter calls \texttt{settle} to settle the Due and save the outcome.
-% A Due is in one of two mutually exclusive states: settled or pending.
-The created Due is returned synchronously.
-Its \texttt{then} method allows to define a continuation to retrieve the saved outcome, and continue the execution after its settlement.
+In listing \ref{lst:due}, the function \texttt{my\_fn\_due} synchronously returns a due as a placeholder for its outcome.
+The \texttt{then} method of the due allows to define a continuation to continue the execution after retrieving the outcome, like line \ref{lst:due:error-first}.
 If the deferred operation is synchronous, the Due settles during its creation and the \texttt{then} method immediately calls this continuation.
 If the deferred operation is asynchronous, this continuation is called during the Due settlement.
 
-% This continuation is defined by the \texttt{then} method.
-% After the settlement of the Due, its continuation is executed with the outcome.
-% Dues expose a \texttt{then} method expecting a continuation to continue the execution after its settlement.
+\subsubsection{Creation} \label{chapter5:due:definition:creation}
 
 \begin{code}[js, %
              caption={Creation of a due}, %
@@ -72,9 +56,37 @@ Due.mock = function(my_fn) { //@\label{lst:due-creation:mock}@
 }
 \end{code}
 
-The composition of Dues is the same than for Promises, as illsutrated in listing \ref{lst:dues-sequence}.% explained in section \ref{chapter4:event-loop:promise}.
+
+% A due is often created inside the function which returns it, like in listing \ref{lst:due-creation}.
+In listing \ref{lst:due}, line \ref{lst:due:mock}, the \texttt{mock} method wraps the original function \texttt{my\_fn} in a Due-compatible function \texttt{mocked\_fn}.
+The \texttt{mock} method is detailed in listing \ref{lst:due-creation} to illustrate the creation of a Due.
+% The rest of this code is similar to the Promise example, listing \ref{lst:then}.
+It returns a Due compatible function, \texttt{mocked\_fn}, line \ref{lst:due-creation:mocked}.
+That is a function that returns a Due, instead of expecting a continuation.
+
+At the execution of \texttt{mocked\_fn} the Due to be returned is created line \ref{lst:due-creation:new}, with the original function passed as argument.
+The original function \texttt{my\_fn} is executed during the creation of the Due.
+The \texttt{settle} function provided is passed as a continuation line \ref{lst:due-creation:push} for the original function to settle the returned Due. %, synchronously or asynchronously.
+% Therefore, the \texttt{settle} function is pushed at the end of the list of arguments, line \ref{lst:due-creation:push}.
+% Indeed, the operation might be synchronous, or asynchronous.
+% The callback invokes the deferred operation with this list of arguments, and the current context, line \ref{lst:due-creation:call}.
+% \texttt{my\_fn} being asynchronous, it expects a callback as last argument : \texttt{settle}.
+When the original function completes, it calls \texttt{settle} to settle the Due and save the outcome.
+This outcome can then be retrieved with the continuation provided by the \texttt{then} method.
+% A Due is in one of two mutually exclusive states: settled or pending.
+
+% This continuation is defined by the \texttt{then} method.
+% After the settlement of the Due, its continuation is executed with the outcome.
+% Dues expose a \texttt{then} method expecting a continuation to continue the execution after its settlement.
+
+
+\subsubsection{Composition}
+
+Dues arrange the execution flow as a chain of actions to carry on inputs.
+The composition of Dues in a chain is illsutrated in listing \ref{lst:dues-sequence}. % explained in section \ref{chapter4:event-loop:promise}.
+% It is the same than for Promises,
 % This composition is explained in details in section \ref{section:definitions:promise}. %, and illustrated specifically for Dues in listing \ref{lst:dues-sequence}.
-Through this chained composition, Dues arrange the execution flow as a sequence of actions to carry on inputs.
+% Through this chained composition, 
 
 \begin{code}[js, %
              caption={Dues are chained like Promises}, %
@@ -85,18 +97,27 @@ var my_fn_due_1 = Due.mock(my_fn_1),
     my_fn_due_2 = Due.mock(my_fn_2),
     my_fn_due_3 = Due.mock(my_fn_3);
 
-my_fn_1(input)
-.then(my_fn_2)
-.then(my_fn_3)
+my_fn_due_1(input)
+.then(my_fn_due_2) //@\label{lst:due-sequence:then}@
+.then(my_fn_due_3)
 .then(console.log);
 \end{code}
 
-This simplified specification adopts the same convention than \textit{Node.js} for continuations to hand back outcomes.
-Therefore, the equivalence between a continuation and a Due is trivial.
+The \texttt{then} method of the current Due returns an intermediary Due that settles when the Due returned by the passed continuation settles.
+As example, in listing \ref{lst:dues-sequence} the Due returned by the \texttt{then} method line \ref{lst:due-sequence:then} settles when the Due returned by \texttt{my\_fn\_due\_2} settles.
+It allows to chain continuations one after the other, instead of the nested composition of continuations.
+
+% This simplified specification adopts the same convention than \textit{Node.js} for continuations to hand back outcomes.
+
+
+% Therefore, the equivalence between a continuation and a Due is trivial.
+
+
+
 % This equivalence, and its composition are explained in details in section \ref{section:equivalence}.
-Dues are admittedly tailored for this work, hence, they are not designed to be written by developers, like Promises are.
-They are an intermediary step between classical continuations and the second step of the transformation, presented in chapter \ref{chapter6}.
-The next section presents the equivalence between continuations and Dues.
+% Dues are admittedly tailored for this work, hence, they are not designed to be written by developers, like Promises are.
+
+% The next section presents the equivalence between continuations and Dues.
 
 
 % In listing \ref{lst:due}, \texttt{due} is settled when the function \texttt{settle} is called.

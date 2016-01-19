@@ -3,6 +3,7 @@ NAME = thesis
 PDFLATEX = mkdir -p .tmp && rsync -av -f"+ [0-9]*/" -f"- *" src/ .tmp/ && mkdir -p .tmp/figures && cd src && pdflatex -shell-escape --output-directory ../.tmp ../src/${FILE}.tex && mv ../.tmp/${FILE}.pdf ../${NAME}.pdf && cd ..
 BIBER = mkdir -p .tmp && cd .tmp && biber ${FILE} && cd ..
 
+
 .PHONY: all, bib, _main, _bib
 
 all: pdf bib open

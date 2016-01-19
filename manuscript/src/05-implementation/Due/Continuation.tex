@@ -1,22 +1,30 @@
 \subsection{From Continuations to Dues} \label{chapter5:due:equivalence}
 
-This section presents the transformation from a nested imbrication of continuations into a chain of Dues.
-It explains the three limitations imposed by the compiler for this transformation to preserve the semantic.
-They preserve the execution order, the execution linearity and the scopes of the variables used in the operations.
+The equivalence between continuations and Dues allows the transformation of a nested imbrication of continuations into a chain of Dues.
+To preserve the semantic, this transformation imposes limitations on the execution order, the execution linearity and the scopes of the variables used in the operations.
 
 \subsubsection{Execution order}
 
-The compiler spots function calls with a continuation, which are similar to the abstraction in (\ref{eq:order:source}).
-It wraps the function $fn$ into the function $fn_\textbf{due}$ to return a Due.
-And it relocates the continuation in a call to the method $\textbf{then}$, which references the Due previously returned.
-The result should be similar to (\ref{eq:order:target}).
+The transformation of a simple continuation is illsutrated in figure \ref{fig:then-transform}
+The compiler spots function calls similar to the abstraction (\ref{eq:order:source}).
+It wraps the function $fn$ into the function $fn_\textbf{due}$ to return a Due, as presented in section \ref{chapter5:due:definition:creation}
+And it relocates the continuation in a call to the method $\textbf{then}$.
+%, which references the Due previously returned.
+The result is similar to the abstraction (\ref{eq:order:target}).
 The differences are highlighted in bold font.
+
+\begin{figure}[h!]
+\centering
 \begin{equation} \label{eq:order:source}
 fn([arguments], continuation)
 \end{equation}
+$\downarrow$
 \begin{equation} \label{eq:order:target}
 fn_\textbf{due}([arguments])\textbf{.then}(continuation)
 \end{equation}
+\label{fig:then-transform}
+\caption{Simple transformation}
+\end{figure}
 
 The execution order is different whether $continuation$ is called synchronously, or asynchronously.
 If $fn$ is synchronous, it calls the $continuation$ within its execution.
@@ -25,54 +33,74 @@ If $fn$ is asynchronous, the continuation is called after the end of the current
 The transformation erases this difference in the execution order.
 In both cases, the transformation relocates the execution of $continuation$ after the execution of $fn$.
 For synchronous $fn$, the execution order changes ; the execution of $statements$ at the end of $fn$ and the continuation switch.
-The latter must be asynchronous to preserve the execution order.
+The function $fn$ must be asynchronous to preserve the execution order.
 
 \subsubsection{Execution linearity}
 
-The compiler transforms a nested imbrication of continuations, which is similar to the abstraction in (\ref{eq:state:source}) into a flatten chain of calls encapsulating them, like in (\ref{eq:state:target}).
-\begin{align} \label{eq:state:source}
-&fn1([arguments], cont1 \{\nonumber\\
-&\qquad  declare ~ variable \leftarrow result\nonumber\\
-&\qquad  fn2([arguments], cont2 \{\nonumber\\
-&\qquad\qquad    print ~ variable\nonumber\\
-&\qquad  \})\nonumber\\
-&\})
-\end{align}
-\begin{align} \label{eq:state:target}
-&\textbf{declare variable}\nonumber\\
-&fn1_\textbf{due}([arguments])\nonumber\\
-&\textbf{.then}(cont1\{\nonumber\\
-&\qquad  variable \leftarrow result\nonumber\\
-&\qquad  fn2_\textbf{due}([arguments])\nonumber\\
-&\})\nonumber\\
-&\textbf{.then}(cont2\{\nonumber\\
-&\qquad  print ~ variable\nonumber\\
-&\})
-\end{align}
+The transformation of a chain of continuations into a chain of Dues is illustrated in figure \ref{fig:comp-transform}.
+The compiler transforms a nested imbrication of continuations similar to the abstraction (\ref{eq:state:source}) into a flatten chain of calls encapsulating them, as abstraction (\ref{eq:state:target}).
 
-An imbrication of continuations must not contain any loop, nor function definition that is not a continuation.
-Both modify the linearity of the execution flow which is required for the equivalence to keep the semantic.
-A call nested inside a loop returns multiple Dues, while only one is returned to continue the chain.
-A function definition breaks the execution linearity.
+\begin{figure}[h!]
+  \begin{minipage}{0.40\textwidth}
+    \centering
+    \begin{align} \label{eq:state:source}
+    &fn1([arguments], cont1 \{\nonumber\\
+    &\qquad  declare ~ variable \leftarrow result\nonumber\\
+    &\qquad  fn2([arguments], cont2 \{\nonumber\\
+    &\qquad\qquad    print ~ variable\nonumber\\
+    &\qquad  \})\nonumber\\
+    &\})
+    \end{align}
+  \end{minipage}
+  \hfill
+  $\to$
+  \hfill
+  \begin{minipage}{0.40\textwidth}
+    \centering
+    \begin{align} \label{eq:state:target}
+    &\textbf{declare variable}\nonumber\\
+    &fn1_\textbf{due}([arguments])\nonumber\\
+    &\textbf{.then}(cont1\{\nonumber\\
+    &\qquad  variable \leftarrow result\nonumber\\
+    &\qquad  \textbf{return} fn2_\textbf{due}([arguments])\nonumber\\
+    &\})\nonumber\\
+    &\textbf{.then}(cont2\{\nonumber\\
+    &\qquad  print ~ variable\nonumber\\
+    &\})
+    \end{align}
+  \end{minipage}
+  \label{fig:comp-transform}
+  \caption{Composition transformation}
+\end{figure}
+
+Because of the repetition, a call inside a loop yields multiple Dues to chain, while only one is returned to continue the chain.
+% A call nested inside a loop returns multiple Dues, while only one is returned to continue the chain.
+Loops modify the linearity of the execution flow.
+To preserve the semantic, a chain of Dues must not contain any loop.
+Similarly, a function definition outside a function call breaks the execution linearity.
+This defined function might not be executed synchronously, in the current chain of Dues.
 It prevents the nested call to return the Due expected to continue the chain.
 % And a call nested inside a function definition is unable to return the Due to continue the chain.
+Therefore, the compiler breaks the chain of Dues when loops or function definitions are encountered.
+
 On the other hand, conditional branching leaves the execution linearity and the semantic intact.
-If the nested asynchronous function is not called, the execution of the chain stops as expected.
+If the nested asynchronous function is not called due to branching, the execution of the chain stops as expected, either with continuations or Dues.
 
 % We demonstrate the equivalence with a sequence of two continuations.
 % The equivalence is sound for a sequence of \textit{n} continuations.
 
 \subsubsection{Variable scope}
 
-In (\ref{eq:state:source}), the definitions of $cont1$ and $cont2$ are
-overlapping. The $variable$ declared in $cont1$ is accessible in $cont2$ to be
-printed. In (\ref{eq:state:target}), however, definitions of $cont1$ and
-$cont2$ are not overlapping, they are siblings. The $variable$ is not
-accessible to $cont2$. It must be relocated in a parent function to be
-accessible by both $cont1$ and $cont2$. To detect such variables, the compiler
-must infer their scope statically. Languages with a lexical scope define the
-scope of a variable statically. Most imperative languages present a lexical
-scope, like C/C++, Python, Ruby or Java. The subset of Javascript excluding
-the built-in functions \texttt{with} and \texttt{eval} is also lexically
-scoped. To compile Javascript, the compiler must exclude programs using these
-two statements.
+In abstraction (\ref{eq:state:source}), the definitions of $cont1$ and $cont2$ are overlapping.
+The $variable$ declared in $cont1$ is accessible in $cont2$ to be printed.
+In abstraction (\ref{eq:state:target}), however, definitions of $cont1$ and $cont2$ are not overlapping, they are siblings.
+The $variable$ is not accessible to $cont2$.
+It must be relocated in a parent function to be accessible by both $cont1$ and $cont2$.
+To detect such variables, the compiler must infer their scope statically.
+% Languages with a lexical scope define the scope of a variable statically.
+Most imperative languages like C/C++, Python, Ruby or Java present a lexical scope, which defines variables scopes statically.
+In Javascript, however, the statements \texttt{with} and \texttt{eval} modify the scope dynamically.
+The compiler excludes programs using these statements.
+
+
+% sThe subset of Javascript excluding the built-in functions \texttt{with} and \texttt{eval} is also lexically scoped.

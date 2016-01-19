@@ -61,19 +61,19 @@ It helps developers to enforce efficiency through continuous iteration, instead 
 % The next paragraphs introduce this equivalence.
 
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.7\textwidth]{../resources/roadmap.pdf}
-\end{center}
-\caption{Roadmap}
-\label{fig:roadmap}
-\end{figure}
+% \begin{figure}[h!]
+% \begin{center}
+% \includegraphics[width=0.7\textwidth]{../resources/roadmap.pdf}
+% \end{center}
+% \caption{Roadmap}
+% \label{fig:roadmap}
+% \end{figure}
 
 \subsection{Equivalence} \label{chapter4:equivalence}
 
 % The goal of this thesis is not to propose a new high-level language but to automate the architectural shift.
 The next paragraphs introduces the equivalence between the the event-driven execution model and the pipeline execution model.
-The equivalence is broken down in two steps, as illustrated in figure \ref{fig:roadmap}.
+The equivalence is broken down in two steps. %, as illustrated in figure \ref{fig:roadmap}.
 The first step identifies the rupture points in the control flow separating the stages of the pipeline.
 The second step enforces isolation of memory between these stages, and replaces synchronization with message passing to preserve the invariance.
 % invariance through message passing.

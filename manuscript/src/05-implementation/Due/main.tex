@@ -5,8 +5,8 @@
 % It concluded with the objectives of this thesis, which is to find an equivalence between the two opposed organizations.
 % The maintenance scalability organization, supported by modular programming, higher-order programming and a global memory store.
 % The performance scalability organization, supported by the parallelism of memory and execution distribution.
-This section presents the first step in the transformation from the event-driven execution model to the pipeline architecture, as presented in figure \ref{fig:roadmap}.
-That is to identify and extract a pipeline of execution inside an application following the event-driven execution model.
+% This section presents the first step in the transformation from the event-driven execution model to the pipeline architecture, as presented in figure \ref{fig:roadmap}.
+% That is to identify and extract a pipeline of execution inside an application following the event-driven execution model.
 % In this work, we focus on Javascript, and specifically on \textit{Node.js} applications.
 %
 % Javascript allows higher-order programming.
@@ -24,22 +24,20 @@ That is to identify and extract a pipeline of execution inside an application fo
 % Due organize the operations like Promises, as a well-defined pipeline, while discarding the unnecessary additional control over the asynchronous flow.
 %
 
-It focuses on the identification of the chains of causality in continuations.
-Promises bring more control over the asynchronous flow than the chaining of causal sequentiality.
-But they force another control over the execution flow.
-According to the outcome of the operation, they call one function to continue the execution with the result, or another to handle errors.
-This conditional execution is indivisible from the Promise structure.
-As a result, Promises impose a convention on how to hand back the outcome of the deferred computation, while classic continuations leave this conditional execution to the developer.
-To rule out this differences between continuations and Promises, section \ref{chapter5:due} introduces a simpler specification to Promise, called Due.
+% It focuses on the identification of the chains of causality in continuations.
+% Promises bring more control over the asynchronous flow than the chaining of causal sequentiality.
+% But they force another control over the execution flow.
+% According to the outcome of the operation, they call one function to continue the execution with the result, or another to handle errors.
+% This conditional execution is indivisible from the Promise structure.
+% As a result, Promises impose a convention on how to hand back the outcome of the deferred computation, while classic continuations leave this conditional execution to the developer.
+% To rule out this differences between continuations and Promises, section \ref{chapter5:due} introduces a simpler specification to Promise, called Due.
 
-This section presents a compiler to identify the pipeline of operating underlying in a Javascript application. % using callbacks, and extract it to express it as Dues.
-The compiler expresses this pipeline as chains of Dues.
+% This section presents a compiler to identify the pipeline of operating underlying in a Javascript application. % using callbacks, and extract it to express it as Dues.
+% The compiler expresses this pipeline as chains of Dues.
 
-Section \ref{chapter5:due:equivalence} explains the transformation from imbrications of continuations to sequences of Dues.
-Section \ref{chapter5:due:compiler} presents a compiler to automate the application of this equivalence.
-And finally, the developed compiler is evaluated in section \ref{chapter5:due:evaluation}.
-This compiler has been tested over 64 \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}).
-55 packages were incompatible with the compiler, 9 packages were compiled with success.
+% Section \ref{chapter5:due:equivalence} explains the transformation from imbrications of continuations to sequences of Dues.
+% Section \ref{chapter5:due:compiler} presents a compiler to automate the application of this equivalence.
+% And finally, the developed compiler is evaluated in section \ref{chapter5:due:evaluation}.
 
 
 % \subsection{From continuations to Promises} \label{seciton:definitions:analysis}

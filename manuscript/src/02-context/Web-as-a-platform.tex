@@ -16,7 +16,7 @@ It led the Web to become a major platform, replacing operating systems.
 
 Now, with web applications, the distribution medium is so transparent that owning a software product to have an easier access is no longer relevant.
 It stimulates a completely new business model based on an instantaneous and free access for the user, while claiming value for their data.
-The next paragraphs present Javascript, the language that allowed this new business model to emerge.
+% The next paragraphs present Javascript, the language that allowed this new business model to emerge.
 
 \subsection{The Language of the Web}
 
@@ -61,14 +61,6 @@ ECMA International released  ECMAScript -- or ECMA-262 -- the first standard for
 
 % \paragraph{}
 
-\begin{wrapfigure}{l}{0.25\textwidth}
-  \vspace{-57pt}
-  \begin{center}
-    \includegraphics[width=0.25\textwidth]{../resources/javascript-hate.pdf}
-  \end{center}
-  \vspace{-35pt}
-\end{wrapfigure}
-
 The initial release of Javascript was designed by Brendan Eich within 10 days, and targeted unexperienced developers.
 For these reasons, the language was considered poorly designed and unattractive by the developer community.
 
@@ -84,6 +76,15 @@ For these reasons, the language was considered poorly designed and unattractive 
 % 10 things we hate about JavaScript\ftnt{http://www.infoworld.com/article/2606605/javascript/146732-10-things-we-hate-about-JavaScript.html}
 % Why do so many people seem to hate Javascript?\ftnt{https://www.quora.com/Why-do-so-many-people-seem-to-hate-JavaScript}
 % }
+
+
+\begin{wrapfigure}{l}{0.25\textwidth}
+  \vspace{-20pt}
+  \begin{center}
+    \includegraphics[width=0.25\textwidth]{../resources/javascript-hate.pdf}
+  \end{center}
+  \vspace{-35pt}
+\end{wrapfigure}
 
 But this situation evolved drastically since.
 All web browsers include a Javascript interpreter, making Javascript the most ubiquitous runtime \cite{Flanagan2006}.
@@ -246,7 +247,7 @@ Alternatively, a handler can respond directly to the client, ending this chain o
 % Each task can initiate new communications, leading in turn to the queuing of more messages, which trigger more tasks, and so on.
 % Each task is executed atomically and exclusively, until it yields execution to continue with the next task in queue.
 
-This execution model allows a high concurrency to respond to a high number of users simultaneously.
+This execution model allows the high concurrency required to respond to a high number of users simultaneously.
 This concurrency needs to be scalable to adapt to the growth of audience, as explained in the next paragraph.
 
 \paragraph{Scalability}
@@ -294,22 +295,22 @@ As the stages are independent, the state coordination between the stages are com
   \centering
   \includegraphics[width=0.8\linewidth]{../resources/pipeline.pdf}
   \label{fig:pipeline}
-  \caption{Pipeline}
+  \caption{Pipeline executin model}
 \end{figure}
 
-The execution model of each stage is organized in a similar fashion than the event-loop presented in section \ref{chapter2:web-as-a-platform:javascript:event-loop}.
+The execution model of each stage is organized in a similar fashion than the event-loop presented previously.
 It receives and queues messages from upstream stages, processes them one after the other, and outputs the result to downstream stages.
-The pipeline architecture is difference as each task is executed on an isolated stage.
-Whereas in the event-loop execution model, all handlers share the same queue, loop and memory store.
-This difference is illustrated in figure \ref{fig-models-difference}.
-This parallelism in the execution model impacts the productivity in programming model.
+The pipeline architecture is different as each task is executed on an isolated stage.
+Whereas in the event-driven execution model, all handlers share the same queue, loop and memory store.
+This difference is illustrated in figure \ref{fig:models-difference}.
+The isolation of memory in the pipeline execution model impacts the productivity of its programming model.
 The next section details further the incompatibility between the two programming model and the resulting economical consequences.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\linewidth]{../resources/models-difference.pdf}
   \label{fig:models-difference}
-  \caption{Difference between the two execution models}
+  \caption{Comparison of the two memory models}
 \end{figure}
 
 

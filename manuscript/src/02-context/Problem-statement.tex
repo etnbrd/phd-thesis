@@ -5,17 +5,18 @@ The previous section presented these two aspects individually.
 This section presents the challenges encountered by conducting the two at world wide scale.
 It then focuses on the subject and defines the objectives of this thesis.
 
-\subsection{Disrupted Development}
+\subsection{Disrupted Web Development}
 
 % The Web allows a project to grow quickly from a very early stage to a large business.
 The economical constraints to meet are very different in the beginning and during the maturation of a web application.
 In the early steps the constraints hold on the development productivity.
-The project needs to reduce development costs, and to release a first product as soon as possible.
-On the contrary, during the maturation of the project, the constraints hold on the performance efficiency.
-The product needs to be highly concurrent to meet the load of usage.
-The team needs to revise their approach to meet these different constraints.
-These revisions leads to disruptions in the evolution of the project.
-This section further details the reasons and consequences of these disruptions.
+The team needs to reduce development costs, and to release a first version as soon as possible.
+On the contrary, during the maturation of the application, the constraints hold on the performance efficiency.
+The application needs to be highly concurrent to meet the load of usage.
+
+The team need to revise its approach to meet these different constraints.
+These revisions leads to disruptions in the evolution of the application.
+% This section further details the reasons and consequences of these disruptions.
 
 \subsubsection{Power-Wall Disruption}
 
@@ -26,9 +27,8 @@ The speed of sequential execution on a processing unit plateaued\ftnt{https://ca
 Therefore, the performance of sequential programming plateaued as well.
 They started to arrange transistors into several processing units to keep increasing overall performance efficiency. % while avoiding overheating problems.
 % required by the cooperative scheduling 
-Parallel programming became the only option to achieve high concurrency. % on this parallel hardware.
+Parallel programming became the only option to achieve high concurrency, but the memory isolation it requires limits the productivity.
 % Isolating tasks is the only option to achieve high concurrency on this parallel hardware.
-But the memory isolation required in parallel programming limits the productivity.
 % These best-practices are presented in further details in section \ref{chapter3:software-maintainability}
 This \textit{Power-wall} leads to a rupture between efficiency and productivity.
 
@@ -55,7 +55,7 @@ The development team then shifts to an organization providing parallelism.
 This shift brings two risks.
 The development team needs to rewrite the code base to adapt it to a completely different paradigm.
 The application risks to fail because of this challenge.
-And after this shift the development pace slows down.
+And after this shift, the development pace slows down.
 The development team cannot react as quickly to user feedbacks to adapt the application to the market needs.
 The application risks to fall in obsolescence.
 
@@ -83,8 +83,8 @@ On the other hand, the state of the application remains in memory to impact the 
 This state might be shared by several tasks within the application, and imply coordination between them.
 
 As presented in the previous section, such applications are often implemented with the event-driven programming model or the pipeline programming model.
-The next section introduces the differences between these two programming models and outlines an equivalence to map these differences.
-This equivalence is developed throughout this thesis.
+Despite the differences between the two models, an equivalence to map these differences is developed throughout this thesis.
+% The next section introduces the differences between these two programming models and outlines an equivalence to map these differences.
 
 \subsubsection{Differences}
 
@@ -97,16 +97,16 @@ Because of economical constraints, this incompatibility implies ruptures in the 
 It represents additional development efforts and important costs.
 This thesis argues that it is possible to allow a continuous development between the two organizations, so as to lift these efforts and costs.
 The argumentation of this possibility is based on an equivalence bridging the two organizations.
-This equivalence is presented briefly in the next paragraph, and detailed further in the the chapter \ref{chapter4} and \ref{chapter5}.
+This equivalence is presented briefly in the next paragraph, and detailed further in the chapter \ref{chapter4} and \ref{chapter5}.
 
 \subsubsection{Equivalence}
 
-In the beginning of a project, the team adopt the event-loop execution model to focus on maintainability and evolution, discarding the scalable performance concerns.
+In the beginning of a project, the team adopts the event-driven execution model to focus on maintainability and evolution, discarding the scalable performance concerns.
 And as the project gather audience and the performance concerns become more and more critical, the development team adopt the pipeline execution model to take into account this performance concerns.
 The equivalence would allow a compiler to transform an application expressed in one model into the other.
 
 With this equivalence, it would be possible to express an application following the design principles of software development.
-A development team could rely on the common memory store of the event-loop execution model, and focuses on the maintainability of the implementation.
+A development team could rely on the common memory store of the event-driven execution model, and focuses on the maintainability of the implementation.
 And yet, because of the equivalence between these two models, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
 The development team could continuously progress with the two models and take advantage of their different concerns about the implementation, performance and maintainability.
 
