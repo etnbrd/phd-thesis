@@ -1,15 +1,13 @@
 \subsubsection{Evaluation} \label{chapter5:due:evaluation}
 
-A set of Javascript projects likely to contain continuations were compiled to validate the compiler.
-This section presents the results of these tests.
+
+% A set of Javascript projects likely to contain continuations were compiled to validate the compiler.
+% This section presents the results of these tests.
 
 % \subsection{Projects selection}
 
-This compiler has been tested over 64 \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}).
-55 packages were incompatible with the compiler, 9 packages were compiled with success.
-
-The compilation of a project requires user interaction.
-To conduct the test in a reasonable time, the test set was limited to a minimum of about \num{50} projects.
+The compiler was evaluated against a set of Javascript projects likely to contain continuations.
+Because the compilation of a project requires user interaction, the test set was limited to a minimum of about \num{50} projects to conduct the test in a reasonable time.
 All the projects in the set were selected from the \textit{Node Package Manager} database to restrict the set to \textit{Node.js} projects.
 They all depends on the web framework \textit{express}, but not on the most common Promises libraries such as \textit{Q} and \textit{Async}.
 They use the test frameworks \textit{mocha} in its default configuration.
@@ -17,6 +15,12 @@ These tests are used to validate the compilation results.
 The test set finally contains 64 projects.
 This subset is very small, and cannot represent the wide possibilities of Javascript.
 However, it is sufficient to represents a majority of common cases.
+
+
+
+This compiler has been tested over 64 \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}).
+55 packages were incompatible with the compiler, 9 packages were compiled with success.
+
 
 % \subsection{Run the tests}
 
@@ -48,11 +52,11 @@ On the 64 projects composing the test set
 \begin{description}
 \item[29] (45.3\%) do not contain any compatible continuations,
 \item[10] (15.6\%) are not compilable because they contain \texttt{with} or \texttt{eval} statements,
-\item[5] (7.8\%) use asynchronous libraries,
-\item[4] (6.3\%) are not syntactically correct,
+% \item[5] (7.8\%) use asynchronous libraries,
+% \item[4] (6.3\%) are not syntactically correct,
 \item[4] (6.3\%) fail their tests before the compilation,
-\item[3] (4.7\%) are not tested, and
-\item[10] (14.0\%) compile successfully.
+% \item[3] (4.7\%) are not tested, and
+\item[9] (14.0\%) compile successfully.
 \end{description}
 The compiler do not fail to compile any project.
 The details of these projects are available in Appendix \ref{section:results}.
