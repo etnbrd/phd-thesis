@@ -12,13 +12,12 @@ All the projects in the set were selected from the \textit{Node Package Manager}
 They all depends on the web framework \textit{express}, but not on the most common Promises libraries such as \textit{Q} and \textit{Async}.
 They use the test frameworks \textit{mocha} in its default configuration.
 These tests are used to validate the compilation results.
-The test set finally contains 64 projects.
-This subset is very small, and cannot represent the wide possibilities of Javascript.
-However, it is sufficient to represents a majority of common cases.
+The test set finally contains \num{52} projects.
+This subset cannot represent the wide possibilities of Javascript, but represents a majority of common cases.
 
 
 
-This compiler has been tested over 64 \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}).
+This compiler has been tested over \num{52} \textit{Node.js} packages from the node package manager (npm\ftnt{https://www.npmjs.com/}).
 55 packages were incompatible with the compiler, 9 packages were compiled with success.
 
 
@@ -28,45 +27,43 @@ Each project passes its own tests before compilation.
 During the compilation, the compatible continuations were manually identified among the detected callbacks.
 The compilation result of each project is then tested again with its unmodified test.
 The compilation result should pass the tests as well as the original project.
-This is not a strong validation, but it assures the compiler to work as expected in most common cases.
+This validation assures the compiler to work as expected in most common cases.
 
 % \subsection{Results}
 
-Of the 64 projects tested, almost a half, does not contain any compatible continuations.
+Of the \num{52} projects tested, more than a half, does not contain any compatible continuations.
 These projects might use continuations, but the compiler is unable to detect them.
-The other projects were rejected by the compiler because they contain \texttt{with} or \texttt{eval} statements, they use Promises libraries didn't filtered previously.
-9 projects compiled successfully.
+The other projects were rejected by the compiler because they contain \texttt{with} or \texttt{eval} statements. %, they use Promises libraries didn't filtered previously.
+\num{9} projects compiled successfully.
 The compiler did not fail to compile any project of the initial test set.
 
-Over the 9 successfully compiled projects, the compiler detected 172 callbacks.
+Over the \num{9} successfully compiled projects, the compiler detected \num{172} callbacks.
 56 of them were manually identified as compatible continuations.
 The false positives are mainly the listeners that the web applications register to react to user requests.
+Listeners represent the initiation of stream of data, and are addressed in the next section.
 
-One project contains 20 continuations, the others contains between 1 and 9 continuations each.
-On the 56 continuations, 36 are single. %, and 20 continuations are involved in an imbrication.
-The others 20 continuations belong to imbrications of 2 to 4 continuations.
+One project contains \num{20} continuations, the others contains between \num{1} and \num{9} continuations each.
+On the \num{56} continuations, \num{36} are single. %, and 20 continuations are involved in an imbrication.
+The others \num{20} continuations belong to imbrications of 2 to 4 continuations.
 % There are 5 imbrications of 2 continuations, 2 imbrications of 3 continuations, and 1 imbrication of 4 continuations.
 The result of this evaluation prove the compiler to be able to successfully transform imbrications of continuations.
 
-On the 64 projects composing the test set
-\begin{description}
-\item[29] (45.3\%) do not contain any compatible continuations,
-\item[10] (15.6\%) are not compilable because they contain \texttt{with} or \texttt{eval} statements,
-% \item[5] (7.8\%) use asynchronous libraries,
-% \item[4] (6.3\%) are not syntactically correct,
-\item[4] (6.3\%) fail their tests before the compilation,
-% \item[3] (4.7\%) are not tested, and
-\item[9] (14.0\%) compile successfully.
-\end{description}
-The compiler do not fail to compile any project.
-The details of these projects are available in Appendix \ref{section:results}.
-
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\linewidth]{../resources/due-evaluation.pdf}
   \label{fig:due-evaluation}
   \caption{Results of the Due compiler evaluation}
 \end{figure}
+
+On the \num{52} projects composing the test set
+\begin{description}
+\item[29] (55.77\%) do not contain any compatible continuations,
+\item[10] (19.23\%) are not compilable because they contain \texttt{with} or \texttt{eval} statements,
+\item[4] (7.69\%) fail their tests before the compilation, and
+\item[9] (17.31\%) compile successfully.
+\end{description}
+The compiler do not fail to compile any project.
+The details of these projects are available in Appendix \ref{Appendix}.
 
 % \begin{figure}[h!]
 % \begin{tikzpicture}

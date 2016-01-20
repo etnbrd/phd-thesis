@@ -1,0 +1,84 @@
+\newfontfamily\capfont{Gotham Rounded Light}
+
+% \newfontfamily\secfont{FuturaLT-Heavy}
+% \newfontfamily\secfont{FuturaLT-Light}
+
+\newfontfamily\secfont{Majesti Banner Bold}
+
+% \newfontfamily\secfont{Helvetica Neue Bold}
+% \newfontfamily\secfont{Helvetica Neue UltraLight}
+
+% \newfontfamily\secfont{BauerBodoniStd-Black}
+% \newfontfamily\secfont{BauerBodoniStd-Bold}
+% \newfontfamily\secfont{BauerBodoniStd-Roman}
+% \newfontfamily\secfont{BodoniStd-Poster}
+% \newfontfamily\secfont{BodoniStd-Bold}
+
+
+\makeatletter
+\newcommand \Dotfill {\fontsize{4pt}{20pt}\selectfont \leavevmode \cleaders \hb@xt@ 1em{\hss .\hss }\hfill \kern \z@}
+\makeatother
+
+\usepackage[explicit]{titlesec}
+
+\titleformat{\chapter}[display]
+  {\secfont\fontsize{45pt}{60pt}\selectfont%
+  \addtolength{\titlewidth}{\textwidth}%
+  \addvspace{6pt}
+  }{\fontsize{20pt}{20pt}\selectfont\MakeUppercase\chaptertitlename\ \thechapter}
+  {10pt}
+  { \titlerule[1pt]%
+    \vspace{60pt}%
+    \MakeUppercase{#1}\\%
+    \vspace{10pt}%
+    \titlerule[1pt]%
+    \eject%
+  }
+
+
+\titleformat{name=\chapter,numberless}[display]
+  {\secfont\fontsize{20pt}{20pt}\selectfont}
+  {}
+  {0pt}
+  {\filleft\MakeUppercase #1\\\vspace{10pt}\titlerule}
+  % [\vspace{20pt}]
+
+\newlength\rulelen
+\setlength\rulelen{\dimexpr\oddsidemargin+1in+\hoffset\relax}
+
+\titleformat{\section}
+  {\vspace{20pt}\secfont\fontsize{28pt}{20pt}\selectfont}
+  {\llap{\hspace*{-\rulelen}\hfill\thesection\hspace{10pt}}}
+  {0em}
+  {#1}
+  [{\makebox[\linewidth][l]{%
+    \hspace*{-\rulelen}\rule{\dimexpr\linewidth+\rulelen\relax}{0.5pt}}}]
+
+\titleformat{\subsection}[block]%
+  {\vspace{10pt}\secfont\fontsize{20pt}{20pt}\selectfont} % format
+  {\llap{\hspace*{-\rulelen}\hfill\thesubsection\hspace{10pt}}}
+  {0pt} % sep
+  {#1~\hrulefill\vspace{10pt}} % before
+  % [\normalfont\vspace{10pt}] % after
+
+\titleformat{\subsubsection}%
+  {\vspace{10pt}\secfont\fontsize{17pt}{20pt}\selectfont} % format
+  {\llap{\hspace*{-\rulelen}\hfill\thesubsubsection\hspace{10pt}}}
+  {0pt} % sep
+  {#1~\Dotfill\vspace{10pt}} % before
+  % [\normalfont\vspace{10pt}] % after
+
+\titleformat{\paragraph}%
+  {\vspace{10pt}\secfont\fontsize{14pt}{20pt}\selectfont} % format
+  {}
+  {0pt} % sep
+  {\llap{\hspace*{-\rulelen}\hfill§\hspace{10pt}}#1} % before
+  % [\normalfont\vspace{10pt}] % after
+
+\usepackage{caption}
+% \captionsetup[figure]{name={Figure.}}
+% \captionsetup{font={capfont}}
+
+\newfontfamily\figcapfont{Gotham Rounded Light}% Some other font
+\DeclareCaptionFormat{figcapfont}{\fontsize{10pt}{10pt}\selectfont\figcapfont #1#2#3}
+\captionsetup[figure]{format=figcapfont}

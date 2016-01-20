@@ -1,14 +1,19 @@
 \subsection{Fluxions Isolation} \label{chapter5:flx:isolation}
 
-A rupture point eventually breaks the chain of scopes between the upstream and downstream fluxion.
-The closure in the downstream fluxion cannot access the scope in the upstream fluxion as expected.
-The pipeliner step replaces the need for this closure, allowing application parts to rely only on independent memory stores and message passing.
+As a rupture point occur between an asynchronous caller and a callback defined \textit{in situ}, it eventually breaks the chain of scopes.
+% A rupture point eventually breaks the chain of scopes between the upstream and downstream fluxion.
+If the caller and the callback are isolated, it breaks the closures of the callback.
+The callback in the downstream fluxion cannot access the scope of its parent in the upstream fluxion.
+% The closure in the downstream fluxion cannot access the scope in the upstream fluxion as expected.
+The pipeliner step replaces the need for this closure, allowing application parts to be isolated, and to rely only on independent memory stores and message passing.
+
 It determines the distribution using the scope representation, which represents the variables' dependencies between application parts.
 Depending on this representation, the compiler can replace the broken closures in three different ways.
 We present these three alternatives in figure \ref{fig:states}.
 
 \begin{figure}[h!]
-  \includegraphics[width=\linewidth]{../resources/states.pdf}
+  \centering
+  \includegraphics[width=0.7\linewidth]{../resources/states.pdf}
   \caption{Variable management from Javascript to the high-level fluxional language}
   \label{fig:states}
 \end{figure}
@@ -20,7 +25,7 @@ In figure \ref{fig:states}, the variable \texttt{a} is updated in the function \
 The pipeliner step stores this variable in the context of the fluxion \texttt{add}.
 
 \paragraph{Stream}
-If a modified variable is read by downstream application parts, then the pipeliner makes the upstream fluxion add this variable to the message stream to be sent to the downstream fluxions.
+If a modified variable is read by some downstream application parts, then the pipeliner makes the upstream fluxion add this variable to the message stream to be sent to the downstream fluxions.
 It is impossible to send variables to upstream flux\-ions, without causing inconsistencies.
 If the fluxion retro propagates the variable for an upstream fluxion to read, the upstream fluxion might use the old version while the new version is on its way.
 

@@ -1,9 +1,8 @@
 \subsection{Real test case} \label{chapter5:flx:evaluation}
 
-This section presents a test of the compiler on a real application, gifsockets-server\ftnt{https://github.com/twolfson/gifsockets-server}.
+The compiler is tested on a real application, gifsockets-server\ftnt{https://github.com/twolfson/gifsockets-server}.
 This test proves the possibility for an application to be compiled into a network of independent parts.
 It shows the current limitations of this isolation and the modifications needed on the application to circumvent them.
-This section then presents future works.
 
 \begin{code}[js, caption={Simplified version of gifsockets-server},label={lst:gifsocket}]
 var express = require('express'),
@@ -28,21 +27,25 @@ app.listen(8000);
 \end{code}
 
 This application, simplified in listing \ref{lst:gifsocket}, is a real-time chat using gif-based communication channels.
-It was selected in a previous work \cite{Brodu2015} from the \texttt{npm} registry because it depends on \texttt{express}, it is tested, working, and simple enough to illustrate this evaluation.
+It was selected from the evaluation set of the Due compiler because it is simple enough to illustrate this evaluation.
+% \cite{Brodu2015}
+%  from the \texttt{npm} registry because it depends on \texttt{express}, it is tested, working, and simple enough to illustrate this evaluation.
 The server transforms the received text into a gif frame, and pushes it back to a never-ending gif to be displayed on the client.
 
 On line \ref{lst:gifsocket:app.post}, the application registers two functions to process the requests received on the url \texttt{/image/text}.
-The closure \texttt{saveBody}, line \ref{lst:gifsocket:saveBody}, returned by \texttt{bodyParser}, line \ref{lst:gifsocket:bodyParser}, and the method \texttt{routes.write\-Text\-To\-Images} from the external module \texttt{gifsockets-middleware}, line \ref{lst:gifsocket:gif-mw}.
+The closure \texttt{saveBody}, line \ref{lst:gifsocket:saveBody}, returned by \texttt{bodyParser}, line \ref{lst:gifsocket:bodyParser}, and the method \texttt{routes.write\-Text\-To\-Images} from the external module \texttt{gifsockets-\-middleware}, line \ref{lst:gifsocket:gif-mw}.
 The closure \texttt{saveBody} calls the asynchronous function \texttt{getRawBody} to get the request body.
 Its callback handles the errors, and calls \texttt{next} to continue processing the request with the next function, \texttt{routes.write\-Text\-To\-Images}.
 
 \subsubsection{Compilation}
 
-We compile this application with the compiler detailed in section \ref{section:compiler}.
-Listing \ref{lst:flx-gifsocket} presents the compilation result.
+% We compile this application with the compiler
+The compilation result is in listing \ref{lst:flx-gifsocket}.
 The function call \texttt{app.post}, line \ref{lst:gifsocket:app.post}, is a rupture point.
-However, its callbacks, \texttt{bodyParser} and \texttt{routes.write\-Text\-To\-Images} are evaluated as functions only at runtime.
-For this reason, the compiler ignores this rupture point, to avoid interfering with the evaluation.
+However, its callbacks, \texttt{bodyParser} and \texttt{routes.write\-Text\-To\-Images} are not declared \textit{in situ}.
+They are evaluated as functions only at runtime.
+As precised previously, the compiler discards these callbacks to avoid altering the semantic by moving or modifying their definition.
+% For this reason, the compiler ignores this rupture point, to avoid interfering with the evaluation.
 
 \begin{code}[flx, caption={Compilation result of gifsockets-server},label={lst:flx-gifsocket}]
 flx main & express {req}

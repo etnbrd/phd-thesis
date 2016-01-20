@@ -1,8 +1,12 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
 \documentclass[12pt]{report}
 
 \usepackage[french, english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\usepackage{xunicode}
 \usepackage[hidelinks=true]{hyperref}
 \usepackage{geometry}
 \usepackage{algorithm}
@@ -25,25 +29,13 @@
 \usepackage{datatool}
 \usepackage[group-separator={,}]{siunitx}
 
-\usepackage{pdfpages}
 
-
-
-
-% \DeclareTextFontCommand{\textgr}
-% {\fontencoding{T1}\fontfamily{gothamrounded}\selectfont}
-
-\newcommand\textgr[1]{{\usefont{T1}{custom}{m}{n} #1 }}
-
-
-% \renewcommand{\thefigure}{\textgr\arabic{figure}}
-
-
-
+\defaultfontfeatures{Ligatures=TeX}
 
 \input{bibliography}
 \input{utils/code}
 \input{utils/macros}
+\input{utils/fonts}
 
 % \DeclareUnicodeCharacter{2714}{✔}
 
@@ -70,6 +62,7 @@
 % \includeonly{91-appendix/main}
 
 \begin{document}
+% \defaultfontfeatures{Ligatures=TeX}
 
 % \title{Operating Systems mutations, how and why integrate the user in the digital era ?\\\comment{TODO change title ?}}
 % \title{Automatic pipeline distribution for monolithic web applications : Toward a better compromise between development scalability and performance scalability \comment{not definitive}}
@@ -78,6 +71,13 @@
 \author{Etienne Brodu}
 
 \maketitle
+
+% \chapter{Test}
+% \section{Test}
+% \subsection{Test}
+% \subsubsection{Test}
+% \paragraph{Test}
+% Test
 
 \input{00-abstract/main}
 

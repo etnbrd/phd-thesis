@@ -133,7 +133,7 @@ Parallel programming is the only solution for efficiency, at the expense of deve
 
 % Synchronization mechanisms define shared memory, and lock-free data structures improve the parallel portion of execution, but the performance remains limited.
 
-\paragraph{}
+\separator
 
 The table \ref{tab:efficiency-concurrency} presents a summary of the analysis of performance of the platforms presented in this section.
 
@@ -326,7 +326,7 @@ The more the platform abandons productivity, the less it will be supported by th
 % It is not heavily used in the community, where the need for concurrency is limited.
 % In the industry, where the concurrency is often required, multi-threading is abandoned for other paradigms, such as the event loop or the actor model.
 
-% \paragraph{}
+% \separator
 
 % The event-loop requires an execution decomposition, but not a memory decomposition.
 % This paradigm is heavily adopted by both the community and the industry.
@@ -400,7 +400,7 @@ But they seems to be increasingly adopted, both in the industry and in the commu
 
 % In a fine enough granularity of service, each service becomes so simple, it can limits the consequences of its modification.
 
-\paragraph{}
+\separator
 
 The parallel programming platforms previously presented allow to build generic distributed systems.
 In the context of the web, a real-time application must process high volumes streams of requests within a certain time.
@@ -444,7 +444,7 @@ The academic works and industrial implementations of pipeline architecture are \
 % Storm \cite{Toshniwal2014} is designed by and used at Twitter to process the heavy streams of tweets.
 % It is only one example of industrial practical application, among many others.
 
-\paragraph{}
+\separator
 
 Parallel programming is barely supported by the community, but emerges mainly from industrial needs and academic research.
 The implementations improve efficiency, but prevent their adoption by the community due to a weak productivity.

@@ -92,7 +92,7 @@ It doesn't prevent the whole group from being replicated.
 However, the fluxion \texttt{reply} depends on the variable \texttt{count} created upstream the \textit{start} stream, which prevents this replication.
 If it did not rely on this state, the group \texttt{grp\_res} would be stateless, and could be replicated to cope with the incoming traffic.
 
-\paragraph{}
+\separator
 
 This execution model allows to parallelize the execution of an application as a pipeline, as with the fluxion \texttt{handler}.
 And some parts are replicated, as could be the group \texttt{grp\_res}.

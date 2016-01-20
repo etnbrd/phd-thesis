@@ -109,15 +109,17 @@ caller1([args])
 \end{figure}
 
 
-\paragraph{}
+\separator
 
 % This section presented the identification and extraction of a pipeline of Dues.
 % They are placeholders for the outcome of a deferred operation.
 % They are not able to compose pipeline of streaming data.
 
-Because Dues are a placeholder for a single outcome, it doesn't allow to express the streaming of data.
+Because Dues are a placeholder for a single outcome, it doesn't allow to express the recurrence of streaming data.
 Concretely, in the case of streaming data, a Due is created for each datum in the stream.
-Therefore, this pipeline of Dues doesn't represent the whole streaming pipeline underlying in the application.
+Therefore, continuations doesn't represent the whole streaming pipeline underlying in the application.
+Listeners are callbacks starting the streaming pipeline.
+% and the extracted pipeline of Dues 
 % represents only a part of the pipeline present in an application.
 
 Moreover, the Dues still rely on a shared memory to communicate.

@@ -1,6 +1,7 @@
 FILE = main
 NAME = thesis
-PDFLATEX = mkdir -p .tmp && rsync -av -f"+ [0-9]*/" -f"- *" src/ .tmp/ && mkdir -p .tmp/figures && cd src && pdflatex -shell-escape --output-directory ../.tmp ../src/${FILE}.tex && mv ../.tmp/${FILE}.pdf ../${NAME}.pdf && cd ..
+PDFLATEX = mkdir -p .tmp && rsync -av -f"+ [0-9]*/" -f"- *" src/ .tmp/ && mkdir -p .tmp/figures && cd src && xelatex -shell-escape --output-directory ../.tmp ../src/${FILE}.tex && mv ../.tmp/${FILE}.pdf ../${NAME}.pdf && cd ..
+# PDFLATEX = mkdir -p .tmp && rsync -av -f"+ [0-9]*/" -f"- *" src/ .tmp/ && mkdir -p .tmp/figures && cd src && pdflatex -shell-escape --output-directory ../.tmp ../src/${FILE}.tex && mv ../.tmp/${FILE}.pdf ../${NAME}.pdf && cd ..
 BIBER = mkdir -p .tmp && cd .tmp && biber ${FILE} && cd ..
 
 
