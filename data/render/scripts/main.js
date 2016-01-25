@@ -146,7 +146,7 @@ d3.csv('csv/modulecounts.csv')
   })
   .get(lineChartFactory(parent, 'modulecounts', {
     yLabel: 'Modules',
-    yLabelPadding: 40,
+    yLabelPadding: 50,
     dict: languageDict
   }));
 
@@ -206,7 +206,7 @@ d3.csv('csv/stackoverflow-tags.csv')
   })
   .get(lineChartFactory(parent, 'stackoverflow-tags', {
     yLabel: 'Tags',
-    yLabelPadding: 40,
+    yLabelPadding: 60,
     dict: languageDict
   }));
 

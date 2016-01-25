@@ -48,10 +48,12 @@
 }
 
 \newcommand{\cit}[2]{%
-  \textit{``#1''}\\[-25pt]%
+  \noindent%
+  \textit{{\secfont\fontsize{45pt}{10pt}\selectfont``}\LARGE{#1}{''}}\\[-5pt]%
   \begin{flushright}%
   --- #2%
   \end{flushright}%
+  \vspace{30pt}
 }
 
 

@@ -1,10 +1,9 @@
 \section{Efficiency Focused Platforms} \label{chapter3:software-efficiency}
 
 Both the academia and the industry proposed solutions with efficiency in mind to cope with the limitations the previous section concludes on.
-Section \ref{chapter3:software-efficiency:concurrency} presents the concurrent and parallel programming paradigms, and their programming models. % oriented on performance rather than productivity.
-Section \ref{chapter3:software-efficiency:adoption} presents the adoption steered by the efficiency of parallel programming.
-Section \ref{chapter3:software-efficiency:productivity-limitations} presents the consequences of parallelism on productivity.
-Finally, section \ref{chapter3:software-efficiency:summary} summarizes the three previous sections in a table.
+The concurrent and parallel programming paradigms are presented in section \ref{chapter3:software-efficiency:concurrency}.
+The improvement of efficiency impacted the adoption of these platforms, as presented in section \ref{chapter3:software-efficiency:adoption}.
+Finally, section \ref{chapter3:software-efficiency:productivity-limitations} presents the limitations of parallelism on productivity.
 
 \subsection{Concurrency} \label{chapter3:software-efficiency:concurrency}
 
@@ -16,7 +15,7 @@ Finally, section \ref{chapter3:software-efficiency:summary} summarizes the three
 \label{fig:state-of-the-art-3}
 \end{figure}
 
-Web servers need to be able to process huge amount of concurrent operations in a scalable fashion.
+Web servers need to be able to process lots of concurrent operations in a scalable fashion.
 Concurrency is the ability to make progress on several operations roughly simultaneously.
 It implies to draw memory boundaries to define independent regions, or to define causality in the execution of tasks.
 When both boundaries and causality are clearly defined, the tasks are independent and can be scheduled in parallel to make progress strictly simultaneously.
@@ -29,6 +28,9 @@ The two are indispensable for efficiency.
 \subsubsection{Concurrent Programming} \label{chapter3:software-efficiency:concurrency:concurrent-programming}
 
 % \cit{Building concurrent programming is like building a steam engine through a keyhole}{TODO}
+
+\cit{No matter how great the talent or efforts, some things just take time. You can't produce a baby in one month by getting nine women pregnant.}
+{Warren Buffett\ftnt{http://www.goodreads.com/quotes/476827-no-matter-how-great-the-talent-or-efforts-some-things}}
 
 \illustration{feu rouge et rond point}
 Concurrent programming provides the mechanisms to assure atomicity of concurrent operations.
@@ -43,213 +45,99 @@ It assures fairness between the tasks, such as in a multi-tasking operating syst
 But the unexpected preemption breaks atomicity, the developer needs to lock the shared state to assure atomicity and exclusivity.
 \end{description}
 
-The next paragraphs presents the programming model for these scheduling strategy, the event-driven programing model based on cooperative scheduling, and the multi-threading programming model based on preemptive scheduling.
-Additionally, they present two alternatives to these two main programming models, lock-free data-structures and Hybrid models.
+The event-driven programing model relies on cooperative scheduling, and the multi-threading programming model relies on preemptive scheduling.
+% Additionally, they present two alternatives to these two main programming models, lock-free data-structures and Hybrid models.
 
 \paragraph{Event-Driven Programming}
 
-Event-driven execution model queues concurrent tasks needing access to shared resources.
-The tasks are explicitely defined by the developer.
-The concurrent tasks are schedule sequentially to assure exclusivity, and cooperatively to assure atomicity.
-% Web servers needs to be highly concurrent, and efficient.
-And they communicates asynchronously to avoid waiting.
+In the event-driven execution model, developers explicitely define concurrent tasks.
+The execution model queues and schedules these tasks sequentially to assure exclusivity on shared resources, and cooperatively to assure atomicity.
+Moreover, they communicates with the resources asynchronously to avoid waiting.
 A task yields execution to a future tasks to complete the communication.
-An help with asynchronous programming, promise were introduced \cite{Liskov1988}.
-A promise is a placeholder available immediately and allowing to defer operations for when the expected result is available.
-Promises forms chains of operations similarly to a pipeline.
 
-This execution model is very efficient for highly concurrent applications, as it avoids contention due to waiting for shared resources like disks, or network.
-Several execution model rely on this execution model, like \ImplementationsOf{Event-driven programming}.
+Promise were introduced as an help to nicely chain these concurrent tasks \cite{Liskov1988}.
+A promise is a placeholder for a future result allowing to defer operations for when the result is available.
+It layouts the concurrent tasks in chains, similarly to a pipeline.
+
+This execution model is very efficient for highly concurrent applications as it avoids contention.
+Several platform rely on this execution model, like \ImplementationsOf{Event-driven programming}.
 As well as some web servers like Flash \cite{Pai1999}, Ninja \cite{Gribble2001} thttpd\ftnt{http://acme.com/software/thttpd/} and Nginx\ftnt{https://www.nginx.com/}.
 
-% However, a drawback of this model was that the execution context is lost at each event.
-% The developer needs to explicitly transfer the relevant state to continue the execution from one event execution to another.
-
-% + Fibers \cite{Adya2002}
-% + Capricio \cite{Behren2003a} - User cooperative threads (also known as fibers / green threads)
-
-% The problem of losing the execution context disappears with closures in higher-order programming.
-% \nt{link with the previous paragraph}
-% Moreover, the continuation passing style used in higher-order programming requires the developer to be aware of the asynchronous rupture in the execution, so as to assure atomicity \cite{Sussman1998}.
-% And because an asynchronous call doesn't wait for the completion of the operation, the asynchronous control flow is not limited to be linear like in threads. \nt{more about that}
-% Multiple asynchronous calls are made in parallel.
-
-But the event-driven model is limited in performance.
-The concurrent tasks share the same memory, and cannot be scheduled in parallel.
-The next paragraph presents work intending to improve performance by reducing the atomic portions of operations to a minimum. % by reducing the sequential portions to a minimum to increase the possibilities of parallelism.
+Though, the event-driven model is limited in performance because of the global memory.
+The tasks cannot be scheduled in parallel.
+Lock-free data-strincture intends to improve performance by reducing the atomic portions of operations to a minimum.
 
 \paragraph{Lock-Free Data-Structures}
 
 The wait-free and lock-free data-structures use atomic operations small enough so that locking is unnecessary \cite{Lamport1977,Herlihy1988,Herlihy1990,Herlihy1991,Anderson1990}.
-They are based on instructions provided by transactional memories \cite{Harris2010} that combine read and write instructions,
 They provide concurrent implementations of basic data-structures such as \ImplementationsOf{Lock-free Data-Structures}.
+They rely on instructions provided by transactional memories \cite{Harris2010} that combine read and write instructions.
 
-However these atomic operations are scheduled sequentially, which limits parallelism.
-The next paragraphs present multi-threading, which, contrary to the event-driven model, requires the developer to explicitly define atomicity.
-% using coarser granularity of atomic execution and exclusivity.
-
-% Reference papers :
-% Concurrent reading and writing \cite{Lamport1977}
-% Impossibility and universality results for wait-free synchronization \cite{Herlihy1988}
-% A methodology for implementing highly concurrent data structures \cite{Herlihy1990}
-% Wait-free synchronization \cite{Herlihy1991}
-
-% Book :
-% The virtue of Patience: Concurrent Programming With And Without Waiting \cite{Anderson1990}
+Lock-free Data-structures allow parallelization of the concurrent tasks, but are mostly unavailable on common hardware.
+Multi-threading intends to provide parallelization with software protection.
 
 \paragraph{Multi-Threading Programming}
 
-Threads are the small execution containers sharing the same memory execution context within an isolated tasks \cite{Dijkstra1968}, and scheduled in parallel with fork/join instructions \cite{Randall1998,Frigo1998,Leiserson2010}.
-They execute statements sequentially waiting for completion, and are scheduled preemptively to avoid blocking the global progression.
-The preemption breaks the atomicity of the execution, and the parallel execution breaks the exclusivity of memory accesses.
-To restore atomicity and exclusivity, hence assure the invariance, multi-threading programming models provide synchronization mechanisms, such as \ImplementationsOf{Multi-threading programming}.
+Threads are small execution containers sharing the same memory execution context within an isolated tasks \cite{Dijkstra1968}, and scheduled in parallel with fork/join instructions \cite{Randall1998,Frigo1998,Leiserson2010}.
+They execute statements synchronously and are preempted to avoid blocking the progression of other threads.
+Without protection, the preemption breaks the atomicity and exclusivity of memory accesses.
+To assure atomicity and exclusivity, hence invariance, multi-threading programming models provide protection mechanisms, such as \ImplementationsOf{Multi-threading programming}.
 
 Developers tend to use the global memory extensively, and threads require to protect each and every shared memory cell.
 This heavy need for synchronization leads to bad performances, and is difficult to develop with \cite{Adya2002}.
 
 \paragraph{Hybrid Models}
 
-Hybrid models join the advantage of sequential waiting from thread, with the advantage of cooperative scheduling from events-driven models.
+Hybrid models join the productivity advantage of synchronous execution from thread, with the efficiency advantage of asynchronous execution from events-driven models.
 The implementations of hybrid models are \ImplementationsOf{Hybrid Models}.
-For example, cooperative threads, or fibers, avoid splitting the execution into atomic tasks nor use synchronization mechanisms to assure exclusivity.
+For example, cooperative threads, or fibers, avoid splitting the execution into atomic tasks nor use protection mechanisms to assure exclusivity.
 A fiber yields the execution to another fiber to avoid blocking the execution during a long-waiting operation, and recovers it at the same point when the operation finishes.
-However, developers need to be aware of these yielding operation to preserve the atomicity\ftnt{https://glyph.twistedmatrix.com/2014/02/unyielding.html}.
+Hiding the yielding points effectively hide the preemption.
+Developers cannot protect atomicity of operations, which increase the likeliness of race conditions \ftnt{https://glyph.twistedmatrix.com/2014/02/unyielding.html}.
 
 \paragraph{Limitation of Concurrent Programming}
 
-
-
-% Moore's law \cite{Moore1965} which forecasts the density of transistors per processing unit, was wrongly interpreted to promise the exponential evolution in the sequential performance of the processing unit, and the assurance for the software industry of always faster hardware.
-% But as transistors attained a critical size, the reduction in power required by transistor predicted by the Dennard's MOSFET scaling \cite{Dennard2007} stopped\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
-
-Concurrent programming provides the synchronization required to assure sequentiality of execution within a task and the causal ordering between tasks.
-However, multi-threading imposes sequentiality between tasks as well.
-This global sequentiality is excessive ; it impacts performance, and is difficult to manage efficiently.
+The presented concurrent programming paradigms assure sequentiality of execution within a task and the causal ordering between tasks.
+Multi-threading imposes heavy protection mechanisms and fails to avoid contention because of the preemptive scheduling.
+Hybrid models tries to improve over multi-threading using cooperative scheduling.
+But the synchronous execution imposed by these two models is excessive.
+It impacts performance, and is difficult to manage efficiently.
 
 The causal ordering between tasks proposed by the event-driven execution model is sufficient to assure correctness of execution \cite{Lamport1978,Reed2012}.
+And it is easier for developer to define causal scheduling than to assure the consistency of memory with protection mechanisms.
 But because of the lack of memory isolation, the concurrent tasks are not scheduled in parallel.
-
-Parallel programming is the only solution for efficiency, at the expense of development efforts to explicitely define the memory isolation of concurrent tasks and their communications by message pasing.
-
-% Synchronization mechanisms define shared memory, and lock-free data structures improve the parallel portion of execution, but the performance remains limited.
-
-\separator
-
-The table \ref{tab:efficiency-concurrency} presents a summary of the analysis of performance of the platforms presented in this section.
-
-\ConcurrentEfficiencyTable{tab:efficiency-concurrency}
-
-
-
-% Concurrent programming is a compromise to process operations simultaneously, by introduction synchronization to assure the exclusion required for shared states.
-
-
-% The ever growing number of transistor predicted by Moore's law \cite{Moore1965} are arranged in parallel architecture to continue increasing the performance of processing units.
-% Parallel programming became the only solution for efficiency, at the expense of development effort.
-
-
-% This section presents the parallel programming solutions and their limitations in accessibility, and then the improvements to overcome these limitations.
-
-
-% \nt{The shared-nothing architecture \cite{Stonebraker1986}}
-
+It impacts efficiency, as detailed in table \ref{tab:efficiency-parallel}.
+Yet, parallel programming is the only solution for efficiency, at the expense of development efforts to explicitly define the memory isolation of concurrent tasks and their communications by message passing.
 
 \subsubsection{Parallel Programming} \label{chapter3:software-efficiency:concurrency:parallel-programming}
 
-
-Concurrent programming allows to define the tasks scheduling causally.
-% The ordering of operations is local within a synchronous execution, while the concurrent executions are causally ordered.
-% It leads to parallel execution with some coordinations such as synchronization, immutability or isolation.
-Concurrent tasks can be scheduled in parallel only if their memory are isolated.
-
 The Flynn's taxonomy \cite{Flynn1972} categorizes parallel executions in function of the multiplicity of their flow of instruction and data.
 Parallel programming models belong to the category Multiple Instruction Multiple Data (MIMD), which is further divided into Single Program Multiple Data (SPMD) \cite{Auguin1983,Darema1988,Darema2001} and Multiple Program Multiple Data (MPMD) \cite{Chang1997,Chan2004}.
-SPMD defines a single program replicated on many processing units \cite{Culler,Johnson1995,K.ManiChandy2005} -- it is derived from the multi-threading programming model presented in section \ref{chapter3:software-productivity:concurrency:concurrent-programming}.
+SPMD defines a single program replicated on many processing units \cite{Culler,Johnson1995,K.ManiChandy2005} -- it is roughly derived from the multi-threading programming model presented above.
 While MPMD defines multiple parallel tasks in the implementation \cite{Grimshaw1991,Foster1995b,Foster1996}.
+The two major theoretical models for parallel programming are the actor model and coroutines.
 
-\nt{schema of SPMD and MPMD}
+% \nt{schema of SPMD and MPMD}
 
-% , communicating by message passing \cite{Sunderam1994,Snir1996,Walker1996}, SOAP, or the more recent REST protocols.
+\paragraph{Actor Model}
 
-This section presents MPMD platforms allowing to define isolated tasks.
-It presents theoretical and programming models on asynchronous communication and isolated execution for parallel programming.
-It then presents stream processing programming models.
-And finally, it concludes on the limitations of parallel programming regarding productivity. 
-
-
-
-% % \paragraph{Asynchronous and Isolated Process Parallelism}
-
-% The Flynn's taxonomy \cite{Flynn1972} is commonly used to categorize parallel executions.
-% It separates the flow of instructions, and the flow of data, each being single or multiple.
-% All the current parallel programming models belong to the category Multiple Instruction Multiple Data (MIMD), which is further divided into Single Program Multiple Data (SPMD) \cite{Auguin1983,Darema1988,Darema2001} and Multiple Program Multiple Data (MPMD) \cite{Chang1997,Chan2004}.
-% % The difference between SPMD and MPMD holds on the distinction of instruction pool between the threads of execution.
-% % SPMD implies to replicate the same program on all the processing units, while MPMD implies to define different programs for every processing units.
-
-% \begin{figure}
-% \begin{center}
-% \includegraphics[width=0.2\textwidth]{../resources/SISD.pdf}
-% \includegraphics[width=0.2\textwidth]{../resources/SIMD.pdf}
-% \includegraphics[width=0.2\textwidth]{../resources/MISD.pdf}
-% \includegraphics[width=0.2\textwidth]{../resources/MIMD.pdf}\\
-% by I, Cburnett. Licensed under CC BY-SA 3.0 via Commons
-% \url{https://commons.wikimedia.org/wiki/File:{SISD,SIMD,MISD,MIMD}.svg}
-% \end{center}
-% \caption{Flynn's taxonomy of parallelism}
-% \label{fig:flynn-taxonomy}
-% \end{figure}
-
-
-% % The difference between SPMD and MPMD is in the representation of the execution in implementation.
-% SPMD defines a single program replicated on many processing units.
-% Examples of SPMD programming languages are
-% Split-C \cite{Culler},
-% CRL \cite{Johnson1995} and
-% Composite C++ \cite{K.ManiChandy2005}.
-% %
-% MPMD defines multiple processes in the implementation, communicating by message passing, using PVM \cite{Sunderam1994}, MPI \cite{Snir1996,Walker1996}, SOAP, or the more recent REST protocols.
-% Examples of MPMD programming languages are
-% Mentat \cite{Grimshaw1991},
-% Fortran M \cite{Foster1995b} and
-% Nexus \cite{Foster1996}.
-
-% SPMD is close to the model presenting parallel improvements over modular programming presented in section \ref{chapter3:software-productivity:programming-models}.
-% While MPMD is closer to the programming models based on isolated process presented in the remaining of this section.
-% The coordinations between these processes is done by message passing, using PVM \cite{Sunderam1994}, MPI \cite{Snir1996,Walker1996}, SOAP, or the more recent REST protocols.
-
-\paragraph{Theoretical Models}
-
-The event-driven programming model used to cope with asynchronous communications allows the causal scheduling of concurrent tasks.
-% The total ordering of execution imposed by sequential execution is excessive.
-This causal scheduling is sufficient to assure correctness in a distributed system \cite{Lamport1978,Reed2012}.
-% As Lamport showed \cite{Lamport1978}, and Reed related later \cite{Reed2012}, causal order is sufficient to execute correctly a system in parallel, such as a distributed system.
-% The total ordering of execution provided by synchronization is an overkill.
 The Actor model allows to express the causal ordering of computation as a set of parallel actors communicating by asynchronous messages \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
 In reaction to a received message, an actor can create other actors, send messages, and choose how to respond to the next message.
-% All actors are executed concurrently, and communicate asynchronously.
-% An asynchronous communication implies that the sender continues its execution immediately after sending the message, before receiving the result of the initiated communication.
 Additionally, the communication in reality are too slow compared to execution to be synchronous, and are subject to various faults and attacks \cite{Lamport1982}.
 The Actor model takes these physical limitations in account \cite{Hewitt1977a}.
 
-% In the Actor Model, everything is an actor, even the simplest types like numbers.
-% This level of granularity is unachievable in practice due to overhead from the asynchronous communications.
-% Most implementations adopt a granularity on the process or function level.
+\paragraph{Communicating Sequential Processes}
 
+Similar works include the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}, and the Kahn Networks \cite{Kahn1974, Kahn1976}.
 Similarly, coroutines are autonomous programs which communicate with adjacent modules as if they were input and output subroutines \cite{Conway1963}.
 It defines a pipeline to implement multi-pass algorithms.
-Similar works include the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}, and the Kahn Networks \cite{Kahn1974, Kahn1976}.
 
 \subsubsection{Summary of Concurrent and Parallel Programming Models}
 
-Table \ref{tab:efficiency-parallel} presents a summary of the analysis of the paradigm presented in the previous paragraphs.
+Compared to parallel programming, the concurrent programming models are unable to correctly isolate the concurrent tasks and communicate by message-passing to allow parallelism.
+It results that the parallel programming model are more efficient than the concurrent programming models, as detailed in table \ref{tab:efficiency-parallel}.
 
 \ParallelEfficiencyTable{tab:efficiency-parallel}
-
-
-
-
-
-
 
 \subsection{Adoption} \label{chapter3:software-efficiency:adoption}
 
@@ -261,91 +149,20 @@ Table \ref{tab:efficiency-parallel} presents a summary of the analysis of the pa
 \label{fig:state-of-the-art-4}
 \end{figure}
 
-
 \illustration{mars rover}
 When the need for efficiency is higher than the need for productivity, the adoption is steered by the industry more than the community.
 If the industry really needs a platform, it will commit the required development effort despite a low productivity.
-% If there is industrial need, there will be maintenance.
-The platforms for the Mars Rover or the banking systems are 30 years old, yet the industry continues to maintain them.
-%, and there is no community to maintain it.
+The platforms for the Mars Rover or some banking systems are about 30 years old, yet the industry continues to maintain them.
 The platform presented in this section emerged from the academia and the industry but are often barely known by the larger community of developers.
-The more the platform abandons productivity, the less it will be supported by the community.
-
-% The performance improvements comes directly from the industry requirements.
-
-% All these system make sense in industrial context.
-% Industries have the money to fund the necessary research.
-
-% However, the context of this thesis is different from a classical industrial context.
-% During the bootstrap of a web application project, the economical context requires technologies with strong community, to pick talents from to grow the team quickly and effortlessly.
-% It also requires these technologies to be of industrial standard, to build a reliable product.
-% And these technology must be compatible with web technologies.
-% \begin{itemize}
-% \item Community support
-% \item Industrial need
-% \end{itemize}
-
-
-% \nt{review this paragraph and the transition to the next section}
-% The field of concurrent programming is so vast it is impossible to relate here every programming languages.
-% The previous examples are only the best known.
-% The next focus focuses on streaming real-time applications.
-
-% \comment{transition on lazy evaluation equivalence to stream. lazy evaluation + side effects + concurrency = streams}
-
-
-
-% + all the solutions that have a great industrial impact (storm, millwheel and co)
-
-
-
-% \subsubsection{Exection Decomposition}
-
-
-% The programming paradigms presented above are implemented in many existing programming languages.
-% All major programming languages implements some form of concurrency or parallelism mechanism.
-% The next paragraphs presents these implementations by the industry and the community.
-% And more specifically, how they deal with the need to decompose the execution.
-
-% \paragraph{Event-Loop}
-
-% The event-loop model, featured by the DOM and Node.js with Javascript, allows concurrency but not parallelism.
-% It decomposes the execution into sequences of callbacks functions, but keep the memory shared.
-
-% As presented in the previous section, Javascript is currently one of the most used language.
-% This asynchronous programming model without the memory decomposition seems to be easy to develop with.
-% It is used extensively in the community as well as in the industry.
-% However, when the programming model requires the memory to be decompose, in order to get parallelism, it becomes more complicated to develop with, as presented in the next paragraphs.
-
-% \paragraph{Multi-Threading}
-
-% The multi-threading model allows concurrency and parallelism on certain execution region.
-% It decomposes the execution into fork-join threads, and the memory is shared, but protected with locks.
-% The protection of the shared memory is the reason concurrent programming is difficult to manage for most developers.
-% Multi-threading is difficult to program with, and for this reason, it leads to poor performances.
-% It is not heavily used in the community, where the need for concurrency is limited.
-% In the industry, where the concurrency is often required, multi-threading is abandoned for other paradigms, such as the event loop or the actor model.
-
-% \separator
-
-% The event-loop requires an execution decomposition, but not a memory decomposition.
-% This paradigm is heavily adopted by both the community and the industry.
-% On the other hand, the multi-threading paradigms with locks requires an execution decomposition, and light memory decomposition.
-% This paradigms is not heavily used in the community, and is being abandoned by the industry.
-% This comparison between the event-loop and the multi-threading paradigms seems to indicate that the memory decomposition heavily restrains the adoption by the community.
-% Hence, it impacts the productivity required for the adoption in the economical context of this thesis, as shown in table \ref{scalability-execution-decomposition}.
+The more the platform trades productivity for efficiency, the less support it will received from the community.
 
 \subsubsection{Concurrent Programming}
 
 Most programming languages implementation supports concurrent programming somehow.
 Either with multi-threading or event-driven programming.
-These two are highly adopted by both the industry and the community, as presented in section \ref{chapter3:software-productivity:adoption}.
+These two are highly adopted by both the industry and the community, as presented in table \ref{tab:efficiency-adoption}.
 
 On the other hand, lock-free data structures and cooperative threads comes from the academia, similarly to functionnal programming, and did not encounter significant adoption from the community.
-
-Table \ref{tab:adoption-concurrent} presents a summary of the adoption of concurrent programming models.
-
-\ConcurrentAdoptionTable{tab:adoption-concurrent}
 
 \subsubsection{Parallel Programming}
 
@@ -354,36 +171,24 @@ Scala is a programming language unifying the object model and functional program
 Akka is a framework based on Scala, following the actor model to build highly scalable and resilient applications.
 Play is a web framework based on top of Akka.
 And Erlang is a functional language designed by Ericsson to operate networks of telecommunication devices \cite{Armstrong1993,Nelson2004,Armstrong2014}
-% Nelson2004 is not very good, find another better citation.
 
-There are as well other platforms inspired by other theoretical model, like \ImplementationsOf{Concurrent Sequential Processes}, inspired by Coroutines and CSP.
+There are as well other platforms inspired by other theoretical model, like \ImplementationsOf{Communicating Sequential Processes}, inspired by Coroutines and CSP.
 Go is an open source language initiated by Google to build highly concurrent services.
 
 These examples of implementation are largely used in the industry, but are almost unknown outside of it.
-They are backed by strong, but small passionated communities.
+They are backed by strongly passionated but small communities.
 
-However, the organization in independent tasks is hardly compatible with the modular organization presented in the previous section.
-It is difficult for developers to manage the superposition of these two organizations, tasks and modules.
+Indeed, it is difficult for developers to manage the superposition of these two organizations, tasks and modules.
+The organization in independent tasks is hardly compatible with the modular organization presented in the previous section.
 This superposition makes these platforms accessible only to an elite in the industry supporting it.
-The next paragraphs present platforms mitigating the difficulty stemming from the duality between execution decomposition and modularity.
+To mitigate this difficulty, various platforms help organizing the tasks, or adopt the same granularity for modules and tasks to fit the two organizations.
 
 \paragraph{Tasks Organization and Communications}
 
 To reduce the difficulties of the superposition of tasks and modules, algorithmic skeletons propose predefined patterns of organization to fit certain types of problems \cite{Cole1988, Dean2008, McCool2010, Gonzalez-Velez2010}.
-Developers specialize a skeleton and focus on their problem independently of the required communication.
+Developers focus on their problem and delegate the communications to specialized skeletons.
 These solutions are hardly used by the community, but are crucial in some industrial contexts.
 A famous example is the map/reduce pattern introduced by Google \cite{Dean2008}.
-
-% \nt{Link with DSMS}
-% As there is similtudes between SQL-like languages, functional structures, and algorithmic skeletons, the latter can be seen as a tentative to merge the more descriptional features of the former into imperative programming.
-% Indeed, among the Algorithmic skeletons, we can cite Map / reduce, which are functional structures, but are somehow equivalent to the select and aggregate functions of SQL.
-% The pipeline architecture for data stream processing presented in section \ref{chapter3:software-efficiency:dataflow-pipeline} can be considered as algorithmic skeletons.
-
-% However, they introduce limitations and difficulties, as the developer must fit its problem into the skeletons.
-% One of this difficulties, it that a common memory is impossible to use.
-% Developers needs to think in terms of message passing instead of a global memory, which, as we saw in previous section, is incompatible with best practices.
-
-% Introducing 'Bones': a parallelizing source-to-source compiler based on algorithmic skeletons \cite{Nugteren2012}
 
 \paragraph{Tasks Granularity}
 
@@ -391,108 +196,80 @@ The Service Oriented Architectures (SOA) allows developers to express an applica
 Some examples of SOA platforms are \ImplementationsOf{Service Oriented Architecture}.
 It allows to adjust the granularity of tasks to help developers to better fit the tasks organization with the modular organization \cite{Adam2008}.
 
-More recently, Microservices are tackling the same challenge on the web \cite{Fernandez-Villamor2010,Fowler2014,Namiot2014}.
+More recently, Microservices are tackling the same challenge on the web, with a finer granularity \cite{Fernandez-Villamor2010,Fowler2014,Namiot2014}.
 Some examples of Microservices are \ImplementationsOf{Microservices}.
 They are very recent, and it is difficult to asses their usage in the community nor the industry.
 But they seems to be increasingly adopted, both in the industry and in the community.
-
-% In modular programming a module protects the rest of the implementation from the consequences of the design choice its encapsulate, while a service encapsulate a specific task, with possible consequences on the adjacent services.
-
-% In a fine enough granularity of service, each service becomes so simple, it can limits the consequences of its modification.
 
 \separator
 
 The parallel programming platforms previously presented allow to build generic distributed systems.
 In the context of the web, a real-time application must process high volumes streams of requests within a certain time.
-The next paragraphs present platforms focusing on this challenge.
-% Because these systems are key to business, their reliability and latency are of critical importance.
-% The next paragraphs present the platform meeting these requirements required for industry adoption.
-% Again, these platforms emerged from the academia and the industry and did not always gather huge community enthusiasm.
-
+This requirement imposes specific challenges for the platforms.
 
 \subsubsection{Stream Processing Systems}
-
-% Otherwise, input data may be lost or output data may lose their value.
-% These requirements are challenging to meet in the design of such system.
 
 \paragraph{Data-stream Management Systems}
 
 Database Management Systems (DBMS) historically processed large volume of data, and they naturally evolved into Data-stream Management System (DSMS) to processed data streams as well.
-Because of this evolution, they are in rupture with MPMD platforms presented until now.
+Because of this legacy, they are in rupture with MPMD platforms presented until now.
 They borrows the syntax from SQL to run requests in parallel on continuous data streams.
 The computation of these requests spread over a distributed architecture.
-% Among the early works, we can cite
-% NiagaraCQ \cite{Chen2000,Naughton2001},
-% Aurora \cite{Abadi2003,Abadi2003a,Balakrishnan2004} which evolved into
-% Borealis \cite{Abadi2005},
-% AQuery \cite{Lerner2003},
-% STREAM \cite{Arasu2003,Arasu2005} and
-% TelegraphCQ \cite{Krishnamurthy2003,Chandrasekaran2003}.
-% More recently, we can cite
 Some recent examples are \ImplementationsOf{Data Stream System Management}.
 
+\paragraph{Pipeline Stream Processing}
 
-\paragraph{Pipeline Architecture}
-
-% As presented in the previous section, streaming composition allows a loosely coupled yet efficient composition.
-The pipeline architecture introduced by SEDA \cite{Welsh2001} organizes an application as a network of event-driven stages connected by explicit queues, the output of one feeding the input of the next.
+The pipeline architecture organizes an application as a network of event-driven stages connected by explicit queues, the output of one feeding the input of the next \cite{Welsh2001}.
 The event-driven paradigm of a stage is similar to work like Ninja \cite{Gribble2001} and Flash \cite{Pai1999} previously presented.
 But the independence of stages allow to spread the execution on a parallel architecture.
-% SEDA is the precursor in the design of pipeline-based architecture for real-time web applications.
-The academic works and industrial implementations of pipeline architecture are \ImplementationsOf{Pipeline Architecture}.
-
-% Storm \cite{Toshniwal2014} is designed by and used at Twitter to process the heavy streams of tweets.
-% It is only one example of industrial practical application, among many others.
+The academic works and industrial implementations of pipeline architecture are \ImplementationsOf{Pipeline Stream Processing}.
 
 \separator
 
-Parallel programming is barely supported by the community, but emerges mainly from industrial needs and academic research.
+Parallel programming emerges mainly from industrial needs and academic research but is barely supported by the community.
 The implementations improve efficiency, but prevent their adoption by the community due to a weak productivity.
-Despite the performance limitation, the event-driven programming model is the best candidate for a concurrent programming model supported by the community, and with concrete needs in the industry.
-Table \ref{tab:efficiency-adoption} summarize the adoption of the platform oriented toward performance presented in this section.
+As summarized in table \ref{tab:efficiency-adoption}, the event-driven programming model is the best candidate for a concurrent programming model regarding adoption.
+It is supported by the community, and respond to concrete needs in the industry.
 
 \ParallelAdoptionTable{tab:efficiency-adoption}
 
 \subsection{Productivity Limitations} \label{chapter3:software-efficiency:productivity-limitations}
 
 Parallel programming requires the organization of execution and memory into independent tasks.
-It allows the different granularity of state accessibility required for efficiency.
+This independence imposes different granularity of state accessibility.
 At a fine level, the state is shared, while at a coarser level, it is isolated.
-This difference in state access impacts higher-order programming.
-It limits the composition of modules, hence impacts productivity.
-% id dictated by the execution organization in tasks.
-% prevent higher-order programming between tasks, hence impacts productivity.
+It avoids higher-order programming.
+Hence, it limits the composition of modules and negatively impacts productivity.
 
-% Indeed, the topology of the network of actors is statically defined, and the dynamical modification of the topology is mostly impossible.
-% It is not possible to dynamically manipulate execution containers, like it is possible to manipulate functions.
-% Therefore, higher-level programming is impossible, and limits the modularity required for productivity.
-Without good composition between modules, parallel programming forces to develop two mental representations -- one for the module organization and one for the tasks organization -- or to abandon the module organization and productivity altogether.
-% The memory decomposition required by parallel programming is hard to manage, and 
-It makes parallel programming productive only to an elite of developers that are able to keep the two mental representations.
-
-This thesis focus on platforms allowing developers to be productive, and to produce efficient web applications to stimulate the economy.
-To fit the economical context of this thesis, a solution must provide efficiency while avoiding the developers to keep a double mental representation of the implementation.
-It comes with an abstraction for the tasks and memory organization, for the developer to focus only on the module organization providing productivity.
-The next section presents some works that provides such an abstraction.
+Without this composition between modules, parallel programming forces to develop two mental representations -- one for the module organization and one for the tasks organization -- or to abandon the module organization and productivity altogether.
+It makes parallel programming accessible only to an elite of developers that are able to be productive despite the two mental representations, as presented in table \ref{tab:efficiency-productivity}.
 
 \EfficiencyProductivityTable{tab:efficiency-productivity}
 
-
 \subsection{Summary} \label{chapter3:software-efficiency:summary}
 
-Table \ref{tab:efficiency-synthesis} summarizes the characteristics of the platforms presented in this section.
+The parallel programming platforms presented in this section focus more on efficiency than productivity.
+Whereas the concurrent programming platforms are more features better productivity.
+But no platforms features both productivity and efficiency, as presented in table \ref{tab:efficiency-synthesis}.
+Moreover, except for Event-driven and Multi-threading programming, this lack of versatility impacts adoption.
 
 \EfficiencySummaryTable{tab:efficiency-synthesis}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \endinput
-
-
-
-
-
-
-
-TO READ :
 
 Streaming
 \cite{Madsen2015}
@@ -504,96 +281,3 @@ Map Reduce
 
 Web assembly
 https://medium.com/javascript-scene/what-is-webassembly-the-dawn-of-a-new-era-61256ec5a8f6
-
-
-
-
-
-
-
-
-
-
-
-
-\endinput
-
-\subsection{Concurrency Theory} \label{chapter3:parallel-execution:concurrency-theory}
-
-The mathematical models are a ground for all following work on concurrent programming, we briefly explain them in the next paragraphs.
-There are two main formal models for concurrent computations.
-The Actor Model of C. Hewitt and the Pi-calculus of R. Milner.
-Based on these definitions, we explain the importance of determinism for correctness, and the reasons that made asynchronous message-passing prevail.
-
-% TODO illustration of cells, and draw an analogy between cells and actor model.
-% Or something the actor models is based upon.
-
-\subsubsection{Models}
-
-\paragraph{Actor Model}
-
-The Actor model allows to express the computation as a set of communicating actors \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
-In reaction to a received message, an actor can create other actors, send messages, and choose how to respond to the next message.
-All actors are executed concurrently, and communicate asynchronously.
-% The Actor model uses an asynchronous message-passing communication paradigm.
-% The communication between two actors, the sender and the receiver, is a stream of discrete messages.
-% The sender names the receiver actor when sending messages to be the recipient of these messages.
-An asynchronous communication implies that the sender continues its execution immediately after sending the message, before receiving the result of the initiated communication.
-
-The Actor model was presented as a highly parallel programming model, but intended for Artificial Intelligence purposes.
-Its success spread way out of this scope, and it became a general reference and influence.
-% For example, the Scala programming language features an actor approach to concurrency.
-
-% More recent work of C. Hewitt on Actors is about ... \nt{TODO} \cite{Hewitt2007,Hewitt2007a}.
-
-\paragraph{$\pi$-calculus}
-
-R. Milner presented a process calculus to describe concurrent computation : the Calculus of Communicating Systems (CCS) \cite{Milner1975, Milner1980}.
-It is an algebraic notation to express identified processes communicating through synchronous labeled channels.
-% In CCS, process compose concurrently, communications are synchronous, and the topology is static.
-The $\pi$-calculus improved upon this earlier work to allow processes to be communicated as values, hence to become mobile \cite{Engberg1986,Milner1992a,Milner1992}.
-Therefore, similarly to Actors, in Pi-calculus processes can dynamically modify the topology.
-However, contrary to the Actor model, communications in Pi-calculus are based on simultaneous execution of complementary actions, they are synchronous.
-
-
-% Actors can create actors, pi-caclulys processes can replicate, and send processes through channel.
-% Processes create a new processes on each instruction to continue the execution.!g systolic arrays
-
-% Pi-calculus resembles to the actor model, but its algebraic nature led to a critical difference with the latter.
-% Indeed, processes in the Pi-calculus communicate indirectly, through labeled ports, whereas actors communicate directly by naming the recipient actors.
-% This difference allows multiple processes to listen in turns to the same channel, whereas the recipient of a message cannot change.
-
-% I think this difference lead the Pi-calculus to be composable, whereas message-passing is not.
-% Message-passing is not composable, whereas invocation is.
-% The Actor model is not an ideal programming model, as non-composability makes difficult to reuse or extends existing components.
-% A way to compose actors, is to send to an actor the name of the actor to respond to.
-% It is similar in essence to the continuation concept.
-
-
-
-
-
-
-
-
-\section{Reconciliations} \label{chapter3:reconciliations}
-\nt{TODO title not clear enough}
-
-\subsection{Contradiction}
-
-The decomposition of an application into a pipeline, as shown in the two previous sections, is incompatible with the modular design advocated by the separation of concerns.
-The problem of incompatibility between the modular design and the parallel execution of a pipeline architecture is the following.
-There need to be a common understanding on the structure of the communication from one stage to the next.
-The modular design defines that this common ground, the interface, be the most resilient possible to focus the evolution within a module.
-While the pipeline architecture (and more generally the concurrent programming models) defines these interfaces as the communications between the stages of the execution.
-With the evolution of the problem specification, when a stage needs to be modified, it is most likely that these changes will affect the previous or next stages.
-% which will eventually change with the evolution of the problem specification.
-
-Most project use languages supporting the modular design at the beginning, when they need to evolve the most.
-They then switch to the pipeline architecture only when the requirement of performance overcomes the requirement of evolution.
-Moreover, as the team knows that they will eventually throw away their code to upgrade it to a different paradigm, there is little effort to follow the best practice to make maintainable code.
-It results in a large effort of development to compensate this rupture.
-% This rupture between the two organization is not novel, and is at the center of a large body of work.
-In this section, we present the state of the art to reconciliate the two organizations, and avoid this rupture.
-First we see the design patterns to fit both organization onto a same source code.
-Then we see the compilation tentatives to switch from one to the other.

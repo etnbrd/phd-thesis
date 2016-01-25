@@ -15,6 +15,9 @@
 % \newfontfamily\secfont{BodoniStd-Bold}
 
 
+\setmonofont{Inconsolata}
+
+
 \makeatletter
 \newcommand \Dotfill {\fontsize{4pt}{20pt}\selectfont \leavevmode \cleaders \hb@xt@ 1em{\hss .\hss }\hfill \kern \z@}
 \makeatother
@@ -28,9 +31,9 @@
   }{\fontsize{20pt}{20pt}\selectfont\MakeUppercase\chaptertitlename\ \thechapter}
   {10pt}
   { \titlerule[1pt]%
-    \vspace{60pt}%
+    \vspace{45pt}%
     \MakeUppercase{#1}\\%
-    \vspace{10pt}%
+    \vspace{40pt}%
     \titlerule[1pt]%
     \eject%
   }
@@ -72,7 +75,8 @@
   {\vspace{10pt}\secfont\fontsize{14pt}{20pt}\selectfont} % format
   {}
   {0pt} % sep
-  {\llap{\hspace*{-\rulelen}\hfill§\hspace{10pt}}#1} % before
+  {#1} % before
+  % {\llap{\hspace*{-\rulelen}\hfill§\hspace{10pt}}#1} % before
   % [\normalfont\vspace{10pt}] % after
 
 \usepackage{caption}
@@ -82,3 +86,4 @@
 \newfontfamily\figcapfont{Gotham Rounded Light}% Some other font
 \DeclareCaptionFormat{figcapfont}{\fontsize{10pt}{10pt}\selectfont\figcapfont #1#2#3}
 \captionsetup[figure]{format=figcapfont}
+\captionsetup[lstlisting]{format=figcapfont}
