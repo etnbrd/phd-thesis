@@ -44,7 +44,7 @@ However, the mutable closures required for higher-order programming remains a ch
 To extract parallelism, compilers rely on static analysis or notations from the developers.
 
 % TODO Extract parallelism compilers from these :
-% Load balanced pipeline parallelism \cite{Kamruzzaman2013}, 
+% Load balanced pipeline parallelism \cite{Kamruzzaman2013},
 % Regent \cite{Slaughter2015},
 % Cilk-P, On-the-Fly Pipeline Parallelism\cite{Lee2013}
 % Commutativity analysis: A new analysis framework for parallelizing compilers \cite{Rinard1996}
@@ -55,7 +55,7 @@ To extract parallelism, compilers rely on static analysis or notations from the 
 
 Compilers analyze the source code of a program to detect commutative operations in the control flow \cite{Allen1970}.
 The point-to analysis is a method for static analysis.
-It identifies side-effects \cite{Andersen1994,Jang2009,Sridharan2012,Wei2014} which allows to infer commutativity.
+It identifies aliasing, that is multiple symbolic names pointing to the same memory location, hence idenfities side-effects \cite{Andersen1994,Jang2009,Sridharan2012,Wei2014} which allows to infer commutativity.
 Another method, the abstract interpretation, is to interpret the possible path of executions with virtual inputs.
 It allows to statically reason on the behavior of dynamic programs \cite{Maffeis2008,Smith2011,Gardner2012,Hackett2012,Raychev2013,Gardner2013,Bodin2014}.
 It is successfully used for security applications to detect malicious scripts, or obfuscate code \cite{Huang2004,Jovanovic2006,Yu2007,Maffeis2009a,Chudnov2015,Dolby2015}

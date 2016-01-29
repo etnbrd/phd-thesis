@@ -31,7 +31,7 @@ function threshold(d) {
   return d.value > 1.6;
 }
 
-    
+
 function midAngle(d){
   return d.startAngle + (d.endAngle - d.startAngle)/2;
 }
@@ -266,6 +266,18 @@ d3.csv('csv/Javascript-timeline.csv')
   .get(timelineFactory(parent, 'javascript-timeline', {
   }));
 
+d3.csv('csv/visit-count-service-1.csv')
+  .row(function(row) {
+    return {
+      date: parseDate('%m-%Y', row.date),
+      visits: row.visits
+    }
+  })
+  .get(lineChartFactory(parent, 'visists', {
+    yLabel: 'Visits',
+    yLabelPaddin: 30
+  }));
+
 /////////////////////////////////////////////////////////////////////
 //   Pie Chart
 /////////////////////////////////////////////////////////////////////
@@ -379,7 +391,7 @@ function piechart(svg, data, options) {
 
   lastPos = undefined;
   lastSide = undefined;
-  
+
   polyline.enter()
     .append('polyline')
     // .filter(threshold)
@@ -459,7 +471,7 @@ function lineChart(svg, data, options) {
       .orient('left')
       //.ticks(5)
 
-      
+
   // var yTicks = d3.svg.axis()
   //     .scale(y)
   //     .orient('left')
@@ -524,7 +536,7 @@ function lineChart(svg, data, options) {
         return !(d.getYear()%2 === 0 && d.getMonth() === 0);
       })
       .remove()
-      
+
   svg.selectAll(".x .tick line")
       .attr("y2", function(d){
         return d.getMonth() === 0 ? 6 : 3;
@@ -639,7 +651,7 @@ function timeline(svg, data, options) {
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + options.height + ')')
       .call(xAxis);
-  
+
   svg.selectAll('.tick text')
       .attr('dy', '3pt')
       .style('font-family', 'Gotham Rounded')
@@ -650,7 +662,7 @@ function timeline(svg, data, options) {
         return !(d.getYear()%2 === 0 && d.getMonth() === 0);
       })
       .remove()
-      
+
   svg.selectAll(".x .tick line")
       .attr("y2", function(d){
         return d.getMonth() === 0 ? 10 : 6;
@@ -691,7 +703,7 @@ function timeline(svg, data, options) {
       .style('text-anchor', 'left')
       .style('font-family', 'Gotham Rounded')
       .style('font-wieght', '100')
-      .text(function(d) { 
+      .text(function(d) {
         return d.event;
       });
 

@@ -70,7 +70,8 @@ text {
 
 .line {
   stroke-width: 1.5pt;
-  fill: transparent;
+  // fill: transparent;
+  stroke: black;
   stroke-linecap: "round";
 }
 
@@ -229,7 +230,7 @@ text {
 // #993404
 // #662506
 
-// RED
+// REDS
 
 // #feb24c
 // #fd8d3c

@@ -2,7 +2,7 @@
 \minitoc
 \eject
 
-The web allows a new economic model to emerge, and a tremendous number of business opportunities.
+The web brought a new economic model allowing a tremendous number of business opportunities.
 To seize these opportunities, a team needs to develop a web application, and grow a business around it.
 The economical incentives around the technical development changes completely during the growth of this business.
 In the beginning, the development needs to be productive, to quickly release a product, and iterate with the user feedbacks.
@@ -10,24 +10,51 @@ While when the project matures, the execution needs to be efficient, to cope wit
 
 These two development concerns are incompatible.
 No platform can provide both performance efficiency, and development productivity at the same time.
-Moreover, the studied platform propose only a fixed compromised between the two.
-This work presented a platform to allow the evolution of this compromise to follow the evolution of the economical incentives.
+The platforms at the state of the art propose only a fixed compromise between the two.
+This thesis presented a platform allowing the evolution of this compromise to fit the evolution of the economical incentives.
 
 \section{Summary}
 
-The following paragraphs presents the contributions of this thesis.
+The main contributions of this thesis is the fluxional compiler.
+It can transform a program written in a productivity language, Javascript, into a network of independent parts of execution.
+The parts of the applications are parallelized to increase the performance efficiency of its execution.
 
-\subsection{Fluxional Execution Model} \label{chapter7:conclusion:model}
+% \subsection{Fluxional Execution Model} \label{chapter7:conclusion:model}
 
-TODO
+The fluxional execution model allows the execution of a predefined network of independent parts to be executed in parallel.
+It executes the transformed execution.
 
-\subsection{Pipeline Extraction} \label{chapter7:conclusion:extraction}
+% \subsection{Pipeline Extraction} \label{chapter7:conclusion:extraction}
 
-TODO
+The compiler identifies and extract a pipeline from the control flow in the application.
+Each asynchronous function acts like a stage in this pipeline.
+The first step of this compiler is the Due compiler, which identifies these steps, and transform them into Promises-like, called Dues.
 
-\subsection{Pipeline Isolation} \label{chapter7:conclusion:isolation}
+The difficulty in this compilation step is to identify the asynchronous functions.
+Because of the dynamic nature of Javascript, it is impossible to statically detect these functions, hence the compiler is unable to reliably detect them.
+Instead the compiler rely on a list of asynchronous function names provided by the developer.
 
-TODO
+% \subsection{Pipeline Isolation} \label{chapter7:conclusion:isolation}
+
+After the extraction of this pipeline, the compiler precedes to isolate each stage so that it can be executed in parallel, on the fluxional execution model.
+
+The execution rolls from the reception of a request, and flow from one stage to the other, until the last stage responds to the request.
+If a stage needs to access variable from one request to the other, this variable is stored in its context.
+If a downstream stage needs to read a variable from an upstream stage, the variable is sent as a message in the data-flow of the application.
+If two stages needs to share a variable, they are grouped on the same execution node to safely share parts of their context.
+Their executions are not parallelized to avoid conflicting accesses.
+
+The difficulty in this step is to identify the memory dependencies between stages.
+Because of the dynamic nature of Javascript, there is a lot of possible aliasing in the memory.
+The compiler, in its current state is unable to overcome this difficulty.
+
+\section{Perspectives}
+
+In the contribution of this thesis, the two main difficulties, identifying stages and detecting memory dependencies, are due to the dynamic nature of Javascript.
+A perspective to overcome these limitation is to implement the transformation, not as a compiler, but as a runtime.
+Indeed, at runtime, all the dynamic behavior are resolved, and the analysis can be much more precise, and less speculative.
+
+% \subsection{Fluxionnal Runtime} 
 
 \section{Opening}
 

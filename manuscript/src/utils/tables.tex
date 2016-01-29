@@ -52,8 +52,8 @@
 
 % SUMMARY
 \newcommand{\SummaryCol}            {3}
-\newcommand{\SummaryHeader}         { Model  &   \lab{Productivity} &   \lab{Adoption} &   \lab{Efficiency} \\ \tabucline[.5pt]{-}}
-\newcommand{\SummaryRow}            {\Model  & \rate{\Productivity} & \rate{\Adoption} & \rate{\Efficiency}}
+\newcommand{\SummaryHeader}         { Model  &   \lab{Productivity} &   \lab{Efficiency} &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
+\newcommand{\SummaryRow}            {\Model  & \rate{\Productivity} & \rate{\Efficiency} & \rate{\Adoption}}
 
 %% -------------------------------------------------------------------------------------------
 %%                                       EXTRACTIONS
@@ -88,6 +88,10 @@
 \newcommand{\StreamSummary}            {\ExtractGroup{Stream}       {\SummaryRow}}
 \newcommand{\CompilerSummary}          {\ExtractGroup{Compiler}     {\SummaryRow}}
 \newcommand{\RuntimeSummary}           {\ExtractGroup{Runtime}      {\SummaryRow}}
+% PROPOSITION
+\newcommand{\PropositionProductivity}  {\ExtractGroup{Proposition}  {\ProductivityRow}}
+\newcommand{\PropositionEfficiency}    {\ExtractGroup{Proposition}  {\EfficiencyRow}}
+\newcommand{\PropositionSummary}       {\ExtractGroup{Proposition}  {\SummaryRow}}
 
 %% -------------------------------------------------------------------------------------------
 %%                                       TABLES
@@ -291,6 +295,35 @@
 \CompilerSummary%
 \RuntimeSummary%
 \caption{Summary of the state of the art}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+%% Proposition
+
+\newcommand{\TablePropositionProductivity}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+\ProductivityHeader%
+\PropositionProductivity%
+\caption{Productivity of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+\newcommand{\TablePropositionEfficiency}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+\EfficiencyHeader%
+\PropositionEfficiency%
+\caption{Efficiency of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+\newcommand{\TablePropositionSummary}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+\SummaryHeader%
+\PropositionSummary%
+\caption{Sommary of the proposed solution}
 \label{#1}
 \end{longtabu} \tikzexternalenable
 }
