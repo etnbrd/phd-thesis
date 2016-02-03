@@ -1,6 +1,6 @@
 % \subsection{Definition} \label{chapter5:due:definition}
 
-\subsection{Due} \label{chapter5:due:definition}
+\subsection{Definition} \label{chapter5:due:definition}
 
 A Due is an object used as placeholder for the eventual outcome of a deferred operation.
 % Dues are a simplification of the Promise specification.
@@ -83,10 +83,12 @@ This outcome can then be retrieved with the continuation provided by the \texttt
 \subsubsection{Composition}
 
 Dues arrange the execution flow as a chain of actions to carry on inputs.
-The composition of Dues in a chain is illsutrated in listing \ref{lst:dues-sequence}. % explained in section \ref{chapter4:event-loop:promise}.
+The composition of Dues in a chain is illustrated in listing~\ref{lst:dues-sequence}.
+It is similar to the composition of Promises explained in the previous chapter, section~\ref{chapter4:event-loop:promise}, page~\pageref{chapter4:event-loop:promise}.
+% explained in section \ref{chapter4:event-loop:promise}.
 % It is the same than for Promises,
 % This composition is explained in details in section \ref{section:definitions:promise}. %, and illustrated specifically for Dues in listing \ref{lst:dues-sequence}.
-% Through this chained composition, 
+% Through this chained composition,
 
 \begin{code}[js, %
              caption={Dues are chained like Promises}, %
@@ -105,7 +107,7 @@ my_fn_due_1(input)
 
 The \texttt{then} method of the current Due returns an intermediary Due that settles when the Due returned by the passed continuation settles.
 As example, in listing \ref{lst:dues-sequence} the Due returned by the \texttt{then} method line \ref{lst:due-sequence:then} settles when the Due returned by \texttt{my\_fn\_due\_2} settles.
-It allows to chain continuations one after the other, instead of the nested composition of continuations.
+It allows to chain continuations one after the other like a pipeline, instead of the nested composition of continuations.
 
 % This simplified specification adopts the same convention than \textit{Node.js} for continuations to hand back outcomes.
 

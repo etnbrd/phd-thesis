@@ -1,4 +1,54 @@
-\subsection{Example}
+\subsection{Examples}
+
+
+
+\subsubsection{Fluxional Application}
+
+\begin{wrapfigure}{r}{0.2\textwidth}
+  % \vspace{-10pt}
+  \begin{center}
+    \includegraphics[height=0.2\textwidth]{../resources/grumpy.png}
+  \end{center}
+  % \vspace{-10pt}
+\end{wrapfigure}
+
+To test fluxional execution model, it was used to develop a simple web application.
+This application doesn't use the transformation, nor the continuous development advocated in this thesis.
+Nonetheless, it is related here to illustrate the basic functioning of the fluxional execution model.
+
+The application is accessible at \url{http://grumpy.etnbrd.com}.
+It allows to post anonymous grumbles into chat rooms.
+Additionally, a room can subscribe to the grumbles from another room.
+
+\begin{figure}
+  \label{fig:grumpy-screenshot}
+  \includegraphics[width=\textwidth]{../resources/grumpy-console.png}
+  \caption{Screenshot from the grumpy console}
+\end{figure}
+
+The network of fluxions structuring the applications can be monitored at \url{http://grumpy.etnbrd.com/console}.
+It is organized into five stages, traversed by the stream of request from left to right.
+The first and stages are the input and output, connecting the application with the clients.
+The second stage contains the fluxions receiving and formatting the request, before passing them to the next layer.
+The fluxion in the third stage is a simple filter before posting grumbles.
+It is an example of a fluxion modifying a message from the stream.
+Finally, each room is instantiated as a new fluxion in the fourth stage, storing the received grumbles in its context.
+
+The left panel logs the requests received by the application, and the path of each request can be traced from stage to stage.
+
+The socket descriptor is stuck with the network interface, hence, it cannot be serialized to flow from one fluxion to another.
+Instead, the first and last fluxions share their memory, and the request flows with an id to associate it with the socket descriptor.
+
+This example application was developed before the implementation of the isolation of fluxions in the fluxional execution model.
+So it was possible to share their memory by simply sending a memory reference between two fluxions, without grouping them.
+This explains the direct link between the input and output fluxions.
+
+The example illustrated in the next paragraphs explains in more details the transformation, and the grouping required for fluxion sharing memory.
+And it explains the impact of the memory dependencies on parallelism and scalability.
+
+\subsubsection{Transformation}
+
+The transformation from continuation passing style to the fluxion execution model is now illustrated with a simple web application.
 
 \begin{code}[js,
   caption={Example web application},
@@ -16,13 +66,6 @@ app.get('/', function handler(req, res){ //@\label{lst:source-handler}@
 
 app.listen(8080);
 \end{code}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\linewidth]{../resources/schema-message.pdf}
-  \caption{The fluxional execution model in details}
-  \label{fig:MesSys}
-\end{figure}
 
 % \begin{wrapfigure}{r}{0.60\textwidth}
 %   \vspace{-25pt}
@@ -42,19 +85,7 @@ The \texttt{template} function formats the output stream to be sent back to the 
 The \texttt{app.get} and \texttt{res.send} functions, lines \ref{lst:source-handler} and \ref{lst:source-send}, interface the application with the clients.
 Between these two interface functions is a chain of three functions to process the client requests : \texttt{app.get} $\to$ \hspace{-1.4em} $\to$ \texttt{handler} $\to$ \texttt{reply}.
 This chain of functions is transformed into a pipeline, expressed in the high-level fluxional language in listing \ref{lst:fluxional}.
-The transformation process between the source and the fluxional code is explained in \ref{chapter5}, in section \ref{chapter5:flx:compiler}.
-
-The execution is illustrated in figure \ref{fig:MesSys}.
-The dashed arrows between fluxions represent the message streams as seen in the fluxional application.
-The plain arrows represent the operations of the messaging system during the execution.
-These steps are indicated by numeroted circles.
-The \textit{program} registers its fluxions in the messageing system, \circled{1}.
-The fluxion \textit{reply} has a context containing the variable \texttt{count} and \texttt{tem\-plate}.
-When the application receives a request, the first fluxion in the stream, \textit{main}, queues a \texttt{start} message containing the request, \circled{2}.
-This first message is to be received by the next fluxion \textit{handler}, \circled{3}, and triggers its execution, \circled{4}.
-The fluxion \textit{handler} sends back a message, \circled{5}, to be enqueued, \circled{6}.
-The system loops through steps \circled{3} through \circled{6} until the queue is empty.
-This cycle starts again for each new incoming request causing another \texttt{start} message.
+The transformation process between the source and the fluxional code is explained in chapter \ref{chapter5}, in section \ref{chapter5:flx:compiler}.
 
 \begin{code}[flx, caption={Example application expressed in the high-level fluxional language}, label={lst:fluxional}]
 flx main & grp_res
@@ -80,6 +111,25 @@ flx reply & grp_res {count, template}
   }
 \end{code}
 
+The execution is illustrated in figure \ref{fig:MesSys}.
+The dashed arrows between fluxions represent the message streams as seen in the fluxional application.
+The plain arrows represent the operations of the messaging system during the execution.
+These steps are indicated by numeroted circles.
+The \textit{program} registers its fluxions in the messageing system, \circled{1}.
+The fluxion \textit{reply} has a context containing the variable \texttt{count} and \texttt{tem\-plate}.
+When the application receives a request, the first fluxion in the stream, \textit{main}, queues a \texttt{start} message containing the request, \circled{2}.
+This first message is to be received by the next fluxion \textit{handler}, \circled{3}, and triggers its execution, \circled{4}.
+The fluxion \textit{handler} sends back a message, \circled{5}, to be enqueued, \circled{6}.
+The system loops through steps \circled{3} to \circled{6} until the queue is empty.
+This cycle starts again for each new incoming request causing another \texttt{start} message.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\linewidth]{../resources/schema-message.pdf}
+  \caption{The fluxional execution model in details}
+  \label{fig:MesSys}
+\end{figure}
+
 The chain of functions from listing \ref{lst:source} is expressed in the fluxional language in listing \ref{lst:fluxional}.
 The fluxion \texttt{handler} doesn't have any dependencies, so it can be executed in a parallel event-loop.
 The fluxions \texttt{main} and \texttt{reply} belong to the group \texttt{grp\_res}, indicating their dependency over the variable \texttt{res}.
@@ -90,7 +140,7 @@ The variable \texttt{res} is created and consumed within a chain of \textit{post
 Therefore, it is exclusive to one request and cannot be propagated to another request.
 It doesn't prevent the whole group from being replicated.
 However, the fluxion \texttt{reply} depends on the variable \texttt{count} created upstream the \textit{start} stream, which prevents this replication.
-If it did not rely on this state, the group \texttt{grp\_res} would be stateless, and could be replicated to cope with the incoming traffic.
+If it did not rely on this variable, the group \texttt{grp\_res} would be stateless, and could be replicated to cope with the incoming traffic.
 
 \separator
 
@@ -103,4 +153,4 @@ It allows to adapt the number of fluxions per core to adjust the resource usage 
 Yet, the parallelization is limited by the dependencies between fluxions.
 A developer can ignore these dependencies at first, to focus on productivity.
 And then continuously tune the implementation to remove these dependencies and improve efficiency.
-This continuous tuning avoid the disruptive shifts of technology required by current platforms.
+This continuous tuning avoids the disruptive shifts of technology required by current platforms.

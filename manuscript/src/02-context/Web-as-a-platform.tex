@@ -199,7 +199,7 @@ The next section presents the realities and technical challenges to assure the p
 % This section presented Javascript as the language of the web, and its programming model.
 % The next section presents the realities and technical challenges to assure the performance of web applications against billions of users.
 
-\subsection{Highly Concurrent Web Servers}
+\subsection{Highly Concurrent Web Servers} \label{chapter2:web-as-a-platform:web-servers}
 
 % The previous section presented Javascript, the prolific language to build the Web.
 % With SaaS, a web application can scale world wide with near zero latency. %, and accessing it is as simple as distributing it world wide.
@@ -235,10 +235,11 @@ In 2009, Joyent released Node.js to build real-time web applications with this p
   \caption{Event-driven execution model}
 \end{figure}
 
-The event-driven execution model is presented in figure \ref{fig:pipeline}.
+The event-driven execution model is presented in figure \ref{fig:event-loop}.
 At reception, each request from a client queues an event waiting to be processed.
 A loop unqueues these events one at a time, and run the appropriate handler to process them.
-To process an event, a handler can query remote resources, which respond asynchronously by queueing additional events, processed by new handlers.
+To process an event, a handler can query remote resources, which respond asynchronously by queuing additional events.
+The querying handler specifies new handlers - called continuations - to process these additional events.
 Alternatively, a handler can respond directly to the client, ending this chain of asynchronous events.
 
 % The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
@@ -263,7 +264,7 @@ But for unstable traffic, it is erratic and challenging to meet.
 
 An application is scalable, if it is able to spread over resources proportionally as a reaction to its load to use these resources efficiently.
 It is a desirable property, as it helps to meet the growth, without spending time to manually spread the application on available resources to react to this erratic growth.
-% It allows to use  provisionning of Platform as a Service (PaaS) solutions. 
+% It allows to use  provisionning of Platform as a Service (PaaS) solutions.
 
 \paragraph{Time-slicing and Parallelism}
 
@@ -295,7 +296,7 @@ As the stages are independent, the state coordination between the stages are com
   \centering
   \includegraphics[width=0.8\linewidth]{../resources/pipeline.pdf}
   \label{fig:pipeline}
-  \caption{Pipeline executin model}
+  \caption{Pipeline execution model}
 \end{figure}
 
 The execution model of each stage is organized in a similar fashion than the event-loop presented previously.

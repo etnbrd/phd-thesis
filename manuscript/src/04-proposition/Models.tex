@@ -1,8 +1,11 @@
 \section{Execution Models} \label{chapter4:execution-models}
 
+The event-driven execution model and the pipeline execution model were already briefly presented in chapter \ref{chapter2}, section \ref{chapter2:web-as-a-platform:web-servers}, page \pageref{chapter2:web-as-a-platform:web-servers}.
+The next paragraphs dive into the details of each execution model in regard of the transformation.
+
 \subsection{Event-Driven Execution Model} \label{chapter4:event-driven}
 
-The event-driven execution model processes a queue of asynchronous events by cooperatively scheduling handlers.
+The event-driven execution model is processes a queue of asynchronous events by cooperatively scheduling handlers.
 To respond to an event, the associated handler can directly respond to the source of the event.
 Or it can request an external resource, and chain another handler to later process the initial event with the resource response, as illustred in figure \ref{fig:cont-chain}.
 The developer defines each handler as a continuation and defines their causality using the continuation passing style \cite{Wand1980,Haynes1984}.
@@ -33,11 +36,11 @@ The developer defines each handler as a continuation and defines their causality
 % A continuation is the functional way of defining the causality between two tasks \cite{Wand1980,Haynes1984}.
 A continuation is a function passed as an argument to a function call.
 % The caller is able to continue the execution while the callee runs in background.
-The continuation is invoked later, at the completion of the callee, to continue the execution. % as soon as possible and process the result; hence the name continuation.
-When the callee is asynchronous, it allows not to block the caller until its completion.
+The continuation is invoked after the completion of the callee, to continue the execution. % as soon as possible and process the result; hence the name continuation.
+In the event-driven execution model, the continuation is invoked as a new handler, to avoid blocking the caller until its completion.
 % It provides a necessary control over the asynchronous execution flow.
 % It also brings a control over the data flow which essentially replaces the \texttt{return} statement at the end of a synchronous function.
-At its invocation, the continuation retrieves both the caller context, through a closure, and the result.
+At its invocation, the continuation retrieves both the caller context and the result of the callee through a closure.
 Listing \ref{lst:continuation} illustrates an example of continuation in \textit{Node.js}.
 
 % The convention on how to hand back the result must be common for both the callee and the continuation.
@@ -54,46 +57,43 @@ Listing \ref{lst:continuation} illustrates an example of continuation in \textit
 callee(input, function continuation(error, result) {
   if (error)
     throw error;
-  
+  // ... modify result
   console.log(result);
 });
 \end{code}
 
-% % The continuation allows to continue the execution sequentially, after the result of \textit{my_fn} is available. 
+% % The continuation allows to continue the execution sequentially, after the result of \textit{my_fn} is available.
 % % When continuations are defined inside the call, like \textit{continuation}, the sequence of deferred execution results in an intricate imbrication of calls and continuations, like in listing \ref{lst:cbhell}.
 % The callback hell occurs when many asynchronous calls are arranged to be executed sequentially.
 % Each consecutive operation adds an indentation level, because it is nested inside the continuation of the previous operation.
 % % That is when each caller must wait for the result before calling the next function.
 % It produces an imbrication of calls and function definitions, as shown in listing \ref{lst:cbhell}.
 
-The continuation passing style lacks the chained composition of multiple asynchronous operations.
+Asynchronous continuations cannot be composed to chain their execution like synchronous functions, as illustrated in listing \ref{lst:cbhell}.
+This nested construction is sometime difficult to follow.
+% The continuation passing style lacks the chained composition of multiple asynchronous operations.
 % It forces to stack calls of continuations, as illustrated in listing \ref{lst:cbhell}.
-Promises improve the composition of continuation.
-They allow to arrange such a sequence of asynchronous operations in a chain, similar to a pipeline.
+Promises improve continuations to allow this composition.
+They allow to arrange a sequence of asynchronous operations in a chain, similar to a pipeline.
 
-% \begin{code}[js, %
-%              caption={Example of a sequence of continuations}, %
-%              label={lst:cbhell}] %
-% my_fn_1(input, function cont(error, result) {
-%   if (!error) {
-%     my_fn_2(result, function cont(error, result) {
-%       if (!error) {
-%         my_fn_3(result, function cont(error, result) {
-%           if (!error) {
-%             console.log(result);
-%           } else {
-%             throw error;
-%           }
-%         });
-%       } else {
-%         throw error;
-%       }
-%     });
-%   } else {
-%     throw error;
-%   }
-% });
-% \end{code}
+\begin{code}[js, %
+             caption={Example of a sequence of continuations}, %
+             label={lst:cbhell}] %
+
+callee(input, function continuation(error, result) {
+  if (error)
+    throw error;
+  // ... modify result
+  nestedCallee(result, function continuation(error, nestedResult) {
+    if (error)
+      throw error;
+    // ... modify result
+    superNestedCallee(nestedResult, function continuation(error, superNestedResult) {
+      // ... and so on ...
+    }
+  });
+});
+\end{code}
 
 \subsubsection{Promise} \label{chapter4:event-loop:promise}
 
@@ -104,13 +104,15 @@ They allow to arrange such a sequence of asynchronous operations in a chain, sim
 % This section is based on the Promises section of the specification in ECMAScript 6 Harmony\ftnt{https://people.mozilla.org/~jorendorff/es6-draft.html\#sec-promise-objects} and the Promises page on the Mozilla Developer Network\ftnt{https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise}.
 
 % In a synchronous paradigm, the sequentiality of the execution flow is trivial.
-In the asynchronous paradigm, the control over the asynchronous execution flow is defined with continuations.
+% In the asynchronous paradigm, the control over the asynchronous execution flow is defined with continuations.
 % In the asynchronous paradigm, this control is provided by continuations.
 % Promises provide a unified control over the execution flow for both paradigms.
 % The ECMAScript 6 specification\ftnt{https://people.mozilla.org/~jorendorff/es6-draft.html\#sec-promise-objects} defines
 A Promise is used as a placeholder for the eventual outcome of a deferred (and possibly asynchronous) operation.
+Listing~\ref{lst:then} illustrate a simple promise.
 % A Promise is an object returned by a function to represent its result
-In Javascript, promises expose a \texttt{then} method which expects a continuation to continue with the result. %; this result being synchronously or asynchronously available.
+In Javascript, promises expose a \texttt{then} method which expects a continuation to continue the execution with the result of the deferred operation. %; this result being synchronously or asynchronously available.
+This method allows to chain Promises one after the other, as illustrated in listing~\ref{lst:promises-sequence}.
 
 % However, unlike continuations, the Promises specification imposes a convention on how to handle the result.
 % Because it is possibly unavailable synchronously, it still requires a continuation to defer the execution when the result is made available.
@@ -120,17 +122,17 @@ In Javascript, promises expose a \texttt{then} method which expects a continuati
 % As a result of this difference, Promises and continuations use two different conventions to handle errors and results.
 % The two conventions are illustrated in listings \ref{lst:continuation} and \ref{lst:then}.
 
-% \begin{code}[js, %
-%              caption={Example of a Promise}, %
-%              label={lst:then}] %
-% var promise = my_fn_pr(input)
+\begin{code}[js, %
+             caption={Example of a Promise}, %
+             label={lst:then}] %
+var promise = callee(input)
 
-% promise.then(function onSuccess(result) {
-%   console.log(result);
-% }, function onError(error) {
-%   throw error;
-% });
-% \end{code}
+promise.then(function onSuccess(result) {
+  console.log(result);
+}, function onError(error) {
+  throw error;
+});
+\end{code}
 
 % Continuations lack the chained composition of asynchronous operations.
 % Promises are designed to fill the lack of chained composition from continuations.
@@ -139,13 +141,13 @@ In Javascript, promises expose a \texttt{then} method which expects a continuati
 % The \texttt{then} method synchronously returns a Promise linked with the Promise asynchronously returned by its continuation.
 % This link allow to compose chains of asynchronous operations.
 
-The listing \ref{lst:promises-sequence} illustrates this chained composition.
-The functions \texttt{callee\_promise\_2} and \texttt{callee\_promise\_3} return promises when they are executed.
-They are executed asynchronously, so these promises are not available synchronously.
-The method \texttt{then} synchronously returns intermediary Promises to bridge with the asynchronous promises.
-The former resolve when the latter resolve.
+
+% The functions \texttt{callee\_promise\_2} and \texttt{callee\_promise\_3} return promises when they are executed.
+% They are executed asynchronously, so these promises are not available synchronously.
+% The method \texttt{then} synchronously returns intermediary Promises to bridge with the asynchronous promises.
+% The former resolves when the latter resolves.
 % The latter resolve only when the former resolve.
-This behavior allows to arrange the continuations as a flat chain of calls, instead of an imbrication of continuations.
+% This behavior allows to arrange the continuations as a flat chain of calls, instead of an imbrication of continuations.
 
 \begin{code}[js, %
              caption={Example of a chain of Promises}, %
@@ -171,12 +173,12 @@ In this sense, Promises are an intermediate step toward the pipeline execution m
 
 \subsection{Fluxional Execution Model} \label{chapter4:flx-model}
 
-This section presents an execution model inspired by the pipeline architecture.
-It is the targeet for the transformation presented in this thesis.
+The fluxional execution model is inspired by the pipeline architecture.
+It is the target for the transformation presented in this thesis.
+It executes programs written in the fluxional language, whose grammar is presented in figure \ref{fig:flx-lang}.
 It intends to provide scalability to web applications with a granularity of parallelism at the function level.
 
-Functions are encapsulated in autonomous execution containers with their state, so as to be mobile and parallel, similarly to the actors model.
-And the communications are similar to the dataflow programming model, which allows to reason on the throughput of these streams, and to react to load increases \cite{Bartenstein2014}.
+The functions of an application $\bnfpn{program}$ are encapsulated in autonomous execution containers named \textit{fluxions} $\bnfpn{flx}$.
 
 \begin{figure}[h]
 \vspace{-0.6\baselineskip}
@@ -199,29 +201,33 @@ And the communications are similar to the dataflow programming model, which allo
 \label{fig:flx-lang}
 \end{figure}
 
-The fluxional execution model executes programs written in the fluxional language, whose grammar is presented in figure \ref{fig:flx-lang}.
-An application $\bnfpn{program}$ is partitioned into parts encapsulated in autonomous execution containers named \textit{fluxions} $\bnfpn{flx}$.
-The following paragraphs present the \textit{fluxions} and the messaging system to carry the communications between \textit{fluxions}.
+
+% The following paragraphs present the \textit{fluxions} and the messaging system to carry the communications between \textit{fluxions}.
 % , and then an example application using this execution model.
 
 % \subsubsection{Fluxions and Messaging System}
+
+\subsubsection{Fluxion}
 
 A \textit{fluxion} $\bnfpn{flx}$ is named by a unique identifier $\bnfpn{id}$ to receive messages, and might be part of one or more groups indicated by tags $\bnfpn{tags}$.
 A \textit{fluxion} is composed of a processing function $\bnfpn{fn}$, and a local memory called a \textit{context} $\bnfpn{ctx}$.
 
 At a message reception, the \textit{fluxion} modifies its \textit{context}, and sends messages to downstream \textit{fluxions} on its output streams $\bnfpn{streams}$.
-The \textit{context} stores the state on which a \textit{fluxion} relies between two message receptions.
+The \textit{context} stores the state on which a \textit{fluxion} relies between two message receptions, similarly to the actors model.
 The messaging system queues the output messages for the event loop to process them later by calling the downstream \textit{fluxions}.
+
+% And the communications are similar to the dataflow programming model, which allows to reason on the throughput of these streams, and to react to load increases \cite{Bartenstein2014}.
 
 In addition to message passing, the execution model allows \textit{fluxions} to communicate by sharing state between their \textit{contexts}.
 The fluxions that need this synchronization are grouped with the same tag, and loose their independence.
 
+\subsubsection{Streams}
+
 There are two types of streams, \textit{start} and \textit{post}, which correspond to the nature of the rupture point producing the stream.
 A \textit{start} rupture point starts a chain of continuations, while a \textit{post} rupture point is a continuation in a chain.
-The variables defined before the \textit{start} are available for the whole chain, and require synchronization for concurrent execution of the same chain.
-Whereas the varaibles defined inside the chain are available only in one chain, and doesn't require synchronization.
-% A variable created within a chain of \textit{post} streams requires more synchronization than a variable created upstream a \textit{start} stream.
-The two types and implications of rupture points are further detailed in section \ref{chapter5:flx:compiler}.
 \textit{Start} rupture points are indicated with a double arrow ($\to$ \hspace{-1.4em} $\to$ or \texttt{>>}) and \textit{post} rupture points with a simple arrow ($\to$ or \texttt{->}).
 
-The fluxional execution model is illustrated through an example transformation in the next section.
+The variables defined before the \textit{start} are available for the whole chain, and require synchronization for concurrent execution of the same chain.
+Whereas the variables defined inside the chain are available only in this chain, and don't require synchronization.
+% A variable created within a chain of \textit{post} streams requires more synchronization than a variable created upstream a \textit{start} stream.
+The two types and implications of rupture points are further detailed in section \ref{chapter5:flx:compiler}.

@@ -2,7 +2,7 @@
 
 The Due compiler automates the application of this equivalence on existing Javascript projects.
 The compilation process is made of two important steps, the identification of the continuations, and the generation of chains.
-The compiler is available as a standalone web application to reproduce the tests \ftnt{compiler-due.apps.zone52.org}.
+The compiler is available online to reproduce the tests at \url{compiler-due.apps.zone52.org}, and the code is available online at \url{https://github.com/etnbrd/due-compiler}.
 
 \subsubsection{Identification of continuations}
 
@@ -119,7 +119,7 @@ Because Dues are a placeholder for a single outcome, it doesn't allow to express
 Concretely, in the case of streaming data, a Due is created for each datum in the stream.
 Therefore, continuations doesn't represent the whole streaming pipeline underlying in the application.
 Listeners are callbacks starting the streaming pipeline.
-% and the extracted pipeline of Dues 
+% and the extracted pipeline of Dues
 % represents only a part of the pipeline present in an application.
 
 Moreover, the Dues still rely on a shared memory to communicate.

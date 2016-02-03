@@ -5,8 +5,8 @@ To preserve the semantic, this transformation imposes limitations on the executi
 
 \subsubsection{Execution order}
 
-The transformation of a simple continuation is illsutrated in figure \ref{fig:then-transform}
-The compiler spots function calls similar to the abstraction (\ref{eq:order:source}).
+The transformation of a simple continuation is illustrated in figure \ref{fig:then-transform}
+It applies on function calls similar to the abstraction (\ref{eq:order:source}).
 It wraps the function $fn$ into the function $fn_\textbf{due}$ to return a Due, as presented in section \ref{chapter5:due:definition:creation}
 And it relocates the continuation in a call to the method $\textbf{then}$.
 %, which references the Due previously returned.
@@ -22,8 +22,8 @@ $\downarrow$
 \begin{equation} \label{eq:order:target}
 fn_\textbf{due}([arguments])\textbf{.then}(continuation)
 \end{equation}
-\label{fig:then-transform}
 \caption{Simple transformation}
+\label{fig:then-transform}
 \end{figure}
 
 The execution order is different whether $continuation$ is called synchronously, or asynchronously.
@@ -33,12 +33,13 @@ If $fn$ is asynchronous, the continuation is called after the end of the current
 The transformation erases this difference in the execution order.
 In both cases, the transformation relocates the execution of $continuation$ after the execution of $fn$.
 For synchronous $fn$, the execution order changes ; the execution of $statements$ at the end of $fn$ and the continuation switch.
-The function $fn$ must be asynchronous to preserve the execution order.
+To preserve the execution order, the function $fn$ must be asynchronous, or execute the continuation as the last instruction.
+
 
 \subsubsection{Execution linearity}
 
 The transformation of a chain of continuations into a chain of Dues is illustrated in figure \ref{fig:comp-transform}.
-The compiler transforms a nested imbrication of continuations similar to the abstraction (\ref{eq:state:source}) into a flatten chain of calls encapsulating them, as abstraction (\ref{eq:state:target}).
+It transforms a nested imbrication of continuations similar to the abstraction (\ref{eq:state:source}) into a flatten chain of calls encapsulating them, as abstraction (\ref{eq:state:target}).
 
 \begin{figure}[h!]
   \begin{minipage}{0.40\textwidth}
@@ -69,23 +70,27 @@ The compiler transforms a nested imbrication of continuations similar to the abs
     &\})
     \end{align}
   \end{minipage}
-  \label{fig:comp-transform}
   \caption{Composition transformation}
+  \label{fig:comp-transform}
 \end{figure}
 
-Because of the repetition, a call inside a loop yields multiple Dues to chain, while only one is returned to continue the chain.
+The main control flow characteristics, is to allow the execution order to be different from the linearity expressed in the source file.
+The equivalence takes into account these disruptions when modifying the source.
+
+A call inside a loop yields multiple Dues because of the repetition, while only one can be returned to continue the chain.
+The others would be discarded.
 % A call nested inside a loop returns multiple Dues, while only one is returned to continue the chain.
-Loops modify the linearity of the execution flow.
-To preserve the semantic, a chain of Dues must not contain any loop.
-Similarly, a function definition outside a function call breaks the execution linearity.
-This defined function might not be executed synchronously, in the current chain of Dues.
-It prevents the nested call to return the Due expected to continue the chain.
+% Loops modify the linearity of the execution flow.
+% To preserve the semantic, a chain of Dues must not contain any loop.
+Similarly, a function definition is not executed in situ.
+It breaks the execution linearity, and prevents a call nested within it to return the Due expected to continue the chain in the parent.
 % And a call nested inside a function definition is unable to return the Due to continue the chain.
-Therefore, the compiler breaks the chain of Dues when loops or function definitions are encountered.
+Therefore, the composition transformation doesn't apply on chain of Dues nested inside loops or function definitions.
+It must breaks the chain into simple transformation.
 
-On the other hand, conditional branching leaves the execution linearity and the semantic intact.
-If the nested asynchronous function is not called due to branching, the execution of the chain stops as expected, either with continuations or Dues.
-
+On the other hand, conditional branching leaves the semantic intact in a chain of Dues.
+If the nested asynchronous function is not called due to branching, the execution of the chain stops as expected. % , either with continuations or Dues.
+The transformation to a chain of Dues doesn't impact the semantic.
 % We demonstrate the equivalence with a sequence of two continuations.
 % The equivalence is sound for a sequence of \textit{n} continuations.
 
@@ -96,11 +101,11 @@ The $variable$ declared in $cont1$ is accessible in $cont2$ to be printed.
 In abstraction (\ref{eq:state:target}), however, definitions of $cont1$ and $cont2$ are not overlapping, they are siblings.
 The $variable$ is not accessible to $cont2$.
 It must be relocated in a parent function to be accessible by both $cont1$ and $cont2$.
-To detect such variables, the compiler must infer their scope statically.
+The detection of such variables requires to infer their scope statically.
 % Languages with a lexical scope define the scope of a variable statically.
 Most imperative languages like C/C++, Python, Ruby or Java present a lexical scope, which defines variables scopes statically.
 In Javascript, however, the statements \texttt{with} and \texttt{eval} modify the scope dynamically.
-The compiler excludes programs using these statements.
+The equivalence excludes programs using these statements to keep a lexical scope and be able to infer variable scope statically.
 
 
 % sThe subset of Javascript excluding the built-in functions \texttt{with} and \texttt{eval} is also lexically scoped.
