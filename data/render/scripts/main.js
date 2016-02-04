@@ -31,7 +31,7 @@ function threshold(d) {
   return d.value > 1.6;
 }
 
-    
+
 function midAngle(d){
   return d.startAngle + (d.endAngle - d.startAngle)/2;
 }
@@ -146,7 +146,7 @@ d3.csv('csv/modulecounts.csv')
   })
   .get(lineChartFactory(parent, 'modulecounts', {
     yLabel: 'Modules',
-    yLabelPadding: 40,
+    yLabelPadding: 50,
     dict: languageDict
   }));
 
@@ -206,7 +206,7 @@ d3.csv('csv/stackoverflow-tags.csv')
   })
   .get(lineChartFactory(parent, 'stackoverflow-tags', {
     yLabel: 'Tags',
-    yLabelPadding: 40,
+    yLabelPadding: 60,
     dict: languageDict
   }));
 
@@ -264,6 +264,18 @@ d3.csv('csv/Javascript-timeline.csv')
     };
   })
   .get(timelineFactory(parent, 'javascript-timeline', {
+  }));
+
+d3.csv('csv/visit-count-service-1.csv')
+  .row(function(row) {
+    return {
+      date: parseDate('%m-%Y', row.date),
+      visits: row.visits
+    }
+  })
+  .get(lineChartFactory(parent, 'visists', {
+    yLabel: 'Visits',
+    yLabelPaddin: 30
   }));
 
 /////////////////////////////////////////////////////////////////////
@@ -363,7 +375,8 @@ function piechart(svg, data, options) {
 
       return 'translate('+ pos +')';
     })
-    .style('font-family', 'cmr10')
+    .style('font-family', 'Gotham Rounded')
+    .style('font-wieght', '100')
     .style('text-anchor', function(d) {
       return midAngle(d) < Math.PI ? 'start':'end';
     })
@@ -378,12 +391,13 @@ function piechart(svg, data, options) {
 
   lastPos = undefined;
   lastSide = undefined;
-  
+
   polyline.enter()
     .append('polyline')
     // .filter(threshold)
     .attr('fill', 'none') // The default value seems to be black
     .attr('class', function(d) { return 'line ' + cleanse(d.data.label) })
+    .attr('stroke-linecap', 'round')
     .attr('points', function(d) {
       // var pos = outerArc.centroid(d);
       // pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1.3 : -1.3);
@@ -457,7 +471,7 @@ function lineChart(svg, data, options) {
       .orient('left')
       //.ticks(5)
 
-      
+
   // var yTicks = d3.svg.axis()
   //     .scale(y)
   //     .orient('left')
@@ -508,19 +522,21 @@ function lineChart(svg, data, options) {
       .attr('x',0 - (options.height / 2))
       .attr('dy', '1em')
       .style('text-anchor', 'middle')
-      .style('font-family', 'cmr10')
+      .style('font-family', 'Gotham Rounded')
+      .style('font-wieght', '100')
       .text(options.yLabel);
 
   svg.selectAll('.tick text')
       .attr('dy', '3pt')
-      .style('font-family', 'cmr10')
+      .style('font-family', 'Gotham Rounded')
+      .style('font-wieght', '100')
 
   svg.selectAll('.x .tick text')
       .filter(function(d){
         return !(d.getYear()%2 === 0 && d.getMonth() === 0);
       })
       .remove()
-      
+
   svg.selectAll(".x .tick line")
       .attr("y2", function(d){
         return d.getMonth() === 0 ? 6 : 3;
@@ -528,6 +544,9 @@ function lineChart(svg, data, options) {
       .attr("stroke-width", function(d){
         return d.getMonth() === 0 ? '1pt' : '0.4pt';
       })
+
+  svg.selectAll(".tick line")
+      .attr('stroke-linecap', 'round');
 
   var series = svg.selectAll('.serie')
     .data(series.reverse())
@@ -539,6 +558,8 @@ function lineChart(svg, data, options) {
       .attr('class', function(d) { return 'line ' + cleanse(d.name) })
       .attr('d', function(d) { return line(d.values); })
       .attr('fill', 'none') // The default value seems to be black
+      .attr('stroke-linecap', 'round')
+      .attr('stroke-linejoin', 'round')
 
   var pos = 0;
 
@@ -564,7 +585,8 @@ function lineChart(svg, data, options) {
       .attr('y', '2pt')
       .attr('x', '8pt')
       .style('text-anchor', 'left')
-      .style('font-family', 'cmr10')
+      .style('font-family', 'Gotham Rounded')
+      .style('font-wieght', '100')
       .text(function(d) {
         return (options.dict[d] || d);
       });
@@ -629,17 +651,18 @@ function timeline(svg, data, options) {
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + options.height + ')')
       .call(xAxis);
-  
+
   svg.selectAll('.tick text')
       .attr('dy', '3pt')
-      .style('font-family', 'cmr10')
+      .style('font-family', 'Gotham Rounded')
+      .style('font-wieght', '100')
 
   svg.selectAll('.x .tick text')
       .filter(function(d){
         return !(d.getYear()%2 === 0 && d.getMonth() === 0);
       })
       .remove()
-      
+
   svg.selectAll(".x .tick line")
       .attr("y2", function(d){
         return d.getMonth() === 0 ? 10 : 6;
@@ -647,6 +670,7 @@ function timeline(svg, data, options) {
       .attr("stroke-width", function(d){
         return d.getMonth() === 0 ? '1pt' : '0.4pt';
       })
+      .attr('stroke-linecap', 'round');
 
   var events = svg.selectAll('.events')
     .data(data.reverse())
@@ -677,8 +701,9 @@ function timeline(svg, data, options) {
       })
       .append('text')
       .style('text-anchor', 'left')
-      .style('font-family', 'cmr10')
-      .text(function(d) { 
+      .style('font-family', 'Gotham Rounded')
+      .style('font-wieght', '100')
+      .text(function(d) {
         return d.event;
       });
 
@@ -695,6 +720,7 @@ function timeline(svg, data, options) {
       .attr('y2', -7)
       .attr('stroke-width', '1px')
       .attr('stroke', 'black')
+      .attr('stroke-linecap', 'round');
       // .attr('fill', 'none') // The default value seems to be black
 
 }

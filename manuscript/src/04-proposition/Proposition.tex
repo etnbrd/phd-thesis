@@ -1,23 +1,26 @@
 \section{Proposition} \label{chapter4:proposition}
 
 This thesis proposes a platform allowing a seamless shift of focus to follow the development of a web application from the productivity required in the early beginning until the efficiency required during maturation.
-The proposed platform allows to develop applications targeting an event-driven platform allowing productivity, and transforms them so as to execute them on a pipeline architecture allowing efficiency.
+
+Developers start a project without compromises on productivity.
+The language targets an event-driven execution model.
+And they continuously transform their implementation to target the more efficient pipeline architecture.
+
+% The proposed platform allows to develop applications targeting an event-driven platform allowing productivity, and transforms them so as to execute them on a pipeline architecture allowing efficiency.
 % It is based on the transformation of an event-driven program to target a pipeline architecture.
 
 % The event-driven platform is embodied by Javascript for the implementation of this thesis.
-\textit{Node.js} is an efficient event-driven execution model to implement a web application.
-Javascript features higher-order programming, dynamic typing and a global memory abstraction.
-Because of these features, it is very productive.
+% \textit{Node.js} is an efficient event-driven execution model to implement a web application.
+% Javascript features higher-order programming, dynamic typing and a global memory abstraction.
+% Because of these features, it is very productive.
 % It makes Javascript a language of choice to develop web applications.
-However, the efficiency of this execution model is limited by the sequentiality of execution required to preserve exclusivity of memory accesses.
 
-On the other hand, the pipeline execution model doesn't present the same limitation.
+\textit{Node.js} implements Javascript, a productivity language, with an event driven execution model to implement web applications with decent performances.
+However, the performance of this execution model is limited by the sequentiality of execution required to preserve exclusivity of memory accesses.
+The pipeline execution model overstep this performance limitation.
 It enforces memory isolation between stages allowing the parallel execution required for efficiency.
-But this isolation limits the productivity of this execution model.
-
+But this isolation limits the productivity because it avoids higher-order programming.
 The difference in the memory abstractions between the two execution models is illustrated in figure \ref{fig:difference}.
-
-% \subsection{Equivalence}
 
 \begin{figure}[h!]
 \begin{center}
@@ -28,24 +31,31 @@ The difference in the memory abstractions between the two execution models is il
 \end{figure}
 
 
+% \subsection{Equivalence}
 % The difference of memory model between the two execution model is illustrated in figure \ref{fig:mem-equivalence}.
-Despite this difference, these two execution models present interesting similarities.
-They both organize the execution as a sequence of tasks causaly scheduled. %, as illustrated in figure \ref{fig:run-equivalence}.
-
-This thesis proposes an equivalence between the event-driven execution model and the pipeline execution model.
-It distributes the global memory of the former into memory isolated stages of the latter.
+Despite this difference, these two execution models present an interesting similarity.
+They both organize the execution as a sequence of tasks causally scheduled. %, as illustrated in figure \ref{fig:run-equivalence}.
+This thesis proposes an equivalence between these two execution models based on this similarity.
+Following this equivalence, it proposes a compiler that distributes the global memory into isolated stages of the pipeline.
 % with message passing.
 % As explained below, the concurrency model of the event-loop execution model, and the parallel approach of the pipeline execution model are very similar.
-It transforms an event-driven application to run on a pipeline architecture.
+Concretely, it transforms a mono-threaded, event-driven application to run on a parallel pipeline architecture.
 
 \subsection{Continuous Development}
 
 %It proposes this equivalence as a solution to allow the same platform to propose a continuity of compromises between productivity and efficiency.
-This transformation allows a continuity of compromises between productivity and efficiency to continuously follow the shift of focus during development.
-Developers keep two organizations of the implementation of an application. %, allowing them to start with productivity, and seamlessly abandon it for efficiency as the project matures.
-The productive organization is based on the event-driven execution model.
-It helps to maintain the application.
-The efficient organization is the transformed application targeting the pipeline execution model.
+This transformation allows a continuity of compromises between productivity and efficiency to seamlessly follow the shift of focus during development.
+
+% Developers keep two organizations of the implementations of an application.
+% The organization based on event-driven execution model assures productivity whereas the transformation targeting the pipeline architecture helps improve efficiency.
+
+
+
+
+% Developers keep two organizations of the implementation of an application. %, allowing them to start with productivity, and seamlessly abandon it for efficiency as the project matures.
+% The productive organization is based on the event-driven execution model.
+% It helps to maintain the application.
+% The efficient organization is the transformed application targeting the pipeline execution model.
 
 At first, the focus remains on the productivity of development rather than the efficiency of execution.
 The development begins with the event-driven model to take advantage of the productivity of the global memory abstraction.
@@ -72,13 +82,14 @@ It helps developers to enforce efficiency through continuous iteration, instead 
 \subsection{Equivalence} \label{chapter4:equivalence}
 
 % The goal of this thesis is not to propose a new high-level language but to automate the architectural shift.
-The next paragraphs introduces the equivalence between the the event-driven execution model and the pipeline execution model.
-The equivalence is broken down in two steps. %, as illustrated in figure \ref{fig:roadmap}.
-The first step identifies the rupture points in the control flow separating the stages of the pipeline.
+% The next paragraphs introduces the equivalence
+The equivalence between these two execution models is broken down in two steps. %, as illustrated in figure \ref{fig:roadmap}.
+The first step identifies the stages in the control flow, by detecting rupture points between them.
+% The first step identifies the rupture points in the control flow separating the stages of the pipeline.
 The second step enforces isolation of memory between these stages, and replaces synchronization with message passing to preserve the invariance.
 % invariance through message passing.
 
-\subsubsection{Rupture Point}
+\subsubsection{Execution Independence}
 
 \begin{wrapfigure}{r}{0.33\textwidth}
   \vspace{-10pt}
@@ -91,31 +102,66 @@ The second step enforces isolation of memory between these stages, and replaces 
 \end{wrapfigure}
 
 % The pipeline architecture enforces the memory isolation between stages.
-In the pipeline architecutre, each stage has its own thread of execution independent from the others.
-Whereas the handlers in the event-driven execution model are executed sequentially.
+In the pipeline architecture, each stage has its own thread of execution independent from the others.
+Whereas in the event-driven execution model, the handlers are executed sequentially.
 % the execution flow jumps from one concurrent handler to the other to execute them sequentialy.
 %  because of the continuation passing style and the common memory store.
 % The message passing linking the callbacks is transparently handled by the event-loop.
 Despite this difference, the execution of a handler is as independent as the execution of a stage of a pipeline.
-The call stacks of two handlers are isolated, as illsutrated in figure \ref{fig:rupture-point}.
-Indeed, a handler holds the execution until all synchronous function calls terminates.
-The asynchronous function call - the callee - between the caller and its continuation represents a rupture between the two call stacks.
-And the call stack of the continuation is independent from the call stack of the caller and the callee.
-This asynchronous callee represents a rupture point between two handlers.
-It is equivalent to a data stream between two stages in the pipeline architecture.
-It sends a message between the callee and the continuation.
+The call stacks of two handlers are isolated, as illustrated in figure \ref{fig:rupture-point}.
+Indeed, a handler holds the execution until its call stack is empty, when all synchronous function calls terminates. Only then it yields the execution to the event-loop, which schedule the next handler.
+A rupture point separates the call stacks of two handlers.
 
+
+
+\subsubsection{Rupture points} \label{chapter5:flx-compiler:analyzer:rupture}
+
+A rupture point is a call of a loosely coupled function.
+It is an asynchronous call without subsequent synchronization with the caller.
+This asynchronous function call is equivalent to a data-flow between two stages in the pipeline architecture.
+The parent sends a message to the child handler containing the result of the asynchronous function call it initiated.
+The event-driven execution model expects callback to send the message and continue the execution once the asynchronous call completes.
+
+\paragraph{Callbacks, Listeners and Continuations}
+
+A callback is a function passed as a parameter to a function call.
+It is not inherently asynchronous.
+Only two kinds of callbacks are asynchronous, listeners and continuations.
+They are invoked to continue the execution with data not yet available synchronously, in the caller context.
+Listeners listen to a stream of events, hence are invoked multiple times.
+Whereas continuations are invoked only once to continue the execution after an asynchronous operation completes.
+The two corresponding types of rupture points are \textit{start} and \textit{post}.
+
+\textbf{Start rupture points} (listeners) are on the border between the application and the outside, continuously receiving incoming user requests.
+An example of a start rupture point is in listing \ref{lst:source}, between the call to \texttt{app.get()}, and its listener \texttt{handler}.
+These rupture points indicate the input of a data stream in the program, and the beginning of a chain of fluxions to process this stream.
+
+\textbf{Post rupture points} (continuations) represent a continuity in the execution flow after an asynchronous operation yielding a unique result, such as reading a file, or a database.
+An example of a post rupture points is in listing \ref{lst:source}, between the call to \texttt{fs.readFile()}, and its continuation \texttt{reply}.
+
+
+
+
+% The rupture between the call stacks of two handlers is indicated by an asynchronous function call in the parent handler defining a children handler as a continuation or a listener.
+% The asynchronous function call - the callee - between the caller and its continuation represents a rupture between the two call stacks.
+% And the call stack of the continuation is independent from the call stack of the caller and the callee.
+
+% TODO Definition of the two types of rupture points
 
 % Both the pipeline architecture and the event-loop present these rupture points.
-The detection of rupture points allows to map a pipeline architecture onto the implementation following the event-loop model.
+The detection of rupture points allows to retrieve the data-flow and the stages for a pipeline architecture from the implementation following the event-loop model.
 % To allow the transformation from one to the other,
-The proposed platform detects rupture points defining stages. %, and distributes the global memory into them.
-This detection is fully addressed in the next chapter, in sections \ref{chapter5:due:compiler} and \ref{chapter5:flx:compiler}.
-It presents the extraction of a pipeline of concurent tasks from a Javascript application.
+% The proposed platform detects rupture points defining stages. %, and distributes the global memory into them.
+The implementation of this detection is fully addressed in the next chapter, in sections \ref{chapter5:due:compiler} and \ref{chapter5:flx:compiler}.
+% It presents the extraction of a pipeline of concurent tasks from a Javascript application.
 % Such pipeline is similar to the one exposed by Promises.
 % The chapter proposes a simpler alternative to the latter called Dues.
-However, these stages still require a global memory.
-They can't be executed in parallel.
+However, these stages still require a global memory to communicate.
+They can't be executed in parallel without breaking the invariance.
+
+
+
+
 
 \subsubsection{Invariance}
 
@@ -123,18 +169,12 @@ They can't be executed in parallel.
 % The conservation of the invariance.
 % The equivalence between the coordinations.
 
-A global memory requires the sequential execution of handlers which implies the total scheduling with a queue, as illustrated in figure \ref{fig:total-scheduling}.
-Whereas message passing only requires causal scheduling of handlers which allows parallelism.
-Yet, the causal scheduling of tasks is sufficient to assure the correctness of the execution.
-% The sequential execution is imposed by the global memory, not by the causality between handlers.
-If the handlers didn't rely on the global memory, they could be executed in parallel, as long as their causalities are respected, as illustrated in figure \ref{fig:causal-scheduling}.
-
-\begin{figure}[h!]
+\begin{wrapfigure}{l}{0.5\textwidth}
   \begin{minipage}[t]{0.20\textwidth}
     \centering
     \includegraphics[page=1, height=2\linewidth]{../resources/invariance.pdf}
     \vfill
-    \caption{Total scheduling}
+    \caption{Sequential scheduling}
     \label{fig:total-scheduling}
   \end{minipage}
   \hfill
@@ -147,9 +187,22 @@ If the handlers didn't rely on the global memory, they could be executed in para
     \caption{Causal scheduling}
     \label{fig:causal-scheduling}
   \end{minipage}
-  \hfill
-  \vrule
-  \hfill
+\end{wrapfigure}
+
+A global memory requires the sequential scheduling of handlers to assure exclusivity of access, as illustrated in figure \ref{fig:sequential-scheduling}. % which implies the total scheduling with a queue, as illustrated in figure \ref{fig:total-scheduling}.
+The global memory is the only reason for this sequential execution.
+% If it could somehow be replace by message-passing, the handlers could be scheduled causally and executed in parallel.
+Yet, the causal scheduling of tasks is sufficient to assure the correctness of the execution.
+
+Message passing only requires causal scheduling of handlers which allows parallelism, as illustrated  in figure \ref{fig:causal-scheduling}.
+% The sequential execution is imposed by the global memory, not by the causality between handlers.
+If the handlers didn't rely on the global memory, they could be executed in parallel, as long as their causalities are respected.
+Following some rules, it is possible to replace their global memory usage with message-passing, and parallel their execution.
+
+\subsubsection{Transformation}
+
+
+\begin{wrapfigure}{r}{0.5\textwidth}
   \begin{minipage}[t]{0.20\textwidth}
     \centering
     \includegraphics[page=3, height=2\linewidth]{../resources/invariance.pdf}
@@ -167,22 +220,34 @@ If the handlers didn't rely on the global memory, they could be executed in para
     \caption{Sequential execution}
     \label{fig:sequential-execution}
   \end{minipage}
-\end{figure}
+\end{wrapfigure}
 
-If two handlers causally related rely on the same memory region, the global memory can be replaced by sending the updated memory by message.
-As illustrated in figure \ref{fig:memory-update}, each handler has access only to its own memory.
-The upstream handler communicate the memory update to the downstream handler.
-However, if the downstream handler modifies this memory, it is not possible to distribute the memory.
+\paragraph{Rule \#1 Scope}
+If an handler uses a variable between the reception of two data, then it needs to store it independently of the global memory.
+The reliance on this memory imposes the handler to not be reentrant.
+There cannot be several instances of its execution.
+The stream of incoming data must be processed sequentially.
 
-If two handlers not causally related rely on the same memory region, they can access it in any order.
+\paragraph{Rule \#2 Stream}
+If two handlers causally related rely on the same memory region, the causal relation assures the exclusivity of access. Therefore, the global memory can be replaced by sending the updated memory in the data-flow.
+As illustrated in figure \ref{fig:memory-update}, the upstream handler \circled{1} communicates the memory update to the downstream handler \circled{3}.
+And each handler has access only to its own memory.
+
+\paragraph{Rule \#3 Share}
+However, if the downstream handler modifies this memory, it is not possible to isolate it.
+The upstream handler cannot be notified in time of this modification.
+Indeed, the upstream handler might already be processing the next datum in the stream.
+Moreover, if two handlers not causally related rely on the same memory region, they can access it in any order.
 They need to be scheduled sequentially to maintain the exclusivity of access, as illustrated in figure \ref{fig:sequential-execution}.
-The distribution of the global memory is fully addressed in section \ref{chapter5:flx:isolation}.
 
-By distributing the global memory following these rules, the sequential scheduling can be loosen to causal scheduling to some extent, while preserving correctness.
-% The global memory on which rely handlers is distributed and replaced with message passing.
-This distribution only depends on the memory dependencies between handlers.
-Developers can continuously iterate on implementation to loosen the depenencies between handlers to improve efficiency.
+\separator
 
+By distributing the global memory following these rules, the sequential scheduling can be loosen while preserving invariance to parallelize the execution.
+This distribution - hence the parallelization - only depends on the memory dependencies between handlers.
+Of course, at first, the dependencies will remain tight as the focus is on productivity.
+But, developers can continuously iterate on implementation to loosen the dependencies and improve efficiency.
+
+The implementation of the distribution of the global memory is fully addressed in next chapter, in section \ref{chapter5:flx:isolation}.
 
 
 
@@ -206,14 +271,13 @@ Developers can continuously iterate on implementation to loosen the depenencies 
 
 
 
-\subsubsection{Transformation}
+% \subsubsection{Transformation}
 
-Figures \ref{fig:run-equivalence} and \ref{fig:mem-equivalence} illustrate the two steps of the transformation in the context of the execution models.
-Figure \ref{fig:run-equivalence} shows the identification of each handler from the event-driven execution model into a stage of the pipeline execution model.
-Figure \ref{fig:mem-equivalence} shows the distribution of the global memory of the event-driven execution model into the different stages of the pipeline execution model.
+\paragraph{From Event-loop to Pipeline}
 
-The next section presents these two execution models and focus on the important details for this transformation.
-
+Concretely, this transformation turns handler from the event-driven execution models into stages of the pipeline, as illustrated in figure \ref{fig:run-equivalence}.
+And it distributes the global memory  into these different stages, as illustrated in figure \ref{fig:mem-equivalence}.
+The details of these two execution models important for this transformation are presented in the next section.
 
 \begin{figure}[h!]
   \begin{minipage}[t]{0.45\textwidth}

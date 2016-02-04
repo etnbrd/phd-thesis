@@ -1,9 +1,8 @@
 \subsection{Real test case} \label{chapter5:flx:evaluation}
 
-This section presents a test of the compiler on a real application, gifsockets-server\ftnt{https://github.com/twolfson/gifsockets-server}.
+The compiler is tested on a real application, gifsockets-server\ftnt{https://github.com/twolfson/gifsockets-server}.
 This test proves the possibility for an application to be compiled into a network of independent parts.
 It shows the current limitations of this isolation and the modifications needed on the application to circumvent them.
-This section then presents future works.
 
 \begin{code}[js, caption={Simplified version of gifsockets-server},label={lst:gifsocket}]
 var express = require('express'),
@@ -28,21 +27,25 @@ app.listen(8000);
 \end{code}
 
 This application, simplified in listing \ref{lst:gifsocket}, is a real-time chat using gif-based communication channels.
-It was selected in a previous work \cite{Brodu2015} from the \texttt{npm} registry because it depends on \texttt{express}, it is tested, working, and simple enough to illustrate this evaluation.
+It was selected from the evaluation set of the Due compiler because it is simple enough to illustrate this evaluation.
+% \cite{Brodu2015}
+%  from the \texttt{npm} registry because it depends on \texttt{express}, it is tested, working, and simple enough to illustrate this evaluation.
 The server transforms the received text into a gif frame, and pushes it back to a never-ending gif to be displayed on the client.
 
 On line \ref{lst:gifsocket:app.post}, the application registers two functions to process the requests received on the url \texttt{/image/text}.
-The closure \texttt{saveBody}, line \ref{lst:gifsocket:saveBody}, returned by \texttt{bodyParser}, line \ref{lst:gifsocket:bodyParser}, and the method \texttt{routes.write\-Text\-To\-Images} from the external module \texttt{gifsockets-middleware}, line \ref{lst:gifsocket:gif-mw}.
+The closure \texttt{saveBody}, line \ref{lst:gifsocket:saveBody}, returned by \texttt{bodyParser}, line \ref{lst:gifsocket:bodyParser}, and the method \texttt{routes.write\-Text\-To\-Images} from the external module \texttt{gifsockets-\-middleware}, line \ref{lst:gifsocket:gif-mw}.
 The closure \texttt{saveBody} calls the asynchronous function \texttt{getRawBody} to get the request body.
 Its callback handles the errors, and calls \texttt{next} to continue processing the request with the next function, \texttt{routes.write\-Text\-To\-Images}.
 
 \subsubsection{Compilation}
 
-We compile this application with the compiler detailed in section \ref{section:compiler}.
-Listing \ref{lst:flx-gifsocket} presents the compilation result.
+% We compile this application with the compiler
+The compilation result is in listing \ref{lst:flx-gifsocket}.
 The function call \texttt{app.post}, line \ref{lst:gifsocket:app.post}, is a rupture point.
-However, its callbacks, \texttt{bodyParser} and \texttt{routes.write\-Text\-To\-Images} are evaluated as functions only at runtime.
-For this reason, the compiler ignores this rupture point, to avoid interfering with the evaluation.
+However, its callbacks, \texttt{bodyParser} and \texttt{routes.write\-Text\-To\-Images} are not declared \textit{in situ}.
+They are evaluated as functions only at runtime.
+As precised previously, the compiler discards these callbacks to avoid altering the semantic. % by moving or modifying their definition.
+% For this reason, the compiler ignores this rupture point, to avoid interfering with the evaluation.
 
 \begin{code}[flx, caption={Compilation result of gifsockets-server},label={lst:flx-gifsocket}]
 flx main & express {req}
@@ -57,7 +60,7 @@ flx main & express {req}
       getRawBody(req, { //@\label{lst:flx-gifsocket:getRawBody}@
         expected: req.headers['content-length'], //@\label{lst:flx-gifsocket:req.headers}@
         limit: limit
-      }, >> anonymous_1000);
+      }, >> anonymous_1000 [req, next]);
     };
   }
 
@@ -79,23 +82,25 @@ The variables \texttt{req} and \texttt{next} are appended to this message stream
 
 When \texttt{anonymous\_\-1000} is not isolated from the \texttt{main} fluxion, as if they belong to the same group, the compilation result works as expected.
 The variables used in the fluxion, \texttt{req} and \texttt{next}, are still shared between the two fluxions.
+In this situation fluxions are quite similar to Dues regarding memory shareing.
 Our goal is to isolate the two fluxions, to be able to safely parallelize their executions.
 
 \subsubsection{Isolation}
 
 In listing \ref{lst:flx-gifsocket}, the fluxion \texttt{anonymous\_1000} modifies the object \texttt{req}, line \ref{lst:flx-gifsocket:buffer}, to store the text of the received request, and it calls \texttt{next} to continue the execution, line \ref{lst:flx-gifsocket:next}.
-These operations produce side-effects that should propagate in the whole application, but the isolation prevents this propagation.
+\texttt{req} is an alias to a memory location used in multiple palces in code.
+Therefore, these operations produce side-effects that should propagate in the whole application, but the isolation prevents this propagation.
 Isolating the fluxion \texttt{anonymous\_1000} produces runtime exceptions.
-We detail in the next paragraph, how we handle this situation to allow the application to be parallelized.
+The next paragraph details how this situation is handled to allow the application to be parallelized.
 
 \paragraph{Variable \texttt{req}}
 
 The variable \texttt{req} is read in fluxion \texttt{main}, lines \ref{lst:flx-gifsocket:getRawBody} and \ref{lst:flx-gifsocket:req.headers}.
 Then its property \texttt{body} is associated to \texttt{buffer} in fluxion \texttt{anonymous\_1000}, line \ref{lst:flx-gifsocket:buffer}.
-The compiler is unable to identify further usages of this variable.
+The compiler is unable to identify the aliases of this variable. % further usages.
 However, the side effect resulting from this association impacts a variable in the scope of the next callback, \texttt{routes.writeTextToImages}.
-We modified the application to explicitly propagate this side-effect to the next callback through the function \texttt{next}.
-We explain further modification of this function in the next paragraph.
+In this text case, the application is modified manually to explicitly propagate this side-effect to the next callback through the function \texttt{next}.
+The modifications of this function are explained further in the next paragraph.
 
 \paragraph{Closure \texttt{next}}
 

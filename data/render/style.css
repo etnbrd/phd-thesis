@@ -6,7 +6,8 @@ html, body {
 }
 
 text {
-  font-family: Helvetica;
+  font-family: Gotham Rounded;
+  font-weight: 100;
   color: blue;
 }
 
@@ -67,7 +68,12 @@ text {
       stroke-width: 0;
 }
 
-.line                       {stroke-width: 1.5pt; fill: transparent}
+.line {
+  stroke-width: 1.5pt;
+  // fill: transparent;
+  stroke: black;
+  stroke-linecap: "round";
+}
 
 .label.Javascript, .slice.Javascript                {fill:   #e31a1c}
 .line.Javascript                                    {stroke: #e31a1c}
@@ -224,7 +230,7 @@ text {
 // #993404
 // #662506
 
-// RED
+// REDS
 
 // #feb24c
 // #fd8d3c

@@ -2,10 +2,10 @@
 \chapter{Implementation} \label{chapter5}
 \minitoc
 \eject
-
-The two step of the transformation are the identification of a pipeline, and the isolation of its stages.
-This chapter presents the technical implementations of these two steps in the transformation from the event-driven execution model to the pipeline architecture
-As presented in figure \ref{fig:roadmap}, the transformation described in the previous chapter was implemented incrementally in two compilers.
+The transformation allowed by the equivalence from an event-driven program into a distributed network of fluxions is implemented incrementally into two compilers, as presented in figure \ref{fig:roadmap}.
+Each compilers is divided into two steps, the identification of the rupture points separating the stages of the pipeline, and the isolation of these stages.
+% This chapter presents the technical implementations of these two steps in the transformation from the event-driven execution model to the pipeline architecture
+% , the transformation described in the previous chapter was implemented incrementally in two compilers.
 
 \begin{figure}[h!]
 \begin{center}
@@ -15,16 +15,16 @@ As presented in figure \ref{fig:roadmap}, the transformation described in the pr
 \label{fig:roadmap}
 \end{figure}
 
-The first compiler focus on the identification of simple chains of causality between continuations to layout these chains as Promises.
+The first compiler focus on the identification of simple chains of causality between continuations to transform these chains into Promises.
 % the transformation from continuations to Promises.
 % It focuses on the identification of the chains of causality in continuations.
-Promises bring more control over the asynchronous flow than the chaining of causal sequentiality.
+However, promises are more expressive than the simple chaining of causal sequentiality.
 % They force another control over the execution flow.
 % According to the outcome of the operation, they call one function to continue the execution with the result, or another to handle errors.
 % This conditional execution is indivisible from the Promise specification.
 % Promises impose a convention on how to hand back the outcome of the deferred computation, while classic continuations leave this conditional execution to the developer.
-They impose a different convention than continuations on how to hand back the outcome and errors of the deferred computation.
-This difference brings unnecessary complexity to the transformation.
+Moreover, they impose a different convention than continuations on how to hand back the outcome and errors of the deferred computation.
+This difference brings unnecessary complexity to the identification of chains.
 To rule out this difference between continuations and Promises, section \ref{chapter5:due} introduces a simpler specification to Promise, called Due.
 
 The second compiler detects all the chains of causality between continuations and encapsulate them in fluxions.

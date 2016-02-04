@@ -7,7 +7,6 @@ It then focuses on the subject and defines the objectives of this thesis.
 
 \subsection{Disrupted Web Development}
 
-% The Web allows a project to grow quickly from a very early stage to a large business.
 The economical constraints to meet are very different in the beginning and during the maturation of a web application.
 In the early steps the constraints hold on the development productivity.
 The team needs to reduce development costs, and to release a first version as soon as possible.
@@ -16,7 +15,6 @@ The application needs to be highly concurrent to meet the load of usage.
 
 The team need to revise its approach to meet these different constraints.
 These revisions leads to disruptions in the evolution of the application.
-% This section further details the reasons and consequences of these disruptions.
 
 \subsubsection{Power-Wall Disruption}
 
@@ -25,11 +23,8 @@ These revisions leads to disruptions in the evolution of the application.
 Around 2004, manufacturers reached what they called the \textit{Power-wall}.
 The speed of sequential execution on a processing unit plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
 Therefore, the performance of sequential programming plateaued as well.
-They started to arrange transistors into several processing units to keep increasing overall performance efficiency. % while avoiding overheating problems.
-% required by the cooperative scheduling 
+They started to arrange transistors into several processing units to keep increasing overall performance efficiency.
 Parallel programming became the only option to achieve high concurrency, but the memory isolation it requires limits the productivity.
-% Isolating tasks is the only option to achieve high concurrency on this parallel hardware.
-% These best-practices are presented in further details in section \ref{chapter3:software-maintainability}
 This \textit{Power-wall} leads to a rupture between efficiency and productivity.
 
 \subsubsection{Unavoidable Modularity}
@@ -110,7 +105,7 @@ A development team could rely on the common memory store of the event-driven exe
 And yet, because of the equivalence between these two models, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
 The development team could continuously progress with the two models and take advantage of their different concerns about the implementation, performance and maintainability.
 
-\paragraph{}
+\separator
 
 This thesis proposes to provide an equivalence between the two memory models for streaming web applications.
 The goal of conciliating these two concerns is not new.

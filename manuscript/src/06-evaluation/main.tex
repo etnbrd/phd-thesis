@@ -2,4 +2,42 @@
 \minitoc
 \eject
 
-TODO when state of the art ready
+This last chapter evaluates the solution presented in the previous chapter against the criteria presented in chapter \ref{chapter3}.
+The criteria are Productivity, Efficiency and Adoption.
+
+\section{Productivity and Adoption}
+
+The solution presented intends to disrupt as less as possible the way developer build web applications.
+The Javascript language is left intact, except for the forbidden statements \texttt{with} and \texttt{eval}.
+These statements are already forbidden by most good practice guides \cite{Crockford2008}.
+The goal is to avoid degrading the productivity, hence the adoption, of the proposed platform.
+
+In the current state, the compiler implementation is unable to operate the transformation without the help of the developer.
+This limitation is due to the static analysis unable to correctly detect the aliasing of the memory in Javascript.
+
+However, with a dynamic analysis at runtime, this detection should improve.
+And it would allow to operate the transformation without the help of the developer.
+
+In this case, because the productivity is left untouched, this platform should be able to leverage the adoption of Javascript without trouble.
+Moreover, Worldline could be able to propose a service based on this transformation.
+A scalable PaaS, without the need for the developer to write stateless applications, or other current inconvenient.
+
+\TablePropositionProductivity{tab:proposition-productivity}
+
+\section{Efficiency}
+
+The implementation of the compiler is not finished enough to compile a real application without the help from the developer.
+It doesn't make any sense to evaluate an application, as the transformation would not reflect the compilation process, but the manual transformation process.
+Indeed, it is already known that distributed application can have very good performance efficiency.
+
+If the runtime memory analysis is solid enough to detect correctly the aliasing of the memory, then it will be able to help the development team transitioning from productivity to efficiency, which is the response of this thesis to the problematic.
+
+\TablePropositionEfficiency{tab:proposition-efficiency}
+
+\section{Summary}
+
+This thesis was unfortunately unable to completely address the problematic in time, and leave the science in an unbearable doubt.
+Is it possible to have a smooth transition from productivity to efficiency.
+The author dares to say yes, but the humanity is not ready yet.
+
+\TablePropositionSummary{tab:proposition-summary}

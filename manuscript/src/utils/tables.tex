@@ -52,41 +52,46 @@
 
 % SUMMARY
 \newcommand{\SummaryCol}            {3}
-\newcommand{\SummaryHeader}         { Model  &   \lab{Productivity} &   \lab{Adoption} &   \lab{Efficiency} \\ \tabucline[.5pt]{-}}
-\newcommand{\SummaryRow}            {\Model  & \rate{\Productivity} & \rate{\Adoption} & \rate{\Efficiency}}
+\newcommand{\SummaryHeader}         { Model  &   \lab{Productivity} &   \lab{Efficiency} &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
+\newcommand{\SummaryRow}            {\Model  & \rate{\Productivity} & \rate{\Efficiency} & \rate{\Adoption}}
 
 %% -------------------------------------------------------------------------------------------
 %%                                       EXTRACTIONS
 %% -------------------------------------------------------------------------------------------
 
 % MAINTAINABILITY
-\newcommand{\ModularProductivity}    {\ExtractGroup{Modular}    {\ProductivityRow}}
-\newcommand{\ConcurrentProductivity} {\ExtractGroup{Concurrent} {\ProductivityRow}}
-\newcommand{\ParallelProductivity}   {\ExtractGroup{Parallel}   {\ProductivityRow}}
-\newcommand{\StreamProductivity}     {\ExtractGroup{Stream}     {\ProductivityRow}}
-\newcommand{\RuntimeProductivity}    {\ExtractGroup{Runtime}    {\ProductivityRow}}
-\newcommand{\CompilerProductivity}   {\ExtractGroup{Compiler}   {\ProductivityRow}}
+\newcommand{\ModularProductivity}      {\ExtractGroup{Modular}      {\ProductivityRow}}
+\newcommand{\ConcurrentProductivity}   {\ExtractGroup{Concurrent}   {\ProductivityRow}}
+\newcommand{\ParallelProductivity}     {\ExtractGroup{Parallel}     {\ProductivityRow}}
+\newcommand{\StreamProductivity}       {\ExtractGroup{Stream}       {\ProductivityRow}}
+\newcommand{\CompilerProductivity}     {\ExtractGroup{Compiler}     {\ProductivityRow}}
+\newcommand{\RuntimeProductivity}      {\ExtractGroup{Runtime}      {\ProductivityRow}}
 % PERFORMANCE
-\newcommand{\ModularEfficiency}        {\ExtractGroup{Modular}    {\EfficiencyRow}}
-\newcommand{\ConcurrentEfficiency}     {\ExtractGroup{Concurrent} {\EfficiencyRow}}
-\newcommand{\ParallelEfficiency}       {\ExtractGroup{Parallel}   {\EfficiencyRow}}
-\newcommand{\StreamEfficiency}         {\ExtractGroup{Stream}     {\EfficiencyRow}}
-\newcommand{\RuntimeEfficiency}        {\ExtractGroup{Runtime}    {\EfficiencyRow}}
-\newcommand{\CompilerEfficiency}       {\ExtractGroup{Compiler}   {\EfficiencyRow}}
+\newcommand{\ModularEfficiency}        {\ExtractGroup{Modular}      {\EfficiencyRow}}
+\newcommand{\ConcurrentEfficiency}     {\ExtractGroup{Concurrent}   {\EfficiencyRow}}
+\newcommand{\ParallelEfficiency}       {\ExtractGroup{Parallel}     {\EfficiencyRow}}
+\newcommand{\StreamEfficiency}         {\ExtractGroup{Stream}       {\EfficiencyRow}}
+\newcommand{\CompilerEfficiency}       {\ExtractGroup{Compiler}     {\EfficiencyRow}}
+\newcommand{\RuntimeEfficiency}        {\ExtractGroup{Runtime}      {\EfficiencyRow}}
 % ADOPTION
-\newcommand{\ModularAdoption}           {\ExtractGroup{Modular}    {\AdoptionRow}}
-\newcommand{\ConcurrentAdoption}        {\ExtractGroup{Concurrent} {\AdoptionRow}}
-\newcommand{\ParallelAdoption}          {\ExtractGroup{Parallel}   {\AdoptionRow}}
-\newcommand{\StreamAdoption}            {\ExtractGroup{Stream}     {\AdoptionRow}}
-\newcommand{\RuntimeAdoption}           {\ExtractGroup{Runtime}    {\AdoptionRow}}
-\newcommand{\CompilerAdoption}          {\ExtractGroup{Compiler}   {\AdoptionRow}}
+\newcommand{\ModularAdoption}          {\ExtractGroup{Modular}      {\AdoptionRow}}
+\newcommand{\ConcurrentAdoption}       {\ExtractGroup{Concurrent}   {\AdoptionRow}}
+\newcommand{\ParallelAdoption}         {\ExtractGroup{Parallel}     {\AdoptionRow}}
+\newcommand{\DistributedAdoption}      {\ExtractGroup{Distributed}  {\AdoptionRow}}
+\newcommand{\StreamAdoption}           {\ExtractGroup{Stream}       {\AdoptionRow}}
+\newcommand{\CompilerAdoption}         {\ExtractGroup{Compiler}     {\AdoptionRow}}
+\newcommand{\RuntimeAdoption}          {\ExtractGroup{Runtime}      {\AdoptionRow}}
 % SUMMARY
-\newcommand{\ModularSummary}            {\ExtractGroup{Modular}    {\SummaryRow}}
-\newcommand{\ConcurrentSummary}         {\ExtractGroup{Concurrent} {\SummaryRow}}
-\newcommand{\ParallelSummary}           {\ExtractGroup{Parallel}   {\SummaryRow}}
-\newcommand{\StreamSummary}             {\ExtractGroup{Stream}     {\SummaryRow}}
-\newcommand{\RuntimeSummary}            {\ExtractGroup{Runtime}    {\SummaryRow}}
-\newcommand{\CompilerSummary}           {\ExtractGroup{Compiler}   {\SummaryRow}}
+\newcommand{\ModularSummary}           {\ExtractGroup{Modular}      {\SummaryRow}}
+\newcommand{\ConcurrentSummary}        {\ExtractGroup{Concurrent}   {\SummaryRow}}
+\newcommand{\ParallelSummary}          {\ExtractGroup{Parallel}     {\SummaryRow}}
+\newcommand{\StreamSummary}            {\ExtractGroup{Stream}       {\SummaryRow}}
+\newcommand{\CompilerSummary}          {\ExtractGroup{Compiler}     {\SummaryRow}}
+\newcommand{\RuntimeSummary}           {\ExtractGroup{Runtime}      {\SummaryRow}}
+% PROPOSITION
+\newcommand{\PropositionProductivity}  {\ExtractGroup{Proposition}  {\ProductivityRow}}
+\newcommand{\PropositionEfficiency}    {\ExtractGroup{Proposition}  {\EfficiencyRow}}
+\newcommand{\PropositionSummary}       {\ExtractGroup{Proposition}  {\SummaryRow}}
 
 %% -------------------------------------------------------------------------------------------
 %%                                       TABLES
@@ -148,19 +153,6 @@
 
 %% PERFORMANCE
 
-\newcommand{\ConcurrentEfficiencyTable}[1]{
-  \begin{table}[H]
-  \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
-  \EfficiencyHeader
-  \ConcurrentEfficiency
-  \end{tabu}
-  \tikzexternalenable
-  \caption{Efficiency of Concurrent Programming Platforms}
-  \label{#1}
-  \end{table}
-}
-
 \newcommand{\ParallelEfficiencyTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
@@ -195,6 +187,7 @@
   \AdoptionHeader
   \ConcurrentAdoption
   \ParallelAdoption
+  \DistributedAdoption
   \end{tabu}
   \tikzexternalenable
   \caption{Adoption of Concurrent and Parallel Programming Platforms}
@@ -239,8 +232,8 @@
   \tikzexternaldisable
   \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
   \ProductivityHeader
-  \RuntimeProductivity
   \CompilerProductivity
+  \RuntimeProductivity
   \end{tabu}
   \tikzexternalenable
   \caption{Productivity of Compilation and Runtime Platforms}
@@ -253,8 +246,8 @@
   \tikzexternaldisable
   \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
   \AdoptionHeader
-  \RuntimeAdoption
   \CompilerAdoption
+  \RuntimeAdoption
   \end{tabu}
   \tikzexternalenable
   \caption{Adoption of Compilation and Runtime Platforms}
@@ -267,8 +260,8 @@
   \tikzexternaldisable
   \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
   \EfficiencyHeader
-  \RuntimeEfficiency
   \CompilerEfficiency
+  \RuntimeEfficiency
   \end{tabu}
   \tikzexternalenable
   \caption{Efficiency of Compilation and Runtime Platforms}
@@ -281,8 +274,8 @@
   \tikzexternaldisable
   \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
   \SummaryHeader
-  \RuntimeSummary
   \CompilerSummary
+  \RuntimeSummary
   \end{tabu}
   \tikzexternalenable
   \caption{Summary of Compilation and Runtime Platforms}
@@ -299,9 +292,38 @@
 \ConcurrentSummary%
 \ParallelSummary%
 \StreamSummary%
-\RuntimeSummary%
 \CompilerSummary%
+\RuntimeSummary%
 \caption{Summary of the state of the art}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+%% Proposition
+
+\newcommand{\TablePropositionProductivity}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+\ProductivityHeader%
+\PropositionProductivity%
+\caption{Productivity of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+\newcommand{\TablePropositionEfficiency}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+\EfficiencyHeader%
+\PropositionEfficiency%
+\caption{Efficiency of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+\newcommand{\TablePropositionSummary}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+\SummaryHeader%
+\PropositionSummary%
+\caption{Sommary of the proposed solution}
 \label{#1}
 \end{longtabu} \tikzexternalenable
 }

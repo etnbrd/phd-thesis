@@ -1,8 +1,5 @@
 status,percentage
-nocont,45.3
-eval,15.6
-lib,7.8
-err,6.3
-fail,6.3
-notest,4.7
-ok,14.0
+nocont,55.77
+eval,19.23
+fail,7.69
+ok,17.31
