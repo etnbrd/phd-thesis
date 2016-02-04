@@ -7,26 +7,32 @@ The compiler is available online to reproduce the tests at \url{compiler-due.app
 \subsubsection{Identification of continuations}
 
 The first compilation step is to identify the continuations and their imbrications.
-The compiler transforms only \textit{in situ} continuations.
-Modifiying continuations that are named functions, and defined elsewhere impacts the semantic.
+The compiler transforms only \textit{in situ} continuations - these are lambdas.
+Modifiying continuations that are named functions break the correctness of the application.
 % The nested imbrication of callbacks only occurs when they are defined \textit{in situ}.
+The modifications operated by the compiler modify the behavior.
+The modified continuations might be used elsewhere, where the modifications are not expected, hence impact the semantic.
 
 To detect continuations, the compiler looks for callbacks.
-That is a function definition within the arguments of a function call.
+% That is a function definition within the arguments of a function call.
 % This detection is based on the syntax, and is trivial.
 Not all detected callbacks are continuations, whereas the equivalence is applicable only on the latter.
 A continuation is a callback invoked only once, asynchronously.
+This definition is only semantical.
 % Spotting a continuation implies to identify these two conditions.
 There is no syntactical difference between a synchronous and an asynchronous callee.
 And it is impossible to assure a callback to be invoked only once, because the implementation of the callee is often statically unavailable.
-Therefore, the identification of continuations holds only on semantical differences.
+% Therefore, the identification of continuations holds only on semantical differences.
 
-To recognize the two, the compiler would need to have a deep understanding of the control and data flows of the program.
+To recognize the two, the compiler would need to have a deep understanding of the semantic of the application.
 Because of the highly dynamic nature of Javascript, this understanding is either unsound, limited, or complex.
 For example, the \textit{node.js} method \texttt{fs.readFile} is asynchronous.
 Its argument is a continuation.
-But it can be overridden by developers to be synchronous, or to execute the callback several times.
-The compiler leaves the identification of compatible continuations among the identified callbacks to the developer.
+But it can be overridden by developers to point to its synchronus counter parts.
+This example is very unlikely, but it shows the limitation.
+% be synchronous, or to execute the callback several times.
+
+The compiler identifies callback and leaves the identification of compatible continuations among these callbacks to the developer.
 % They are expected to understand the limitations of this compiler, and the semantic of the code to compile.
 
 % We provide a simple interface for developers to interact with the compiler.
@@ -56,7 +62,8 @@ If a continuation has more than one child, the compiler tries to find a single l
 A legitimate child is a unique continuation which contains another continuation to chain.
 If there are several continuations that continue the chain, none are the legitimate child.
 And the non legitimate children start new chains of Dues.
-In figure \ref{fig:tree-to-chain}, the continuation \texttt{cont2} is a legitimate child.
+In figure \ref{fig:tree-to-chain}, the continuation \texttt{cont2} is a legitimate child, whereas \texttt{cont3} and \texttt{cont4} are not because they are siblings, and none have children.
+The compiler cannot decide to continue the chain with \texttt{cont3} or \texttt{cont4}, so it leaves them as is.
 % Whereas the continuations \texttt{cont3} and \texttt{cont4} are illegitimate children.
 
 This step transforms each tree of continuations into several chains of continuations that translate into sequences of Dues.
@@ -104,8 +111,8 @@ caller1([args])
   });
 })\end{code}
   \end{minipage}
-  \label{fig:tree-to-chain}
   \caption{Transformation of a tree of continuations into a chain of Due}
+  \label{fig:tree-to-chain}
 \end{figure}
 
 
@@ -116,15 +123,17 @@ caller1([args])
 % They are not able to compose pipeline of streaming data.
 
 Because Dues are a placeholder for a single outcome, it doesn't allow to express the recurrence of streaming data.
-Concretely, in the case of streaming data, a Due is created for each datum in the stream.
+Concretely, % in the case of streaming data,
+a Due is created for each datum in the stream.
 Therefore, continuations doesn't represent the whole streaming pipeline underlying in the application.
-Listeners are callbacks starting the streaming pipeline.
+Listeners are the callbacks starting the streaming pipeline.
+There is a need for an abstraction for both continuations and listeners.
 % and the extracted pipeline of Dues
 % represents only a part of the pipeline present in an application.
 
-Moreover, the Dues still rely on a shared memory to communicate.
-They are don't enforce the memory isolation required for parallelism.
+Moreover, the Dues rely on a shared memory to communicate.
+They don't enforce the memory isolation required for parallelism.
 
 The Due compiler is an intermediary step toward the fluxional compiler presented in section \ref{chapter5:flx}.
-This second compiler addresses these two limitations.
+This second compiler forms a pipeline with both listeners and continuations, and isolate the stages.
 % The next section address these two limitations, with the extraction of a pipeline of fluxions.

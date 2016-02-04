@@ -1,7 +1,7 @@
-\subsection{Fluxions Identification} \label{chapter5:flx:compiler}
+\subsection{Fluxions Compiler} \label{chapter5:flx:compiler}
 
-The source languages for this transformation is of higher-order to allow the modularity required for productivity. 
-Moreover, it is implemented as an event-loop to imposes the developer to define the causality between operations.
+The source language for this transformation is of higher-order to allow the modularity required for productivity. 
+Moreover, it is implemented as an event-loop to imposes the developer to define the causality between asynchronous operations.
 % Javascript is such a language and is often implemented on top of an event-loop, like in \textit{Node.js}.
 The compiler transforms a \textit{Node.js} application into a fluxional application compliant with the execution model described in section \ref{chapter4:flx-model}.
 The chain of compilation is described in figure \ref{fig:compilation}.
@@ -12,15 +12,15 @@ The chain of compilation is described in figure \ref{fig:compilation}.
   \label{fig:compilation}
 \end{figure}
 
-The compiler uses the \textit{estools}\ftnt{https://github.com/estools} suite to parse (\texttt{esprima}), analyze (\texttt{escope}), manipulate (\texttt{estraverse} and \texttt{esquery}) and generate (\texttt{escodegen}) source code from Abstract Syntax Tree (AST).
+The compiler uses the \textit{estools}\ftnt{https://github.com/estools} suite to parse (\texttt{esprima}), analyze (\texttt{escope}), manipulate (\texttt{estraverse} and \texttt{esquery}) and generate (\texttt{escodegen}) source code from an Abstract Syntax Tree (AST).
 It is tailored for -- but not limited to -- web applications using \textit{Express}\ftnt{http://expressjs.com/}, the most used \textit{Node.js} web framework.
 The compiler extracts an AST from the source with \texttt{esprima}.
-From this AST, the \textit{Analyzer} step identifies the rupture poitns the different application parts.% and how they relate to form a pipeline.
-This first step, explained in section \ref{chapter5:flx-compiler:analyzer}, outputs a pipeline representation of the application.
+From this AST, the \textit{Analyzer} step identifies the rupture poitns the different application parts. % and how they relate to form a pipeline.
+This first step outputs a pipeline representation of the application.
 % Section \ref{chapter5:flx-compiler:analyzer} explains this first compilation step.
-In the pipeline representation, the stages are not yet independent and encapsulated into fluxions.
+In this pipeline representation, the stages are not yet independent and encapsulated into fluxions.
 From the AST, \texttt{escope} produces a representation of the memory scopes.
-The \textit{Pipeliner} step, explained in section \ref{chapter5:flx-compiler:pipeliner}, analyzes the pipeline representation and the scopes representation to distribute the shared memory into independent groups of fluxions.
+The \textit{Pipeliner} step, explained in section \ref{chapter5:flx:isolation}, analyzes the pipeline representation and the scopes representation to distribute the shared memory into independent groups of fluxions.
 % Section \ref{chapter5:flx-compiler:pipeliner} explains this second compilation step.
 
 % \subsubsection{Analyzer step} \label{chapter5:flx-compiler:analyzer}
@@ -29,10 +29,8 @@ The \textit{Pipeliner} step, explained in section \ref{chapter5:flx-compiler:pip
 % The analyzer identifies the rupture points, and outputs a representation of the application in a pipeline form.
 % Application parts are the stages, and rupture points are the message streams of this pipeline.
 
-\subsubsection{Rupture points} \label{chapter5:flx-compiler:analyzer:rupture}
+\subsubsection{Detection}
 
-A rupture point is a call of a loosely coupled function.
-It is an asynchronous call without subsequent synchronization with the caller.
 In \textit{Node.js}, I/O operations are asynchronous functions and indicate rupture points between two application parts.
 Figure \ref{fig:basicrp} shows a code example of a rupture point with the illustration of the execution of the two application parts isolated into fluxions.
 The two application parts are the caller of the asynchronous function call on one hand, and the callback provided to the asynchronous function call on the other hand.
@@ -47,21 +45,7 @@ asyncCall(arguments, function callback(result){ //@\circled{2}@ });
   \label{fig:basicrp}
 \end{figure}
 
-A callback is a function passed as a parameter to a function call.
-It is invoked by the callee to continue the execution with data not available in the caller context.
-There are three kinds of callbacks, but only two are asynchronous: listeners and continuations.
-The two corresponding types of rupture points are \textit{start} and \textit{post}.
-
-\textbf{Start rupture points} (listeners) are on the border between the application and the outside, continuously receiving incoming user requests.
-An example of a start rupture point is in listing \ref{lst:source}, between the call to \texttt{app.get()}, and its listener \texttt{handler}.
-These rupture points indicate the input of a data stream in the program, and the beginning of a chain of fluxions to process this stream.
-
-\textbf{Post rupture points} (continuations) represent a continuity in the execution flow after an asynchronous operation yielding a unique result, such as reading a file, or a database.
-An example of a post rupture points is in listing \ref{lst:source}, between the call to \texttt{fs.readFile()}, and its continuation \texttt{reply}.
-
-\subsubsection{Detection}
-
-Like for the Due compiler, the detection of asynchronous callees is done by the developer. 
+Similarly as in the Due compiler, the detection of asynchronous callees is done by the developer. 
 It uses a list of common asynchronous callees, like the \texttt{express} and file system methods.
 This list can be augmented to match asynchronous callees individually for any application.
 To identify the callee, the analyzer walks the AST to find a call expression matching this list.
