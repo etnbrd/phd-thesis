@@ -106,6 +106,9 @@
 \newcommand*{\circled}[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=0.8pt] (char) {#1};}}
 
+\newcommand*{\dotcircled}[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,line cap=round, dash pattern=on 0pt off 3pt,inner sep=0.8pt] (char) {#1};}}
+
 \newcommand*{\rate}[1]{\tikz[baseline=(char.base)]{
             \colorlet{tmpcolor}{green!\the\numexpr#1*20!red}
             \node[shape=circle,inner sep=0.8pt, fill=tmpcolor] (char) {\textcolor{white}{\textbf#1}};}}

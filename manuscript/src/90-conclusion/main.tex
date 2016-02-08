@@ -5,40 +5,50 @@
 The web brought a new economic model allowing a tremendous number of business opportunities.
 To seize these opportunities, a team needs to develop a web application, and grow a business around it.
 The economical incentives around the technical development changes completely during the growth of this business.
-In the beginning, the development needs to be productive, to quickly release a product, and iterate with the user feedbacks.
-While when the project matures, the execution needs to be efficient, to cope with the load of a large user base while limiting the hardware costs.
+In the beginning, the development needs to be productive, to quickly release a product and iterate with the user feedbacks.
+When the project matures, the execution needs to be efficient, to cope with the load of a large user base while limiting the hardware costs.
 
 These two development concerns are incompatible.
 No platform can provide both performance efficiency, and development productivity at the same time.
 The platforms at the state of the art propose only a fixed compromise between the two.
-This thesis presented a platform allowing the evolution of this compromise to fit the evolution of the economical incentives.
+This thesis presented a platform allowing an evolutive compromise to fit the economical incentives.
 
 \section{Summary}
 
-The main contributions of this thesis is the fluxional compiler.
-It can transform a program written in a productivity language, Javascript, into a network of independent parts of execution.
-The parts of the applications are parallelized to increase the performance efficiency of its execution.
+The main contribution of this thesis is the equivalence to allow a continuous shift from productivity to efficiency.
+The equivalence map programs written for the event-driven execution model onto the pipeline execution model.
+It is based on the identification of rupture point in the synchronous control-flow.
+These ruptures points are the boundaries between the stages of the underlying pipeline.
+The equivalence extracts, and isolates these stages to execute them in parallel in the fluxional execution model.
 
-% \subsection{Fluxional Execution Model} \label{chapter7:conclusion:model}
+% The due compiler transforms the continuation passing style into Promises, to extract the data-flow pipeline underlying in the implementation.
+% The fluxional compiler transforms a program written in a productivity language, Javascript, into a network of independent parts of execution.
 
-The fluxional execution model allows the execution of a predefined network of independent parts to be executed in parallel.
-It executes the transformed execution.
+\subsection{Fluxional Execution Model} \label{chapter7:conclusion:model}
 
-% \subsection{Pipeline Extraction} \label{chapter7:conclusion:extraction}
+The fluxional execution model executes an application expressed as a network of fluxions.
+That is an independent execution container at the function level, communicating by message.
+Tthe fluxions are executed in parallel to distribute the computation accross several cores and increase the performance efficiency of the application.
 
-The compiler identifies and extract a pipeline from the control flow in the application.
-Each asynchronous function acts like a stage in this pipeline.
-The first step of this compiler is the Due compiler, which identifies these steps, and transform them into Promises-like, called Dues.
+\subsection{Pipeline Extraction} \label{chapter7:conclusion:extraction}
 
-The difficulty in this compilation step is to identify the asynchronous functions.
-Because of the dynamic nature of Javascript, it is impossible to statically detect these functions, hence the compiler is unable to reliably detect them.
-Instead the compiler rely on a list of asynchronous function names provided by the developer.
+The compiler identifies and extracts the stages of the asynchronous control flow.
+% Each asynchronous function acts like a stage in this pipeline.
+The first step of this compiler identifies these stages to express them as a pipeline.
 
-% \subsection{Pipeline Isolation} \label{chapter7:conclusion:isolation}
+The difficulty in this compilation step is to identify the asynchronous functions indicating the stages.
+Because of the dynamic nature of Javascript, it is impossible to statically detect these functions.
+Hhe compiler is unable to reliably detect them.
+Instead the compiler rely on the developer to provide a list of asynchronous function names to extract.
 
-After the extraction of this pipeline, the compiler precedes to isolate each stage so that it can be executed in parallel, on the fluxional execution model.
+\subsection{Pipeline Isolation} \label{chapter7:conclusion:isolation}
 
-The execution rolls from the reception of a request, and flow from one stage to the other, until the last stage responds to the request.
+% After the extraction of this pipeline,
+The compiler then isolates each stage so that it can be executed in parallel, on the fluxional execution model.
+
+The execution flows from one stage to the other, from the reception of a request until the last stage responds to the request.
+The stages are isolated, and communicates only by message along this pipeline.
+To communicate the request, and the other state updates, they must follow some rules.
 If a stage needs to access variable from one request to the other, this variable is stored in its context.
 If a downstream stage needs to read a variable from an upstream stage, the variable is sent as a message in the data-flow of the application.
 If two stages needs to share a variable, they are grouped on the same execution node to safely share parts of their context.
@@ -48,19 +58,13 @@ The difficulty in this step is to identify the memory dependencies between stage
 Because of the dynamic nature of Javascript, there is a lot of possible aliasing in the memory.
 The compiler, in its current state is unable to overcome this difficulty.
 
-\section{Perspectives}
 
-In the contribution of this thesis, the two main difficulties, identifying stages and detecting memory dependencies, are due to the dynamic nature of Javascript.
-A perspective to overcome these limitation is to implement the transformation, not as a compiler, but as a runtime.
-Indeed, at runtime, all the dynamic behavior are resolved, and the analysis can be much more precise, and less speculative.
 
-% \subsection{Fluxionnal Runtime} 
+\section{Economic Considerations}
 
-\section{Opening}
-
-This thesis brought a possible reconciliation between two concerns in the development of a web application, the efficiency of execution and the productivity of development.
-However, a third concern is currently increasingly taking importance.
-The IT industry have an increasing carbon footprint.
-The impact of this lifestyle on the environment starts only to emerge.
-It is of crucial importance to limit the carbon emission of our lifestyle.
-I leave for future works the reconciliation of the efficient of energy consumption with the two concerns tackled in this thesis.
+This thesis intends to bring a reconciliation between two economical concerns in the development of a web application, the efficiency of execution and the productivity of development.
+A third concern is currently increasingly taking importance.
+The IT industry have an increasing carbon footprint which have an important impact on the environment.
+As the IT industry permeates into literally every aspects of our lives, it will be of crucial importance to consider this impact for future developments.
+% I leave for future works the reconciliation of the efficiency of energy consumption with the two concerns addresses in this thesis.
+% Like with ThinkAir and Maui, whete the code offloading can helps to save energy on the mobile \cite{Kosta2012,Cuervo2010a}.

@@ -1,0 +1,149 @@
+\section{Evaluation} \label{chapter4:evaluation}
+
+The solution previously presented is evaluated against the criteria presented in chapter \ref{chapter3}.
+The criteria are Productivity, Efficiency and Adoption.
+
+\subsection{Productivity and Adoption}
+
+The solution presented intends to disrupt as less as possible the way developer build web applications.
+The goal is to avoid degrading the productivity, hence the adoption, of the proposed platform.
+% The source language, Javascript, is left intact, except for the forbidden statements \texttt{with} and \texttt{eval}.
+% These statements are already forbidden by some good practice guides \cite{Crockford2008}.
+
+In the current state, the compiler implementation is unable to operate the transformation without the help of the developer.
+This limitation is due to the static analysis unable to correctly detect the aliasing of the memory in Javascript.
+
+However, with a dynamic analysis at runtime, this detection should improve.
+And it would allow to operate the transformation without the help of the developer.
+
+In this case, because the productivity is left untouched, this platform should be able to leverage the adoption of Javascript without trouble.
+Moreover, Worldline could be able to propose a service based on this transformation.
+A scalable PaaS, without the need for the developer to write stateless applications, or other current inconvenient.
+
+\TablePropositionProductivity{tab:proposition-productivity}
+
+\subsection{Efficiency}
+
+The implementation of the compiler is not finished enough to compile a real application without help from the developer.
+It doesn't make any sense to evaluate an application, as the transformation would not reflect the compilation process, but the manual transformation process.
+Indeed, it is already known that distributed application can have very good performance efficiency.
+
+If the runtime memory analysis is solid enough to detect correctly the aliasing of the memory, then it will be able to help the development team transitioning from productivity to efficiency, which is the response of this thesis to the problematic.
+
+\TablePropositionEfficiency{tab:proposition-efficiency}
+
+\subsection{Summary}
+
+This thesis was unfortunately unable to completely address the problematic in time, and leave the science in an unbearable doubt.
+Is it possible to have a smooth transition from productivity to efficiency.
+The author dares to say yes, but the humanity is not ready yet.
+
+\TablePropositionSummary{tab:proposition-summary}
+
+
+
+
+\subsection{Perspectives}
+
+% In the contribution of this thesis, the two main difficulties, identifying stages and detecting memory dependencies, are due to the dynamic nature of Javascript.
+% A perspective to overcome these limitation is to implement the transformation, not as a compiler, but as a runtime.
+% Indeed, at runtime, all the dynamic behavior are resolved, and the analysis can be much more precise, and less speculative.
+
+% \subsection{Fluxionnal Runtime} 
+
+% \section{Perspectives}
+
+Javascript is a highly dynamic languages.
+Chapter \ref{chapter3} presented that the late binding provided by this dynamism is an advantage for the modularity, hence for productivity.
+However, this late binding makes the static analysis eventually impossible.
+
+\subsection{Limitations}
+
+\subsubsection{Levels of Indirections}
+
+The indirection is an abstraction between the value, and its manipulation.
+In listing \ref{lst:indirection}, the variables \texttt{a} and \texttt{b} point both to the same memory object.
+The function \texttt{fn} introduces a level of indirection between the real object \texttt{a} and its manipulation handle, \texttt{b};
+Actually, the variable \texttt{a} already introduces a level of indirection between the real object and the handle \texttt{a}.
+
+\begin{code}[js,
+  caption={One level of Indirection},
+  label={lst:indirection}]
+var a = {
+      // an object;
+    };
+
+fn(b) {
+  // modify b;
+}
+
+fn(a);
+\end{code}
+
+\subsubsection{Incertitudes}
+
+The level of indirection is trivial in listing \ref{lst:indirection}.
+A very simple static analysis could resolve it.
+It only needs to have access to the definition of \texttt{a} and of \texttt{fn}.
+However, in listing \ref{lst:indirections}, the array \texttt{handlers} introduces a new level of indirection.
+Additionally to \texttt{a}, and \texttt{fn} in \texttt{handlers}, the static analysis now needs to have access to the definition of \texttt{i}.
+If this definition is provided by an external input, it is not available statically, hence, it adds an incertitude during the analysis. 
+
+\begin{code}[js,
+  caption={Two levels of indirection},
+  label={lst:indirections}]
+var a = {
+      // an object;
+    },
+    handlers = [
+      // definition of fn handlers;
+    ],
+    i = ?;
+
+handlers[i](a);
+handlers[i+1](a);
+\end{code}
+
+These examples are extremely simplified.
+In practice, a program contains enough indirections, for the static analysis to be overwhelmed by incertitudes.
+These incertitudes limit the fluxional compiler presented in chapter \ref{chpater6}.
+It is unable to detects correctly most of the rupture points, not to discover the interdependencies between fluxions.
+
+If one of the \texttt{handlers} is an asynchronous function that could yield a rupture point.
+The detection of this rupture point requires no incertitude on the variable i.
+In a web application, this variable \texttt{i} is probably part of the user request, which eventually introduces an incertitude.
+Moreover, if this incertitudes could be resolved somehow, the isolation of the downstream fluxion would require no incertitude on the variables shared with the scope of upstream fluxion.
+This is very unlikely.
+
+No static analysis can really overstep these limitations.
+Only a dynamic analysis could analysis the resolved indirections during run time to overstep these limitations correctly.
+
+\subsection{Dynamic Analysis and Compilation}
+
+Javascript is compiled at run time to improve performances.
+During this compilation, all the levels of indirections are resolved to actually manipulate the memory.
+As future works, we intend to implement the fluxional compiler as parts of a just-in-time compilation in a Javascript execution engine.
+
+\subsubsection{Just-in-time Compilation}
+
+With the dynamic registering of Fluxions to the messaging system, and into tag groups, it is possible to transform a Javascript application continuously during its execution.
+Analysis of the interdependencies become as trivial as for static languages, with the resolution of the indirections by the just-in-time compiler.
+The fluxional compiler waits for these resolutions, and then analyzes the compiled code for rupture points.
+As the asynchronism of a function call is handled by the execution engine, the just-in-time compilation can pin point precisely the asynchronous calls from the synchronous ones. 
+And the continuations for these asynchronous calls are resolved, which makes them similar to inline continuations.
+
+Moreover, this memory analysis would allow the closure serialization required for the use of higher-order functions in the fluxional execution model.
+
+\subsubsection{Dynamic Grouping}
+
+The isolation of a fluxion can also be done during the execution.
+If it depends on an upstream variable, the fluxion is dynamically registered to the group, and can be deployed.
+
+If the new fluxion depends an a local variable, as well as a variable from a group on another node than the local node, the group needs to be deployed back locally.
+The fluxion as well as all the fluxions of the group are deployed locally, but the execution needs to wait for the contexts of the group to be available locally.
+To gather the contexts, the node responsible for this group send a message to the messaging system managing this group.
+The messaging system gather all the contexts of the fluxions, and send them back.
+When the contexts are deployed locally to the new node responsible for the this group, the execution of this branch can resume.
+
+A new compromise have to be done between the cost of sending a fluxion and the cost to get it back, and the risk that it gets sent back.
+It might be possible to reduce this risk by saving the compilation information from one execution to the other.

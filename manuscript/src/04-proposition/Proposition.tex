@@ -91,15 +91,20 @@ The second step enforces isolation of memory between these stages, and replaces 
 
 \subsubsection{Execution Independence}
 
-\begin{wrapfigure}{r}{0.33\textwidth}
-  \vspace{-10pt}
-  \begin{center}
-    \includegraphics[height=0.4\textwidth]{../resources/rupture-point.pdf}
-    \caption{Rupture point}
-    \label{fig:rupture-point}
-  \end{center}
-  \vspace{-10pt}
+\begin{wrapfigure}{R}{0.4\textwidth}
+  \centering
+  \includegraphics[height=0.5\textwidth]{../resources/rupture-point.pdf}
+  \caption{Rupture point}
+  \label{fig:rupture-point}
+  \vspace{-40pt}
 \end{wrapfigure}
+
+% \begin{floatingfigure}[r]{0.33\textwidth}
+%   \label{fig:rupture-point}
+%   \centering
+%   \includegraphics[height=0.4\textwidth]{../resources/rupture-point.pdf}
+%   \caption{Rupture point}
+% \end{floatingfigure}
 
 % The pipeline architecture enforces the memory isolation between stages.
 In the pipeline architecture, each stage has its own thread of execution independent from the others.
@@ -112,7 +117,22 @@ The call stacks of two handlers are isolated, as illustrated in figure \ref{fig:
 Indeed, a handler holds the execution until its call stack is empty, when all synchronous function calls terminates. Only then it yields the execution to the event-loop, which schedule the next handler.
 A rupture point separates the call stacks of two handlers.
 
-
+For simplification, the figures \ref{fig:rupture-point} illustrates a rupture point with only two interleaving chains of handlers, but there could be many more chains interleaving.
+Each chain is comparable to a thread in multi-thread programming.
+The two chains in figure \ref{fig:rupture-point} are 
+$\to$
+\circled{\fontsize{12pt}{10pt}\selectfont\figcapfont 1} $\to$
+\circled{\fontsize{10pt}{10pt}\selectfont\figcapfont 2} $\to$ and
+\dotcircled{\textcolor{white}{0}} $\to$
+\dotcircled{\textcolor{white}{0}} $\to$
+\dotcircled{\textcolor{white}{0}}.
+And in figures \ref{fig:sequential-scheduling},  \ref{fig:causal-scheduling}, \ref{fig:memory-update} and \ref{fig:sequential-execution}, they are 
+$\to$
+\circled{\fontsize{12pt}{10pt}\selectfont\figcapfont 1} $\to$
+\circled{\fontsize{10pt}{10pt}\selectfont\figcapfont 3} $\to$ and
+\dotcircled{\textcolor{white}{0}} $\to$
+\circled{\fontsize{10pt}{10pt}\selectfont\figcapfont 2} $\to$
+\dotcircled{\textcolor{white}{0}}.
 
 \subsubsection{Rupture points} \label{chapter5:flx-compiler:analyzer:rupture}
 
@@ -169,21 +189,19 @@ They can't be executed in parallel without breaking the invariance.
 % The conservation of the invariance.
 % The equivalence between the coordinations.
 
-\begin{wrapfigure}{l}{0.5\textwidth}
-  \begin{minipage}[t]{0.20\textwidth}
+\begin{wrapfigure}{L}{0.5\textwidth}
+  \begin{minipage}[t]{0.23\textwidth}
     \centering
     \includegraphics[page=1, height=2\linewidth]{../resources/invariance.pdf}
-    \vfill
     \caption{Sequential scheduling}
-    \label{fig:total-scheduling}
+    \label{fig:sequential-scheduling}
   \end{minipage}
   \hfill
   \vrule
   \hfill
-  \begin{minipage}[t]{0.20\textwidth}
+  \begin{minipage}[t]{0.23\textwidth}
     \centering
     \includegraphics[page=2, height=2\linewidth]{../resources/invariance.pdf}
-    \vfill
     \caption{Causal scheduling}
     \label{fig:causal-scheduling}
   \end{minipage}
@@ -199,28 +217,61 @@ Message passing only requires causal scheduling of handlers which allows paralle
 If the handlers didn't rely on the global memory, they could be executed in parallel, as long as their causalities are respected.
 Following some rules, it is possible to replace their global memory usage with message-passing, and parallel their execution.
 
+% \begin{figure}%{L}%{0.5\textwidth}
+%   \begin{minipage}[t]{0.23\textwidth}
+%     \label{fig:sequential-scheduling}
+%     \centering
+%     \includegraphics[page=3, height=2\linewidth]{../resources/invariance.pdf}
+%     \caption{Message passing memory update}
+%   \end{minipage}
+%   \hfill
+%   \vrule
+%   \hfill
+%   \begin{minipage}[t]{0.23\textwidth}
+%     \label{fig:causal-scheduling}
+%     \centering
+%     \includegraphics[page=4, height=2\linewidth]{../resources/invariance.pdf}
+%     \caption{Sequential execution}
+%   \end{minipage}
+%   % \vspace{-150pt}
+% \end{figure}
+
+
 \subsubsection{Transformation}
 
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-  \begin{minipage}[t]{0.20\textwidth}
+\begin{wrapfigure}{R}{0.5\textwidth}
+  \begin{minipage}[t]{0.23\textwidth}
     \centering
     \includegraphics[page=3, height=2\linewidth]{../resources/invariance.pdf}
-    \vfill
     \caption{Message passing memory update}
-    \label{fig:memory-update}
+    \label{fig:sequential-scheduling}
   \end{minipage}
   \hfill
   \vrule
   \hfill
-  \begin{minipage}[t]{0.20\textwidth}
+  \begin{minipage}[t]{0.23\textwidth}
     \centering
     \includegraphics[page=4, height=2\linewidth]{../resources/invariance.pdf}
-    \vfill
     \caption{Sequential execution}
-    \label{fig:sequential-execution}
+    \label{fig:causal-scheduling}
   \end{minipage}
 \end{wrapfigure}
+
+% \begin{wrapfigure}{R}{0.25\textwidth}
+%   \centering
+%   \includegraphics[page=3, height=2\linewidth]{../resources/invariance.pdf}
+%   \caption{Message passing memory update}
+%   \label{fig:sequential-scheduling}
+%   \vspace{-50pt}
+% \end{wrapfigure}
+
+% \begin{wrapfigure}{R}{0.25\textwidth}
+%   \centering
+%   \includegraphics[page=4, height=2\linewidth]{../resources/invariance.pdf}
+%   \caption{Sequential execution}
+%   \label{fig:causal-scheduling}
+%   \vspace{-50pt}
+% \end{wrapfigure}
 
 \paragraph{Rule \#1 Scope}
 If an handler uses a variable between the reception of two data, then it needs to store it independently of the global memory.
@@ -228,9 +279,10 @@ The reliance on this memory imposes the handler to not be reentrant.
 There cannot be several instances of its execution.
 The stream of incoming data must be processed sequentially.
 
+
 \paragraph{Rule \#2 Stream}
 If two handlers causally related rely on the same memory region, the causal relation assures the exclusivity of access. Therefore, the global memory can be replaced by sending the updated memory in the data-flow.
-As illustrated in figure \ref{fig:memory-update}, the upstream handler \circled{1} communicates the memory update to the downstream handler \circled{3}.
+As illustrated in figure \ref{fig:memory-update}, the upstream handler \circled{\fontsize{12pt}{10pt}\selectfont\figcapfont 1} communicates the memory update to the downstream handler \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont 3}.
 And each handler has access only to its own memory.
 
 \paragraph{Rule \#3 Share}
@@ -279,7 +331,7 @@ Concretely, this transformation turns handler from the event-driven execution mo
 And it distributes the global memory  into these different stages, as illustrated in figure \ref{fig:mem-equivalence}.
 The details of these two execution models important for this transformation are presented in the next section.
 
-\begin{figure}[h!]
+\begin{figure}
   \begin{minipage}[t]{0.45\textwidth}
     \centering
     \includegraphics[width=\linewidth]{../resources/run-equivalence.pdf}
