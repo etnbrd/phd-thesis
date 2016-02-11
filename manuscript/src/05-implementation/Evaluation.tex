@@ -1,49 +1,69 @@
 \section{Evaluation} \label{chapter4:evaluation}
 
-The solution previously presented is evaluated against the criteria presented in chapter \ref{chapter3}.
+The compiler previously presented is evaluated against the criteria presented in chapter \ref{chapter3}.
 The criteria are Productivity, Efficiency and Adoption.
 
-\subsection{Productivity and Adoption}
+\subsection{Trading Productivity for Efficiency}
 
-The solution presented intends to disrupt as less as possible the way developer build web applications.
+% \subsubsection{Productivity}
+
+The compiler intends to disrupt as less as possible the way developer build web applications.
 The goal is to avoid degrading the productivity, hence the adoption, of the proposed platform.
 % The source language, Javascript, is left intact, except for the forbidden statements \texttt{with} and \texttt{eval}.
 % These statements are already forbidden by some good practice guides \cite{Crockford2008}.
+Therefore, the productivity is potentially the same as the original event-driven platform.
 
-In the current state, the compiler implementation is unable to operate the transformation without the help of the developer.
-This limitation is due to the static analysis unable to correctly detect the aliasing of the memory in Javascript.
-
-However, with a dynamic analysis at runtime, this detection should improve.
-And it would allow to operate the transformation without the help of the developer.
-
-In this case, because the productivity is left untouched, this platform should be able to leverage the adoption of Javascript without trouble.
-Moreover, Worldline could be able to propose a service based on this transformation.
-A scalable PaaS, without the need for the developer to write stateless applications, or other current inconvenient.
+However, in the current state, the compiler implementation is unable to operate the transformation without an external help.
+The static analysis is unable to correctly detect the aliasing of the memory in Javascript.
+This limitation avoid to improve the current trade-off of productivity for efficiency, as illustrated in table \ref{tab:proposition-productivity}.
 
 \TablePropositionProductivity{tab:proposition-productivity}
 
-\subsection{Efficiency}
+% \subsubsection{Efficiency}
 
-The implementation of the compiler is not finished enough to compile a real application without help from the developer.
-It doesn't make any sense to evaluate an application, as the transformation would not reflect the compilation process, but the manual transformation process.
-Indeed, it is already known that distributed application can have very good performance efficiency.
-
-If the runtime memory analysis is solid enough to detect correctly the aliasing of the memory, then it will be able to help the development team transitioning from productivity to efficiency, which is the response of this thesis to the problematic.
+Indeed, to gain efficiency, developers need to commit efforts to indicate the stages of the pipeline, and assure their dependency.
+Notably, it avoids the higher-order programming required for good composition.
+The manual transformation process yields a distributed application, similarly as the other efficient platforms.
+And the chapter \ref{chapter3} showed that such applications achieve very good performance efficiency.
+The proposition actually concedes productivity for efficiency, as illustrated in table \ref{tab:proposition-efficiency}.
 
 \TablePropositionEfficiency{tab:proposition-efficiency}
 
-\subsection{Summary}
+This limitation of the current implementation avoids the platform to proposes a satisfying compromise between productivity and efficiency.
+Perspectives to overcome this limitation are addressed later in section \ref{chapter5:evaluation:perspective}.
 
-This thesis was unfortunately unable to completely address the problematic in time, and leave the science in an unbearable doubt.
-Is it possible to have a smooth transition from productivity to efficiency.
-The author dares to say yes, but the humanity is not ready yet.
+% It doesn't make any sense to evaluate an application, as the transformation would not reflect the compilation process, but the manual transformation process.
+
+% If the runtime memory analysis is solid enough to detect correctly the aliasing of the memory, then it will be able to help the development team transitioning from productivity to efficiency, which is the response of this thesis to the problematic.
+
+\subsection{Conclusion}
+
+Because the current implementation is not different than the efficient platform, its adoption is not expected to be different.
+As presented in the chapter \ref{chapter3}, trading productivity for efficiency drastically reduce adoption.
+Both productivity and efficiency are required for the platform to be adopted by new developers as well as large businesses.
+Only at this condition, it reinforces the loop between community and industry.
+
+The adoption of this platform is expected to be similar to other efficient platforms, as illustrated in table \ref{tab:proposition-adoption}.
+
+\TablePropositionAdoption{tab:proposition-adoption}
+
+% It was briefly tested during the development of the grumpy application, presented in chapter \ref{chapter4}, section \ref{chapter4:execution-models:examples}.
+
+\separator
+
+Due to the limitation in static analysis of dynamic languages, the implementation presented in this thesis is unable to address the problematic as expected.
+Yet, this limitation avoid the equivalence presented in \ref{chapter4} to be fully implemented.
+Therefore, this evaluation holds only on the implementation, and not on the equivalence.
+
 
 \TablePropositionSummary{tab:proposition-summary}
 
+\cit{it is a mistake to attempt high concurrency without help from the compiler}{R. von Behren, J. Condit and E. Brewer \cite{Behren2003}}
 
-
-
-\subsection{Perspectives}
+R. von Behren \textit{et al.} implies that the language alone cannot achieve high concurrency.
+It is necessary to rely on additional tools, such as a compiler to reach the best compromise between productivity and efficiency.
+This evaluation concludes that static analysis is unable to reach this compromise for higher-order programming.
+Before dropping all higher-order languages for the sake of efficiency, the next paragraph presents the perspectives of this work to further address this problematic.
 
 % In the contribution of this thesis, the two main difficulties, identifying stages and detecting memory dependencies, are due to the dynamic nature of Javascript.
 % A perspective to overcome these limitation is to implement the transformation, not as a compiler, but as a runtime.
@@ -53,86 +73,44 @@ The author dares to say yes, but the humanity is not ready yet.
 
 % \section{Perspectives}
 
-Javascript is a highly dynamic languages.
-Chapter \ref{chapter3} presented that the late binding provided by this dynamism is an advantage for the modularity, hence for productivity.
-However, this late binding makes the static analysis eventually impossible.
+% Javascript is a highly dynamic languages.
 
-\subsection{Limitations}
 
-\subsubsection{Levels of Indirections}
+\section{Perspectives} \label{chapter5:evaluation:perspective}
 
-The indirection is an abstraction between the value, and its manipulation.
-In listing \ref{lst:indirection}, the variables \texttt{a} and \texttt{b} point both to the same memory object.
-The function \texttt{fn} introduces a level of indirection between the real object \texttt{a} and its manipulation handle, \texttt{b};
-Actually, the variable \texttt{a} already introduces a level of indirection between the real object and the handle \texttt{a}.
+As stated in the previous chapter, static analysis limits the expressiveness.
+For example, to isolate fluxions, the current implementation of the compiler restrains the developer to use only \textit{in situ} callbacks, and avoids aliasing.
+Though the work of this thesis can be continued by implementing the compiler with dynamic analysis.
 
-\begin{code}[js,
-  caption={One level of Indirection},
-  label={lst:indirection}]
-var a = {
-      // an object;
-    };
+\subsection{Just-in-time Compilation}
 
-fn(b) {
-  // modify b;
-}
+Most Javascript interpreters compile some parts of the code at run time to improve performances.
+During this compilation, the levels of indirections are mostly resolved.
+The code is translated directly into lower-level instructions.
 
-fn(a);
-\end{code}
+As a continuation of this work, the equivalence could be implemented as a run time compiler.
+Such a compiler could leverage the resolution of the variables to analyze their scope, and isolate the code accordingly.
 
-\subsubsection{Incertitudes}
+\subsubsection{Rupture point detection}
 
-The level of indirection is trivial in listing \ref{lst:indirection}.
-A very simple static analysis could resolve it.
-It only needs to have access to the definition of \texttt{a} and of \texttt{fn}.
-However, in listing \ref{lst:indirections}, the array \texttt{handlers} introduces a new level of indirection.
-Additionally to \texttt{a}, and \texttt{fn} in \texttt{handlers}, the static analysis now needs to have access to the definition of \texttt{i}.
-If this definition is provided by an external input, it is not available statically, hence, it adds an incertitude during the analysis. 
+With the compiler implemented directly inside the interpreter, detecting rupture points become trivial.
+Indeed, the interpreter provides the asynchronous functions indicating the rupture points.
+It can immediately mark a rupture point when encountered at execution, to detect the stages.
 
-\begin{code}[js,
-  caption={Two levels of indirection},
-  label={lst:indirections}]
-var a = {
-      // an object;
-    },
-    handlers = [
-      // definition of fn handlers;
-    ],
-    i = ?;
+Moreover, with the dynamic resolution of variables, the analysis of interdependencies between stages is trivial.
+Each stage can be isolated in a fluxion, and deployed accordingly to its dependencies.
 
-handlers[i](a);
-handlers[i+1](a);
-\end{code}
+% With the dynamic registering of Fluxions to the messaging system, and into tag groups, it is possible to transform a Javascript application continuously during its execution.
+% Analysis of the interdependencies become as trivial as for static languages, with the resolution of the indirections by the just-in-time compiler.
+% The fluxional compiler waits for these resolutions, and then analyzes the compiled code for rupture points.
+% As the asynchronism of a function call is handled by the execution engine, the just-in-time compilation can pin point precisely the asynchronous calls from the synchronous ones. 
+% And the continuations for these asynchronous calls are resolved, which makes them similar to inline continuations.
 
-These examples are extremely simplified.
-In practice, a program contains enough indirections, for the static analysis to be overwhelmed by incertitudes.
-These incertitudes limit the fluxional compiler presented in chapter \ref{chpater6}.
-It is unable to detects correctly most of the rupture points, not to discover the interdependencies between fluxions.
+\subsubsection{Closure Serialization}
 
-If one of the \texttt{handlers} is an asynchronous function that could yield a rupture point.
-The detection of this rupture point requires no incertitude on the variable i.
-In a web application, this variable \texttt{i} is probably part of the user request, which eventually introduces an incertitude.
-Moreover, if this incertitudes could be resolved somehow, the isolation of the downstream fluxion would require no incertitude on the variables shared with the scope of upstream fluxion.
-This is very unlikely.
-
-No static analysis can really overstep these limitations.
-Only a dynamic analysis could analysis the resolved indirections during run time to overstep these limitations correctly.
-
-\subsection{Dynamic Analysis and Compilation}
-
-Javascript is compiled at run time to improve performances.
-During this compilation, all the levels of indirections are resolved to actually manipulate the memory.
-As future works, we intend to implement the fluxional compiler as parts of a just-in-time compilation in a Javascript execution engine.
-
-\subsubsection{Just-in-time Compilation}
-
-With the dynamic registering of Fluxions to the messaging system, and into tag groups, it is possible to transform a Javascript application continuously during its execution.
-Analysis of the interdependencies become as trivial as for static languages, with the resolution of the indirections by the just-in-time compiler.
-The fluxional compiler waits for these resolutions, and then analyzes the compiled code for rupture points.
-As the asynchronism of a function call is handled by the execution engine, the just-in-time compilation can pin point precisely the asynchronous calls from the synchronous ones. 
-And the continuations for these asynchronous calls are resolved, which makes them similar to inline continuations.
-
-Moreover, this memory analysis would allow the closure serialization required for the use of higher-order functions in the fluxional execution model.
+The static compiler is unable to manipulate closures, as illustrated in section \ref{chapter5:flx:evaluation:isolation}.
+Implementing the compiler at the interpreter level also allows to serialize closures to send them between fluxions.
+Closures are required to allow higher-order programming.
 
 \subsubsection{Dynamic Grouping}
 
@@ -147,3 +125,17 @@ When the contexts are deployed locally to the new node responsible for the this 
 
 A new compromise have to be done between the cost of sending a fluxion and the cost to get it back, and the risk that it gets sent back.
 It might be possible to reduce this risk by saving the compilation information from one execution to the other.
+
+
+TODO
+Similarly to a just-in-time compiler, it is required to check that the compiled code correspond to 
+
+
+\subsection{Evaluation of the perspective}
+
+However, with a dynamic analysis at runtime, this detection should improve.
+And it would allow to operate the transformation without the help of the developer.
+
+In this case, because the productivity is left untouched, this platform should be able to leverage the adoption of Javascript without trouble.
+Moreover, Worldline could be able to propose a service based on this transformation.
+A scalable PaaS, without the need for the developer to write stateless applications, or other current inconvenient.

@@ -92,6 +92,11 @@
 \newcommand{\PropositionProductivity}  {\ExtractGroup{Proposition}  {\ProductivityRow}}
 \newcommand{\PropositionEfficiency}    {\ExtractGroup{Proposition}  {\EfficiencyRow}}
 \newcommand{\PropositionSummary}       {\ExtractGroup{Proposition}  {\SummaryRow}}
+% PERSPECTIVE
+\newcommand{\PerspectiveProductivity}  {\ExtractGroup{Perspective}  {\ProductivityRow}}
+\newcommand{\PerspectiveEfficiency}    {\ExtractGroup{Perspective}  {\EfficiencyRow}}
+\newcommand{\PerspectiveSummary}       {\ExtractGroup{Perspective}  {\SummaryRow}}
+
 
 %% -------------------------------------------------------------------------------------------
 %%                                       TABLES
@@ -323,6 +328,35 @@
 \begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
 \SummaryHeader%
 \PropositionSummary%
+\caption{Sommary of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+%% Perspectives
+
+\newcommand{\TablePerspectiveProductivity}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+\ProductivityHeader%
+\PerspectiveProductivity%
+\caption{Productivity of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+\newcommand{\TablePerspectiveEfficiency}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+\EfficiencyHeader%
+\PerspectiveEfficiency%
+\caption{Efficiency of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+\newcommand{\TablePerspectiveSummary}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+\SummaryHeader%
+\PerspectiveSummary%
 \caption{Sommary of the proposed solution}
 \label{#1}
 \end{longtabu} \tikzexternalenable
