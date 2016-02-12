@@ -108,34 +108,74 @@ Each stage can be isolated in a fluxion, and deployed accordingly to its depende
 
 \subsubsection{Closure Serialization}
 
-The static compiler is unable to manipulate closures, as illustrated in section \ref{chapter5:flx:evaluation:isolation}.
-Implementing the compiler at the interpreter level also allows to serialize closures to send them between fluxions.
 Closures are required to allow higher-order programming.
+But the static compiler is unable to manipulate closures, as illustrated in section \ref{chapter5:flx:evaluation:isolation}.
+Implementing the compiler at the interpreter level allows to serialize closures to send them between fluxions.
+It enables the use of higher-order programming within the fluxional execution model.
+Hence, it would allow, to some extent, to improve the compromise between productivity and efficiency.
+
+Indeed, the developer is free to use the higher-order programming to compose modules, with a global memory abstraction.
+Yet, the execution could distribute this global memory abstraction according to the detected interdependencies.
 
 \subsubsection{Dynamic Grouping}
 
-The isolation of a fluxion can also be done during the execution.
-If it depends on an upstream variable, the fluxion is dynamically registered to the group, and can be deployed.
+With the dynamic detection of stages and their dependencies, and the manipulation of closures, fluxions can be registered during the execution of the application.
+To assure they meet their dependencies, the fluxions are deployed according to their groups.
+Two fluxions belong to the same group if they need to share access to some variables.
+Therefore, they need to be deployed on the same event-loop to share their memory.
 
-If the new fluxion depends an a local variable, as well as a variable from a group on another node than the local node, the group needs to be deployed back locally.
-The fluxion as well as all the fluxions of the group are deployed locally, but the execution needs to wait for the contexts of the group to be available locally.
-To gather the contexts, the node responsible for this group send a message to the messaging system managing this group.
-The messaging system gather all the contexts of the fluxions, and send them back.
-When the contexts are deployed locally to the new node responsible for the this group, the execution of this branch can resume.
+\subsubsection{Safe-Checking}
 
-A new compromise have to be done between the cost of sending a fluxion and the cost to get it back, and the risk that it gets sent back.
-It might be possible to reduce this risk by saving the compilation information from one execution to the other.
+It is required to safe-check that the compiled code is consistent with the remaining execution.
+As an example, just-in-time compilers check the type to assure that a compiled function remains conform to the input and output types of is call site.
+Similarly, it is required to check that the deployment of fluxions doesn't cause inconsistencies.
 
+If a fluxion to be deployed belongs to two different groups, these two groups needs to be gathered on the same event-loops.
+If they were previously deployed on two different event-loops, they need to be moved with their context to the same event-loop.
+Moreover, they need to be moved exactly at the instant where the incoming request triggered this new fluxion to be compiled, and to belong to two different groups.
+For this purpose, the compiler interleaves control messages in the stream to communicate with the distributed interpreters.
+In this example, the message inquired the interpreters to stop execution, pack the fluxions and their contexts, and send them back to another remote interpreter.
+To assure consistency, the execution resumes only when all the fluxions are gathered in the same event-loop, to share their memory.
 
-TODO
-Similarly to a just-in-time compiler, it is required to check that the compiled code correspond to 
+% If the new fluxion depends an a local variable, as well as a variable from a group on another node than the local node, the group needs to be deployed back locally.
+% The fluxion as well as all the fluxions of the group are deployed locally, but the execution needs to wait for the contexts of the group to be available locally.
+% To gather the contexts, the node responsible for this group send a message to the messaging system managing this group.
+% The messaging system gather all the contexts of the fluxions, and send them back.
+% When the contexts are deployed locally to the new node responsible for the this group, the execution of this branch can resume.
 
+% A new compromise have to be done between the cost of sending a fluxion and the cost to get it back, and the risk that it requires to be sent back.
+% It might be possible to reduce this risk by saving the compilation information from one execution to the other.
+
+\separator
+
+The perspectives described in the previous paragraphs overcome the limitations of the current implementation of the compiler.
+They actually describe a further implementation of the equivalence described in chapter \ref{chapter4}.
+They represent the directive to continue this work if it were to be continued.
 
 \subsection{Evaluation of the perspective}
 
-However, with a dynamic analysis at runtime, this detection should improve.
-And it would allow to operate the transformation without the help of the developer.
+This second evaluation admits that the just-in-time compilation allows to resolve all the indirection in the memory.
+Which is the current incertitude yielded by this thesis.
 
-In this case, because the productivity is left untouched, this platform should be able to leverage the adoption of Javascript without trouble.
-Moreover, Worldline could be able to propose a service based on this transformation.
-A scalable PaaS, without the need for the developer to write stateless applications, or other current inconvenient.
+The fluxional JIT compiler then doesn't need to rely on human interaction.
+Therefore, the expected productivity is the same as the productivity language used as a source, as illustrated in table \ref{tab:perspective-productivity}.
+
+\TablePerspectiveProductivity{tab:perspective-productivity}
+
+Naturally, the performance efficiency of the implementation is poor, at first, as the development is focused on productivity.
+And some development efforts are required to improve the efficiency.
+But because of this compilation, they are expected to be less than the current required effort, by several orders of magnitude, as illustrated in table \ref{tab:perspective-efficiency}.
+Indeed, instead of redesigning the architecture of the application to immediately isolate components, it is possible to modify them to continuously loosen their dependencies.
+
+\TablePerspectiveEfficiency{tab:perspective-efficiency}
+
+Moreover, during this decomposition and after, developers can still rely on higher-order programming, even between isolated application parts.
+In the current state of the art, there is no known platform to offer higher-order programming between distributed parts.
+This possibility is therefore unknown, and could actually yield to an unrivaled compromise between productivity and efficiency.
+Following the insight along this thesis, a platform bringing both productivity and efficiency simultaneously would be greatly adopted, as illustrated in table \ref{tab:perspective-adoption}.
+
+\TablePerspectiveAdoption{tab:perspective-adoption}
+
+\separator
+
+\TablePropositionSummary{tab:proposition-summary}
