@@ -2,37 +2,37 @@
 
 \subsubsection{Fluxional Application}
 
-\begin{wrapfigure}{r}{0.2\textwidth}
+\begin{wrapfigure}{r}{0.3\textwidth}
   \centering
   \includegraphics[height=0.2\textwidth]{../resources/grumpy.png}
 \end{wrapfigure}
 
 To test fluxional execution model, it was used to develop a simple web application.
 This application doesn't use the transformation, nor the continuous development advocated in this thesis.
-Nonetheless, it is related here to illustrate the basic functioning of the fluxional execution model.
+Nonetheless, it is presented here to illustrate the basic functioning of the fluxional execution model.
 
 The application is accessible at \url{http://grumpy.etnbrd.com}.
 It allows to post anonymous grumbles into chat rooms.
 Additionally, a room can subscribe to the grumbles from another room.
 
 \begin{figure}
-  \label{fig:grumpy-screenshot}
   \includegraphics[width=\textwidth]{../resources/grumpy-console.png}
   \caption{Screenshot from the grumpy console}
+  \label{fig:grumpy-screenshot}
 \end{figure}
 
-The network of fluxions structuring the applications can be monitored at \url{http://grumpy.etnbrd.com/console}.
-It is organized into five stages, traversed by the stream of request from left to right.
-The first and stages are the input and output, connecting the application with the clients.
-The second stage contains the fluxions receiving and formatting the request, before passing them to the next layer.
-The fluxion in the third stage is a simple filter before posting grumbles.
+The network of fluxions structuring the applications can be monitored at \url{http://grumpy.etnbrd.com/console}, as illustrated in figure \ref{fig:grumpy-screenshot}.
+It is organized into five layers of stages, traversed by the stream of request from left to right.
+The first and last layers are the input and output, connecting the application with the clients.
+The second layer contains the fluxions receiving and formatting the request, before passing them to the next layer.
+The fluxion in the third layer is a simple filter before posting grumbles.
 It is an example of a fluxion modifying a message from the stream.
-Finally, each room is instantiated as a new fluxion in the fourth stage, storing the received grumbles in its context.
+Finally, each room is instantiated as a new fluxion in the fourth layer, storing the received grumbles in its context.
 
 The left panel logs the requests received by the application, and the path of each request can be traced from stage to stage.
 
 The socket descriptor is stuck with the network interface, hence, it cannot be serialized to flow from one fluxion to another.
-Instead, the first and last fluxions share their memory, and the request flows with an id to associate it with the socket descriptor.
+Instead, the first and last fluxions share their memory, and each request flows with an id to associate it with its socket descriptor.
 
 This example application was developed before the implementation of the isolation of fluxions in the fluxional execution model.
 So it was possible to share their memory by simply sending a memory reference between two fluxions, without grouping them.
@@ -78,7 +78,7 @@ The \texttt{handler} function, line \ref{lst:source-handler} to \ref{lst:source-
 The \texttt{count} variable at line \ref{lst:source-counter} counts the requests, and needs to be saved between two messages receptions.
 The \texttt{template} function formats the output stream to be sent back to the client.
 The \texttt{app.get} and \texttt{res.send} functions, lines \ref{lst:source-handler} and \ref{lst:source-send}, interface the application with the clients.
-Between these two interface functions is a chain of three functions to process the client requests : \texttt{app.get} $\to$ \hspace{-1.4em} $\to$ \texttt{handler} $\to$ \texttt{reply}.
+Between these two interface functions, there is a chain of three functions to process the client requests : \texttt{app.get} $\to$ \hspace{-1.4em} $\to$ \texttt{handler} $\to$ \texttt{reply}.
 This chain of functions is transformed into a pipeline, expressed in the high-level fluxional language in listing \ref{lst:fluxional}.
 The transformation process between the source and the fluxional code is explained in chapter \ref{chapter5}, in section \ref{chapter5:flx:compiler}.
 

@@ -1,7 +1,7 @@
 \subsection{Fluxions Compiler} \label{chapter5:flx:compiler}
 
 The source language for this transformation is of higher-order to allow the modularity required for productivity. 
-Moreover, it is implemented as an event-loop to imposes the developer to define the causality between asynchronous operations.
+Moreover, it is implemented as an event-loop to impose the developer to define the causality between asynchronous operations.
 % Javascript is such a language and is often implemented on top of an event-loop, like in \textit{Node.js}.
 The compiler transforms a \textit{Node.js} application into a fluxional application compliant with the execution model described in section \ref{chapter4:flx-model}.
 The chain of compilation is described in figure \ref{fig:compilation}.
@@ -15,7 +15,7 @@ The chain of compilation is described in figure \ref{fig:compilation}.
 The compiler uses the \textit{estools}\ftnt{https://github.com/estools} suite to parse (\texttt{esprima}), analyze (\texttt{escope}), manipulate (\texttt{estraverse} and \texttt{esquery}) and generate (\texttt{escodegen}) source code from an Abstract Syntax Tree (AST).
 It is tailored for -- but not limited to -- web applications using \textit{Express}\ftnt{http://expressjs.com/}, the most used \textit{Node.js} web framework.
 The compiler extracts an AST from the source with \texttt{esprima}.
-From this AST, the \textit{Analyzer} step identifies the rupture poitns the different application parts. % and how they relate to form a pipeline.
+From this AST, the \textit{Analyzer} step identifies the rupture points between the different application parts. % and how they relate to form a pipeline.
 This first step outputs a pipeline representation of the application.
 % Section \ref{chapter5:flx-compiler:analyzer} explains this first compilation step.
 In this pipeline representation, the stages are not yet independent and encapsulated into fluxions.
@@ -36,7 +36,7 @@ Figure \ref{fig:basicrp} shows a code example of a rupture point with the illust
 The two application parts are the caller of the asynchronous function call on one hand, and the callback provided to the asynchronous function call on the other hand.
 
 \begin{figure}[h!]
-  \includegraphics[width=\linewidth]{../resources/basicrp.pdf}
+  \includegraphics[width=0.8\linewidth]{../resources/basicrp.pdf}
   \begin{code}
 asyncCall(arguments, function callback(result){ //@\circled{2}@ });
 // Following statements //@\circled{1}@
@@ -50,7 +50,7 @@ It uses a list of common asynchronous callees, like the \texttt{express} and fil
 This list can be augmented to match asynchronous callees individually for any application.
 To identify the callee, the analyzer walks the AST to find a call expression matching this list.
 
-After the identification of the callee, the callback needs to be identified as well, to be encapsulated in the downstream fluxion.
+After the identification of the callee, the callback needs to be identified as well to be encapsulated in the downstream fluxion.
 For each asynchronous call detected, the compiler tests if one of the arguments is of type \texttt{function}.
 The callback functions declared \textit{in situ} are trivially detected in the AST.
 The compiler discard callbacks not declared \textit{in situ}, to avoid altering the semantic by moving or modifying their definitions.

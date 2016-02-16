@@ -5,7 +5,7 @@ The next paragraphs dive into the details of each execution model in regard of t
 
 \subsection{Event-Driven Execution Model} \label{chapter4:event-driven}
 
-The event-driven execution model is processes a queue of asynchronous events by cooperatively scheduling handlers.
+The event-driven execution model processes a queue of asynchronous events by cooperatively scheduling handlers.
 To respond to an event, the associated handler can directly respond to the source of the event.
 Or it can request an external resource, and chain another handler to later process the initial event with the resource response, as illustred in figure \ref{fig:cont-chain}.
 The developer defines each handler as a continuation and defines their causality using the continuation passing style \cite{Wand1980,Haynes1984}.
@@ -109,7 +109,7 @@ callee(input, function continuation(error, result) {
 % Promises provide a unified control over the execution flow for both paradigms.
 % The ECMAScript 6 specification\ftnt{https://people.mozilla.org/~jorendorff/es6-draft.html\#sec-promise-objects} defines
 A Promise is used as a placeholder for the eventual outcome of a deferred (and possibly asynchronous) operation.
-Listing~\ref{lst:then} illustrate a simple promise.
+Listing~\ref{lst:then} illustrates a simple promise.
 % A Promise is an object returned by a function to represent its result
 In Javascript, promises expose a \texttt{then} method which expects a continuation to continue the execution with the result of the deferred operation. %; this result being synchronously or asynchronously available.
 This method allows to chain Promises one after the other, as illustrated in listing~\ref{lst:promises-sequence}.
@@ -225,7 +225,7 @@ The fluxions that need this synchronization are grouped with the same tag, and l
 
 There are two types of streams, \textit{start} and \textit{post}, which correspond to the nature of the rupture point producing the stream.
 A \textit{start} rupture point starts a chain of continuations, while a \textit{post} rupture point is a continuation in a chain.
-\textit{Start} rupture points are indicated with a double arrow ($\to$ \hspace{-1.4em} $\to$ or \texttt{>>}) and \textit{post} rupture points with a simple arrow ($\to$ or \texttt{->}).
+\textit{Start} streams are indicated with a double arrow ($\to$ \hspace{-1.4em} $\to$ or \texttt{>>}) and \textit{post} streams with a simple arrow ($\to$ or \texttt{->}).
 
 The variables defined before the \textit{start} are available for the whole chain, and require synchronization for concurrent execution of the same chain.
 Whereas the variables defined inside the chain are available only in this chain, and don't require synchronization.

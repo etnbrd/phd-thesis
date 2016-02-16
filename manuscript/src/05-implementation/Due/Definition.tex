@@ -106,7 +106,7 @@ my_fn_due_1(input)
 \end{code}
 
 The \texttt{then} method of the current Due returns an intermediary Due that settles when the Due returned by the passed continuation settles.
-As example, in listing \ref{lst:dues-sequence} the Due returned by the \texttt{then} method line \ref{lst:due-sequence:then} settles when the Due returned by \texttt{my\_fn\_due\_2} settles.
+For example, in listing \ref{lst:dues-sequence} the Due returned by the \texttt{then} method line \ref{lst:due-sequence:then} settles when the Due returned by its continuation \texttt{my\_fn\_due\_2} settles.
 It allows to chain continuations one after the other like a pipeline, instead of the nested composition of continuations.
 
 % This simplified specification adopts the same convention than \textit{Node.js} for continuations to hand back outcomes.

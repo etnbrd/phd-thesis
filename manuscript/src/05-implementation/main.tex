@@ -25,11 +25,11 @@ However, promises are more expressive than the simple chaining of causal sequent
 % Promises impose a convention on how to hand back the outcome of the deferred computation, while classic continuations leave this conditional execution to the developer.
 Moreover, they impose a different convention than continuations on how to hand back the outcome and errors of the deferred computation.
 This difference brings unnecessary complexity to the identification of chains.
-To rule out this difference between continuations and Promises, section \ref{chapter5:due} introduces a simpler specification to Promise, called Due.
+To rule out this difference between continuations and Promises, before introducing the first compiler, section \ref{chapter5:due} introduces a simpler specification to Promise, called Due.
 
 The second compiler detects all the chains of causality between continuations and encapsulate them in fluxions.
 It isolates the fluxions when possible to allow the parallelism required for efficiency.
-The second compilers is introduced in section \ref{chapter5:flx}.
+This second compilers is introduced in section \ref{chapter5:flx}.
 
 \input{05-implementation/Due/main}
 \input{05-implementation/Flx/main}

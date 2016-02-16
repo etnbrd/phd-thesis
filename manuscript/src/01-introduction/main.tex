@@ -14,7 +14,8 @@ It compiles my PhD work on a
 This work is the fruit of a collaboration between the Worldline company and the Inria DICE team (Data on the Internet at the Core of the Economy) from the CITI laboratory (Centre d’Innovation en Télécommunications et Intégration
 de services) at INSA de Lyon.
 For Worldline, this work falls within a larger work named Liquid IT, on the future of the cloud infrastructure and development.
-As defined by Worldline, Liquid IT aims at decreasing the time to market of a web application, allows the development team to focus on application specifications rather than technical optimizations and ease maintenance.
+As defined by Worldline, Liquid IT aims at decreasing the time to market of a web application.
+It allows the development team to focus on application specifications rather than technical optimizations and eases maintenance.
 The purpose of this PhD work, was to separate development productivity from performance efficiency, to allow a continuous development from prototyping phase, until runtime on thousands of clusters.
 On the other hand, the DICE team focuses on the consequences of technology on economical and social changes at the digital age.
 This work falls within this scope as it studies the relation between the economical and the technological constraints driving the development of web applications.
@@ -52,12 +53,12 @@ The main question addressed by this thesis is how to avoid these shifts, so as t
 It implies the reconciliation between the productivity required in the early stage of development and the efficiency required with the growth of popularity.
 To answer this question, this thesis proposes a solution based on the equivalence between two different programming models.
 On one hand, there is the asynchronous, functional programming model, embodied by the Javascript event-loop.
-On the other hand, there is the distributed, dataflow programming model, embodied by the the pipeline architecture.
+On the other hand, there is the distributed, dataflow programming model, embodied by the pipeline architecture.
 
 This thesis contains two main contributions.
 The first contribution is a compiler allowing to split a program into a pipeline of stages depending on a common memory store.
 The second contribution, stemming from the first one, is a second compiler, enforcing isolation between the stages of this pipeline.
-With these two contributions, it is possible to transform the modular representation of an applicaiton into a pipeline representation.
+With these two contributions, it is possible to transform the modular representation of an application into a pipeline representation.
 The modular representation allows develoment productivity, while the pipeline representation carries its execution efficiently.
 A development team shall then use these two representations to continuously iterate over the implementation of an application, and reach the best compromise between productivity and efficiency.
 
@@ -68,13 +69,13 @@ Chapter \ref{chapter2} introduces the context for this thesis and explains in gr
 It presents the challenge to build web applications at a world wide scale, without jamming the organic evolution of its implementation.
 It concludes drawing a first answer to this challenge.
 Chapter \ref{chapter3} presents the works surrounding this thesis, and how they relate to it.
-It defines into the notions outlined in chapter \ref{chapter2} to help the reader understand better the context.
-The end of this chapter presents clearly the problematic addressed in this thesis.
+It defines the notions outlined in chapter \ref{chapter2} to help the reader understand better the context.
+It finally presents clearly the problematic addressed in this thesis.
 Chapter \ref{chapter4} introduces the proposition of this thesis, and the articulation of the contributions.
 Chapter \ref{chapter5} presents the implementations of the two contributions.
-The first contribution allows to represent a program as a pipeline of stages.
-It introduces Dues, based on Javascript Promises, to layout the pipeline.
-The second contribution allows to make these stages independent.
-It introduces Fluxions to isolate these stages, and distribute the execution.
-Chapter \ref{chapter6} evaluates this proposition at the light of the previous works, and draws the possible perspectives beyond this work.
+% The first contribution allows to represent a program as a pipeline of stages.
+% It introduces Dues, based on Javascript Promises, to layout the pipeline.
+% The second contribution allows to make these stages independent.
+% It introduces Fluxions to isolate these stages, and distribute the execution.
+Finally, it evaluates this implementation at the light of the previous works, and draws the possible perspectives.
 Finally, chapter \ref{chapter7} concludes this thesis.

@@ -1,20 +1,21 @@
 \section{The Web as a Platform} \label{chapter2:web-as-a-platform}
 
 \begin{wrapfigure}{R}{0.2\textwidth}
-  \vspace{-27pt}
+  % \vspace{-27pt}
   \centering
   \includegraphics[width=0.18\textwidth]{../resources/Mac-PC.png}
-  \vspace{-20pt}
+  % \vspace{-20pt}
 \end{wrapfigure}
 
-Similarly to operating systems, Web browsers started as software products with extension capabilities that transformed it into a platform. % with scripts and applications.
-The distribution of an application is limited only by the platform it can be deployed on.
+Similarly to operating systems, the Web browser started as a software product with extension capabilities that transformed it into a platform. % with scripts and applications.
+% The distribution of an application is limited only by the platform it can be deployed on.
 The Web spreads the scalability of software distribution world wide with a near zero latency.
 It eventually became the main distribution medium, and the wider market there can possibly be for software.
 It led the Web to become a major platform, replacing operating systems.
 
 Now, with web applications, the distribution medium is so transparent that owning a software product to have an easier access is no longer relevant.
-It stimulates a completely new business model based on an instantaneous and free access for the user, while claiming value for their data.
+It stimulates a disruptive business model based on an instantaneous and free access for the user, while claiming value for their data.
+This thesis focuses not on this buisness model, but rather on the technologies that brought it.
 % The next paragraphs present Javascript, the language that allowed this new business model to emerge.
 
 \subsection{The Language of the Web}
@@ -26,7 +27,7 @@ The economical gain in development time brought by productive languages compensa
 Most of the now popular programming languages were released at this time, Python in 1991, Ruby in 1993, Java in 1994, PHP and Javascript in 1995.
 
 With the democratisation of programming, the involvement of a community became critical for the adoption, evolution and maturation of a language.
-Communities adopts a language because it allows to quickly experiment and enter businesses sectors.
+Communities adopt a language because it allows to quickly experiment and enter businesses sectors.
 The industry adopts a language because it responds to business needs and its community represents a hiring pool.
 The community support and the industrial needs are reinforcing each other in a loop.
 
@@ -52,6 +53,13 @@ The next paragraph present its evolution in the industry and the community.
 % At the time, Java was quickly adopted as the default language for web servers development, and everybody was betting on pushing Java inside the browser as well.
 % The history proved them wrong\footnote{Except for mobiles, with the success of Dalvik Android.}.
 
+\begin{wrapfigure}{R}{0.25\textwidth}
+  \vspace{-20pt}
+  \centering
+  \includegraphics[width=0.25\textwidth]{../resources/javascript-hate.pdf}
+  \vspace{-35pt}
+\end{wrapfigure}
+
 Javascript was released as a scripting engine in Netscape Navigator around September 1995 and later in its concurrent, Internet Explorer.
 The differences between the two implementations forced Web pages to be designed for a specific browser.
 This competition was fragmenting the Web.
@@ -76,14 +84,6 @@ For these reasons, the language was considered poorly designed and unattractive 
 % Why do so many people seem to hate Javascript?\ftnt{https://www.quora.com/Why-do-so-many-people-seem-to-hate-JavaScript}
 % }
 
-
-\begin{wrapfigure}{R}{0.25\textwidth}
-  \vspace{-20pt}
-  \centering
-  \includegraphics[width=0.25\textwidth]{../resources/javascript-hate.pdf}
-  \vspace{-35pt}
-\end{wrapfigure}
-
 But this situation evolved drastically since.
 All web browsers include a Javascript interpreter, making Javascript the most ubiquitous runtime \cite{Flanagan2006}.
 This position became an incentive to make it fast (V8, ASM.js) and convenient (ES6, ES7).
@@ -107,30 +107,30 @@ Javascript was initially used for short interactions on web pages.
 % This situation hugely improved since the beginning of the language.
 Nowadays, there are a lot of web-based applications replacing desktop applications, like mail client, word processor, music player, graphics editor\ldots
 
-ECMA International allowed this progression by releasing several versions to give Javascript a more complete and solid base as a programming language.
+ECMA International stimulated this progression by releasing several versions to give Javascript a more complete and solid base as a programming language.
 % The third version contributed to give Javascript a more complete and solid base as a programming language.
 % From this point on, the considerations for Javascript kept improving.
 Moreover, % in 2005, James Jesse Garrett released \textit{Ajax: A New Approach to Web Applications} \cite{Garrett2005}.
 Asynchronous Javascript And XML (Ajax) allows to dynamically reload the content inside a web page, hence improving the user experience \cite{Garrett2005}.
 It allows Javascript to develop richer applications inside the browser, from user interactions to network communications.
 % The first web applications to use Ajax were Gmail, and Google maps\footnote{A more in-depth analysis of the history of Ajax, given by late Aaron Swartz \url{http://www.aaronsw.com/weblog/ajaxhistory}}.
-The community released frameworks to assist the development of these larger applications.
+The community released some frameworks to assist the development of these larger applications.
 Prototype\ftnt{http://prototypejs.org/} and DOJO\ftnt{https://dojotoolkit.org/} are early famous examples, and later jQuery\ftnt{https://jquery.com/} and underscore\ftnt{http://underscorejs.org/}.
 
 \illustration{Javascript with superpowers}
 
 Since 2004, the Web Hypertext Application Technology Working Group\ftnt{https://whatwg.org/} worked on the fifth version of the HTML standard.
 The name is misleading, it is really about giving Javascript superpowers like geolocation, storage, audio, video, and many mores.
-The simultaneous release of HTML5, ECMAScript 5 and V8, around 2009, represent a milestone in the development of web-based applications.
+The simultaneous releases of HTML5, ECMAScript 5 and V8, around 2009, represent a milestone in the development of web-based applications.
 % Around the same time, Google released the Javascript interpreter V8 for its browser Chrome, improving drastically the execution performance.
 Javascript became the \textit{de facto} programming language to develop on this rising application platform that is the Web\ftnt{http://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/}.
-The milestones in the history of Javascript presented in the previous chapters are summariezed in figure \ref{fig:js-timeline}.
+The main events in the history of Javascript presented in the previous chapters are summariezed in figure \ref{fig:js-timeline}.
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{../resources/javascript-timeline.pdf}
-  \label{fig:js-timeline}
   \caption{Javascript timeline}
+  \label{fig:js-timeline}
 \end{figure}
 
 
@@ -203,7 +203,7 @@ The next section presents the realities and technical challenges to assure the p
 % With SaaS, a web application can scale world wide with near zero latency. %, and accessing it is as simple as distributing it world wide.
 % With this broad range of distribution, a new business model emerged, allowing instantaneous and free access for the user.
 
-Since the web allowed an application to scale world wide with near zero latency, the software industry needed innovative solutions to cope with large network traffic.
+Since the web allowes an application to scale world wide with near zero latency, the software industry needed innovative solutions to cope with large network traffic.
 
 \illustration{busy web servers}
 
@@ -229,15 +229,15 @@ In 2009, Joyent released Node.js to build real-time web applications with this p
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.7\linewidth]{../resources/event-loop.pdf}
-  \label{fig:event-loop}
   \caption{Event-driven execution model}
+  \label{fig:event-loop}
 \end{figure}
 
 The event-driven execution model is presented in figure \ref{fig:event-loop}.
 At reception, each request from a client queues an event waiting to be processed.
 A loop unqueues these events one at a time, and run the appropriate handler to process them.
-To process an event, a handler can query remote resources, which respond asynchronously by queuing additional events.
-The querying handler specifies new handlers - called continuations - to process these additional events.
+To process an event, a handler can query external resources, which respond asynchronously by queuing additional events.
+For each query, the querying handler specifies a new handler - called continuation - to process the additional event.
 Alternatively, a handler can respond directly to the client, ending this chain of asynchronous events.
 
 % The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
@@ -246,8 +246,9 @@ Alternatively, a handler can respond directly to the client, ending this chain o
 % Each task can initiate new communications, leading in turn to the queuing of more messages, which trigger more tasks, and so on.
 % Each task is executed atomically and exclusively, until it yields execution to continue with the next task in queue.
 
-This execution model allows the high concurrency required to respond to a high number of users simultaneously.
-This concurrency needs to be scalable to adapt to the growth of audience, as explained in the next paragraph.
+This execution model allows high concurrency.
+It is required to respond to a high number of users simultaneously.
+Additionally, this concurrency needs to be scalable to adapt to the growth of audience. %, as explained in the next paragraph.
 
 \paragraph{Scalability}
 
@@ -276,12 +277,8 @@ This parallelism is scalable, as the independent tasks can stretch the computati
 However, the tasks within an application need to coordinate together to modify the application state.
 This coordination limits the parallelism and imposes to execute some tasks sequentially.
 It limits the scalability.
-The type of possible concurrency, sequential or parallel, is defined by the interdependencies of the tasks.
-
-% The previous section presented the event-loop execution model used by Javascript.
-The Javascript event-loop requires a global memory to assure the interdependency of the tasks.
-% The event-loop is constrained within time-slicing concurrency to assure this coordination.
-This thesis argues that there exists an equivalence between the event-driven model and the pipeline execution model.
+The type of possible concurrency, sequential or parallel, is defined by the interdependencies between the tasks.
+The pipeline execution model avoid interdependencies between the tasks to assure their parallel execution.
 
 \subsubsection{Pipeline Execution Model}
 
@@ -293,23 +290,30 @@ As the stages are independent, the state coordination between the stages are com
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\linewidth]{../resources/pipeline.pdf}
-  \label{fig:pipeline}
   \caption{Pipeline execution model}
+  \label{fig:pipeline}
 \end{figure}
 
-The execution model of each stage is organized in a similar fashion than the event-loop presented previously.
+The execution model of each stage is organized in a similar fashion than the event-driven execution model presented previously.
 It receives and queues messages from upstream stages, processes them one after the other, and outputs the result to downstream stages.
 The pipeline architecture is different as each task is executed on an isolated stage.
 Whereas in the event-driven execution model, all handlers share the same queue, loop and memory store.
 This difference is illustrated in figure \ref{fig:models-difference}.
 The isolation of memory in the pipeline execution model impacts the productivity of its programming model.
-The next section details further the incompatibility between the two programming model and the resulting economical consequences.
+
+% The previous section presented the event-loop execution model used by Javascript.
+The event-driven requires a global memory to assure development productivity.
+Whereas the pipeline execution model assures the isolation between the tasks to assure efficiency.
+The former presents limited scalabiity, whereas the latter does not.
+% The event-loop is constrained within time-slicing concurrency to assure this coordination.
+This thesis argues that there exists an equivalence between the event-driven model and the pipeline execution model.
+Before drawing this equivalence, the next section details further the incompatibility between the two programming model and the resulting economical consequences.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\linewidth]{../resources/models-difference.pdf}
-  \label{fig:models-difference}
   \caption{Comparison of the two memory models}
+  \label{fig:models-difference}
 \end{figure}
 
 

@@ -98,8 +98,8 @@ The next paragraph details how this situation is handled to allow the applicatio
 The variable \texttt{req} is read in fluxion \texttt{main}, lines \ref{lst:flx-gifsocket:getRawBody} and \ref{lst:flx-gifsocket:req.headers}.
 Then its property \texttt{body} is associated to \texttt{buffer} in fluxion \texttt{anonymous\_1000}, line \ref{lst:flx-gifsocket:buffer}.
 The compiler is unable to identify the aliases of this variable. % further usages.
-However, the side effect resulting from this association impacts a variable in the scope of the next callback, \texttt{routes.writeTextToImages}.
-In this text case, the application is modified manually to explicitly propagate this side-effect to the next callback through the function \texttt{next}.
+However, the side effect resulting from this association impacts a variable in the scope of the next callback, \texttt{routes.write\-Text\-To\-Images}.
+In this test case, the application is modified manually to explicitly propagate this side-effect to the next callback through the function \texttt{next}.
 The modifications of this function are explained further in the next paragraph.
 
 \paragraph{Closure \texttt{next}}
@@ -141,8 +141,10 @@ The client successfully receives a gif frame containing the text.
 
 \subsection{Limitations}
 
-The static analysis used for this compiler presents some limitations which are explained in the next paragraphs.
-Higher-order programming leads to more productivity through expressivity partly beacuse it allows more levels of indirections.
+The static analysis used for this compiler presents some limitations.
+It is unable to analyze code with dynamic behaviors.
+Higher-order programming leads to more productivity partly beacuse it rely on such dynamic behavior to extend expressivity.
+Precisely, it allows more levels of indirections.
 
 \subsubsection{Levels of Indirections}
 
@@ -171,7 +173,7 @@ The indirection is trivial to resolve in listing \ref{lst:indirection}.
 It only needs to have access to the definition of \texttt{a} and of \texttt{fn}.
 %A very simple static analysis could resolve it.
 However, in listing \ref{lst:indirections}, the array \texttt{handlers} introduces a new level of indirection.
-The static analysis now needs to have access to the definition of \texttt{i}.
+The static analysis now needs to have access to the definition of \texttt{i} and of the \texttt{handlers}.
 If this definition is provided by an external input, it is not available statically, hence, it adds an incertitude during the analysis. 
 
 \begin{code}[js,
@@ -194,8 +196,8 @@ A real application contains enough indirections for the static analysis to be ov
 If a variable is left unresolved, it is impossible to assure its scope and its aliases.
 Therefore, the compiler is unable to isolate it into a fluxion, or to distribute its modification by messages.
 
-Moreover, it leads the compiler to ignore the rupture points not defined \textit{in situ}, because their modification could impact the semantic.
-The reason for this precaution, is that the compiler is unable to assure where the function is used, and the scope of tis variables.
+Moreover, it leads the compiler to ignore the rupture points not defined \textit{in situ}, because their modifications could impact the semantic.
+The reason for this precaution, is that the compiler is unable to assure where the function is used, and the scope of its variables.
 Therefore, it is unable to assure that the modification will conserve the semantic.
 
 \subsubsection{Dynamic Resolution}
@@ -204,8 +206,8 @@ In a web application, this variable \texttt{i} might be part of the user request
 It eventually introduces an incertitude.
 
 This dynamic resolution of variables is precisely what increase expressiveness.
-Trying to resolve them statically is eventually equivalent to restrict expressiveness.
-No static analysis can really overstep these limitations.
+Trying to resolve them statically is equivalent to restrict expressiveness.
+No static analysis can overstep these limitations.
 Only a dynamic analysis could analysis the resolved indirections during run time to overstep these limitations correctly.
 
 

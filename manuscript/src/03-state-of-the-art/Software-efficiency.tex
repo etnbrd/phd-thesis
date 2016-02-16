@@ -2,7 +2,7 @@
 
 Both the academia and the industry proposed solutions with efficiency in mind to cope with the limitations the previous section concludes on.
 The concurrent and parallel programming paradigms are presented in section \ref{chapter3:software-efficiency:concurrency}.
-The improvement of efficiency impacted the adoption of these platforms, as presented in section \ref{chapter3:software-efficiency:adoption}.
+The improvement of efficiency impacts the adoption of these platforms, as presented in section \ref{chapter3:software-efficiency:adoption}.
 Finally, section \ref{chapter3:software-efficiency:productivity-limitations} presents the limitations of parallelism on productivity.
 
 \subsection{Concurrency} \label{chapter3:software-efficiency:concurrency}
@@ -50,21 +50,21 @@ The event-driven programing model relies on cooperative scheduling, and the mult
 
 \paragraph{Event-Driven Programming}
 
-In the event-driven execution model, developers explicitely define concurrent tasks.
-The execution model queues and schedules these tasks sequentially to assure exclusivity on shared resources, and cooperatively to assure atomicity.
+In the event-driven execution model, developers explicitely split the application into several concurrent tasks called handlers.
+The execution model schedules these handlers sequentially with the queue of events, to assure exclusivity on shared resources, and cooperatively to assure atomicity.
 Moreover, they communicates with the resources asynchronously to avoid waiting.
-A task yields execution to a future tasks to complete the communication.
+A handler yields execution to the next handler to complete the communication.
 
-Promise were introduced as an help to nicely chain these concurrent tasks \cite{Liskov1988}.
+Promises were introduced as an help to nicely chain these concurrent handlers \cite{Liskov1988}.
 A promise is a placeholder for a future result allowing to defer operations for when the result is available.
-It layouts the concurrent tasks in chains, similarly to a pipeline.
+It layouts the concurrent handlers in chains, similarly to a pipeline.
 
 This execution model is very efficient for highly concurrent applications as it avoids contention.
 Several platform rely on this execution model, like \ImplementationsOf{Event-driven programming}.
 As well as some web servers like Flash \cite{Pai1999}, Ninja \cite{Gribble2001} thttpd\ftnt{http://acme.com/software/thttpd/} and Nginx\ftnt{https://www.nginx.com/}.
 
 Though, the event-driven model is limited in performance because of the global memory.
-The tasks cannot be scheduled in parallel.
+The handlers cannot be scheduled in parallel.
 Lock-free data-strincture intends to improve performance by reducing the atomic portions of operations to a minimum.
 
 \paragraph{Lock-Free Data-Structures}
@@ -78,7 +78,7 @@ Multi-threading intends to provide parallelization with software protection.
 
 \paragraph{Multi-Threading Programming}
 
-Threads are small execution containers sharing the same memory execution context within an isolated tasks \cite{Dijkstra1968}, and scheduled in parallel with fork/join instructions \cite{Randall1998,Frigo1998,Leiserson2010}.
+Threads are small execution containers sharing the same memory execution context within an isolated process \cite{Dijkstra1968}, and scheduled in parallel with fork/join instructions \cite{Randall1998,Frigo1998,Leiserson2010}.
 They execute statements synchronously and are preempted to avoid blocking the progression of other threads.
 Without protection, the preemption breaks the atomicity and exclusivity of memory accesses.
 To assure atomicity and exclusivity, hence invariance, multi-threading programming models provide protection mechanisms, such as \ImplementationsOf{Multi-threading programming}.
@@ -107,7 +107,7 @@ The causal ordering between tasks proposed by the event-driven execution model i
 And it is easier for developer to define causal scheduling than to assure the consistency of memory with protection mechanisms.
 But because of the lack of memory isolation, the concurrent tasks are not scheduled in parallel.
 It impacts efficiency, as detailed in table \ref{tab:efficiency-parallel}.
-Yet, parallel programming is the only solution for efficiency, at the expense of development efforts to explicitly define the memory isolation of concurrent tasks and their communications by message passing.
+Parallel programming is the only solution for efficiency, at the expense of development efforts to explicitly define the memory isolation of concurrent tasks and their communications by message passing.
 
 \subsubsection{Parallel Programming} \label{chapter3:software-efficiency:concurrency:parallel-programming}
 
@@ -115,27 +115,29 @@ The Flynn's taxonomy \cite{Flynn1972} categorizes parallel executions in functio
 Parallel programming models belong to the category Multiple Instruction Multiple Data (MIMD), which is further divided into Single Program Multiple Data (SPMD) \cite{Auguin1983,Darema1988,Darema2001} and Multiple Program Multiple Data (MPMD) \cite{Chang1997,Chan2004}.
 SPMD defines a single program replicated on many processing units \cite{Culler,Johnson1995,K.ManiChandy2005} -- it is roughly derived from the multi-threading programming model presented above.
 While MPMD defines multiple parallel tasks in the implementation \cite{Grimshaw1991,Foster1995b,Foster1996}.
-The two major theoretical models for parallel programming are the actor model and coroutines.
+The two major theoretical models for MPMD parallel programming are the Actor Model and Communicating Sequential Processes.
 
 % \nt{schema of SPMD and MPMD}
 
 \paragraph{Actor Model}
 
-The Actor model allows to express the causal ordering of computation as a set of parallel actors communicating by asynchronous messages \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
+The Actor Model allows to express the causal ordering of computation as a set of parallel actors communicating by asynchronous messages \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
 In reaction to a received message, an actor can create other actors, send messages, and choose how to respond to the next message.
-Additionally, the communication in reality are too slow compared to execution to be synchronous, and are subject to various faults and attacks \cite{Lamport1982}.
+In reality, the communication are too slow compared to execution to be synchronous, and are subject to various faults and attacks \cite{Lamport1982}.
 The Actor model takes these physical limitations in account \cite{Hewitt1977a}.
-
 \paragraph{Communicating Sequential Processes}
 
 Similar works include the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}, and the Kahn Networks \cite{Kahn1974, Kahn1976}.
 Similarly, coroutines are autonomous programs which communicate with adjacent modules as if they were input and output subroutines \cite{Conway1963}.
 It defines a pipeline to implement multi-pass algorithms.
 
+The difference between Actors and Coroutines lie in the definition of the communication.
+Actors send messages to named actors, whereas Coroutines communicate through named channels.
+
 \subsubsection{Summary of Concurrent and Parallel Programming Models}
 
 Compared to parallel programming, the concurrent programming models are unable to correctly isolate the concurrent tasks and communicate by message-passing to allow parallelism.
-It results that the parallel programming model are more efficient than the concurrent programming models, as detailed in table \ref{tab:efficiency-parallel}.
+Hence the parallel programming models are more efficient than the concurrent programming models, as detailed in table \ref{tab:efficiency-parallel}.
 
 \ParallelEfficiencyTable{tab:efficiency-parallel}
 
@@ -154,11 +156,11 @@ When the need for efficiency is higher than the need for productivity, the adopt
 If the industry really needs a platform, it will commit the required development effort despite a low productivity.
 The platforms for the Mars Rover or some banking systems are about 30 years old, yet the industry continues to maintain them.
 The platform presented in this section emerged from the academia and the industry but are often barely known by the larger community of developers.
-The more the platform trades productivity for efficiency, the less support it will received from the community.
+The more the platform trades productivity for efficiency, the less support it receives from the community.
 
 \subsubsection{Concurrent Programming}
 
-Most programming languages implementation supports concurrent programming somehow.
+Most programming language implementations supports concurrent programming.
 Either with multi-threading or event-driven programming.
 These two are highly adopted by both the industry and the community, as presented in table \ref{tab:efficiency-adoption}.
 
@@ -199,7 +201,7 @@ It allows to adjust the granularity of tasks to help developers to better fit th
 More recently, Microservices are tackling the same challenge on the web, with a finer granularity \cite{Fernandez-Villamor2010,Fowler2014,Namiot2014}.
 Some examples of Microservices are \ImplementationsOf{Microservices}.
 They are very recent, and it is difficult to asses their usage in the community nor the industry.
-But they seems to be increasingly adopted, both in the industry and in the community.
+But they seem to be increasingly adopted, both in the industry and in the community.
 
 \separator
 
@@ -211,7 +213,7 @@ This requirement imposes specific challenges for the platforms.
 
 \paragraph{Data-stream Management Systems}
 
-Database Management Systems (DBMS) historically processed large volume of data, and they naturally evolved into Data-stream Management System (DSMS) to processed data streams as well.
+Database Management Systems (DBMS) historically processed large volumes of data, and they naturally evolved into Data-stream Management System (DSMS) to process data streams as well.
 Because of this legacy, they are in rupture with MPMD platforms presented until now.
 They borrows the syntax from SQL to run requests in parallel on continuous data streams.
 The computation of these requests spread over a distributed architecture.
@@ -219,7 +221,9 @@ Some recent examples are \ImplementationsOf{Data Stream System Management}.
 
 \paragraph{Pipeline Stream Processing}
 
-The pipeline architecture organizes an application as a network of event-driven stages connected by explicit queues, the output of one feeding the input of the next \cite{Welsh2001}.
+
+On the other hand, the pipeline architecture is directly inspired by the Actors Model and CSP.
+It organizes an application as a network of event-driven stages connected by explicit queues, the output of one feeding the input of the next \cite{Welsh2001}.
 The event-driven paradigm of a stage is similar to work like Ninja \cite{Gribble2001} and Flash \cite{Pai1999} previously presented.
 But the independence of stages allow to spread the execution on a parallel architecture.
 The academic works and industrial implementations of pipeline architecture are \ImplementationsOf{Pipeline Stream Processing}.
@@ -227,7 +231,8 @@ The academic works and industrial implementations of pipeline architecture are \
 \separator
 
 Parallel programming emerges mainly from industrial needs and academic research but is barely supported by the community.
-The implementations improve efficiency, but prevent their adoption by the community due to a weak productivity.
+The implementations improve efficiency.
+But their weak productivity prevents their adoption by the community.
 As summarized in table \ref{tab:efficiency-adoption}, the event-driven programming model is the best candidate for a concurrent programming model regarding adoption.
 It is supported by the community, and respond to concrete needs in the industry.
 
@@ -241,7 +246,7 @@ At a fine level, the state is shared, while at a coarser level, it is isolated.
 It avoids higher-order programming.
 Hence, it limits the composition of modules and negatively impacts productivity.
 
-Without this composition between modules, parallel programming forces to develop two mental representations -- one for the module organization and one for the tasks organization -- or to abandon the module organization and productivity altogether.
+Without this composition between modules, parallel programming forces to develop two mental representations -- one for the module organization and one for the task organization -- or to abandon the module organization and productivity altogether.
 It makes parallel programming accessible only to an elite of developers that are able to be productive despite the two mental representations, as presented in table \ref{tab:efficiency-productivity}.
 
 \EfficiencyProductivityTable{tab:efficiency-productivity}
@@ -249,8 +254,8 @@ It makes parallel programming accessible only to an elite of developers that are
 \subsection{Summary} \label{chapter3:software-efficiency:summary}
 
 The parallel programming platforms presented in this section focus more on efficiency than productivity.
-Whereas the concurrent programming platforms are more features better productivity.
-But no platforms features both productivity and efficiency, as presented in table \ref{tab:efficiency-synthesis}.
+Whereas the concurrent programming platforms feature better productivity.
+But no platform features both productivity and efficiency, as presented in table \ref{tab:efficiency-synthesis}.
 Moreover, except for Event-driven and Multi-threading programming, this lack of versatility impacts adoption.
 
 \EfficiencySummaryTable{tab:efficiency-synthesis}
