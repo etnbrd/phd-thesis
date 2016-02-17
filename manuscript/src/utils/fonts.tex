@@ -1,3 +1,5 @@
+\usepackage{caption}
+
 \newfontfamily\capfont{Gotham Rounded Light}
 
 % \newfontfamily\secfont{FuturaLT-Heavy}
@@ -25,14 +27,16 @@
 \usepackage[explicit]{titlesec}
 
 \titleformat{\chapter}[display]
-  {\secfont\fontsize{45pt}{60pt}\selectfont%
+  {\secfont\fontsize{43pt}{70pt}\selectfont%
   \addtolength{\titlewidth}{\textwidth}%
   \addvspace{6pt}
-  }{\fontsize{20pt}{20pt}\selectfont\MakeUppercase\chaptertitlename\ \thechapter}
+  }{\fontsize{14pt}{20pt}\selectfont\MakeUppercase\chaptertitlename\ \thechapter}
   {10pt}
   { \titlerule[1pt]%
     \vspace{45pt}%
+    \begin{flushleft}%
     \MakeUppercase{#1}\\%
+    \end{flushleft}%
     \vspace{40pt}%
     \titlerule[1pt]%
     \eject%
@@ -79,7 +83,7 @@
   % {\llap{\hspace*{-\rulelen}\hfill§\hspace{10pt}}#1} % before
   % [\normalfont\vspace{10pt}] % after
 
-\usepackage{caption}
+
 % \captionsetup[figure]{name={Figure.}}
 % \captionsetup{font={capfont}}
 

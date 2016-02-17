@@ -1,9 +1,9 @@
 \section{An Economical Problem} \label{chapter2:problem-statement}
 
-With SaaS, the software industry is in charge of both development and execution of the software.
+With Software as a Service (SaaS), the software industry is in charge of both development and execution of the software.
 The previous section presented these two aspects individually.
 This section presents the challenges encountered by conducting the two at world wide scale.
-It then focuses on the subject and defines the objectives of this thesis.
+It then focuses on the subject of this thesis and defines its objectives.
 
 \subsection{Disrupted Web Development}
 
@@ -13,8 +13,8 @@ The team needs to reduce development costs, and to release a first version as so
 On the contrary, during the maturation of the application, the constraints hold on the performance efficiency.
 The application needs to be highly concurrent to meet the load of usage.
 
-The team need to revise its approach to meet these different constraints.
-These revisions leads to disruptions in the evolution of the application.
+The team needs to revise its approach to meet these different constraints.
+These revisions lead to disruptions in the evolution of the application.
 
 \subsubsection{Power-Wall Disruption}
 
@@ -27,14 +27,14 @@ They started to arrange transistors into several processing units to keep increa
 Parallel programming became the only option to achieve high concurrency, but the memory isolation it requires limits the productivity.
 This \textit{Power-wall} leads to a rupture between efficiency and productivity.
 
-\subsubsection{Unavoidable Modularity}
+\subsubsection{Conflicting Modularity}
 
 The best practices for productivity in software development advocate to gather features logically into distinct modules.
 This modularity allows a developer to understand and contribute to an application one module at a time, instead of understanding the whole application.
 It allows to develop and maintain a large code-base by a multitude of developers bringing small, independent contributions.
 
 This modularity avoids a different problem than the isolation required by parallelism.
-The former intends to structure code to improve maintainability, while the latter improve performance through parallel execution.
+The former intends to structure code to improve maintainability, while the latter improves performance through parallel execution.
 These two organizations are conflicting in the design of the application.
 The next paragraph presents the disruptions in the development of a web application implied by this conflict.
 
@@ -50,7 +50,7 @@ The development team then shifts to an organization providing parallelism.
 This shift brings two risks.
 The development team needs to rewrite the code base to adapt it to a completely different paradigm.
 The application risks to fail because of this challenge.
-And after this shift, the development pace slows down.
+And after this shift, the development is less productive.
 The development team cannot react as quickly to user feedbacks to adapt the application to the market needs.
 The application risks to fall in obsolescence.
 
@@ -61,12 +61,13 @@ The proposed solution would allow developers to iterate continuously on the impl
 \subsection{Seamless Web Development}
 
 This thesis is conducted in the frame of a larger work on LiquidIT within the Worldline company.
-Worldline develops and hosts real-time streaming Web services, and identified that one of their need was to increase the time to market for its products.
+Worldline develops and hosts real-time streaming Web services.
+The company identified that one of its need was to increase the time to market for its products.
 Worldline defines LiquidIT as \textit{a concept of flexible and cost-effective IT services that can be provisioned, built and configured in real time, allowing end-to-end financial transparency}.
 It precisely intends to provide \textit{business agility, investment-free charging models, flexibility and ease of use}.
 This thesis intends to allow the developer to focus solely on business logic, and leave the technical constraints of performance scalability to automated tools.
-The objective of this work are avoid the disruption in development, and provide a seamless development experience.
-They are presented in the next paragraphs.
+The objective of this work are to avoid the disruption in development, and provide a seamless development experience.
+% They are presented in the next paragraphs.
 
 \subsubsection{Real-Time Streaming Web Services}
 
@@ -78,21 +79,21 @@ On the other hand, the state of the application remains in memory to impact the 
 This state might be shared by several tasks within the application, and imply coordination between them.
 
 As presented in the previous section, such applications are often implemented with the event-driven programming model or the pipeline programming model.
-Despite the differences between the two models, an equivalence to map these differences is developed throughout this thesis.
+This thesis develops an equivalence to map these two models, despite their differences.
 % The next section introduces the differences between these two programming models and outlines an equivalence to map these differences.
 
-\subsubsection{Differences}
+\subsubsection{Differences Between The Two Models}
 
 Both programmng models encapsulate the execution in tasks assured to have an exclusive access to the memory.
 However, they use two different models to provide this exclusivity.
 Contrary to the pipeline architecture, the event-loop provides a common memory store allowing the best practice of software development to improve maintainability.
 
-However, these two organizations are incompatible.
-Because of economical constraints, this incompatibility implies ruptures in the development.
+These two organizations are incompatible.
+And because of economical constraints, this incompatibility implies ruptures in the development.
 It represents additional development efforts and important costs.
 This thesis argues that it is possible to allow a continuous development between the two organizations, so as to lift these efforts and costs.
-The argumentation of this possibility is based on an equivalence bridging the two organizations.
-This equivalence is presented briefly in the next paragraph, and detailed further in the chapter \ref{chapter4} and \ref{chapter5}.
+% The argumentation of this possibility is based on an equivalence bridging the two organizations.
+The equivalence between the two organizations is presented briefly in the next paragraph, and detailed further in the chapter \ref{chapter4} and \ref{chapter5}.
 
 \subsubsection{Equivalence}
 
@@ -103,7 +104,7 @@ The equivalence would allow a compiler to transform an application expressed in 
 With this equivalence, it would be possible to express an application following the design principles of software development.
 A development team could rely on the common memory store of the event-driven execution model, and focuses on the maintainability of the implementation.
 And yet, because of the equivalence between these two models, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
-The development team could continuously progress with the two models and take advantage of their different concerns about the implementation, performance and maintainability.
+The development team could continuously progress with the two models and take advantage of their different concerns, performance and maintainability.
 
 \separator
 

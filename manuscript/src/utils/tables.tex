@@ -59,20 +59,24 @@
 %%                                       EXTRACTIONS
 %% -------------------------------------------------------------------------------------------
 
-% MAINTAINABILITY
+% PRODUCTIVITY
 \newcommand{\ModularProductivity}      {\ExtractGroup{Modular}      {\ProductivityRow}}
 \newcommand{\ConcurrentProductivity}   {\ExtractGroup{Concurrent}   {\ProductivityRow}}
 \newcommand{\ParallelProductivity}     {\ExtractGroup{Parallel}     {\ProductivityRow}}
 \newcommand{\StreamProductivity}       {\ExtractGroup{Stream}       {\ProductivityRow}}
 \newcommand{\CompilerProductivity}     {\ExtractGroup{Compiler}     {\ProductivityRow}}
 \newcommand{\RuntimeProductivity}      {\ExtractGroup{Runtime}      {\ProductivityRow}}
-% PERFORMANCE
+\newcommand{\PropositionProductivity}  {\ExtractGroup{Proposition}  {\ProductivityRow}}
+\newcommand{\PerspectiveProductivity}  {\ExtractGroup{Perspective}  {\ProductivityRow}}
+% EFFICIENCY
 \newcommand{\ModularEfficiency}        {\ExtractGroup{Modular}      {\EfficiencyRow}}
 \newcommand{\ConcurrentEfficiency}     {\ExtractGroup{Concurrent}   {\EfficiencyRow}}
 \newcommand{\ParallelEfficiency}       {\ExtractGroup{Parallel}     {\EfficiencyRow}}
 \newcommand{\StreamEfficiency}         {\ExtractGroup{Stream}       {\EfficiencyRow}}
 \newcommand{\CompilerEfficiency}       {\ExtractGroup{Compiler}     {\EfficiencyRow}}
 \newcommand{\RuntimeEfficiency}        {\ExtractGroup{Runtime}      {\EfficiencyRow}}
+\newcommand{\PropositionEfficiency}    {\ExtractGroup{Proposition}  {\EfficiencyRow}}
+\newcommand{\PerspectiveEfficiency}    {\ExtractGroup{Perspective}  {\EfficiencyRow}}
 % ADOPTION
 \newcommand{\ModularAdoption}          {\ExtractGroup{Modular}      {\AdoptionRow}}
 \newcommand{\ConcurrentAdoption}       {\ExtractGroup{Concurrent}   {\AdoptionRow}}
@@ -81,6 +85,8 @@
 \newcommand{\StreamAdoption}           {\ExtractGroup{Stream}       {\AdoptionRow}}
 \newcommand{\CompilerAdoption}         {\ExtractGroup{Compiler}     {\AdoptionRow}}
 \newcommand{\RuntimeAdoption}          {\ExtractGroup{Runtime}      {\AdoptionRow}}
+\newcommand{\PropositionAdoption}      {\ExtractGroup{Proposition}  {\AdoptionRow}}
+\newcommand{\PerspectiveAdoption}      {\ExtractGroup{Perspective}  {\AdoptionRow}}
 % SUMMARY
 \newcommand{\ModularSummary}           {\ExtractGroup{Modular}      {\SummaryRow}}
 \newcommand{\ConcurrentSummary}        {\ExtractGroup{Concurrent}   {\SummaryRow}}
@@ -88,10 +94,9 @@
 \newcommand{\StreamSummary}            {\ExtractGroup{Stream}       {\SummaryRow}}
 \newcommand{\CompilerSummary}          {\ExtractGroup{Compiler}     {\SummaryRow}}
 \newcommand{\RuntimeSummary}           {\ExtractGroup{Runtime}      {\SummaryRow}}
-% PROPOSITION
-\newcommand{\PropositionProductivity}  {\ExtractGroup{Proposition}  {\ProductivityRow}}
-\newcommand{\PropositionEfficiency}    {\ExtractGroup{Proposition}  {\EfficiencyRow}}
 \newcommand{\PropositionSummary}       {\ExtractGroup{Proposition}  {\SummaryRow}}
+\newcommand{\PerspectiveSummary}       {\ExtractGroup{Perspective}  {\SummaryRow}}
+
 
 %% -------------------------------------------------------------------------------------------
 %%                                       TABLES
@@ -319,10 +324,57 @@
 \end{longtabu} \tikzexternalenable
 }
 
+\newcommand{\TablePropositionAdoption}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+\AdoptionHeader%
+\PropositionAdoption%
+\caption{Adoption of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
 \newcommand{\TablePropositionSummary}[1]{ \tikzexternaldisable
 \begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
 \SummaryHeader%
 \PropositionSummary%
+\caption{Sommary of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+%% Perspectives
+
+\newcommand{\TablePerspectiveProductivity}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+\ProductivityHeader%
+\PerspectiveProductivity%
+\caption{Productivity of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+\newcommand{\TablePerspectiveEfficiency}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+\EfficiencyHeader%
+\PerspectiveEfficiency%
+\caption{Efficiency of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+\newcommand{\TablePerspectiveAdoption}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+\AdoptionHeader%
+\PerspectiveAdoption%
+\caption{Adoption of the proposed solution}
+\label{#1}
+\end{longtabu} \tikzexternalenable
+}
+
+\newcommand{\TablePerspectiveSummary}[1]{ \tikzexternaldisable
+\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+\SummaryHeader%
+\PerspectiveSummary%
 \caption{Sommary of the proposed solution}
 \label{#1}
 \end{longtabu} \tikzexternalenable

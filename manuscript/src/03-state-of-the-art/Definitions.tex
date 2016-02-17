@@ -37,7 +37,13 @@ The next paragraphs define these requirements.
   \subitem $\to$ decreases Coupling
 \end{itemize}
 
+
 \subsubsection{Encapsulation} \label{chapter3:definitions:productivity:encapsulation}
+
+% \begin{wrapfigure}{R}{0.2\textwidth}
+%   \centering
+%   \includegraphics[height=0.1\textwidth]{../resources/italian-software-architecture.png}
+% \end{wrapfigure}
 
 \paragraph{Boundary Definition}
 \illustration{spaghetti programming}%
@@ -93,7 +99,7 @@ But if they rely on shared state, they need to coordinate the causal scheduling 
 This scheduling between the operations can be defined in two ways.
 \begin{description}
 \item[Synchronization] Operations are scheduled sequentially to have the exclusivity on a shared state, or
-\item[Message-passing] Operations communicate their local modifications of the state to other operations as immutable messaged.
+\item[Message-passing] Operations communicate their local modifications of the state to other operations as immutable messages.
 \end{description}
 
 Because of the latency associated with message-passing, the atomicity of operations is challenged.
@@ -131,7 +137,7 @@ An application is sustainable only if the platform used to build it generates re
 A platform needs to present a balance between productivity and efficiency to be adopted by both the community and the industry.
 The productivity is required for a platform to be appealing to gather a community to support the ecosystem around it.
 And the efficiency is required to be economically viable and needed by the industry, and to provide the reason for this ecosystem to exist.
-Additionally, the web acts as a tremendous catalyst fueling these interactions.
+The web acts as a tremendous catalyst fueling these interactions.
 
 \separator
 

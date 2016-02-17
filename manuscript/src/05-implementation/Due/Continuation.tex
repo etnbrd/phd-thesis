@@ -75,7 +75,7 @@ It transforms a nested imbrication of continuations similar to the abstraction (
 \end{figure}
 
 The main control flow characteristics, is to allow the execution order to be different from the linearity expressed in the source file.
-The equivalence takes into account these disruptions when modifying the source.
+The equivalence must take into account these disruptions when modifying the source.
 
 A call inside a loop yields multiple Dues because of the repetition, while only one can be returned to continue the chain.
 The others would be discarded.

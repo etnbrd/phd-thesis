@@ -1,0 +1,177 @@
+\section{Evaluation} \label{chapter4:evaluation}
+
+The compiler previously presented is evaluated against the criteria presented in chapter \ref{chapter3}, Productivity, Efficiency and Adoption.
+
+\subsection{Trading Productivity for Efficiency}
+
+% \subsubsection{Productivity}
+
+The compiler intends to disrupt as less as possible the way developer build web applications.
+The goal is to avoid degrading the productivity, hence the adoption, of the proposed platform.
+% The source language, Javascript, is left intact, except for the forbidden statements \texttt{with} and \texttt{eval}.
+% These statements are already forbidden by some good practice guides \cite{Crockford2008}.
+Therefore, the productivity is potentially the same as the original event-driven platform.
+
+However, in the current state, the compiler implementation is unable to operate the transformation without an external help.
+The static analysis is unable to correctly detect the aliasing of the memory in Javascript.
+It avoids developers to use Higher-Order Programming, hence impacts composition.
+This limitation avoid to improve the current trade-off of productivity for efficiency, as illustrated in table \ref{tab:proposition-productivity}.
+Indeed, to gain efficiency, developers need to commit efforts to indicate the stages of the pipeline, and assure their dependency.
+
+\TablePropositionProductivity{tab:proposition-productivity}
+
+The manual transformation process yields a distributed application, similarly as the other efficient platforms.
+And the chapter \ref{chapter3} showed that such applications achieve very good performance efficiency.
+The proposition actually concedes productivity for efficiency, as illustrated in table \ref{tab:proposition-efficiency}.
+
+\TablePropositionEfficiency{tab:proposition-efficiency}
+
+The productivity limitation of the current implementation avoids the platform to proposes a satisfying compromise between productivity and efficiency.
+Perspectives to overcome this limitation are addressed later in section \ref{chapter5:evaluation:perspective}.
+
+% It doesn't make any sense to evaluate an application, as the transformation would not reflect the compilation process, but the manual transformation process.
+
+% If the runtime memory analysis is solid enough to detect correctly the aliasing of the memory, then it will be able to help the development team transitioning from productivity to efficiency, which is the response of this thesis to the problematic.
+
+\subsection{Conclusion}
+
+Because the current implementation is not different than the efficient platform, its adoption is not expected to be different, as illustrated in table \ref{tab:proposition-adoption}.
+As presented in the chapter \ref{chapter3}, trading productivity for efficiency drastically reduces adoption.
+Both productivity and efficiency are required for the platform to be adopted by new developers as well as large businesses.
+Only at this condition, it reinforces the loop between community and industry.
+
+\TablePropositionAdoption{tab:proposition-adoption}
+
+% It was briefly tested during the development of the grumpy application, presented in chapter \ref{chapter4}, section \ref{chapter4:execution-models:examples}.
+
+\separator
+
+Due to the limitation in static analysis of dynamic languages, the implementation presented in this thesis is unable to address the problematic as expected.
+Yet, this limitation avoid the equivalence presented in chapter \ref{chapter4} to be fully implemented.
+Therefore, this evaluation holds only on the implementation, and not on the equivalence.
+
+\TablePropositionSummary{tab:proposition-summary}
+
+When saying that \textit{it is a mistake to attempt high concurrency without help from the compiler}, R. von Behren \textit{et al.} \cite{Behren2003} implies that the language alone cannot achieve high concurrency.
+It is necessary to rely on additional tools, such as a compiler to reach the best compromise between productivity and efficiency.
+This evaluation concludes that static analysis is unable to reach this compromise for higher-order programming.
+Before dropping all higher-order languages for the sake of efficiency, the next paragraph presents some interesting perspectives of this work to further address this problematic.
+
+% In the contribution of this thesis, the two main difficulties, identifying stages and detecting memory dependencies, are due to the dynamic nature of Javascript.
+% A perspective to overcome these limitation is to implement the transformation, not as a compiler, but as a runtime.
+% Indeed, at runtime, all the dynamic behavior are resolved, and the analysis can be much more precise, and less speculative.
+
+% \subsection{Fluxionnal Runtime} 
+
+% \section{Perspectives}
+
+% Javascript is a highly dynamic languages.
+
+
+\section{Perspectives} \label{chapter5:evaluation:perspective}
+
+As stated in the previous chapter, static analysis limits the expressiveness.
+For example, to isolate fluxions, the current implementation of the compiler restrains the developer to use only \textit{in situ} callbacks, and avoids aliasing.
+Though the work of this thesis can be continued by implementing the compiler with dynamic analysis.
+
+\subsection{Just-in-time Compilation}
+
+Most Javascript interpreters compile some parts of the code at run time to improve performances.
+During this compilation, the levels of indirections are mostly resolved.
+The code is translated directly into lower-level instructions.
+
+As a continuation of this work, the equivalence could be implemented as a just-in-time (JIT) time compiler.
+Such a compiler could leverage the resolution of the variables to analyze their scope, and isolate the code accordingly.
+
+\subsubsection{Rupture point detection}
+
+With the compiler implemented directly inside the interpreter, detecting rupture points become trivial.
+Indeed, the interpreter provides the asynchronous functions indicating the rupture points.
+It can immediately mark a rupture point when encountered at execution, to detect the stages.
+
+Moreover, with the dynamic resolution of variables, the analysis of interdependencies between stages is trivial.
+Each stage can be isolated in a fluxion, and deployed accordingly to its dependencies.
+
+% With the dynamic registering of Fluxions to the messaging system, and into tag groups, it is possible to transform a Javascript application continuously during its execution.
+% Analysis of the interdependencies become as trivial as for static languages, with the resolution of the indirections by the just-in-time compiler.
+% The fluxional compiler waits for these resolutions, and then analyzes the compiled code for rupture points.
+% As the asynchronism of a function call is handled by the execution engine, the just-in-time compilation can pin point precisely the asynchronous calls from the synchronous ones. 
+% And the continuations for these asynchronous calls are resolved, which makes them similar to inline continuations.
+
+\subsubsection{Closure Serialization}
+
+Closures are required to allow higher-order programming.
+But the static compiler is unable to manipulate closures, as illustrated in section \ref{chapter5:flx:evaluation:isolation}.
+Implementing the compiler at the interpreter level allows to serialize closures to send them between fluxions.
+It enables the use of higher-order programming within the fluxional execution model.
+Hence, it would allow, to some extent, to improve the compromise between productivity and efficiency.
+
+Indeed, the developer is free to use the higher-order programming to compose modules, with a global memory abstraction.
+Yet, the execution could distribute this global memory abstraction according to the detected interdependencies.
+
+\subsubsection{Dynamic Grouping}
+
+With the dynamic detection of stages and their dependencies, and the manipulation of closures, fluxions can be registered during the execution of the application.
+To assure they meet their dependencies, the fluxions are deployed according to their groups.
+Two fluxions belong to the same group if they need to share access to some variables.
+Therefore, they need to be deployed on the same event-loop to share their memory.
+
+\subsubsection{Safe-Checking}
+
+It is required to safe-check that the compiled code is consistent with the remaining execution.
+As an example, just-in-time compilers check the type to assure that a compiled function remains conform to the input and output types of its call site.
+Similarly, it is required to check that the deployment of fluxions doesn't cause inconsistencies.
+
+If a fluxion ready to be deployed belongs to two different groups, these two groups needs to be gathered on the same event-loops.
+If they were previously deployed on two different event-loops, they need to be moved with their context to the same event-loop.
+Moreover, to assure consistency, they need to be moved when receiving the request that triggered the fluxion ready to be deployed.
+So that when this new fluxion is executed at this message reception it has access to the contexts of the two groups.
+For this purpose, the compiler put the execution on hold, and sends a control message downstream to order the move of the fluxions.
+% It interleaves control messages in the stream to communicate with the distributed interpreters.
+In this example, the message inquired the distributed interpreters to stop execution, pack the fluxions and their contexts, and send them back to another remote interpreter.
+To assure consistency, the execution resumes only when all the fluxions are gathered in the same event-loop, with access to the whole shared memory.
+
+% If the new fluxion depends an a local variable, as well as a variable from a group on another node than the local node, the group needs to be deployed back locally.
+% The fluxion as well as all the fluxions of the group are deployed locally, but the execution needs to wait for the contexts of the group to be available locally.
+% To gather the contexts, the node responsible for this group send a message to the messaging system managing this group.
+% The messaging system gather all the contexts of the fluxions, and send them back.
+% When the contexts are deployed locally to the new node responsible for the this group, the execution of this branch can resume.
+
+% A new compromise have to be done between the cost of sending a fluxion and the cost to get it back, and the risk that it requires to be sent back.
+% It might be possible to reduce this risk by saving the compilation information from one execution to the other.
+
+\separator
+
+The perspectives described in the previous paragraphs overcome the limitations of the current implementation of the compiler.
+They actually describe a further implementation of the equivalence described in chapter \ref{chapter4}.
+They represent the directive to continue this work if it were to be continued.
+
+\subsection{Evaluation of the perspective}
+
+This second evaluation admits that the JIT compilation allows to resolve all the indirection in the memory.
+Which is the current incertitude yielded by this thesis.
+
+The fluxional JIT compiler then doesn't need to rely on human interaction.
+Therefore, the expected productivity is the same as the productivity language used as a source, as illustrated in table \ref{tab:perspective-productivity}.
+
+\TablePerspectiveProductivity{tab:perspective-productivity}
+
+Naturally, the performance efficiency of the implementation is poor, at first, as the development is focused on productivity.
+And some development efforts are required to improve the efficiency.
+But because of this compilation, they are expected to be less than the current required effort, by several orders of magnitude, as illustrated in table \ref{tab:perspective-efficiency}.
+Indeed, instead of redesigning the architecture of the application to immediately isolate components, it is possible to modify them to continuously loosen their dependencies.
+
+\TablePerspectiveEfficiency{tab:perspective-efficiency}
+
+Moreover, during this decomposition and after, developers can still rely on higher-order programming, even between isolated application parts.
+In the current state of the art, there is no known platform to offer higher-order programming between distributed parts.
+This possibility is therefore unknown, and could actually yield to an unrivaled compromise between productivity and efficiency.
+Following the insight along this thesis, a platform bringing both productivity and efficiency simultaneously would be greatly adopted.
+But it requires to be observed in real conditions before drawing this conclusion.
+% , as illustrated in table \ref{tab:perspective-adoption}.
+
+% \TablePerspectiveAdoption{tab:perspective-adoption}
+
+\separator
+
+\TablePerspectiveSummary{tab:proposition-summary}

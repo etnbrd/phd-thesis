@@ -1,6 +1,6 @@
 \section{Productivity Focused Platforms} \label{chapter3:software-productivity}
 
-\cit{It is becoming increasingly important to the data-processing industry to be able to produce
+\cit{It is becoming increasingly important to the data-proces\-sing industry to be able to produce
 [programming systems] % more programming systems and produce them with fewer errors,
 at a faster rate, and in a way that modifications can be accomplished easily and quickly.}{W. Stevens, G. Myers, L. Constantine \cite{Stevens1974}.}
 
@@ -8,11 +8,11 @@ In order to improve and maintain a software system, it is important to holds in 
 As the system grows in size, the mental representation becomes more and more difficult to grasp.
 Therefore, it is crucial to decompose the system into smaller subsystem easier to grasp individually.
 
-\cit{Measuring programming progress by lines of code is like measuring aircraft building progress by weight.}{Bill Gates}
+% \cit{Measuring programming progress by lines of code is like measuring aircraft building progress by weight.}{Bill Gates}
 
 Section \ref{chapter3:software-productivity:modularity} presents the modular programming paradigms, and their programming models, oriented toward productivity.
 Section \ref{chapter3:software-productivity:adoption} presents the adoption of the implementations of modular programming languages.
-Section \ref{chapter3:software-productivity:performance} presents the consequences of the modularity on performance.
+Section \ref{chapter3:software-productivity:efficiency-limitations} presents the consequences of the modularity on performance.
 Finally, section \ref{chapter3:software-productivity:summary} summarizes the three previous sections in a table.
 
 \subsection{Modular Programming} \label{chapter3:software-productivity:modularity}
@@ -60,7 +60,7 @@ They provide encapsulation, higher-order programming and lazy evaluation.
 \subsubsection{Multi-Paradigm}
 
 The functional programming concepts are also implemented in other languages along with mutable states and object-oriented concepts.
-Major recent programming languages, including Java 8 and C++ 11, now commonly present \textbf{higher-order functions}.
+Major recent programming languages, including Java 8 and C++ 11, now commonly present higher-order functions.
 \textit{In fine}, it helps developers to write applications that are more maintainable, and favorable to evolution \cite{Hughes1989,Turner1981}.
 These recent multi-paradigms languages such as \ImplementationsOf{Multi Paradigm} combine the different paradigms to help developer building applications faster.
 
@@ -73,7 +73,7 @@ The previously presented programming models are all rather focused on productivi
 \subsection{Adoption} \label{chapter3:software-productivity:adoption}
 
 As stated previously, adoption relies an productivity as well as efficiency.
-The next paragraphs presents the adoptions of different platforms for web development and focus on Javascript.
+The next paragraphs present the adoptions of different platforms for web development and focus on Javascript.
 
 \begin{figure}[!h]
 \begin{center}
@@ -112,12 +112,12 @@ It is cited in more than \num{960000} questions on \textit{StackOverflow} while 
 And according to a survey by \textit{StackOverflow}, it is currently the language the most popular\ftnt{http://stackoverflow.com/research/developer-survey-2015}.
 Moreover, the Javascript package manager, \textit{npm}, has the most important and impressive package repository growth.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\linewidth]{../resources/stackoverflow-mostwanted.pdf}
-  \label{fig:so-tags}
-  \caption{Most Wanted Technologies in 2015 from a StackOverflow survey}
-\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.7\linewidth]{../resources/stackoverflow-mostwanted.pdf}
+%   \label{fig:so-tags}
+%   \caption{Most Wanted Technologies in 2015 from a StackOverflow survey}
+% \end{figure}
 
 \begin{figure}[h!]
   \centering
@@ -142,16 +142,16 @@ Moreover, the Javascript package manager, \textit{npm}, has the most important a
 
 \subsubsection{Industry}
 
-The actors of the software industry tends to hide their activities trying to keep an edge on the competition.
+The industrial actors avoid to discolse their activities beliving it grants them an edge on the competition.
 The previous metrics represent the visible activity but are barely representative of the software industry.
 The trends on job opportunities give some additional hints on the situation.
 Javascript is the third most wanted skill, according to \textit{Indeed}\ftnt{http://www.indeed.com}, right after SQL and Java.\ftnt{http://www.indeed.com/jobtrends?q=Javascript\%2C+SQL\%2C+Java\%2C+C\%2B\%2B\%2C+C\%2FC\%2B\%2B\%2C+C\%23\%2C+Python\%2C+PHP\%2C+Ruby\&l=}
-Moreover, according to \textit{breaz.io}\ftnt{https://breaz.io/}, Javascript developers get more opportunities than any other developers.
+Moreover, according to \textit{breaz.io}\footnote{\textit{breaz.io} \url{https://breaz.io/} was recently acquired by \textit{hired} \url{https://hired.com/}.}, Javascript developers get more opportunities than any other developers.
 Javascript is increasingly adopted in the software industry.
 
 \separator
 
-According to these various sources, multi paradigm languages like Javascript are the most widely used by the community and the industry, as presented in table \ref{tab:productivyt-adoption}.
+According to these various sources, multi paradigm languages like Javascript are the most widely used by the community and the industry, as presented in table \ref{tab:productivity-adoption}.
 OOP and Imperative Programming remains strong in the industry, but are progressively abandoned by the community.
 Functional Programming is not well represented in community nor the industry.
 
@@ -164,7 +164,7 @@ Functional Programming is not well represented in community nor the industry.
 Eventually, the presented languages are hitting a wall on their way to performance.
 They provide global memory abstraction on which to rely to assure encapsulation and composition. % -- either mutable state or immutable state.
 Functional programming relies on immutable message-passing.
-It might impacts performance at a fine-grain level because of heavy memory usage.
+It might impact performance at a fine-grain level because of heavy memory usage.
 And the synchronization required by mutable state is often hard to develop with \cite{Adya2002}, or avoid parallelism \cite{Pai1999,Krohn2007}.
 These results are recapped in table \ref{tab:productivity-performance}.
 

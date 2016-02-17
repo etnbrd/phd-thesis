@@ -5,11 +5,13 @@
 This last chapter evaluates the solution presented in the previous chapter against the criteria presented in chapter \ref{chapter3}.
 The criteria are Productivity, Efficiency and Adoption.
 
-\section{Productivity and Adoption}
+\section{Fluxional Compiler}
+
+\subsection{Productivity and Adoption}
 
 The solution presented intends to disrupt as less as possible the way developer build web applications.
 The Javascript language is left intact, except for the forbidden statements \texttt{with} and \texttt{eval}.
-These statements are already forbidden by most good practice guides \cite{Crockford2008}.
+These statements are already forbidden by some good practice guides \cite{Crockford2008}.
 The goal is to avoid degrading the productivity, hence the adoption, of the proposed platform.
 
 In the current state, the compiler implementation is unable to operate the transformation without the help of the developer.
@@ -24,9 +26,9 @@ A scalable PaaS, without the need for the developer to write stateless applicati
 
 \TablePropositionProductivity{tab:proposition-productivity}
 
-\section{Efficiency}
+\subsection{Efficiency}
 
-The implementation of the compiler is not finished enough to compile a real application without the help from the developer.
+The implementation of the compiler is not finished enough to compile a real application without help from the developer.
 It doesn't make any sense to evaluate an application, as the transformation would not reflect the compilation process, but the manual transformation process.
 Indeed, it is already known that distributed application can have very good performance efficiency.
 
@@ -34,10 +36,54 @@ If the runtime memory analysis is solid enough to detect correctly the aliasing 
 
 \TablePropositionEfficiency{tab:proposition-efficiency}
 
-\section{Summary}
+\subsection{Summary}
 
 This thesis was unfortunately unable to completely address the problematic in time, and leave the science in an unbearable doubt.
 Is it possible to have a smooth transition from productivity to efficiency.
 The author dares to say yes, but the humanity is not ready yet.
 
 \TablePropositionSummary{tab:proposition-summary}
+
+\section{Perspectives}
+
+No static analysis can really overstep these limitations.
+Only a dynamic analysis could analysis the resolved indirections during run time to overstep these limitations correctly.
+
+\subsection{Dynamic Analysis and Compilation}
+
+Javascript is compiled at run time to improve performances.
+During this compilation, all the levels of indirections are resolved to actually manipulate the memory.
+As future works, we intend to implement the fluxional compiler as parts of a just-in-time compilation in a Javascript execution engine.
+
+\subsubsection{Just-in-time Compilation}
+
+With the dynamic registering of Fluxions to the messaging system, and into tag groups, it is possible to transform a Javascript application continuously during its execution.
+Analysis of the interdependencies become as trivial as for static languages, with the resolution of the indirections by the just-in-time compiler.
+The fluxional compiler waits for these resolutions, and then analyzes the compiled code for rupture points.
+As the asynchronism of a function call is handled by the execution engine, the just-in-time compilation can pin point precisely the asynchronous calls from the synchronous ones. 
+And the continuations for these asynchronous calls are resolved, which makes them similar to inline continuations.
+
+Moreover, this memory analysis would allow the closure serialization required for the use of higher-order functions in the fluxional execution model.
+
+\subsubsection{Dynamic Grouping}
+
+The isolation of a fluxion can also be done during the execution.
+If it depends on an upstream variable, the fluxion is dynamically registered to the group, and can be deployed.
+
+If the new fluxion depends an a local variable, as well as a variable from a group on another node than the local node, the group needs to be deployed back locally.
+The fluxion as well as all the fluxions of the group are deployed locally, but the execution needs to wait for the contexts of the group to be available locally.
+To gather the contexts, the node responsible for this group send a message to the messaging system managing this group.
+The messaging system gather all the contexts of the fluxions, and send them back.
+When the contexts are deployed locally to the new node responsible for the this group, the execution of this branch can resume.
+
+A new compromise have to be done between the cost of sending a fluxion and the cost to get it back, and the risk that it gets sent back.
+It might be possible to reduce this risk by saving the compilation information from one execution to the other.
+
+
+\subsection{Evaluation}
+
+
+
+
+
+\TablePerspectiveSummary{tab:proposition-summary}
