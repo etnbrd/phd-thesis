@@ -7,12 +7,12 @@ Each compilers is divided into two steps, the identification of the rupture poin
 % This chapter presents the technical implementations of these two steps in the transformation from the event-driven execution model to the pipeline architecture
 % , the transformation described in the previous chapter was implemented incrementally in two compilers.
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.7\textwidth]{../resources/roadmap.pdf}
-\end{center}
-\caption{Roadmap}
-\label{fig:roadmap}
+\begin{figure}[h!]%
+  \textfig{%
+    \includegraphics[width=0.7\textwidth]{../resources/roadmap.pdf}%
+    \caption{Roadmap}%
+    \label{fig:roadmap}%
+  }%
 \end{figure}
 
 The first compiler focus on the identification of simple chains of causality between continuations to transform these chains into Promises.
@@ -33,4 +33,4 @@ This second compilers is introduced in section \ref{chapter5:flx}.
 
 \input{05-implementation/Due/main}
 \input{05-implementation/Flx/main}
-\input{05-implementation/Evaluation}
+% \input{05-implementation/Evaluation}

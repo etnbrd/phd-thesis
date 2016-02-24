@@ -6,10 +6,13 @@ Moreover, it is implemented as an event-loop to impose the developer to define t
 The compiler transforms a \textit{Node.js} application into a fluxional application compliant with the execution model described in section \ref{chapter4:flx-model}.
 The chain of compilation is described in figure \ref{fig:compilation}.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{../resources/compiler-stream.pdf}
-  \caption{Compilation chain}
-  \label{fig:compilation}
+\begin{figure}%
+  \bigfig{%
+    \centering%
+    \includegraphics[width=\textwidth]{../resources/compiler-stream.pdf}%
+    \caption{Compilation chain}%
+    \label{fig:compilation}%
+  }%
 \end{figure}
 
 The compiler uses the \textit{estools}\ftnt{https://github.com/estools} suite to parse (\texttt{esprima}), analyze (\texttt{escope}), manipulate (\texttt{estraverse} and \texttt{esquery}) and generate (\texttt{escodegen}) source code from an Abstract Syntax Tree (AST).
@@ -35,14 +38,19 @@ In \textit{Node.js}, I/O operations are asynchronous functions and indicate rupt
 Figure \ref{fig:basicrp} shows a code example of a rupture point with the illustration of the execution of the two application parts isolated into fluxions.
 The two application parts are the caller of the asynchronous function call on one hand, and the callback provided to the asynchronous function call on the other hand.
 
-\begin{figure}[h!]
-  \includegraphics[width=0.8\linewidth]{../resources/basicrp.pdf}
+TODO
+
+\begin{figure}[h!]%
   \begin{code}
 asyncCall(arguments, function callback(result){ //@\circled{2}@ });
 // Following statements //@\circled{1}@
-  \end{code}
-  \caption{Rupture point interface}
-  \label{fig:basicrp}
+  \end{code}%
+  \bigfig{%
+    \centering
+    \includegraphics[width=\textwidth]{../resources/basicrp.pdf}%
+    \caption{Rupture point interface}%
+    \label{fig:basicrp}%
+  }%
 \end{figure}
 
 Similarly as in the Due compiler, the detection of asynchronous callees is done by the developer. 

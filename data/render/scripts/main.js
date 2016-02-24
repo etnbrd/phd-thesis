@@ -36,6 +36,8 @@ function midAngle(d){
   return d.startAngle + (d.endAngle - d.startAngle)/2;
 }
 
+var lightgray = '#FAFAFA';
+
 var dueEvalDict = {
   nocont: 'No Detected Continuations',
   'eval': 'Presence of eval or with statements',
@@ -443,8 +445,20 @@ function lineChartFactory(parent, name, options) {
         .attr('width', options.width + options.margin.left + options.margin.right)
         .attr('height', options.height + options.margin.top + options.margin.bottom)
         .attr('class', 'chart')
-        .attr('filename', name + '.svg')
-        .append('g');
+        .attr('filename', name + '.svg');
+        
+        var ratio = 1.11; 
+        var margin = 356;
+
+        svg.append('rect')
+        .attr('x', -margin * ratio / 2)
+        .attr('y', -20)
+        .attr('width', options.width + options.margin.left + options.margin.right + margin)
+        .attr('height', options.height + options.margin.top + options.margin.bottom + 20)
+        .attr('fill', lightgray)
+
+
+        svg.append('g');
 
       lineChart(svg, data, options);
     }
@@ -624,7 +638,18 @@ function timelineFactory(parent, name, options) {
         .attr('height', options.height + options.margin.top + options.margin.bottom)
         .attr('class', 'chart')
         .attr('filename', name + '.svg')
-        .append('g');
+
+        var ratio = 1.11; 
+        var margin = 356;
+
+        svg.append('rect')
+        .attr('x', -margin * ratio / 2)
+        .attr('y', 20)
+        .attr('width', options.width + options.margin.left + options.margin.right + margin)
+        .attr('height', options.height + options.margin.top + options.margin.bottom - 20)
+        .attr('fill', lightgray)
+
+        svg.append('g');
 
       timeline(svg, data, options);
     }

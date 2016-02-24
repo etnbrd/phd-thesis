@@ -2,6 +2,11 @@
 %!TEX encoding = UTF-8 Unicode
 \documentclass[12pt]{report}
 
+\newlength{\alphabet}
+\settowidth{\alphabet}{\normalfont abcdefghijklmnopqrstuvwxyz}
+
+\usepackage[top=15mm, bottom=20mm, textwidth=2.4\alphabet, hmarginratio={1:1}]{geometry}
+
 \usepackage[french, english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -9,7 +14,6 @@
 \usepackage{xunicode}
 \PassOptionsToPackage{hyphens}{url}
 \usepackage[hidelinks=true]{hyperref}
-\usepackage{geometry}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{tabu}
@@ -35,6 +39,16 @@
 
 \defaultfontfeatures{Ligatures=TeX}
 
+\usepackage[all]{nowidow}
+\usepackage{needspace}
+
+\clubpenalty=9996
+\widowpenalty=9999
+\brokenpenalty=4991
+\predisplaypenalty=10000
+\postdisplaypenalty=1549
+\displaywidowpenalty=1602
+
 \input{bibliography}
 \input{utils/code}
 \input{utils/macros}
@@ -50,8 +64,8 @@
 \tabulinesep=2mm
 % \setmainfont{Helvetica Neue}
 
-\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
 \setcounter{minitocdepth}{3}
 
 % To speed up the compilation :

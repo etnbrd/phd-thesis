@@ -4,7 +4,7 @@ text { font-family: 'Gotham Rounded'; font-weight: 100; color: blue; }
 .axis path, .axis line { fill: none; stroke: #000000; shape-rendering: crispedges; }
 .grid .tick { stroke: #d3d3d3; opacity: 0.7; }
 .grid path { stroke-width: 0px; }
-.line { stroke-width: 1.5pt; fill: rgba(0, 0, 0, 0.0); }
+.line { stroke-width: 1.5pt; stroke: #000000; }
 .label.Javascript, .slice.Javascript { fill: #e31a1c; }
 .line.Javascript { stroke: #e31a1c; }
 .label.Ruby, .slice.Ruby { fill: #fc4e2a; }

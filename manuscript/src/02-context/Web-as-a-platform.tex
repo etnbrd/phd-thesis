@@ -1,11 +1,14 @@
 \section{The Web as a Platform} \label{chapter2:web-as-a-platform}
 
-\begin{wrapfigure}{R}{0.2\textwidth}
-  % \vspace{-27pt}
-  \centering
-  \includegraphics[width=0.18\textwidth]{../resources/Mac-PC.png}
-  % \vspace{-20pt}
-\end{wrapfigure}
+% \begin{wrapfigure}{R}{0.2\textwidth}
+%   % \vspace{-27pt}
+%   \centering
+%   % \vspace{-20pt}
+% \end{wrapfigure}
+
+\marginfig{16}{0.45\textwidth}{
+  \includegraphics[width=0.25\textwidth]{../resources/Mac-PC.png}
+}
 
 Similarly to operating systems, the Web browser started as a software product with extension capabilities that transformed it into a platform. % with scripts and applications.
 % The distribution of an application is limited only by the platform it can be deployed on.
@@ -38,35 +41,32 @@ Other languages like Python and PHP, emerged within a strong community, and were
 Django, the Python web frameworks, is used to develop many web applications in industrial contexts.
 The Wordpress publishing platform is another example of an economical success with PHP.
 
+\marginfig{20}{0.5\textwidth}{
+  \includegraphics[width=0.3\textwidth]{../resources/javascript-hate.pdf}%
+}
+
 The web acts as a catalyst in the interaction between the community and the industry.
 Because of its position in the web, Javascript is slowly becoming the main language for web development.
 The next paragraph present its evolution in the industry and the community.
+
 
 \subsubsection{The Ugly Duckling}
 
 \illustration{the ugly duckling}
 
 \cit{There are only two kinds of languages: the ones people complain about and the ones nobody uses}%
-{B. Stroustrup\ftnt{http://www.stroustrup.com/bs_faq.html\#really-say-that}}
+{B. Stroustrup\ftnt{http://bit.ly/stroustrup-quote}}
+
 
 % Javascript was created by Brendan Eich at Netscape around May 1995, and released to the public in September.
 % At the time, Java was quickly adopted as the default language for web servers development, and everybody was betting on pushing Java inside the browser as well.
 % The history proved them wrong\footnote{Except for mobiles, with the success of Dalvik Android.}.
-
-\begin{wrapfigure}{R}{0.25\textwidth}
-  \vspace{-20pt}
-  \centering
-  \includegraphics[width=0.25\textwidth]{../resources/javascript-hate.pdf}
-  \vspace{-35pt}
-\end{wrapfigure}
 
 Javascript was released as a scripting engine in Netscape Navigator around September 1995 and later in its concurrent, Internet Explorer.
 The differences between the two implementations forced Web pages to be designed for a specific browser.
 This competition was fragmenting the Web.
 To stop this fragmentation, Netscape submitted Javascript to ECMA International for standardization in November 1996.
 ECMA International released  ECMAScript -- or ECMA-262 -- the first standard for Javascript in June 1997. %, to which all browsers should refer for their implementations.
-
-% \separator
 
 The initial release of Javascript was designed by Brendan Eich within 10 days, and targeted unexperienced developers.
 For these reasons, the language was considered poorly designed and unattractive by the developer community.
@@ -86,21 +86,20 @@ For these reasons, the language was considered poorly designed and unattractive 
 
 But this situation evolved drastically since.
 All web browsers include a Javascript interpreter, making Javascript the most ubiquitous runtime \cite{Flanagan2006}.
-This position became an incentive to make it fast (V8, ASM.js) and convenient (ES6, ES7).
-Any Javascript code in the browser is open, allowing the community to pick, improve and reproduce the best techniques \ftnt{http://blog.codinghorror.com/the-power-of-view-source/}.
+This position became an incentive to make it fast (V8\ftnt{http://bit.ly/V8-optimization}, ASM.js) and convenient (ES6, ES7).
+Any Javascript code in the browser is open, allowing the community to pick, improve and reproduce the best techniques \ftnt{http://bit.ly/coding-horror-view-source}.
 Javascript is distributed freely, with all the tools needed to reproduce and experiment on the largest communication network in history.
-And since 2009, it came back on the server\footnote{True hipsters used Server-Side Javascript before it was cool. \url{https://developer.mozilla.org/en-US/docs/Archive/Web/Server-Side_JavaScript}} with Node.js.
+And since 2009, it came back on the server\footnote{True hipsters used Server-Side Javascript before it was cool. \url{http://bit.ly/mdn-server-side-javascript}} with Node.js.
 This omnipresence became an advantage.
 It allows to develop and maintain the whole application with the same language.
 All these reasons made the popularity of the Web and Javascript.
-
 
 % \paragraph{Rising of the unpopular language}
 
 \subsubsection{The Rise of Javascript}
 
 \cit{When JavaScript was first introduced, I dismissed it as being not worth my attention. Much later, I took another look at it and discovered that hidden in the browser was an excellent programming language.}%
-{Douglas Crockford\ftnt{http://javascript.crockford.com/survey.html}}
+{Douglas Crockford\ftnt{http://bit.ly/crockford-quote}}
 
 Javascript was initially used for short interactions on web pages.
 % The typical usage was to pre-validate forms on the client to avoid wasting bandwidth with wrongly formated requests to the server.
@@ -127,8 +126,7 @@ Javascript became the \textit{de facto} programming language to develop on this 
 The main events in the history of Javascript presented in the previous chapters are summariezed in figure \ref{fig:js-timeline}.
 
 \begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{../resources/javascript-timeline.pdf}
+  \bigfig{\includegraphics[width=\figurewidth]{../resources/javascript-timeline.pdf}}
   \caption{Javascript timeline}
   \label{fig:js-timeline}
 \end{figure}
@@ -203,18 +201,18 @@ The next section presents the realities and technical challenges to assure the p
 % With SaaS, a web application can scale world wide with near zero latency. %, and accessing it is as simple as distributing it world wide.
 % With this broad range of distribution, a new business model emerged, allowing instantaneous and free access for the user.
 
-Since the web allowes an application to scale world wide with near zero latency, the software industry needed innovative solutions to cope with large network traffic.
+Since the web allows an application to scale world wide with near zero latency, the software industry needed innovative solutions to cope with large network traffic.
 
 \illustration{busy web servers}
 
 % \subsubsection{Scalable Concurrency}
 
 The Internet allows communication at an unprecedented scale.
-There is more than 16 billions connected devices, and it is growing fast\ftnt{http://blogs.cisco.com/news/cisco-connections-counter} \cite{Hilbert2011}.
-A large web application like google search receives about \num{40000} requests per seconds\ftnt{http://www.internetlivestats.com/google-search-statistics/}.
+There is more than 16 billions connected devices, and it is growing fast\ftnt{http://bit.ly/cisco-connection-counter} \cite{Hilbert2011}.
+A large web application like google search receives about \num{40000} requests per seconds\ftnt{http://bit.ly/google-search-statistics}.
 Such a Web application needs to be highly concurrent to manage this amount of simultaneous requests.
-In the 2000s, the limit to break was 10 thousands simultaneous connections with a single commodity machine\ftnt{http://www.kegel.com/c10k.html}.
-In the 2010s, the limit is set at 10 millions simultaneous connections\ftnt{http://c10m.robertgraham.com/p/manifesto.html}.
+In the 2000s, the limit to break was 10 thousands simultaneous connections with a single commodity machine\ftnt{http://bit.ly/c10k-problem}.
+In the 2010s, the limit is set at 10 millions simultaneous connections\ftnt{http://bit.ly/c10m-problem}.
 With the growing number of connected devices on the internet, concurrency is a very important property in the design of web applications.
 
 \subsubsection{Event-driven Execution Model} \label{chapter2:web-as-a-platform:javascript:event-loop}
@@ -227,15 +225,16 @@ In 2009, Joyent released Node.js to build real-time web applications with this p
 % This section presents the event-loop execution model, and the advantages of Javascript for this paradigm.
 
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\linewidth]{../resources/event-loop.pdf}
-  \caption{Event-driven execution model}
-  \label{fig:event-loop}
+  \textfig{
+    \includegraphics[width=0.7\linewidth]{../resources/event-loop.pdf}
+    \caption{Event-driven execution model}
+    \label{fig:event-loop}
+  }
 \end{figure}
 
 The event-driven execution model is presented in figure \ref{fig:event-loop}.
 At reception, each request from a client queues an event waiting to be processed.
-A loop unqueues these events one at a time, and run the appropriate handler to process them.
+A loop unqueues these events one at a time, and runs the appropriate handler to process them.
 To process an event, a handler can query external resources, which respond asynchronously by queuing additional events.
 For each query, the querying handler specifies a new handler - called continuation - to process the additional event.
 Alternatively, a handler can respond directly to the client, ending this chain of asynchronous events.
@@ -288,10 +287,11 @@ Each stage has an independent memory to hold its own state.
 As the stages are independent, the state coordination between the stages are communicated along with the stream of data.
 
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.8\linewidth]{../resources/pipeline.pdf}
-  \caption{Pipeline execution model}
-  \label{fig:pipeline}
+  \textfig{
+    \includegraphics[width=0.8\linewidth]{../resources/pipeline.pdf}
+    \caption{Pipeline execution model}
+    \label{fig:pipeline}
+  }
 \end{figure}
 
 The execution model of each stage is organized in a similar fashion than the event-driven execution model presented previously.
@@ -304,16 +304,25 @@ The isolation of memory in the pipeline execution model impacts the productivity
 % The previous section presented the event-loop execution model used by Javascript.
 The event-driven requires a global memory to assure development productivity.
 Whereas the pipeline execution model assures the isolation between the tasks to assure efficiency.
-The former presents limited scalabiity, whereas the latter does not.
+The former presents limited scalability, whereas the latter does not.
 % The event-loop is constrained within time-slicing concurrency to assure this coordination.
 This thesis argues that there exists an equivalence between the event-driven model and the pipeline execution model.
 Before drawing this equivalence, the next section details further the incompatibility between the two programming model and the resulting economical consequences.
 
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.8\linewidth]{../resources/models-difference.pdf}
+%   \caption{Comparison of the two memory models}
+%   \label{fig:models-difference}
+% \end{figure}
+
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.8\linewidth]{../resources/models-difference.pdf}
-  \caption{Comparison of the two memory models}
-  \label{fig:models-difference}
+  \centering\dualfig{
+    \includegraphics[page=1]{../resources/models-difference.pdf}}{
+    \includegraphics[page=2]{../resources/models-difference.pdf}}{
+    \caption{Comparison of the two memory models}
+    \label{fig:models-difference}
+  }
 \end{figure}
 
 

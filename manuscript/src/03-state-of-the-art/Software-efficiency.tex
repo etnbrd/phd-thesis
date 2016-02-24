@@ -7,12 +7,12 @@ Finally, section \ref{chapter3:software-efficiency:productivity-limitations} pre
 
 \subsection{Concurrency} \label{chapter3:software-efficiency:concurrency}
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-3.pdf}
-\end{center}
-\caption{Focus on Efficiency}
-\label{fig:state-of-the-art-3}
+\begin{figure}[h!]
+\textfig{%
+  \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-3.pdf}%
+  \caption{Focus on Efficiency}%
+  \label{fig:state-of-the-art-3}%
+}%
 \end{figure}
 
 Web servers need to be able to process lots of concurrent operations in a scalable fashion.
@@ -30,7 +30,7 @@ The two are indispensable for efficiency.
 % \cit{Building concurrent programming is like building a steam engine through a keyhole}{TODO}
 
 \cit{No matter how great the talent or efforts, some things just take time. You can't produce a baby in one month by getting nine women pregnant.}
-{Warren Buffett\ftnt{http://www.goodreads.com/quotes/476827-no-matter-how-great-the-talent-or-efforts-some-things}}
+{Warren Buffett\ftnt{http://bit.ly/warren-buffet-quote}}
 
 \illustration{feu rouge et rond point}
 Concurrent programming provides the mechanisms to assure atomicity of concurrent operations.
@@ -93,7 +93,7 @@ The implementations of hybrid models are \ImplementationsOf{Hybrid Models}.
 For example, cooperative threads, or fibers, avoid splitting the execution into atomic tasks nor use protection mechanisms to assure exclusivity.
 A fiber yields the execution to another fiber to avoid blocking the execution during a long-waiting operation, and recovers it at the same point when the operation finishes.
 Hiding the yielding points effectively hide the preemption.
-Developers cannot protect atomicity of operations, which increase the likeliness of race conditions \ftnt{https://glyph.twistedmatrix.com/2014/02/unyielding.html}.
+Developers cannot protect atomicity of operations, which increase the likeliness of race conditions \ftnt{http://bit.ly/deciphering-glyph-unyielding}.
 
 \paragraph{Limitation of Concurrent Programming}
 
@@ -143,20 +143,25 @@ Hence the parallel programming models are more efficient than the concurrent pro
 
 \subsection{Adoption} \label{chapter3:software-efficiency:adoption}
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-4.pdf}
-\end{center}
-\caption{Steering back toward Productivity}
-\label{fig:state-of-the-art-4}
+\begin{figure}[h!]
+\textfig{%
+  \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-4.pdf}%
+  \caption{Steering back toward Productivity}%
+  \label{fig:state-of-the-art-4}%
+}%
 \end{figure}
 
-\illustration{mars rover}
 When the need for efficiency is higher than the need for productivity, the adoption is steered by the industry more than the community.
 If the industry really needs a platform, it will commit the required development effort despite a low productivity.
+
+\marginfig{10}{0.6\textwidth}{
+  \includegraphics[width=0.4\textwidth]{../resources/marsrover.png}
+}
+
 The platforms for the Mars Rover or some banking systems are about 30 years old, yet the industry continues to maintain them.
 The platform presented in this section emerged from the academia and the industry but are often barely known by the larger community of developers.
 The more the platform trades productivity for efficiency, the less support it receives from the community.
+
 
 \subsubsection{Concurrent Programming}
 

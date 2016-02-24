@@ -10,12 +10,15 @@ To respond to an event, the associated handler can directly respond to the sourc
 Or it can request an external resource, and chain another handler to later process the initial event with the resource response, as illustred in figure \ref{fig:cont-chain}.
 The developer defines each handler as a continuation and defines their causality using the continuation passing style \cite{Wand1980,Haynes1984}.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\linewidth]{../resources/cont-chain.pdf}
-  \caption{Chain of continuations}
-  \label{fig:cont-chain}
-\end{figure}
+
+% \begin{figure}
+%   % \centering
+%   \textfig{%
+%     \includegraphics[width=0.8\linewidth]{../resources/cont-chain.pdf}%
+%     \caption{Chain of continuations}%
+%     \label{fig:cont-chain}%
+%   }
+% \end{figure}
 
 \subsubsection{Continuation Passing Style} \label{chapter4:event-loop:continuation}
 

@@ -2,10 +2,9 @@
 
 \subsubsection{Fluxional Application}
 
-\begin{wrapfigure}{r}{0.3\textwidth}
-  \centering
+\marginfig{9}{0.4\textwidth}{
   \includegraphics[height=0.2\textwidth]{../resources/grumpy.png}
-\end{wrapfigure}
+}
 
 To test fluxional execution model, it was used to develop a simple web application.
 This application doesn't use the transformation, nor the continuous development advocated in this thesis.
@@ -16,9 +15,12 @@ It allows to post anonymous grumbles into chat rooms.
 Additionally, a room can subscribe to the grumbles from another room.
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{../resources/grumpy-console.png}
-  \caption{Screenshot from the grumpy console}
-  \label{fig:grumpy-screenshot}
+  \bigfig{
+    \centering
+    \includegraphics[width=\textwidth]{../resources/grumpy-console.png}
+    \caption{Screenshot from the grumpy console}
+    \label{fig:grumpy-screenshot}
+  }
 \end{figure}
 
 The network of fluxions structuring the applications can be monitored at \url{http://grumpy.etnbrd.com/console}, as illustrated in figure \ref{fig:grumpy-screenshot}.
@@ -118,11 +120,12 @@ The fluxion \textit{handler} sends back a message, \circled{5}, to be enqueued, 
 The system loops through steps \circled{3} to \circled{6} until the queue is empty.
 This cycle starts again for each new incoming request causing another \texttt{start} message.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\linewidth]{../resources/schema-message.pdf}
-  \caption{The fluxional execution model in details}
-  \label{fig:MesSys}
+\begin{figure}[h!]%
+  \textfig{%
+    \includegraphics[width=0.7\linewidth]{../resources/schema-message.pdf}%
+    \caption{The fluxional execution model in details}%
+    \label{fig:MesSys}%
+  }%
 \end{figure}
 
 The chain of functions from listing \ref{lst:source} is expressed in the fluxional language in listing \ref{lst:fluxional}.

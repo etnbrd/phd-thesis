@@ -70,9 +70,10 @@ This step transforms each tree of continuations into several chains of continuat
 % The code generation from these chains is straightforward from the equivalence.
 
 \begin{figure}[h!]
-  \begin{minipage}{0.42\textwidth}
-    \centering
-    \begin{code}[js, caption={Nested calls of continuations},label={lst:nest-cint}]%
+%  \bigfig{
+    \begin{minipage}{0.42\textwidth}
+      \centering
+      \begin{code}[js, caption={Nested calls of continuations},label={lst:nest-cint}]%
 caller1([args], function cont1(){
   // //@\circled{1}@ ...
   caller2([args], function cont2(){
@@ -87,13 +88,13 @@ caller1([args], function cont1(){
   });
   // //@\circled{2}@ ...
 })\end{code}
-  \end{minipage}
-  \hfill
-  $\to$
-  \hfill
-  \begin{minipage}{0.42\textwidth}
-    \centering
-    \begin{code}[js, caption={Chain of Due},label={lst:nest-cint}]%
+    \end{minipage}
+    \hfill
+    $\to$
+    \hfill
+    \begin{minipage}{0.42\textwidth}
+      \centering
+      \begin{code}[js, caption={Chain of Due},label={lst:nest-cint}]%
 caller1([args])
 .then(function cont1(){
   // //@\circled{1}@ ...
@@ -110,9 +111,10 @@ caller1([args])
     // //@\circled{6}@ ...
   });
 })\end{code}
-  \end{minipage}
-  \caption{Transformation of a tree of continuations into a chain of Due}
-  \label{fig:tree-to-chain}
+    \end{minipage}
+    \caption{Transformation of a tree of continuations into a chain of Due}
+    \label{fig:tree-to-chain}
+%  }
 \end{figure}
 
 

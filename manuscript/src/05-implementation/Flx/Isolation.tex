@@ -11,10 +11,26 @@ Depending on this representation, the compiler can replace the broken closures i
 We present these three alternatives in figure \ref{fig:states}.
 
 \begin{figure}[h!]
+
+\bigfig{
   \centering
-  \includegraphics[width=0.7\linewidth]{../resources/states.pdf}
-  \caption{Variable management from Javascript to the high-level fluxional language}
-  \label{fig:states}
+  \parbox{\textwidth}{
+    \parbox{0.40\textwidth}{
+      \hfill
+      \includegraphics[page=1, height=0.4\textwidth]{../resources/states.pdf}
+    }
+    \hspace{10pt}
+    $\to$
+    \hspace{10pt}
+    \parbox{0.40\textwidth}{
+      \includegraphics[page=2, height=0.4\textwidth]{../resources/states.pdf}
+      \hfill
+    }
+    \caption{Variable management from Javascript to the high-level fluxional language}
+    \label{fig:states} 
+  }
+}
+
 \end{figure}
 
 \subsubsection{Scope}

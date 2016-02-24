@@ -17,20 +17,33 @@ Finally, section \ref{chapter3:software-productivity:summary} summarizes the thr
 
 \subsection{Modular Programming} \label{chapter3:software-productivity:modularity}
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-1.pdf}
-\end{center}
-\caption{Focus on Productivity}
-\label{fig:state-of-the-art-1}
+\begin{figure}[h!]
+\textfig{%
+  \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-1.pdf}%
+  \caption{Focus on Productivity}%
+  \label{fig:state-of-the-art-1}%
+}%
 \end{figure}
 
 The next paragraphs presents the different programming model regarding their support to modular programming and productivity.
 
 \subsubsection{Imperative Programming}
 
-\illustration{spaghetti programming}
-\illustration{lasagna programming}
+% \illustration{spaghetti programming}
+% \illustration{lasagna programming}
+
+\marginfig{22}{0.7\textwidth}{
+  \includegraphics[width=0.5\textwidth]{../resources/italian-software-architecture.png}
+}
+
+% \begin{wrapfigure}{R}{0.3\textwidth}
+%   \vspace{-20pt}
+%   \hfill
+%   \includegraphics[width=0.4\textwidth]{../resources/italian-software-architecture.png}
+%   \hspace{-0.2\textwidth}
+%   \vspace{-70pt}
+% \end{wrapfigure}
+
 
 Imperative programming is the very first programming paradigm, as it evolves directly from the hardware architectures.
 It allows to express the suite of operation to carry sequentially on the computing processor.
@@ -41,9 +54,9 @@ The implementations of Imperative Programming are \ImplementationsOf{Imperative 
 
 \illustration{multiple cells communicating}
 
-The very first Object-Oriented Programming (OOP) language was Smalltalk \cite{Goldberg1984}.
+The very first Object-Oriented Programming (OOP) language was Small\-talk \cite{Goldberg1984}.
 It defined the core concepts as message passing and encapsulation %, and dynamic binding
-\ftnt{http://userpage.fu-berlin.de/~ram/pub/pub\_jf47ht81Ht/doc\_kay\_oop\_en}.
+\ftnt{http://bit.ly/mail-alan-key-meaning-oop}.
 Nowadays, the emblematic figures in the software industry are \ImplementationsOf{Object-Oriented Programming}.
 They provide encapsulation with Classes, and allows mutable structures for performance reasons.
 They recently introduced higher-order programming with lambda expressions.
@@ -75,18 +88,16 @@ The previously presented programming models are all rather focused on productivi
 As stated previously, adoption relies an productivity as well as efficiency.
 The next paragraphs present the adoptions of different platforms for web development and focus on Javascript.
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-2.pdf}
-\end{center}
-\caption{Steering back toward Performance Efficiency}
-\label{fig:state-of-the-art-2}
+\begin{figure}[h!]
+\textfig{%
+  \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-2.pdf}%
+  \caption{Steering back toward Performance Efficiency}%
+  \label{fig:state-of-the-art-2}%
+}%
 \end{figure}
 
-\subsubsection{Community}
-
-\paragraph{Available Resources}
-
+\subsubsection{Community}%
+\paragraph{Available Resources}%
 As of December 2015, Javascript ranks 8th according to the TIOBE Programming Community index, and was the most rising language in 2014.
 This index measure the popularity of a programming language with the number of results on many search engines.
 And it ranks 7th on the PYPL.
@@ -96,48 +107,45 @@ From these indexes, the major programming languages are Java, C++, C, C\# and Py
 These languages are still widely used by their communities and in the industry.
 
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=\linewidth]{../resources/tiobe.pdf}
-  \label{fig:tiobe}
-  \caption{TIOBE ranking}
+  \bigfig{
+    \includegraphics[width=\figurewidth]{../resources/tiobe.pdf}
+    \label{fig:tiobe}
+    \caption{TIOBE ranking}
+  }
 \end{figure}
 
 \paragraph{Developers Collaboration Platforms}
 
 Online collaboration tools give an indicator of the number of developers and projects using certain languages.
-Javascript is the most used language on \textit{Github}\ftnt{the most important collaborative development platform gathering about 9 millions users.} and the most cited language on \textit{StackOverflow}\ftnt{the most important Q\&A platform for developers.}.
+Javascript is the most used language on \textit{Github}\footnote{the most important collaborative development platform.} and the most cited language on \textit{StackOverflow}\footnote{the most important Q\&A platform for developers.}.
 It represents more than \num{320000} repositories on \textit{Github}.
 The second language is Java with more than \num{220000} repositories.
 It is cited in more than \num{960000} questions on \textit{StackOverflow} while the second is Java with around \num{940000} questions.
-And according to a survey by \textit{StackOverflow}, it is currently the language the most popular\ftnt{http://stackoverflow.com/research/developer-survey-2015}.
+And according to a survey by \textit{StackOverflow}, it is currently the language the most popular\ftnt{http://bit.ly/stackoverflow-developer-survey-2015}.
 Moreover, the Javascript package manager, \textit{npm}, has the most important and impressive package repository growth.
 
-% \begin{figure}[h!]
-%   \centering
-%   \includegraphics[width=0.7\linewidth]{../resources/stackoverflow-mostwanted.pdf}
-%   \label{fig:so-tags}
-%   \caption{Most Wanted Technologies in 2015 from a StackOverflow survey}
-% \end{figure}
-
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=\linewidth]{../resources/github-languages.pdf}
-  \label{fig:github-languages}
-  \caption{Languages Ranks from number of Github projects}
+  \bigfig{
+    \includegraphics[width=\figurewidth]{../resources/github-languages.pdf}
+    \label{fig:github-languages}
+    \caption{Languages Ranks from number of Github projects}
+  }
 \end{figure}
 
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=\linewidth]{../resources/stackoverflow-tags.pdf}
-  \label{fig:so-tags}
-  \caption{StackOverflow Tags evolution}
+  \bigfig{
+    \includegraphics[width=\figurewidth]{../resources/stackoverflow-tags.pdf}
+    \label{fig:so-tags}
+    \caption{StackOverflow Tags evolution}
+  }
 \end{figure}
 
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=\linewidth]{../resources/modulecounts.pdf}
-  \label{fig:modulecounts}
-  \caption{Module Counts per package manager}    
+  \bigfig{
+    \includegraphics[width=\figurewidth]{../resources/modulecounts.pdf}
+    \label{fig:modulecounts}
+    \caption{Module Counts per package manager}    
+  }
 \end{figure}
 
 \subsubsection{Industry}
@@ -145,7 +153,7 @@ Moreover, the Javascript package manager, \textit{npm}, has the most important a
 The industrial actors avoid to discolse their activities beliving it grants them an edge on the competition.
 The previous metrics represent the visible activity but are barely representative of the software industry.
 The trends on job opportunities give some additional hints on the situation.
-Javascript is the third most wanted skill, according to \textit{Indeed}\ftnt{http://www.indeed.com}, right after SQL and Java.\ftnt{http://www.indeed.com/jobtrends?q=Javascript\%2C+SQL\%2C+Java\%2C+C\%2B\%2B\%2C+C\%2FC\%2B\%2B\%2C+C\%23\%2C+Python\%2C+PHP\%2C+Ruby\&l=}
+Javascript is the third most wanted skill, according to \textit{Indeed}\ftnt{http://www.indeed.com}, right after SQL and Java.\ftnt{http://bit.ly/indeed-developer-jobs-comparator}
 Moreover, according to \textit{breaz.io}\footnote{\textit{breaz.io} \url{https://breaz.io/} was recently acquired by \textit{hired} \url{https://hired.com/}.}, Javascript developers get more opportunities than any other developers.
 Javascript is increasingly adopted in the software industry.
 
@@ -170,7 +178,7 @@ These results are recapped in table \ref{tab:productivity-performance}.
 
 \ModularEfficiencyTable{tab:productivity-performance}
 
-The only solution to provide performance efficiency is to combine mutable state at a fine-grain level and immutable state at a coarse-grain level \ftnt{http://joeduffyblog.com/2010/07/11/thoughts-on-immutability-and-concurrency/}.
+The only solution to provide performance efficiency is to combine mutable state at a fine-grain level and immutable state at a coarse-grain level \ftnt{http://bit.ly/joe-duffy-immutability-concurrency}.
 That is to provide both synchronization and message-passing to allow parallelism.
 The platforms extending these languages with concurrent or parallel paradigms to improve efficiency are addressed in the next section.
 
