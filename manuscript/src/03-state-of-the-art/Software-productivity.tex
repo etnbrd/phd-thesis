@@ -10,27 +10,41 @@ Therefore, it is crucial to decompose the system into smaller subsystem easier t
 
 % \cit{Measuring programming progress by lines of code is like measuring aircraft building progress by weight.}{Bill Gates}
 
-Section \ref{chapter3:software-productivity:modularity} presents the modular programming paradigms, and their programming models, oriented toward productivity.
-Section \ref{chapter3:software-productivity:adoption} presents the adoption of the implementations of modular programming languages.
-Section \ref{chapter3:software-productivity:efficiency-limitations} presents the consequences of the modularity on performance.
-Finally, section \ref{chapter3:software-productivity:summary} summarizes the three previous sections in a table.
+The modular programming paradigms is precisely designed for this purpose.
+It is presented in section \ref{chapter3:software-productivity:modularity} with the programming models oriented toward productivity.
+The implementations of these models are addressed in section \ref{chapter3:software-productivity:adoption}.
+The consequences of modularity on performance are addressed in section \ref{chapter3:software-productivity:efficiency-limitations}.
+Finally, section \ref{chapter3:software-productivity:summary} summarizes the three previous sections.
 
 \subsection{Modular Programming} \label{chapter3:software-productivity:modularity}
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-1.pdf}
-\end{center}
-\caption{Focus on Productivity}
-\label{fig:state-of-the-art-1}
-\end{figure}
+\begin{figure*}[h!]
+\textfig{%
+  \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-1.pdf}%
+  % \caption{Focus on Productivity}%
+  % \label{fig:state-of-the-art-1}%
+}%
+\end{figure*}
 
-The next paragraphs presents the different programming model regarding their support to modular programming and productivity.
+% The next paragraphs presents the different programming model regarding their support to modular programming and productivity.
 
 \subsubsection{Imperative Programming}
 
-\illustration{spaghetti programming}
-\illustration{lasagna programming}
+% \illustration{spaghetti programming}
+% \illustration{lasagna programming}
+
+\marginfig{22}{0.7\textwidth}{
+  \includegraphics[width=0.5\textwidth]{../resources/italian-software-architecture.png}
+}
+
+% \begin{wrapfigure}{R}{0.3\textwidth}
+%   \vspace{-20pt}
+%   \hfill
+%   \includegraphics[width=0.4\textwidth]{../resources/italian-software-architecture.png}
+%   \hspace{-0.2\textwidth}
+%   \vspace{-70pt}
+% \end{wrapfigure}
+
 
 Imperative programming is the very first programming paradigm, as it evolves directly from the hardware architectures.
 It allows to express the suite of operation to carry sequentially on the computing processor.
@@ -41,9 +55,9 @@ The implementations of Imperative Programming are \ImplementationsOf{Imperative 
 
 \illustration{multiple cells communicating}
 
-The very first Object-Oriented Programming (OOP) language was Smalltalk \cite{Goldberg1984}.
+The very first Object-Oriented Programming (OOP) language was Small\-talk \cite{Goldberg1984}.
 It defined the core concepts as message passing and encapsulation %, and dynamic binding
-\ftnt{http://userpage.fu-berlin.de/~ram/pub/pub\_jf47ht81Ht/doc\_kay\_oop\_en}.
+\ftnt{http://bit.ly/mail-alan-key-meaning-oop}.
 Nowadays, the emblematic figures in the software industry are \ImplementationsOf{Object-Oriented Programming}.
 They provide encapsulation with Classes, and allows mutable structures for performance reasons.
 They recently introduced higher-order programming with lambda expressions.
@@ -59,34 +73,42 @@ They provide encapsulation, higher-order programming and lazy evaluation.
 
 \subsubsection{Multi-Paradigm}
 
-The functional programming concepts are also implemented in other languages along with mutable states and object-oriented concepts.
-Major recent programming languages, including Java 8 and C++ 11, now commonly present higher-order functions.
+The functional programming concepts are also implemented in most mainstream languages along with mutable states and object-oriented concepts.
+Major recent programming languages now commonly present higher-order functions, including Java 8 and C++ 11.
 \textit{In fine}, it helps developers to write applications that are more maintainable, and favorable to evolution \cite{Hughes1989,Turner1981}.
-These recent multi-paradigms languages such as \ImplementationsOf{Multi Paradigm} combine the different paradigms to help developer building applications faster.
+The main multi-paradigm languages are \ImplementationsOf{Multi Paradigm}.
+These multi-paradigms languages combine the different paradigms to help developer building applications faster.
 
 \separator
 
-The previously presented programming models are all rather focused on productivity, as recapped in table \ref{tab:productivity-modularity}.
+The previously presented programming models are different approach to provide productivity, as recapped in table \ref{tab:productivity-modularity}.
+The imperative programming model is less productive than other, as it is the oldest one.
+The two following - Object-Oriented, and Functional Programming - adopted different approaches to improve upon it.
+And finally, the last one selected improvements from the two diverging approaches as the development practices evolved.
 
 \ModularProductivityTable{tab:productivity-modularity}
 
-\subsection{Adoption} \label{chapter3:software-productivity:adoption}
+\subsection{Steering Back Toward Efficiency} \label{chapter3:software-productivity:adoption}
 
-As stated previously, adoption relies an productivity as well as efficiency.
-The next paragraphs present the adoptions of different platforms for web development and focus on Javascript.
+\begin{figure*}[h!]
+\textfig{%
+  \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-2.pdf}%
+  % \caption{Steering back toward Performance Efficiency}%
+  % \label{fig:state-of-the-art-2}%
+}%
+\end{figure*}
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-2.pdf}
-\end{center}
-\caption{Steering back toward Performance Efficiency}
-\label{fig:state-of-the-art-2}
-\end{figure}
 
-\subsubsection{Community}
+As stated previously, adoption relies on productivity as well as efficiency.
+Industrial actors often supply resources to improve the efficiency of major productive languages.
+The V8 Javascript execution engine is a good example\ftnt{http://bit.ly/V8-optimization}.
+It is an explanation for its increasing adoption, as presented in the next paragraphs.
+% The recent improvement of performance of Javascript, with the V8 engine, is a perfect example \ftnt{http://bit.ly/V8-optimization}.
+% This improvement is an explanation for the increase of adoption of Javascript, as presented in the next paragraph.
+% The next paragraphs present the adoptions of different platforms for web development and focus on Javascript.
 
-\paragraph{Available Resources}
-
+\subsubsection{Community}%
+\paragraph{Available Resources}%
 As of December 2015, Javascript ranks 8th according to the TIOBE Programming Community index, and was the most rising language in 2014.
 This index measure the popularity of a programming language with the number of results on many search engines.
 And it ranks 7th on the PYPL.
@@ -96,48 +118,45 @@ From these indexes, the major programming languages are Java, C++, C, C\# and Py
 These languages are still widely used by their communities and in the industry.
 
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=\linewidth]{../resources/tiobe.pdf}
-  \label{fig:tiobe}
-  \caption{TIOBE ranking}
+  \bigfig{
+    \includegraphics[width=\figurewidth]{../resources/tiobe.pdf}
+    \label{fig:tiobe}
+    \caption{TIOBE ranking}
+  }
 \end{figure}
 
 \paragraph{Developers Collaboration Platforms}
 
 Online collaboration tools give an indicator of the number of developers and projects using certain languages.
-Javascript is the most used language on \textit{Github}\ftnt{the most important collaborative development platform gathering about 9 millions users.} and the most cited language on \textit{StackOverflow}\ftnt{the most important Q\&A platform for developers.}.
+Javascript is the most used language on \textit{Github}\footnote{the most important collaborative development platform.} and the most cited language on \textit{StackOverflow}\footnote{the most important Q\&A platform for developers.}.
 It represents more than \num{320000} repositories on \textit{Github}.
 The second language is Java with more than \num{220000} repositories.
 It is cited in more than \num{960000} questions on \textit{StackOverflow} while the second is Java with around \num{940000} questions.
-And according to a survey by \textit{StackOverflow}, it is currently the language the most popular\ftnt{http://stackoverflow.com/research/developer-survey-2015}.
+And according to a survey by \textit{StackOverflow}, it is currently the language the most popular\ftnt{http://bit.ly/stackoverflow-developer-survey-2015}.
 Moreover, the Javascript package manager, \textit{npm}, has the most important and impressive package repository growth.
 
-% \begin{figure}[h!]
-%   \centering
-%   \includegraphics[width=0.7\linewidth]{../resources/stackoverflow-mostwanted.pdf}
-%   \label{fig:so-tags}
-%   \caption{Most Wanted Technologies in 2015 from a StackOverflow survey}
-% \end{figure}
-
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=\linewidth]{../resources/github-languages.pdf}
-  \label{fig:github-languages}
-  \caption{Languages Ranks from number of Github projects}
+  \bigfig{
+    \includegraphics[width=\figurewidth]{../resources/github-languages.pdf}
+    \label{fig:github-languages}
+    \caption{Languages Ranks from number of Github projects}
+  }
 \end{figure}
 
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=\linewidth]{../resources/stackoverflow-tags.pdf}
-  \label{fig:so-tags}
-  \caption{StackOverflow Tags evolution}
+  \bigfig{
+    \includegraphics[width=\figurewidth]{../resources/stackoverflow-tags.pdf}
+    \label{fig:so-tags}
+    \caption{StackOverflow Tags evolution}
+  }
 \end{figure}
 
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=\linewidth]{../resources/modulecounts.pdf}
-  \label{fig:modulecounts}
-  \caption{Module Counts per package manager}    
+  \bigfig{
+    \includegraphics[width=\figurewidth]{../resources/modulecounts.pdf}
+    \label{fig:modulecounts}
+    \caption{Module Counts per package manager}    
+  }
 \end{figure}
 
 \subsubsection{Industry}
@@ -145,17 +164,18 @@ Moreover, the Javascript package manager, \textit{npm}, has the most important a
 The industrial actors avoid to discolse their activities beliving it grants them an edge on the competition.
 The previous metrics represent the visible activity but are barely representative of the software industry.
 The trends on job opportunities give some additional hints on the situation.
-Javascript is the third most wanted skill, according to \textit{Indeed}\ftnt{http://www.indeed.com}, right after SQL and Java.\ftnt{http://www.indeed.com/jobtrends?q=Javascript\%2C+SQL\%2C+Java\%2C+C\%2B\%2B\%2C+C\%2FC\%2B\%2B\%2C+C\%23\%2C+Python\%2C+PHP\%2C+Ruby\&l=}
+Javascript is the third most wanted skill, according to \textit{Indeed}\ftnt{http://www.indeed.com}, right after SQL and Java.\ftnt{http://bit.ly/indeed-developer-jobs-comparator}
 Moreover, according to \textit{breaz.io}\footnote{\textit{breaz.io} \url{https://breaz.io/} was recently acquired by \textit{hired} \url{https://hired.com/}.}, Javascript developers get more opportunities than any other developers.
 Javascript is increasingly adopted in the software industry.
 
 \separator
 
-According to these various sources, multi paradigm languages like Javascript are the most widely used by the community and the industry, as presented in table \ref{tab:productivity-adoption}.
-OOP and Imperative Programming remains strong in the industry, but are progressively abandoned by the community.
-Functional Programming is not well represented in community nor the industry.
-
-% Table \ref{tab:productivity-adoption} presents a summary of the analysis of the programming models presented in the previous paragraphs.
+Multi paradigm languages like Javascript are the most widely used by the community and the industry, as presented in table \ref{tab:productivity-adoption}.
+OOP and Imperative Programming remains strong in the industry, but are slightly less active in the community.
+As detailed previously, the main OOP languages are steering toward the multi-paradigm approach.
+With lambda, for example.
+Functional Programming is not well represented.
+It comes mainly from the academy, and failed to penetrate the academy nor the industry.
 
 \ModularAdoptionTable{tab:productivity-adoption}
 
@@ -170,28 +190,23 @@ These results are recapped in table \ref{tab:productivity-performance}.
 
 \ModularEfficiencyTable{tab:productivity-performance}
 
-The only solution to provide performance efficiency is to combine mutable state at a fine-grain level and immutable state at a coarse-grain level \ftnt{http://joeduffyblog.com/2010/07/11/thoughts-on-immutability-and-concurrency/}.
+The only solution to provide performance efficiency is to combine mutable state at a fine-grain level and immutable state at a coarse-grain level \ftnt{http://bit.ly/joe-duffy-immutability-concurrency}.
 That is to provide both synchronization and message-passing to allow parallelism.
 The platforms extending these languages with concurrent or parallel paradigms to improve efficiency are addressed in the next section.
 
 \subsection{Summary} \label{chapter3:software-productivity:summary}
 
-The evaluation of the platforms presented in this section is summarized in table \ref{tab:productivity-synthesis}.
+The platforms presented in this section recount the evolution of mainstream development toward productivity.
+From Imperative Programming to Multi-Paradigms, languages improved the development productivity.
+This improvement in productivity is steered by the community as well as the industry.
+The community is attracted by the most productive languages to quickly learn and start new projects.
+While the industry makes them more attractive by providing resources to improve their efficiency.
+The interaction of the industry and the community results in these mainstream languages heavily adopted.
+However, there is inherently a limitation to the efficiency of these productive languages.
+
+These languages are productive, but this efficiency limitation avoid an unanimous adoption, as summarized in table \ref{tab:productivity-synthesis}.
 
 \ModularSummaryTable{tab:productivity-synthesis}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 \endinput

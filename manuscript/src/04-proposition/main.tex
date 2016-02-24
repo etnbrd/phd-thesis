@@ -26,4 +26,21 @@ Huge developing efforts are pulled to translate manually from one organization i
 \input{04-proposition/Proposition}
 \input{04-proposition/Models}
 \input{04-proposition/Example}
-% \input{04-proposition/Equivalence}
+
+\section{Conclusion}
+
+This chapter presented the proposition of this thesis : an equivalence between the event-driven execution model and the pipeline execution model for web applications.
+The equivalence intends to allows developers to control simultaneously productivity, and efficiency of their implementation.
+It allows them to continuously have two representations.
+Developers can then choose their compromize, depending on what they are after.
+This compromize evolves with the implementation.
+
+The equivalence is based on the event-driven and fluxional execution models presented respectively in section \ref{chapter4:event-driven} and \ref{chapter4:flx-model}.
+It relies on the similar pipeline organization shared by these two models.
+It detects the rupture points between the stages to extract the pipeline organization from an event-driven implementation.
+Then, it isolates these stages so as to allow parallel execution.
+
+We published this work at three occasions.
+The core idea of these contribution was briefly presented as a poster in December 2014 at Middleware \cite{Brodu2014}, and then more thouroughly presented in April 2015 at Symposium for Application Computing in the track Practical Aspect of Parallel Programming \cite{Brodu2015a}.
+In the meantime, an intermediate step was presented in April 2015, at the AWeS Workshop at the Eurosys Conference \cite{Brodu2015}.
+The implementations presented in these papers are reminded in the next section.

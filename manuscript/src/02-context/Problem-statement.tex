@@ -14,12 +14,11 @@ On the contrary, during the maturation of the application, the constraints hold 
 The application needs to be highly concurrent to meet the load of usage.
 
 The team needs to revise its approach to meet these different constraints.
-These revisions lead to disruptions in the evolution of the application.
+Which leads to disruptions in the evolution of the application.
 
 \subsubsection{Power-Wall Disruption}
 
-\illustration{heating chipset / parallel chipsets}
-
+% \illustration{heating chipset / parallel chipsets}
 Around 2004, manufacturers reached what they called the \textit{Power-wall}.
 The speed of sequential execution on a processing unit plateaued\ftnt{https://cartesianproduct.wordpress.com/2013/04/15/the-end-of-dennard-scaling/}.
 Therefore, the performance of sequential programming plateaued as well.
@@ -55,8 +54,7 @@ The development team cannot react as quickly to user feedbacks to adapt the appl
 The application risks to fall in obsolescence.
 
 The risks implied by this rupture proves that there is economically a need for a solution that continuously follows the evolution of a web application.
-The proposition of this thesis is presented in the next section.
-The proposed solution would allow developers to iterate continuously on the implementation focusing simultaneously on performance, and on maintainability.
+The solution proposed in this thesis would allow developers to iterate continuously on the implementation focusing continuously on maintainability and performance.
 
 \subsection{Seamless Web Development}
 
@@ -84,7 +82,7 @@ This thesis develops an equivalence to map these two models, despite their diffe
 
 \subsubsection{Differences Between The Two Models}
 
-Both programmng models encapsulate the execution in tasks assured to have an exclusive access to the memory.
+Both programming models encapsulate the execution in tasks assured to have an exclusive access to the memory.
 However, they use two different models to provide this exclusivity.
 Contrary to the pipeline architecture, the event-loop provides a common memory store allowing the best practice of software development to improve maintainability.
 
@@ -92,19 +90,18 @@ These two organizations are incompatible.
 And because of economical constraints, this incompatibility implies ruptures in the development.
 It represents additional development efforts and important costs.
 This thesis argues that it is possible to allow a continuous development between the two organizations, so as to lift these efforts and costs.
+To do so, it proposes an equivalence between the two organizations to change from one into the other.
 % The argumentation of this possibility is based on an equivalence bridging the two organizations.
-The equivalence between the two organizations is presented briefly in the next paragraph, and detailed further in the chapter \ref{chapter4} and \ref{chapter5}.
+It briefly introduces this equivalence in the next paragraph, and details it further in the chapter \ref{chapter4} and \ref{chapter5}.
 
 \subsubsection{Equivalence}
 
-In the beginning of a project, the team adopts the event-driven execution model to focus on maintainability and evolution, discarding the scalable performance concerns.
-And as the project gather audience and the performance concerns become more and more critical, the development team adopt the pipeline execution model to take into account this performance concerns.
-The equivalence would allow a compiler to transform an application expressed in one model into the other.
-
-With this equivalence, it would be possible to express an application following the design principles of software development.
-A development team could rely on the common memory store of the event-driven execution model, and focuses on the maintainability of the implementation.
-And yet, because of the equivalence between these two models, the execution engine could adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
-The development team could continuously progress with the two models and take advantage of their different concerns, performance and maintainability.
+In the beginning of a project, the team focus on productivity, maintainability and evolution, discarding the scalable performance concerns.
+The team adopts the event-driven execution model and always sticks with the productive model.
+And as the project gather audience and the performance concerns become more and more critical.
+The equivalence allows to transform an application expressed in the event-driven execution model into the pipeline execution model.
+The generated pipeline expression allows the execution engine to adapt itself to any parallelism of the computing machine, from a single core, to a distributed cluster.
+Without giving the productive model up, the development team takes advantage of the different concerns of the tow execution model, performance and maintainability.
 
 \separator
 

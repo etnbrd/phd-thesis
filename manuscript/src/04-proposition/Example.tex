@@ -1,28 +1,31 @@
 \subsection{Examples} \label{chapter4:execution-models:examples}
 
-\subsubsection{Fluxional Application}
+\subsubsection{Illustration Of The Fluxional Exection Model}
 
-\begin{wrapfigure}{r}{0.3\textwidth}
-  \centering
+\marginfig{9}{0.4\textwidth}{
   \includegraphics[height=0.2\textwidth]{../resources/grumpy.png}
-\end{wrapfigure}
+}
 
-To test fluxional execution model, it was used to develop a simple web application.
+Even if the fluxional execution model is not designed to directly develop applications, a first application was develop directly with it, to test it.
 This application doesn't use the transformation, nor the continuous development advocated in this thesis.
-Nonetheless, it is presented here to illustrate the basic functioning of the fluxional execution model.
+Nonetheless, it is related here to illustrate the basic functioning of the fluxional execution model.
 
-The application is accessible at \url{http://grumpy.etnbrd.com}.
-It allows to post anonymous grumbles into chat rooms.
+The application is accessible online at \url{http://grumpy.etnbrd.com}, and the source code is available at \url{https://github.com/etnbrd/grumpy}.
+And the network of fluxions structuring the applications can be monitored in realtime at \url{http://grumpy.etnbrd.com/console}, as illustrated in figure \ref{fig:grumpy-screenshot}.
+The application allows to post anonymous grumbles into chat rooms.
 Additionally, a room can subscribe to the grumbles from another room.
+The reader is invited to play with this application and the monitoring console to maybe quickly grasp an understanding of the fluxional execution model \footnote{The reader might want to keep in mind that crude languages might be present on the platform. It is available freely on the internet for anyone to express itself.}.
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{../resources/grumpy-console.png}
-  \caption{Screenshot from the grumpy console}
-  \label{fig:grumpy-screenshot}
+  \bigfig{
+    \centering
+    \includegraphics[width=\textwidth]{../resources/grumpy-console.png}
+    \caption{Screenshot from the grumpy console}
+    \label{fig:grumpy-screenshot}
+  }
 \end{figure}
 
-The network of fluxions structuring the applications can be monitored at \url{http://grumpy.etnbrd.com/console}, as illustrated in figure \ref{fig:grumpy-screenshot}.
-It is organized into five layers of stages, traversed by the stream of request from left to right.
+The network of fluxions is organized into five layers of stages, traversed by the stream of request from left to right.
 The first and last layers are the input and output, connecting the application with the clients.
 The second layer contains the fluxions receiving and formatting the request, before passing them to the next layer.
 The fluxion in the third layer is a simple filter before posting grumbles.
@@ -41,7 +44,7 @@ This explains the direct link between the input and output fluxions.
 The example illustrated in the next paragraphs explains in more details the transformation, and the grouping required for fluxion sharing memory.
 And it explains the impact of the memory dependencies on parallelism and scalability.
 
-\subsubsection{Transformation}
+\subsubsection{Illustration Of The Application Transformation}
 
 The transformation from continuation passing style to the fluxion execution model is now illustrated with a simple web application.
 
@@ -118,11 +121,12 @@ The fluxion \textit{handler} sends back a message, \circled{5}, to be enqueued, 
 The system loops through steps \circled{3} to \circled{6} until the queue is empty.
 This cycle starts again for each new incoming request causing another \texttt{start} message.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\linewidth]{../resources/schema-message.pdf}
-  \caption{The fluxional execution model in details}
-  \label{fig:MesSys}
+\begin{figure}[h!]%
+  \textfig{%
+    \includegraphics[width=0.7\linewidth]{../resources/schema-message.pdf}%
+    \caption{The fluxional execution model in details}%
+    \label{fig:MesSys}%
+  }%
 \end{figure}
 
 The chain of functions from listing \ref{lst:source} is expressed in the fluxional language in listing \ref{lst:fluxional}.

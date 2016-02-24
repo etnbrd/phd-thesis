@@ -1,10 +1,10 @@
 \usepackage{marginnote}
 \usepackage{xcolor}
 \usepackage{pifont}
+\usepackage{calc}
 
 \definecolor{todo}{rgb}{0.9,0.5,0.5}
 \definecolor{text}{gray}{0.8}
-% \definecolor{red}{rgb}{1,0,0.29}
 \definecolor{gray1}{rgb}{.70,.70,.70}
 \definecolor{gray2}{rgb}{.75,.75,.75}
 \definecolor{gray3}{rgb}{.80,.80,.80}
@@ -12,17 +12,17 @@
 \definecolor{gray5}{rgb}{.90,.90,.90}
 \definecolor{gray6}{rgb}{.95,.95,.95}
 
+\definecolor{LIGTHGRAY}{RGB}{250,250,250}
+
 \definecolor{RED}{RGB}{255, 0, 73}
 \definecolor{GREEN}{RGB}{0, 224, 197}
 \definecolor{BLUE}{RGB}{57, 117, 178}
 
-\newcommand{\TODO}[1]{%
-  % \marginpar
-  {
-    \textcolor{todo}{\bf TODO}
-    \textcolor{text}{#1}
-  }
-}
+\newlength{\figurewidth}
+\setlength\figurewidth{\paperwidth}
+
+\newlength{\figuremargin}
+\setlength\figuremargin{(\linewidth-\figurewidth)/2}
 
 \newcommand{\ind }{%
   \hspace{4ex}%
@@ -49,13 +49,56 @@
 }
 
 \newcommand{\cit}[2]{%
-  \noindent%
-  \textit{{\secfont\fontsize{45pt}{10pt}\selectfont``}\Large{#1}{''}}\\[-5pt]%
+  \vskip \baselineskip%
+  \textit{%
+    \llap{\hfill\secfont\fontsize{45pt}{45pt}\selectfont\textcolor{red}{{`}`}\hspace{15pt}}%
+    \vskip -2.2\baselineskip%
+    \noindent\Large{#1}{\textcolor{red}{''}}%
+  }%
   \begin{flushright}%
   --- #2%
   \end{flushright}%
-  \vspace{30pt}
+  \vskip 30pt%
 }
+
+
+% \newenvironment{atomic}{%
+% \begin{minipage}{\linewidth}%
+% }{%
+% \end{minipage}%
+% }
+
+\newcommand{\atomic}[1]{%
+  \parbox{\textwidth}{#1}%
+}
+
+\newcommand{\bigfig}[1]{%
+  \fboxsep 20pt%
+  \makebox[\textwidth][c]{\colorbox{LIGTHGRAY}{\parbox{\figurewidth}{#1}}}%
+}
+
+\newcommand{\textfig}[1]{%
+  \fboxsep 0pt%
+  \makebox[\textwidth][c]{\colorbox{LIGTHGRAY}{\parbox{\textwidth}{\vspace{20pt}\centering#1\vspace{20pt}}}}%
+}
+
+
+\newcommand{\marginfig}[3]{%
+  \fboxsep 20pt
+  \begin{wrapfigure}[#1]{R}[0.25\textwidth]{0pt}%
+    \makebox[#2]{\hfill\vspace{-2000pt}\colorbox{LIGTHGRAY}{#3}\hspace{20pt}}%
+  \end{wrapfigure}%
+}
+
+\newcommand{\dualfig}[3]{%
+  \bigfig{%
+    \parbox{0.5\figurewidth-10pt}{\hfill #1}%
+    \hskip 10pt \vrule \hskip 10pt%
+    \parbox{0.5\figurewidth-10pt}{#2 \hfill}%
+    #3
+  }
+}
+
 
 
 \newcommand*\rot{\rotatebox{90}}
@@ -64,45 +107,25 @@
   \rotatebox{90}{\parbox{3cm}{\raggedright #1}}%
 }
 
-\newlength\replength
-\newcommand\repfrac{.33}
-\newcommand\dashfrac[1]{\renewcommand\repfrac{#1}}
-\setlength\replength{4.5pt}
-\newcommand\rulewidth{1.6pt}
-
-\newcommand\tdotfill[1][\repfrac]{\cleaders\hbox to \replength{%
-  \smash{\raisebox{\arraystretch\dimexpr\ht\strutbox-.1ex\relax}{.}}}\hfill}
-\newcommand\tabdotline{%
-  \makebox[0pt][r]{\makebox[\tabcolsep]{\tdotfill\hfil}}\tdotfill\hfil%
-  \makebox[0pt][l]{\makebox[\tabcolsep]{\tdotfill\hfil}}%
-  \\[-\arraystretch\dimexpr\ht\strutbox+\dp\strutbox\relax]%
-}
-
 \newcommand{\separator}{%
-\vspace{20pt}%
-\begin{center}%
-% \hrulefill%
-\begin{tikzpicture}%
-\draw (0,0) -- (0.2,0.2);%
-\draw (0,0.2) -- (0.2,0);%
-\end{tikzpicture}%
-% \hrulefill%
-\end{center}%
-\vspace{10pt}%
+  \par% make sure we end a paragraph
+  \vskip 15pt% space above the rule
+  % \leaders\vrule width 0.2\textwidth\vskip0.4pt % rule thickness is 0.4pt
+  \begin{center}%
+  \begin{tikzpicture}%
+  \draw (0,0) -- (0.2,0.2);%
+  \draw (0,0.2) -- (0.2,0);%
+  \end{tikzpicture}%
+  \end{center}%
+  % \nointerlineskip% disable interline glue here
+  % \vskip 20pt% space below the rule
 }
 
-
-% \newcommand{\V}{ \textcolor{green}{\ding{51}} }
-% \newcommand{\X}{ \textcolor{red}{\ding{53}} }
-% \newcommand{\U}{ \textcolor{gray}{?} }
-% \newcommand{\J}{ \textcolor{cyan}{\textbf{+}} }
-% \newcommand{\M}{ \textcolor{orange}{--} }
-
-\newlength\callStackIndentation
-\newcommand{\level}[1]{%
-  \setlength\callStackIndentation{2em}%
-  \hspace*{#1\callStackIndentation}%
-}
+% \newlength\callStackIndentation
+% \newcommand{\level}[1]{%
+%   \setlength\callStackIndentation{2em}%
+%   \hspace*{#1\callStackIndentation}%
+% }
 
 \newcommand*{\circled}[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=0.8pt] (char) {#1};}}

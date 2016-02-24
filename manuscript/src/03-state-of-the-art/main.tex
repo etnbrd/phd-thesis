@@ -41,7 +41,7 @@ It then analyzes different platforms according to their focus. platforms focusin
 
 \section{Discontinuous Developments}
 
-This chapter presented a broad view of platforms and their balance between productivity and efficiency.
+The previous sections presented a broad view of platforms and their balance between productivity and efficiency.
 It established that the platforms favoring one eventually sacrifice the other.
 Moreover, the adoption of these platforms proves that none of these compromises are sustainable.
 Indeed, as presented in table \ref{tab:summary}, no platforms provides productivity, efficiency and adoption.
@@ -50,30 +50,30 @@ Indeed, as presented in table \ref{tab:summary}, no platforms provides productiv
 
 \separator
 
-This chapter highlighted that productivity requires modularity through encapsulation and composition.
-Productivity requires higher-order programming which relies on a global memory abstraction as explained in section \ref{chapter3:software-productivity:efficiency-limitations}.
+\marginfig{22}{0.55\textwidth}{
+  \includegraphics[width=0.35\textwidth]{../resources/insights.pdf}
+}
+
+This chapter concludes on the similar ground than the 1972 paper from D. Parnas \cite{Parnas1972}.
+Productivity requires modularity through encapsulation and composition.
+It requires higher-order programming which relies on a global memory abstraction as explained in section \ref{chapter3:software-productivity:efficiency-limitations}.
 Whereas efficiency requires a balance between fine-grain level shared state with synchronization and coarse-grain level independence with message-passing.
 This discontinuity between fine-grain level and coarse-grain level avoids the global memory abstraction, hence productivity.
 The absence of a global memory abstraction reserves efficient platforms for an elite of developers.
 No platform can support simultaneously productivity and efficiency.
 Nonetheless, a platforms needs to be adopted both by the industry and the community to be sustainable.
+D. Parnas then suggested the use of compilation techniques to bridge the gap between these two extremes.
 
-\begin{wrapfigure}{r}{0.38\textwidth}
-  \vspace{-27pt}
-  \begin{center}
-    \includegraphics[width=0.35\textwidth]{../resources/insights.pdf}
-  \end{center}
-  \vspace{-20pt}
-\end{wrapfigure}
-
-The conclusion of this chapter is that no platform is able to follow a project from the early beginning until the industrial maturation of the project.
-All the platforms tends to be stucked in a compromise between these two goals, and cannot follow the evolution required for this compromise.
+However, more than this problem of immediate incompatibility, the problem holds on the evolution of the implementation.
+No platform is able to follow a project from the early beginning until the industrial maturation of the project.
+All the platforms tends to be stuck in a compromise between these two goals, and cannot follow the evolution required for this compromise.
 These compromises are rigidly defined, while the need of the application is constantly evolving.
 They lack the possibility to follow the organic evolution of a project.
 Therefore, a project needs to change platform to change its priority, which leads to economical consequences.
 
 To avoid these consequences, platforms would need to support productivity to allow the community to experiment, and organically start projects.
 And then continuously shift toward efficiency as the project evolves, and requires it.
+This thesis now explores this possibility.
 
 %-----------------------------------------------------------------------------%
                                     \endinput
@@ -83,20 +83,7 @@ And then continuously shift toward efficiency as the project evolves, and requir
 Some links I NEED to put :
 --------------------------
 
-https://glyph.twistedmatrix.com/2014/02/unyielding.html
 http://calculist.org/blog/2011/12/14/why-coroutines-wont-work-on-the-web/
-
-Transitions :
-  - Linkedin - http://engineering.linkedin.com/architecture/brief-history-scaling-linkedin
-  - Facebook - https://www.cs.princeton.edu/events/event/evolution-software-architecture-facebook / http://www.infoq.com/presentations/Evolution-of-Code-Design-at-Facebook
-  - ... 
-
-https://medium.com/@benorama/the-evolution-of-software-architecture-bd6ea674c477
-
-https://en.wikipedia.org/wiki/Dataflow
-https://en.wikipedia.org/wiki/Real-time_computing
-https://en.wikipedia.org/wiki/Partitioned_global_address_space
-https://en.wikipedia.org/wiki/SPMD
 
 Albert Cohen
 https://scholar.google.com/citations?user=MkKZKAMAAAAJ&hl=en

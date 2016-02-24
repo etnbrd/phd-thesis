@@ -1,19 +1,20 @@
 \section{Efficiency Focused Platforms} \label{chapter3:software-efficiency}
 
-Both the academia and the industry proposed solutions with efficiency in mind to cope with the limitations the previous section concludes on.
-The concurrent and parallel programming paradigms are presented in section \ref{chapter3:software-efficiency:concurrency}.
-The improvement of efficiency impacts the adoption of these platforms, as presented in section \ref{chapter3:software-efficiency:adoption}.
+To cope with the limitations the previous section concludes on, both the academia and the industry proposed solutions discarding productivity to focus on efficiency.
+Among these solutions, the concurrent and parallel programming paradigms are presented in section \ref{chapter3:software-efficiency:concurrency}
+They are evaluated against the same criteria than the previous section - Productivity, Efficiency and Adoption.
+This evaluation illustrates the impact of this shift of focus on the adoption of these platforms, as presented in section \ref{chapter3:software-efficiency:adoption}.
 Finally, section \ref{chapter3:software-efficiency:productivity-limitations} presents the limitations of parallelism on productivity.
 
 \subsection{Concurrency} \label{chapter3:software-efficiency:concurrency}
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-3.pdf}
-\end{center}
-\caption{Focus on Efficiency}
-\label{fig:state-of-the-art-3}
-\end{figure}
+\begin{figure*}[h!]
+\textfig{%
+  \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-3.pdf}%
+  % \caption{Focus on Efficiency}%
+  % \label{fig:state-of-the-art-3}%
+}%
+\end{figure*}
 
 Web servers need to be able to process lots of concurrent operations in a scalable fashion.
 Concurrency is the ability to make progress on several operations roughly simultaneously.
@@ -30,7 +31,7 @@ The two are indispensable for efficiency.
 % \cit{Building concurrent programming is like building a steam engine through a keyhole}{TODO}
 
 \cit{No matter how great the talent or efforts, some things just take time. You can't produce a baby in one month by getting nine women pregnant.}
-{Warren Buffett\ftnt{http://www.goodreads.com/quotes/476827-no-matter-how-great-the-talent-or-efforts-some-things}}
+{Warren Buffett\ftnt{http://bit.ly/warren-buffet-quote}}
 
 \illustration{feu rouge et rond point}
 Concurrent programming provides the mechanisms to assure atomicity of concurrent operations.
@@ -93,7 +94,7 @@ The implementations of hybrid models are \ImplementationsOf{Hybrid Models}.
 For example, cooperative threads, or fibers, avoid splitting the execution into atomic tasks nor use protection mechanisms to assure exclusivity.
 A fiber yields the execution to another fiber to avoid blocking the execution during a long-waiting operation, and recovers it at the same point when the operation finishes.
 Hiding the yielding points effectively hide the preemption.
-Developers cannot protect atomicity of operations, which increase the likeliness of race conditions \ftnt{https://glyph.twistedmatrix.com/2014/02/unyielding.html}.
+Developers cannot protect atomicity of operations, which increase the likeliness of race conditions \ftnt{http://bit.ly/deciphering-glyph-unyielding}.
 
 \paragraph{Limitation of Concurrent Programming}
 
@@ -141,22 +142,27 @@ Hence the parallel programming models are more efficient than the concurrent pro
 
 \ParallelEfficiencyTable{tab:efficiency-parallel}
 
-\subsection{Adoption} \label{chapter3:software-efficiency:adoption}
+\subsection{Steering Back Toward Producitivity} \label{chapter3:software-efficiency:adoption}
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-4.pdf}
-\end{center}
-\caption{Steering back toward Productivity}
-\label{fig:state-of-the-art-4}
-\end{figure}
+\begin{figure*}[h!]
+\textfig{%
+  \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-4.pdf}%
+  % \caption{Steering back toward Productivity}%
+  % \label{fig:state-of-the-art-4}%
+}%
+\end{figure*}
 
-\illustration{mars rover}
 When the need for efficiency is higher than the need for productivity, the adoption is steered by the industry more than the community.
 If the industry really needs a platform, it will commit the required development effort despite a low productivity.
+
+\marginfig{10}{0.6\textwidth}{
+  \includegraphics[width=0.4\textwidth]{../resources/marsrover.png}
+}
+
 The platforms for the Mars Rover or some banking systems are about 30 years old, yet the industry continues to maintain them.
 The platform presented in this section emerged from the academia and the industry but are often barely known by the larger community of developers.
 The more the platform trades productivity for efficiency, the less support it receives from the community.
+
 
 \subsubsection{Concurrent Programming}
 
@@ -256,21 +262,11 @@ It makes parallel programming accessible only to an elite of developers that are
 The parallel programming platforms presented in this section focus more on efficiency than productivity.
 Whereas the concurrent programming platforms feature better productivity.
 But no platform features both productivity and efficiency, as presented in table \ref{tab:efficiency-synthesis}.
-Moreover, except for Event-driven and Multi-threading programming, this lack of versatility impacts adoption.
+Moreover, this lack of versatility impacts adoption.
+These platforms remains inaccessible for the community.
+Exception for Event-driven and Multi-threading programming which are among the productive ways to achieve concurrency.
 
 \EfficiencySummaryTable{tab:efficiency-synthesis}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,8 +1,8 @@
-\section{Adoption Focused Platforms} \label{chapter3:software-adoption}
+\section{Compromise Between Productivity And Efficiency} \label{chapter3:software-adoption}
 
 The platforms previously presented focus on productivity or efficiency.
 The previous section concludes that favoring one negatively impacts the other.
-Moreover, a balance between productivity and efficiency is required to be both supported by the community and needed by the industry, hence trigger a virtuous circle of adoption.
+Moreover, a balance between productivity and efficiency is required to be both supported by the community and needed by the industry, hence triggers a virtuous circle of adoption.
 Some platforms feature an abstraction of the task organization to allow developers to focus on the modular organization to keep both productivity and efficiency.
 This abstraction happens either at compile time or at runtime.
 
@@ -12,13 +12,13 @@ This abstraction happens either at compile time or at runtime.
 % \nt{read and include \cite{Kovachev2011}}
 % \nt{read and include \cite{Asanovic2006}}
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-5.pdf}
-\end{center}
-\caption{Focus on Adoption}
-\label{fig:state-of-the-art-5}
-\end{figure}
+\begin{figure*}[h!]
+\textfig{%
+  \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-5.pdf}%
+  % \caption{Focus on Adoption}%
+  % \label{fig:state-of-the-art-5}%
+}%
+\end{figure*}
 
 \subsection{Abstraction of Tasks Organization}
 
@@ -26,7 +26,7 @@ This abstraction happens either at compile time or at runtime.
 
 \cit{It is a mistake to attempt high concurrency without help from the compiler.}{R. Behren, J. Condit, E. Brewer \cite{Behren2003}}
 
-The idea to bridge the gap between the tasks and modules organizations dates from the initial paper that presented this gap \cite{Parnas1972}.
+The idea to bridge the gap between the tasks and modules organizations dates from the initial paper that presented this gap, in 1972 by D. Parnas \cite{Parnas1972}.
 However, the implementation of this idea remains a work in progress.
 
 % read and include \cite{Catanzaro2009}
@@ -128,7 +128,11 @@ The context of web development is particularly adapted for this growth.
 
 \subsection{Summary}
 
-As detaild in table \ref{tab:adoption-summary}, this section proved that a platform cannot trade productivity against efficiency without massively losing the community required to trigger the adoption.
+This section observed that a platform cannot trade productivity against efficiency without massively losing the community required to trigger the adoption, as detailed in table \ref{tab:adoption-summary}.
+Indeed, in both the static compilation approach and the dynamic runtime approach, reducing productivity eventually avoids the community to learn, and tweak with the platform.
+Hence, as the adoption cannot rise from the community, it breaks the reinforcing loop between industry and community.
+
+Yet, the dynamic runtime approach has not been exhaustively explored.
 
 \AbstractionSummaryTable{tab:adoption-summary}
 

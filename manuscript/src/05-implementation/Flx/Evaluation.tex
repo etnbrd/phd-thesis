@@ -167,7 +167,7 @@ fn(b) {
 fn(a);
 \end{code}
 
-\subsubsection{Incertitudes}
+\subsubsection{Uncertainties}
 
 The indirection is trivial to resolve in listing \ref{lst:indirection}.
 It only needs to have access to the definition of \texttt{a} and of \texttt{fn}.
@@ -192,7 +192,7 @@ handlers[i+1](a);
 \end{code}
 
 These examples are extremely simplified.
-A real application contains enough indirections for the static analysis to be overwhelmed by incertitudes, and to be unable to resolve the variables.
+A real application contains enough indirections for the static analysis to be overwhelmed by uncertainties, and to be unable to resolve the variables.
 If a variable is left unresolved, it is impossible to assure its scope and its aliases.
 Therefore, the compiler is unable to isolate it into a fluxion, or to distribute its modification by messages.
 

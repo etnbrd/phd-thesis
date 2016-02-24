@@ -13,17 +13,48 @@ And it relocates the continuation in a call to the method $\textbf{then}$.
 The result is similar to the abstraction (\ref{eq:order:target}).
 The differences are highlighted in bold font.
 
+% \begin{figure}[h!]
+%   \bigfig{\makebox[\linewidth][c]{
+%     \parbox{0.9\figurewidth}{\makebox[0.9\figurewidth][c]{
+%       \parbox{\textwidth}{
+%         \begin{equation} \label{eq:order:source}
+%         fn([arguments], continuation)
+%         \end{equation}
+%       } \hspace{10pt} $\to$ \hspace{10pt}
+%       \parbox{0.40\textwidth}{
+%         \begin{equation} \label{eq:order:target}
+%         fn_\textbf{due}([arguments])\textbf{.then}(continuation)
+%         \end{equation}
+%       }
+%       \caption{Simple transformation}
+%       \label{fig:then-transform}
+%     }}
+%   }}
+% \end{figure}
+
 \begin{figure}[h!]
-\centering
-\begin{equation} \label{eq:order:source}
-fn([arguments], continuation)
-\end{equation}
-$\downarrow$
-\begin{equation} \label{eq:order:target}
-fn_\textbf{due}([arguments])\textbf{.then}(continuation)
-\end{equation}
-\caption{Simple transformation}
-\label{fig:then-transform}
+  \bigfig{
+    \makebox[\linewidth][c]{
+      \parbox{0.9\figurewidth}{
+        \centering
+        \parbox[t]{0.7\textwidth}{
+          \hfill
+          \begin{align} \label{eq:order:source}
+          fn([arguments], continuation)&
+          \end{align}
+        }
+        \parbox[t]{40pt}{\centering \begin{align*}\to\end{align*}}
+        \parbox[t]{0.7\textwidth}{\vspace{0pt}
+          \begin{align} \label{eq:order:target}
+          &fn_\textbf{due}([arguments])\textbf{.then}(continuation)
+          \end{align}
+          \hfill
+        }
+        \caption{Simple transformation}
+        \label{fig:then-transform}
+      }
+    }
+  }
 \end{figure}
 
 The execution order is different whether $continuation$ is called synchronously, or asynchronously.
@@ -42,36 +73,39 @@ The transformation of a chain of continuations into a chain of Dues is illustrat
 It transforms a nested imbrication of continuations similar to the abstraction (\ref{eq:state:source}) into a flatten chain of calls encapsulating them, as abstraction (\ref{eq:state:target}).
 
 \begin{figure}[h!]
-  \begin{minipage}{0.40\textwidth}
-    \centering
-    \begin{align} \label{eq:state:source}
-    &fn1([arguments], cont1 \{\nonumber\\
-    &\qquad  declare ~ variable \leftarrow result\nonumber\\
-    &\qquad  fn2([arguments], cont2 \{\nonumber\\
-    &\qquad\qquad    print ~ variable\nonumber\\
-    &\qquad  \})\nonumber\\
-    &\})
-    \end{align}
-  \end{minipage}
-  \hfill
-  $\to$
-  \hfill
-  \begin{minipage}{0.40\textwidth}
-    \centering
-    \begin{align} \label{eq:state:target}
-    &\textbf{declare variable}\nonumber\\
-    &fn1_\textbf{due}([arguments])\nonumber\\
-    &\textbf{.then}(cont1\{\nonumber\\
-    &\qquad  variable \leftarrow result\nonumber\\
-    &\qquad  \textbf{return} fn2_\textbf{due}([arguments])\nonumber\\
-    &\})\nonumber\\
-    &\textbf{.then}(cont2\{\nonumber\\
-    &\qquad  print ~ variable\nonumber\\
-    &\})
-    \end{align}
-  \end{minipage}
-  \caption{Composition transformation}
-  \label{fig:comp-transform}
+  \bigfig{
+    \makebox[\linewidth][c]{
+      \parbox{0.9\figurewidth}{\makebox[0.9\figurewidth][c]{
+        \parbox{0.40\textwidth}{
+          \hfill
+          \begin{align} \label{eq:state:source}
+          &fn1([arguments], cont1 \{\nonumber\\
+          &\qquad  declare ~ variable \leftarrow result\nonumber\\
+          &\qquad  fn2([arguments], cont2 \{\nonumber\\
+          &\qquad\qquad    print ~ variable\nonumber\\
+          &\qquad  \})\nonumber\\
+          &\})
+          \end{align}
+        } \hspace{40pt} $\to$ \hspace{40pt}
+        \parbox{0.40\textwidth}{
+          \begin{align} \label{eq:state:target}
+          &\textbf{declare variable}\nonumber\\
+          &fn1_\textbf{due}([arguments])\nonumber\\
+          &\textbf{.then}(cont1\{\nonumber\\
+          &\qquad  variable \leftarrow result\nonumber\\
+          &\qquad  \textbf{return} fn2_\textbf{due}([arguments])\nonumber\\
+          &\})\nonumber\\
+          &\textbf{.then}(cont2\{\nonumber\\
+          &\qquad  print ~ variable\nonumber\\
+          &\})
+          \end{align}
+          \hfill
+        }}
+        \caption{Composition transformation}
+        \label{fig:comp-transform}
+      }
+    }
+  }
 \end{figure}
 
 The main control flow characteristics, is to allow the execution order to be different from the linearity expressed in the source file.
