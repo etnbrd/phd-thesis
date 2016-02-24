@@ -228,7 +228,7 @@ The fluxions that need this synchronization are grouped with the same tag, and l
 
 There are two types of streams, \textit{start} and \textit{post}, which correspond to the nature of the rupture point producing the stream.
 A \textit{start} rupture point starts a chain of continuations, while a \textit{post} rupture point is a continuation in a chain.
-\textit{Start} streams are indicated with a double arrow ($\to$ \hspace{-1.4em} $\to$ or \texttt{>>}) and \textit{post} streams with a simple arrow ($\to$ or \texttt{->}).
+\textit{Start} streams are indicated with a double arrow (\texttt{>}\texttt{>}) and \textit{post} streams with a simple arrow (\texttt{->}).
 
 The variables defined before the \textit{start} are available for the whole chain, and require synchronization for concurrent execution of the same chain.
 Whereas the variables defined inside the chain are available only in this chain, and don't require synchronization.

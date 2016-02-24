@@ -10,22 +10,23 @@ Therefore, it is crucial to decompose the system into smaller subsystem easier t
 
 % \cit{Measuring programming progress by lines of code is like measuring aircraft building progress by weight.}{Bill Gates}
 
-Section \ref{chapter3:software-productivity:modularity} presents the modular programming paradigms, and their programming models, oriented toward productivity.
-Section \ref{chapter3:software-productivity:adoption} presents the adoption of the implementations of modular programming languages.
-Section \ref{chapter3:software-productivity:efficiency-limitations} presents the consequences of the modularity on performance.
-Finally, section \ref{chapter3:software-productivity:summary} summarizes the three previous sections in a table.
+The modular programming paradigms is precisely designed for this purpose.
+It is presented in section \ref{chapter3:software-productivity:modularity} with the programming models oriented toward productivity.
+The implementations of these models are addressed in section \ref{chapter3:software-productivity:adoption}.
+The consequences of modularity on performance are addressed in section \ref{chapter3:software-productivity:efficiency-limitations}.
+Finally, section \ref{chapter3:software-productivity:summary} summarizes the three previous sections.
 
 \subsection{Modular Programming} \label{chapter3:software-productivity:modularity}
 
-\begin{figure}[h!]
+\begin{figure*}[h!]
 \textfig{%
   \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-1.pdf}%
-  \caption{Focus on Productivity}%
-  \label{fig:state-of-the-art-1}%
+  % \caption{Focus on Productivity}%
+  % \label{fig:state-of-the-art-1}%
 }%
-\end{figure}
+\end{figure*}
 
-The next paragraphs presents the different programming model regarding their support to modular programming and productivity.
+% The next paragraphs presents the different programming model regarding their support to modular programming and productivity.
 
 \subsubsection{Imperative Programming}
 
@@ -72,29 +73,39 @@ They provide encapsulation, higher-order programming and lazy evaluation.
 
 \subsubsection{Multi-Paradigm}
 
-The functional programming concepts are also implemented in other languages along with mutable states and object-oriented concepts.
-Major recent programming languages, including Java 8 and C++ 11, now commonly present higher-order functions.
+The functional programming concepts are also implemented in most mainstream languages along with mutable states and object-oriented concepts.
+Major recent programming languages now commonly present higher-order functions, including Java 8 and C++ 11.
 \textit{In fine}, it helps developers to write applications that are more maintainable, and favorable to evolution \cite{Hughes1989,Turner1981}.
-These recent multi-paradigms languages such as \ImplementationsOf{Multi Paradigm} combine the different paradigms to help developer building applications faster.
+The main multi-paradigm languages are \ImplementationsOf{Multi Paradigm}.
+These multi-paradigms languages combine the different paradigms to help developer building applications faster.
 
 \separator
 
-The previously presented programming models are all rather focused on productivity, as recapped in table \ref{tab:productivity-modularity}.
+The previously presented programming models are different approach to provide productivity, as recapped in table \ref{tab:productivity-modularity}.
+The imperative programming model is less productive than other, as it is the oldest one.
+The two following - Object-Oriented, and Functional Programming - adopted different approaches to improve upon it.
+And finally, the last one selected improvements from the two diverging approaches as the development practices evolved.
 
 \ModularProductivityTable{tab:productivity-modularity}
 
-\subsection{Adoption} \label{chapter3:software-productivity:adoption}
+\subsection{Steering Back Toward Efficiency} \label{chapter3:software-productivity:adoption}
 
-As stated previously, adoption relies an productivity as well as efficiency.
-The next paragraphs present the adoptions of different platforms for web development and focus on Javascript.
-
-\begin{figure}[h!]
+\begin{figure*}[h!]
 \textfig{%
   \includegraphics[width=0.6\textwidth]{../resources/state-of-the-art-2.pdf}%
-  \caption{Steering back toward Performance Efficiency}%
-  \label{fig:state-of-the-art-2}%
+  % \caption{Steering back toward Performance Efficiency}%
+  % \label{fig:state-of-the-art-2}%
 }%
-\end{figure}
+\end{figure*}
+
+
+As stated previously, adoption relies on productivity as well as efficiency.
+Industrial actors often supply resources to improve the efficiency of major productive languages.
+The V8 Javascript execution engine is a good example\ftnt{http://bit.ly/V8-optimization}.
+It is an explanation for its increasing adoption, as presented in the next paragraphs.
+% The recent improvement of performance of Javascript, with the V8 engine, is a perfect example \ftnt{http://bit.ly/V8-optimization}.
+% This improvement is an explanation for the increase of adoption of Javascript, as presented in the next paragraph.
+% The next paragraphs present the adoptions of different platforms for web development and focus on Javascript.
 
 \subsubsection{Community}%
 \paragraph{Available Resources}%
@@ -159,11 +170,12 @@ Javascript is increasingly adopted in the software industry.
 
 \separator
 
-According to these various sources, multi paradigm languages like Javascript are the most widely used by the community and the industry, as presented in table \ref{tab:productivity-adoption}.
-OOP and Imperative Programming remains strong in the industry, but are progressively abandoned by the community.
-Functional Programming is not well represented in community nor the industry.
-
-% Table \ref{tab:productivity-adoption} presents a summary of the analysis of the programming models presented in the previous paragraphs.
+Multi paradigm languages like Javascript are the most widely used by the community and the industry, as presented in table \ref{tab:productivity-adoption}.
+OOP and Imperative Programming remains strong in the industry, but are slightly less active in the community.
+As detailed previously, the main OOP languages are steering toward the multi-paradigm approach.
+With lambda, for example.
+Functional Programming is not well represented.
+It comes mainly from the academy, and failed to penetrate the academy nor the industry.
 
 \ModularAdoptionTable{tab:productivity-adoption}
 
@@ -184,22 +196,17 @@ The platforms extending these languages with concurrent or parallel paradigms to
 
 \subsection{Summary} \label{chapter3:software-productivity:summary}
 
-The evaluation of the platforms presented in this section is summarized in table \ref{tab:productivity-synthesis}.
+The platforms presented in this section recount the evolution of mainstream development toward productivity.
+From Imperative Programming to Multi-Paradigms, languages improved the development productivity.
+This improvement in productivity is steered by the community as well as the industry.
+The community is attracted by the most productive languages to quickly learn and start new projects.
+While the industry makes them more attractive by providing resources to improve their efficiency.
+The interaction of the industry and the community results in these mainstream languages heavily adopted.
+However, there is inherently a limitation to the efficiency of these productive languages.
+
+These languages are productive, but this efficiency limitation avoid an unanimous adoption, as summarized in table \ref{tab:productivity-synthesis}.
 
 \ModularSummaryTable{tab:productivity-synthesis}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 \endinput

@@ -37,23 +37,23 @@
 
 % MAINTAINABILITY
 \newcommand{\ProductivityCol}    {4}
-\newcommand{\ProductivityHeader} { Model &   \lab{Composition} &   \lab{Encapsulation} & $\to$ &   \lab{Productivity} \\ \tabucline[.5pt]{-}}
-\newcommand{\ProductivityRow}    {\Model & \rate{\Composition} & \rate{\Encapsulation} &&        \rate{\Productivity}}
+\newcommand{\ProductivityHeader} { Model &  Implementations &   \lab{Composition} &   \lab{Encapsulation} & $\to$ &   \lab{Productivity} \\ \tabucline[.5pt]{-}}
+\newcommand{\ProductivityRow}    {\Model & \Implementations & \rate{\Composition} & \rate{\Encapsulation} &&        \rate{\Productivity}}
 
 % PERFORMANCE
 \newcommand{\EfficiencyCol}        {4}
-\newcommand{\EfficiencyHeader}     { Model & \lab{Fine-grain level synchronization} & \lab{Coarse-grain level message passing} & $\to$ & \lab{Efficiency} \\ \tabucline[.5pt]{-}}
-\newcommand{\EfficiencyRow}        {\Model & \rate{\Synchronization}                & \rate{\Message}                          &&      \rate{\Efficiency}}
+\newcommand{\EfficiencyHeader}     { Model &  Implementations & \lab{Fine-grain level synchronization} & \lab{Coarse-grain level message passing} & $\to$ & \lab{Efficiency} \\ \tabucline[.5pt]{-}}
+\newcommand{\EfficiencyRow}        {\Model & \Implementations & \rate{\Synchronization}                & \rate{\Message}                          &&      \rate{\Efficiency}}
 
 % ADOPTION
 \newcommand{\AdoptionCol}           {4}
-\newcommand{\AdoptionHeader}        { Model &   \lab{Community support} &   \lab{Industrial need} & $\to$ &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
-\newcommand{\AdoptionRow}           {\Model & \rate{\Community}         & \rate{\Industry}        &&        \rate{\Adoption}}
+\newcommand{\AdoptionHeader}        { Model &  Implementations &   \lab{Community support} &   \lab{Industrial need} & $\to$ &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
+\newcommand{\AdoptionRow}           {\Model & \Implementations & \rate{\Community}         & \rate{\Industry}        &&        \rate{\Adoption}}
 
 % SUMMARY
 \newcommand{\SummaryCol}            {3}
-\newcommand{\SummaryHeader}         { Model  &   \lab{Productivity} &   \lab{Efficiency} &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
-\newcommand{\SummaryRow}            {\Model  & \rate{\Productivity} & \rate{\Efficiency} & \rate{\Adoption}}
+\newcommand{\SummaryHeader}         { Model &  Implementations &   \lab{Productivity} &   \lab{Efficiency} &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
+\newcommand{\SummaryRow}            {\Model & \Implementations & \rate{\Productivity} & \rate{\Efficiency} & \rate{\Adoption}}
 
 %% -------------------------------------------------------------------------------------------
 %%                                       EXTRACTIONS
@@ -107,7 +107,7 @@
 \newcommand{\ModularProductivityTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\ProductivityCol}{c} @{}}
   \ProductivityHeader
   \ModularProductivity
   \end{tabu}
@@ -120,7 +120,7 @@
 \newcommand{\ModularAdoptionTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\AdoptionCol}{c} @{}}
   \AdoptionHeader
   \ModularAdoption
   \end{tabu}
@@ -133,7 +133,7 @@
 \newcommand{\ModularEfficiencyTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\EfficiencyCol}{c} @{}}
   \EfficiencyHeader
   \ModularEfficiency
   \end{tabu}
@@ -146,7 +146,7 @@
 \newcommand{\ModularSummaryTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\SummaryCol}{c} @{}}
   \SummaryHeader
   \ModularSummary
   \end{tabu}
@@ -161,7 +161,7 @@
 \newcommand{\ParallelEfficiencyTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\EfficiencyCol}{c} @{}}
   \EfficiencyHeader
   \ConcurrentEfficiency
   \ParallelEfficiency
@@ -175,7 +175,7 @@
 \newcommand{\ConcurrentAdoptionTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\AdoptionCol}{c} @{}}
   \AdoptionHeader
   \ConcurrentAdoption
   \end{tabu}
@@ -188,7 +188,7 @@
 \newcommand{\ParallelAdoptionTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\AdoptionCol}{c} @{}}
   \AdoptionHeader
   \ConcurrentAdoption
   \ParallelAdoption
@@ -203,7 +203,7 @@
 \newcommand{\EfficiencyProductivityTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\ProductivityCol}{c} @{}}
   \ProductivityHeader
   \ConcurrentProductivity
   \ParallelProductivity
@@ -218,7 +218,7 @@
 \newcommand{\EfficiencySummaryTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\SummaryCol}{c} @{}}
   \SummaryHeader
   \ConcurrentSummary
   \ParallelSummary
@@ -235,7 +235,7 @@
 \newcommand{\AbstractionProductivityTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\ProductivityCol}{c} @{}}
   \ProductivityHeader
   \CompilerProductivity
   \RuntimeProductivity
@@ -249,7 +249,7 @@
 \newcommand{\AbstractionAdoptionTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\AdoptionCol}{c} @{}}
   \AdoptionHeader
   \CompilerAdoption
   \RuntimeAdoption
@@ -263,7 +263,7 @@
 \newcommand{\AbstractionEfficiencyTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\EfficiencyCol}{c} @{}}
   \EfficiencyHeader
   \CompilerEfficiency
   \RuntimeEfficiency
@@ -277,7 +277,7 @@
 \newcommand{\AbstractionSummaryTable}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\SummaryCol}{c} @{}}
   \SummaryHeader
   \CompilerSummary
   \RuntimeSummary
@@ -291,7 +291,7 @@
 %% Summary
 
 \newcommand{\TableSummary}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\SummaryCol}{c} @{}}
 \SummaryHeader%
 \ModularSummary%
 \ConcurrentSummary%
@@ -307,7 +307,7 @@
 %% Proposition
 
 \newcommand{\TablePropositionProductivity}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\ProductivityCol}{c} @{}}
 \ProductivityHeader%
 \PropositionProductivity%
 \caption{Productivity of the proposed solution}
@@ -316,7 +316,7 @@
 }
 
 \newcommand{\TablePropositionEfficiency}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\EfficiencyCol}{c} @{}}
 \EfficiencyHeader%
 \PropositionEfficiency%
 \caption{Efficiency of the proposed solution}
@@ -325,7 +325,7 @@
 }
 
 \newcommand{\TablePropositionAdoption}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\AdoptionCol}{c} @{}}
 \AdoptionHeader%
 \PropositionAdoption%
 \caption{Adoption of the proposed solution}
@@ -334,7 +334,7 @@
 }
 
 \newcommand{\TablePropositionSummary}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\SummaryCol}{c} @{}}
 \SummaryHeader%
 \PropositionSummary%
 \caption{Sommary of the proposed solution}
@@ -345,7 +345,7 @@
 %% Perspectives
 
 \newcommand{\TablePerspectiveProductivity}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\ProductivityCol}{c} @{}}
+\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\ProductivityCol}{c} @{}}
 \ProductivityHeader%
 \PerspectiveProductivity%
 \caption{Productivity of the proposed solution}
@@ -354,7 +354,7 @@
 }
 
 \newcommand{\TablePerspectiveEfficiency}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\EfficiencyCol}{c} @{}}
 \EfficiencyHeader%
 \PerspectiveEfficiency%
 \caption{Efficiency of the proposed solution}
@@ -363,7 +363,7 @@
 }
 
 \newcommand{\TablePerspectiveAdoption}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\AdoptionCol}{c} @{}}
+\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\AdoptionCol}{c} @{}}
 \AdoptionHeader%
 \PerspectiveAdoption%
 \caption{Adoption of the proposed solution}
@@ -372,7 +372,7 @@
 }
 
 \newcommand{\TablePerspectiveSummary}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\SummaryCol}{c} @{}}
 \SummaryHeader%
 \PerspectiveSummary%
 \caption{Sommary of the proposed solution}
