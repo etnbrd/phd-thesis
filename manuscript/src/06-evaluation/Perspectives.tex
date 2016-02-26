@@ -34,7 +34,7 @@ A very simple static analysis could resolve it.
 It only needs to have access to the definition of \texttt{a} and of \texttt{fn}.
 However, in listing \ref{lst:indirections}, the array \texttt{handlers} introduces a new level of indirection.
 Additionally to \texttt{a}, and \texttt{fn} in \texttt{handlers}, the static analysis now needs to have access to the definition of \texttt{i}.
-If this definition is provided by an external input, it is not available statically, hence, it adds an incertitude during the analysis. 
+If this definition is provided by an external input, it is not available statically, hence, it adds an uncertainty during the analysis. 
 
 \begin{code}[js,
   caption={Two levels of indirection},
@@ -52,14 +52,14 @@ handlers[i+1](a);
 \end{code}
 
 These examples are extremely simplified.
-In practice, a program contains enough indirections, for the static analysis to be overwhelmed by incertitudes.
-These incertitudes limit the fluxional compiler presented in chapter \ref{chpater6}.
+In practice, a program contains enough indirections, for the static analysis to be overwhelmed by uncertainties.
+These uncertainties limit the fluxional compiler presented in chapter \ref{chpater6}.
 It is unable to detects correctly most of the rupture points, not to discover the interdependencies between fluxions.
 
 If one of the \texttt{handlers} is an asynchronous function that could yield a rupture point.
-The detection of this rupture point requires no incertitude on the variable i.
-In a web application, this variable \texttt{i} is probably part of the user request, which eventually introduces an incertitude.
-Moreover, if this incertitudes could be resolved somehow, the isolation of the downstream fluxion would require no incertitude on the variables shared with the scope of upstream fluxion.
+The detection of this rupture point requires no uncertainty on the variable i.
+In a web application, this variable \texttt{i} is probably part of the user request, which eventually introduces an uncertainty.
+Moreover, if this uncertainties could be resolved somehow, the isolation of the downstream fluxion would require no uncertainty on the variables shared with the scope of upstream fluxion.
 This is very unlikely.
 
 No static analysis can really overstep these limitations.

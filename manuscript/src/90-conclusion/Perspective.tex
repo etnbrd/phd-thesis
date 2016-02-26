@@ -1,0 +1,114 @@
+\section{Perspectives} \label{chapter6:perspective}
+
+As stated previously, static analysis impacts productivity to favor efficiency.
+% For example, to isolate fluxions, the current implementation of the compiler restrains the developer to use only \textit{in situ} callbacks, and avoids aliasing.
+Though, an interesting perspective to continue this work is to implement as a just-in-time compiler.
+Indeed, the dynamic analysis allowed at run time is more prone to overcome the limitation identified with static analysis.
+
+\subsection{Just-in-time Compilation}
+
+Most Javascript interpreters compile some parts of the code at run time to improve performances.
+During this compilation, the levels of indirections are mostly resolved.
+The code is translated directly into lower-level instructions.
+
+Implementing the equivalence in a just-in-time (JIT) compiler could leverage this dynamic resolution.
+It could analyze the scope of variables resolved dynamically, and isolate the stages accordingly.
+
+\paragraph{Rupture point detection}
+
+The asynchronous functions identifying rupture points are not part of Javascript.
+They are special functions provided by the interpreter.
+With the compiler communicating with the interpreter at run time, detecting rupture points become trivial.
+The interpreter notifies the compiler when an asynchronous function is called.
+The compiler then identifies the rupture point and isolates it to possibly execute it remotely.
+
+\paragraph{Dominator Tree}
+
+To debug the memory in dynamic languages like Javascript, one can use a dominator tree.
+It is a tree generated at run time indicating the parenting relations between memory objects.
+With such a tree, the analysis of interdependencies between stages becomes trivial.
+Each stage can be isolated in a fluxion, and deployed accordingly to its dependencies.
+
+% With the dynamic registering of Fluxions to the messaging system, and into tag groups, it is possible to transform a Javascript application continuously during its execution.
+% Analysis of the interdependencies become as trivial as for static languages, with the resolution of the indirections by the just-in-time compiler.
+% The fluxional compiler waits for these resolutions, and then analyzes the compiled code for rupture points.
+% As the asynchronism of a function call is handled by the execution engine, the just-in-time compilation can pin point precisely the asynchronous calls from the synchronous ones. 
+% And the continuations for these asynchronous calls are resolved, which makes them similar to inline continuations.
+
+\paragraph{Closure Serialization}
+
+Closures are required to allow higher-order programming.
+But the static compiler is unable to manipulate closures, as illustrated in section \ref{chapter5:flx:evaluation:isolation}.
+Closures are generated dynamically by the interpreter.
+With the compiler communicating with the interpreter, the former can manipulates and serialize them at run time.
+It can then send closures between fluxions, like any other objects.
+It enables the use of higher-order programming within the fluxional execution model.
+Hence, it would allow, to some extent, to improve the compromise between productivity and efficiency.
+Indeed, the developer is free to use the higher-order programming to compose modules, with a global memory abstraction.
+Yet, the execution could distribute this global memory abstraction according to the detected interdependencies.
+
+\paragraph{Dynamic Grouping}
+
+With the dynamic detection of stages and their dependencies, and the manipulation of closures, fluxions can be registered during the execution of the application.
+To assure they meet their dependencies, the fluxions are deployed according to their groups.
+Two fluxions belong to the same group if they need to share access to some variables.
+Therefore, they need to be deployed on the same event-loop to share their memory.
+
+\paragraph{Safe-Checking}
+
+It is required to safe-check that the compiled code is consistent with the remaining execution.
+As an example, just-in-time compilers check the type to assure that a compiled function remains conform to the input and output types of its call site.
+Similarly, it is required to check that the deployment of fluxions doesn't cause inconsistencies.
+
+If a fluxion ready to be deployed belongs to two different groups, these two groups needs to be gathered on the same event-loop.
+If they were previously deployed on two different event-loops, they need to be moved with their context to be on the same event-loop.
+Moreover, to assure consistency, they need to be moved when receiving the request that triggered the fluxion ready to be deployed.
+So that when this new fluxion is executed at this message reception it has access to the contexts of the two groups.
+For this purpose, the compiler put the execution on hold, and sends a control message downstream to order the move of the fluxions.
+% It interleaves control messages in the stream to communicate with the distributed interpreters.
+In this example, the message inquired the distributed interpreters to stop execution, pack the fluxions and their contexts, and send them back to another remote interpreter.
+To assure consistency, the execution resumes only when all the fluxions are gathered in the same event-loop, with access to the whole shared memory.
+
+% If the new fluxion depends an a local variable, as well as a variable from a group on another node than the local node, the group needs to be deployed back locally.
+% The fluxion as well as all the fluxions of the group are deployed locally, but the execution needs to wait for the contexts of the group to be available locally.
+% To gather the contexts, the node responsible for this group send a message to the messaging system managing this group.
+% The messaging system gather all the contexts of the fluxions, and send them back.
+% When the contexts are deployed locally to the new node responsible for the this group, the execution of this branch can resume.
+
+% A new compromise have to be done between the cost of sending a fluxion and the cost to get it back, and the risk that it requires to be sent back.
+% It might be possible to reduce this risk by saving the compilation information from one execution to the other.
+
+\separator
+
+The perspectives described in the previous paragraphs overcome the limitations of the current implementation of the compiler.
+They describe the further implementation of the equivalence, as if I were to continue this work.
+
+\subsection{Evaluation of the perspective}
+
+This second evaluation admits that the JIT compilation allows to resolve all the indirections in the memory.
+Which is left unknown after this thesis.
+The fluxional JIT compiler then doesn't need to rely on human interaction.
+Therefore, the expected productivity is the same as the productivity language used as source. %, as illustrated in table \ref{tab:perspective-productivity}.
+
+% \TablePerspectiveProductivity{tab:perspective-productivity}
+
+Naturally, the performance efficiency of the implementation is the same of this productivity language, at first, as the development is focused on productivity.
+And some development efforts are required to improve the efficiency.
+But due to this compilation, they are expected to be less than the current required effort. %, as illustrated in table \ref{tab:perspective-efficiency}.
+Instead of redesigning the architecture of the application to immediately isolate components, it is possible to modify them to progressively loosen their dependencies.
+As illustrated in table \ref{tab:perspective-summary}, this envisioned platform is expected to yield both productivity and efficiency, not at the same time, but when they are required the most.
+
+% \TablePerspectiveEfficiency{tab:perspective-efficiency}
+
+Moreover, during this decomposition and after, developers can still rely on higher-order programming, even between isolated application parts.
+In the current state of the art, there is no known platform to offer higher-order programming between distributed parts.
+This possibility is therefore unknown, and could actually yield to an unrivaled compromise between productivity and efficiency.
+
+Following the insight along this thesis, a platform bringing both productivity and efficiency simultaneously would be greatly adopted.
+But it requires to be observed in real conditions before drawing this conclusion.
+% , as illustrated in table \ref{tab:perspective-adoption}.
+
+% \TablePerspectiveAdoption{tab:perspective-adoption}
+% \separator
+
+\TablePerspectiveSummary{tab:perspective-summary}

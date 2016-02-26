@@ -55,6 +55,11 @@
 \newcommand{\SummaryHeader}         { Model &  Implementations &   \lab{Productivity} &   \lab{Efficiency} &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
 \newcommand{\SummaryRow}            {\Model & \Implementations & \rate{\Productivity} & \rate{\Efficiency} & \rate{\Adoption}}
 
+% CONCLUSION PROPOSITION / PERSPECTIVE
+\newcommand{\ConclusionCol}            {4}
+\newcommand{\ConclusionHeader}         { Model &   \lab{Productivity} &   \lab{Efficiency} & - &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
+\newcommand{\ConclusionRow}            {\Model & \rate{\Productivity} & \rate{\Efficiency} & - & \rate{\Adoption}}
+
 %% -------------------------------------------------------------------------------------------
 %%                                       EXTRACTIONS
 %% -------------------------------------------------------------------------------------------
@@ -97,6 +102,9 @@
 \newcommand{\PropositionSummary}       {\ExtractGroup{Proposition}  {\SummaryRow}}
 \newcommand{\PerspectiveSummary}       {\ExtractGroup{Perspective}  {\SummaryRow}}
 
+% CONCLUSION
+\newcommand{\PropositionConclusion}    {\ExtractGroup{Proposition}  {\ConclusionRow}}
+\newcommand{\PerspectiveConclusion}    {\ExtractGroup{Perspective}  {\ConclusionRow}}
 
 %% -------------------------------------------------------------------------------------------
 %%                                       TABLES
@@ -306,76 +314,103 @@
 
 %% Proposition
 
-\newcommand{\TablePropositionProductivity}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\ProductivityCol}{c} @{}}
-\ProductivityHeader%
-\PropositionProductivity%
-\caption{Productivity of the proposed solution}
-\label{#1}
-\end{longtabu} \tikzexternalenable
-}
+% \newcommand{\TablePropositionProductivity}[1]{ \tikzexternaldisable
+% \begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\ProductivityCol}{c} @{}}
+% \ProductivityHeader%
+% \PropositionProductivity%
+% \caption{Productivity of the proposed solution}
+% \label{#1}
+% \end{longtabu} \tikzexternalenable
+% }
 
-\newcommand{\TablePropositionEfficiency}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\EfficiencyCol}{c} @{}}
-\EfficiencyHeader%
-\PropositionEfficiency%
-\caption{Efficiency of the proposed solution}
-\label{#1}
-\end{longtabu} \tikzexternalenable
-}
+% \newcommand{\TablePropositionEfficiency}[1]{ \tikzexternaldisable
+% \begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+% \EfficiencyHeader%
+% \PropositionEfficiency%
+% \caption{Efficiency of the proposed solution}
+% \label{#1}
+% \end{longtabu} \tikzexternalenable
+% }
 
-\newcommand{\TablePropositionAdoption}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\AdoptionCol}{c} @{}}
-\AdoptionHeader%
-\PropositionAdoption%
-\caption{Adoption of the proposed solution}
-\label{#1}
-\end{longtabu} \tikzexternalenable
-}
+% \newcommand{\TablePropositionAdoption}[1]{ \tikzexternaldisable
+% \begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\AdoptionCol}{c} @{}}
+% \AdoptionHeader%
+% \PropositionAdoption%
+% \caption{Adoption of the proposed solution}
+% \label{#1}
+% \end{longtabu} \tikzexternalenable
+% }
 
-\newcommand{\TablePropositionSummary}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\SummaryCol}{c} @{}}
-\SummaryHeader%
-\PropositionSummary%
-\caption{Sommary of the proposed solution}
-\label{#1}
-\end{longtabu} \tikzexternalenable
+% \newcommand{\TablePropositionSummary}[1]{ \tikzexternaldisable
+% \begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+% \ConclusionHeader%
+% \PropositionConclusion%
+% \caption{Summary of the proposed solution}
+% \label{#1}
+% \end{longtabu} \tikzexternalenable
+% }
+
+
+\newcommand{\TablePropositionSummary}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} X[2,l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \ConclusionHeader%
+  \PropositionConclusion%
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Summary of the proposed solution}
+  \label{#1}
+  \end{table}
 }
 
 %% Perspectives
 
-\newcommand{\TablePerspectiveProductivity}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\ProductivityCol}{c} @{}}
-\ProductivityHeader%
-\PerspectiveProductivity%
-\caption{Productivity of the proposed solution}
-\label{#1}
-\end{longtabu} \tikzexternalenable
-}
+% \newcommand{\TablePerspectiveProductivity}[1]{ \tikzexternaldisable
+% \begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\ProductivityCol}{c} @{}}
+% \ProductivityHeader%
+% \PerspectiveProductivity%
+% \caption{Productivity of the perspective}
+% \label{#1}
+% \end{longtabu} \tikzexternalenable
+% }
 
-\newcommand{\TablePerspectiveEfficiency}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\EfficiencyCol}{c} @{}}
-\EfficiencyHeader%
-\PerspectiveEfficiency%
-\caption{Efficiency of the proposed solution}
-\label{#1}
-\end{longtabu} \tikzexternalenable
-}
+% \newcommand{\TablePerspectiveEfficiency}[1]{ \tikzexternaldisable
+% \begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\EfficiencyCol}{c} @{}}
+% \EfficiencyHeader%
+% \PerspectiveEfficiency%
+% \caption{Efficiency of the perspective}
+% \label{#1}
+% \end{longtabu} \tikzexternalenable
+% }
 
-\newcommand{\TablePerspectiveAdoption}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\AdoptionCol}{c} @{}}
-\AdoptionHeader%
-\PerspectiveAdoption%
-\caption{Adoption of the proposed solution}
-\label{#1}
-\end{longtabu} \tikzexternalenable
-}
+% \newcommand{\TablePerspectiveAdoption}[1]{ \tikzexternaldisable
+% \begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\AdoptionCol}{c} @{}}
+% \AdoptionHeader%
+% \PerspectiveAdoption%
+% \caption{Adoption of the perspective}
+% \label{#1}
+% \end{longtabu} \tikzexternalenable
+% }
 
-\newcommand{\TablePerspectiveSummary}[1]{ \tikzexternaldisable
-\begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\SummaryCol}{c} @{}}
-\SummaryHeader%
-\PerspectiveSummary%
-\caption{Sommary of the proposed solution}
-\label{#1}
-\end{longtabu} \tikzexternalenable
+% \newcommand{\TablePerspectiveSummary}[1]{ \tikzexternaldisable
+% \begin{longtabu} to \linewidth {@{} X[l] *{\the\numexpr\SummaryCol}{c} @{}}
+% \ConclusionHeader%
+% \PerspectiveConclusion%
+% \caption{Summary of the perspective}
+% \label{#1}
+% \end{longtabu} \tikzexternalenable
+% }
+
+\newcommand{\TablePerspectiveSummary}[1]{
+  \begin{table}[H]
+  \tikzexternaldisable
+  \begin{tabu} to \linewidth {@{} X[2,l] *{\the\numexpr\SummaryCol}{c} @{}}
+\ConclusionHeader%
+\PerspectiveConclusion%
+  \end{tabu}
+  \tikzexternalenable
+  \caption{Summary of the perspective}
+  \label{#1}
+  \end{table}
 }
