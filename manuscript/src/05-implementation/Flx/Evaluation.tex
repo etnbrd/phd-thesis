@@ -76,27 +76,27 @@ flx anonymous_1000
 \end{code}
 
 The compiler detects a rupture point : the function \texttt{get\-Raw\-Body} and its anonymous callback, line \ref{lst:gifsocket:callback}.
-It encapsulates this callback in a fluxion named \texttt{anonymous\_\-1000}.
+It encapsulates this callback in a fluxion named \texttt{anony\-mous\_\-1000}.
 The callback is replaced with a stream placeholder to send the message stream to this downstream fluxion.
-The variables \texttt{req} and \texttt{next} are appended to this message stream, to propagate their value from the \texttt{main} fluxion to the \texttt{anonymous\_\-1000} fluxion.
+The variables \texttt{req} and \texttt{next} are appended to this message stream, to propagate their value from the \texttt{main} fluxion to the \texttt{anony\-mous\_\-1000} fluxion.
 
-When \texttt{anonymous\_\-1000} is not isolated from the \texttt{main} fluxion, as if they belong to the same group, the compilation result works as expected.
+When \texttt{anony\-mous\_\-1000} is not isolated from the \texttt{main} fluxion, as if they belong to the same group, the compilation result works as expected.
 The variables used in the fluxion, \texttt{req} and \texttt{next}, are still shared between the two fluxions.
 In this situation fluxions are quite similar to Dues regarding memory shareing.
 Our goal is to isolate the two fluxions, to be able to safely parallelize their executions.
 
 \subsubsection{Isolation} \label{chapter5:flx:evaluation:isolation}
 
-In listing \ref{lst:flx-gifsocket}, the fluxion \texttt{anonymous\_1000} modifies the object \texttt{req}, line \ref{lst:flx-gifsocket:buffer}, to store the text of the received request, and it calls \texttt{next} to continue the execution, line \ref{lst:flx-gifsocket:next}.
+In listing \ref{lst:flx-gifsocket}, the fluxion \texttt{anony\-mous\_\-1000} modifies the object \texttt{req}, line \ref{lst:flx-gifsocket:buffer}, to store the text of the received request, and it calls \texttt{next} to continue the execution, line \ref{lst:flx-gifsocket:next}.
 \texttt{req} is an alias to a memory location used in multiple palces in code.
 Therefore, these operations produce side-effects that should propagate in the whole application, but the isolation prevents this propagation.
-Isolating the fluxion \texttt{anonymous\_1000} produces runtime exceptions.
+Isolating the fluxion \texttt{anony\-mous\_\-1000} produces runtime exceptions.
 The next paragraph details how this situation is handled to allow the application to be parallelized.
 
 \paragraph{Variable \texttt{req}}
 
 The variable \texttt{req} is read in fluxion \texttt{main}, lines \ref{lst:flx-gifsocket:getRawBody} and \ref{lst:flx-gifsocket:req.headers}.
-Then its property \texttt{body} is associated to \texttt{buffer} in fluxion \texttt{anonymous\_1000}, line \ref{lst:flx-gifsocket:buffer}.
+Then its property \texttt{body} is associated to \texttt{buffer} in fluxion \texttt{anony\-mous\_\-1000}, line \ref{lst:flx-gifsocket:buffer}.
 The compiler is unable to identify the aliases of this variable. % further usages.
 However, the side effect resulting from this association impacts a variable in the scope of the next callback, \texttt{routes.write\-Text\-To\-Images}.
 In this test case, the application is modified manually to explicitly propagate this side-effect to the next callback through the function \texttt{next}.
@@ -105,7 +105,7 @@ The modifications of this function are explained further in the next paragraph.
 \paragraph{Closure \texttt{next}}
 
 The function \texttt{next} is a closure provided by the \texttt{express} \texttt{Router} to continue the execution with the next function to handle the client request.
-Because it indirectly relies on the variable \texttt{req}, it is impossible to isolate its execution with the \texttt{anonymous\_\-1000} fluxion.
+Because it indirectly relies on the variable \texttt{req}, it is impossible to isolate its execution with the \texttt{anony\-mous\_\-1000} fluxion.
 Instead, we modify \texttt{express}, so as to be compatible with the fluxional execution model.
 We explain the modifications below.
 
@@ -128,10 +128,10 @@ flx express_dispatcher & express {req} //@\label{lst:mflx-gifsocket:express-disp
 In listing \ref{lst:gifsocket}, the function \texttt{next} is a continuation allowing the anonymous callback, line \ref{lst:gifsocket:callback}, to call the next function to handle the request.
 To isolate the anonymous callback into \texttt{anonymous\_\-1000}, \texttt{next} is replaced by a rupture point.
 This replacement is illustrated in listing \ref{lst:mflx-gifsocket}.
-The \texttt{express} \texttt{Router} registers a fluxion named \texttt{express\_\-dispatcher}, line \ref{lst:mflx-gifsocket:express-dispatcher}, to continue the execution after the fluxion \texttt{anonymous\_\-1000}.
+The \texttt{express} \texttt{Router} registers a fluxion named \texttt{express\_\-dispatcher}, line \ref{lst:mflx-gifsocket:express-dispatcher}, to continue the execution after the fluxion \texttt{anony\-mous\_\-1000}.
 This fluxion is in the same group \texttt{express} as the \texttt{main} fluxion, hence it has access to the original variable \texttt{req}, and to the original function \texttt{next}.
 The call to the original \texttt{next} function is replaced by a placeholder to push the stream to the fluxion \texttt{express\_\-dispatcher}, line \ref{lst:mflx-gifsocket:next-placeholder}.
-The fluxion \texttt{express\_\-dispatcher} receives the stream from the upstream fluxion \texttt{anonymous\_\-1000}, merges back the modification in the variable \texttt{req} to propagate the side effects, and finally calls the original function \texttt{next} to continue the execution, line \ref{lst:mflx-gifsocket:next}.
+The fluxion \texttt{express\_\-dispatcher} receives the stream from the upstream fluxion \texttt{anony\-mous\_\-1000}, merges back the modification in the variable \texttt{req} to propagate the side effects, and finally calls the original function \texttt{next} to continue the execution, line \ref{lst:mflx-gifsocket:next}.
 
 After the modifications detailed above, the server works as expected.
 The isolated fluxion correctly receives, and returns its serialized messages.
@@ -174,7 +174,7 @@ It only needs to have access to the definition of \texttt{a} and of \texttt{fn}.
 %A very simple static analysis could resolve it.
 However, in listing \ref{lst:indirections}, the array \texttt{handlers} introduces a new level of indirection.
 The static analysis now needs to have access to the definition of \texttt{i} and of the \texttt{handlers}.
-If this definition is provided by an external input, it is not available statically, hence, it adds an incertitude during the analysis. 
+If this definition is provided by an external input, it is not available statically, hence, it adds an uncertainty during the analysis. 
 
 \begin{code}[js,
   caption={Two levels of indirection},
@@ -203,7 +203,7 @@ Therefore, it is unable to assure that the modification will conserve the semant
 \subsubsection{Dynamic Resolution}
 
 In a web application, this variable \texttt{i} might be part of the user request, which is available only at runtime.
-It eventually introduces an incertitude.
+It eventually introduces an uncertainty.
 
 This dynamic resolution of variables is precisely what increase expressiveness.
 Trying to resolve them statically is equivalent to restrict expressiveness.
