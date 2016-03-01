@@ -2,6 +2,7 @@
 \usepackage{xcolor}
 \usepackage{pifont}
 \usepackage{calc}
+\usepackage{tocloft}
 
 \definecolor{todo}{rgb}{0.9,0.5,0.5}
 \definecolor{text}{gray}{0.8}
@@ -12,7 +13,9 @@
 \definecolor{gray5}{rgb}{.90,.90,.90}
 \definecolor{gray6}{rgb}{.95,.95,.95}
 
-\definecolor{LIGTHGRAY}{RGB}{253,251,247}
+\definecolor{LIGHTGRAY}{RGB}{253,251,247}
+% \definecolor{LIGTHGRAY}{RGB}{253,251,247}
+\definecolor{TITLE}{RGB}{36, 34, 31}
 
 \definecolor{RED}{RGB}{255, 0, 73}
 \definecolor{GREEN}{RGB}{0, 224, 197}
@@ -38,11 +41,11 @@
   \tiny{\textcolor{text}{#1}}}%
 }
 
-\newcommand{\illustration}[1]{%
-% \reversemarginpar%
-% \marginpar{\tiny{illustration:\\#1}}%
-% \normalmarginpar%
-}
+% \newcommand{\illustration}[1]{%
+% % \reversemarginpar%
+% % \marginpar{\tiny{illustration:\\#1}}%
+% % \normalmarginpar%
+% }
 
 \newcommand{\ftnt}[1]{%
   \footnote{\small{\url{#1}}}%
@@ -74,19 +77,19 @@
 
 \newcommand{\bigfig}[1]{%
   \fboxsep 20pt%
-  \makebox[\textwidth][c]{\colorbox{LIGTHGRAY}{\parbox{\figurewidth}{#1}}}%
+  \makebox[\textwidth][c]{\colorbox{LIGHTGRAY}{\parbox{\figurewidth}{#1}}}%
 }
 
 \newcommand{\textfig}[1]{%
   \fboxsep 0pt%
-  \makebox[\textwidth][c]{\colorbox{LIGTHGRAY}{\parbox{\textwidth}{\vspace{20pt}\centering#1\vspace{20pt}}}}%
+  \makebox[\textwidth][c]{\colorbox{LIGHTGRAY}{\parbox{\textwidth}{\vspace{20pt}\centering#1\vspace{20pt}}}}%
 }
 
 
 \newcommand{\marginfig}[3]{%
   \fboxsep 13pt%
   \begin{wrapfigure}[#1]{R}[0.25\textwidth]{0pt}%
-    \makebox[#2]{\hfill\vspace{-2000pt}\colorbox{LIGTHGRAY}{#3}\hspace{20pt}}%
+    \makebox[#2]{\hfill\vspace{-2000pt}\colorbox{LIGHTGRAY}{#3}\hspace{20pt}}%
   \end{wrapfigure}%
 }
 

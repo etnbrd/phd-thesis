@@ -1,4 +1,5 @@
 \usepackage{caption}
+\usepackage{fancyhdr}
 
 \newfontfamily\capfont{Gotham Rounded Light}
 
@@ -6,6 +7,7 @@
 % \newfontfamily\secfont{FuturaLT-Light}
 
 \newfontfamily\secfont{Majesti Banner Bold}
+\newfontfamily\iconfont{FontAwesome}
 
 % \newfontfamily\secfont{Helvetica Neue Bold}
 % \newfontfamily\secfont{Helvetica Neue UltraLight}
@@ -16,30 +18,99 @@
 % \newfontfamily\secfont{BodoniStd-Poster}
 % \newfontfamily\secfont{BodoniStd-Bold}
 
+\newcommand{\glyph}{\iconfont{\XeTeXglyph198}}
+
+%\fancyhead[LE,LO]{\slshape \rightmark}
+\fancyhead[L]{\secfont\fontsize{8pt}{8pt}\selectfont\glyph}
+\fancyhead[R]{\secfont\fontsize{8pt}{8pt}\selectfont\leftmark}
+
+\renewcommand{\headrulewidth}{0pt}% 2pt header rule
+% \renewcommand{\headrule}{\hbox to\headwidth{\color{RED}\leaders\hrule height \headrulewidth\hfill}}
 
 \setmonofont{Inconsolata}
 
+\renewcommand{\cfttoctitlefont}{\secfont\fontsize{20pt}{20pt}\selectfont}
+\renewcommand{\cftloftitlefont}{\secfont\fontsize{20pt}{20pt}\selectfont}
+\renewcommand{\cftlottitlefont}{\secfont\fontsize{20pt}{20pt}\selectfont}
+
+
+%% \renewcommand{\cftaftertoctitle}{\titlerule}
+\newcommand{\listillustrationname}{\secfont\fontsize{20pt}{20pt}\selectfont Illustrations credits}
+\newlistof{illustration}{ill}{\listillustrationname}
+\newcommand{\illustration}[1]{%
+  \refstepcounter{illustration}%
+  % \par\noindent\textbf{Illustration \theillustration. #1}
+  \addcontentsline{ill}{illustration}%
+  {#1}% \par
+  % {\protect\numberline{\thechapter.\theillustration} #1}% \par
+}
+
+% \renewcommand{\cftchapfont}{\needspace{3\baselineskip}\secfont}
+% % \renewcommand{\cftchapleader}{\bfseries\cftdotfill{\cftchapdotsep}}
+% % \renewcommand{\cftchappagefont}{}
+% \renewcommand{\cftchappresnum}{\secfont\fontsize{10pt}{12pt}\selectfont CHAPTER }
+% \renewcommand{\cftchapaftersnum}{}
+% \renewcommand{\cftchapaftersnumb}{\\[2pt]\noindent\secfont\fontsize{16pt}{20pt}\selectfont}
 
 \makeatletter
 \newcommand \Dotfill {\fontsize{4pt}{20pt}\selectfont \leavevmode \cleaders \hb@xt@ 1em{\hss .\hss }\hfill \kern \z@}
+\def\Rulefill{\leavevmode\leaders\hrule height 0.4pt\hfill\kern\z@}
 \makeatother
+
+
+\newcommand \titlelineglyph {%
+\par\noindent\raisebox{.8ex}{%
+\makebox[\linewidth]{%
+\color{RED}%
+\Rulefill%
+\hspace{1ex}%
+\raisebox{-.5ex}{\glyph}%
+\hspace{1ex}%
+\Rulefill%
+\color{TITLE}%
+}%
+}%
+}
+
+\newcommand \titleline {%
+\par\noindent\raisebox{.8ex}{%
+\makebox[\linewidth]{%
+\color{RED}%
+\Rulefill%
+\color{TITLE}%
+}%
+}%
+}
+
+% \foreach \x in {4,...,312}
+%    {\x\thinspace\textcom{\XeTeXglyph\x} }
 
 \usepackage[explicit]{titlesec}
 
 \titleformat{\chapter}[display]
-  {\secfont\fontsize{33pt}{70pt}\selectfont%
+  {%\secfont\fontsize{33pt}{70pt}\selectfont%
   \addtolength{\titlewidth}{\textwidth}%
-  \addvspace{6pt}
-  }{\fontsize{14pt}{20pt}\selectfont\MakeUppercase\chaptertitlename\ \thechapter}
-  {10pt}
-  { \titlerule[1pt]%
-    \vspace{45pt}%
+  % \addvspace{6pt}
+  }{}
+  {10pt}{
+  % \fboxsep 50pt%
+  % \hspace{-50pt}
+  % \colorbox{LIGHTGRAY}{%
+  \parbox{\linewidth}{%
+    \color{TITLE}%
+    \secfont\fontsize{14pt}{20pt}\selectfont\MakeUppercase\chaptertitlename\hspace{1em}\fontsize{20pt}{20pt}\selectfont\thechapter\\%
+    \vspace{0pt}%
+    \titlelineglyph%
+    %% \vspace{45pt}%
     \begin{flushleft}%
+    \secfont\fontsize{23pt}{70pt}\selectfont%
     \MakeUppercase{#1}\\%
     \end{flushleft}%
-    \vspace{40pt}%
-    \titlerule[1pt]%
-    \eject%
+    \vspace{46pt}%
+    \titleline%
+    \color{black}%
+  }% }
+    % \eject%
   }
 
 
@@ -47,40 +118,40 @@
   {\secfont\fontsize{20pt}{20pt}\selectfont}
   {}
   {0pt}
-  {\filleft\MakeUppercase #1\\\vspace{10pt}\titlerule}
+  {\filleft\MakeUppercase{#1}\\\vspace{10pt}\titlerule}
   % [\vspace{20pt}]
 
 \newlength\rulelen
 \setlength\rulelen{\dimexpr\oddsidemargin+1in+\hoffset\relax}
 
 \titleformat{\section}
-  {\needspace{5\baselineskip}\vspace{20pt}\secfont\fontsize{28pt}{28pt}\selectfont}
+  {\needspace{5\baselineskip}\vspace{20pt}\secfont\fontsize{17pt}{17pt}\selectfont}
   {\llap{\hspace*{-\rulelen}\hfill\thesection\hspace{10pt}}}
   {0em}
-  {#1}
+  {\MakeUppercase{#1}}
   % [{\makebox[\linewidth][l]{%
   %   \hspace*{-\rulelen}\rule{\dimexpr\linewidth+\rulelen\relax}{0.5pt}}}]
 
 \titleformat{\subsection}[block]%
-  {\needspace{5\baselineskip}\vspace{10pt}\secfont\fontsize{20pt}{20pt}\selectfont} % format
+  {\needspace{5\baselineskip}\vspace{10pt}\secfont\fontsize{15pt}{15pt}\selectfont} % format
   {\llap{\hspace*{-\rulelen}\hfill\thesubsection\hspace{10pt}}}
   {0pt} % sep
-  {#1\vspace{10pt}} % before
+  {\MakeUppercase{#1}\vspace{10pt}} % before
   % [\normalfont\vspace{10pt}] % after
 
 \titleformat{\subsubsection}%
-  {\needspace{5\baselineskip}\secfont\fontsize{17pt}{17pt}\selectfont} % format
+  {\needspace{5\baselineskip}\secfont\fontsize{13pt}{13pt}\selectfont} % format
   {}
   %{\llap{\hspace*{-\rulelen}\hfill\thesubsubsection\hspace{10pt}}}
   {0pt} % sep
-  {#1} % before
+  {\MakeUppercase{#1}} % before
   % [\normalfont\vspace{10pt}] % after
 
 \titleformat{\paragraph}%
-  {\needspace{3\baselineskip}\secfont\fontsize{12pt}{12pt}\selectfont} % format
+  {\needspace{3\baselineskip}\secfont\fontsize{10pt}{10pt}\selectfont} % format
   {}
   {0pt} % sep
-  {#1} % before
+  {\MakeUppercase{#1}} % before
   % {\llap{\hspace*{-\rulelen}\hfill§\hspace{10pt}}#1} % before
   % [\normalfont\vspace{10pt}] % after
 

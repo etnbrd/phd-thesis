@@ -37,6 +37,8 @@
 \usepackage[group-separator={,}]{siunitx}
 
 
+% \pagestyle{myheadings}
+
 \defaultfontfeatures{Ligatures=TeX}
 
 \usepackage[all]{nowidow}
@@ -53,6 +55,7 @@
 \input{utils/code}
 \input{utils/macros}
 \input{utils/fonts}
+\input{utils/toc}
 \input{utils/tables}
 
 % \DeclareUnicodeCharacter{2714}{✔}
@@ -79,6 +82,8 @@
 % \includeonly{90-conclusion/main}
 % \includeonly{91-appendix/main}
 
+\pagestyle{empty}
+
 \begin{document}
 % \defaultfontfeatures{Ligatures=TeX}
 
@@ -100,11 +105,16 @@
 
 \input{00-abstract/main}
 
-\dominitoc % Initialization
-\tableofcontents
+% \foreach \x in {0,...,1000}
+%    {\x\thinspace\iconfont{\XeTeXglyph\x} }
 
-\listoffigures
-\listoftables
+\dominitoc
+\tableofcontents\eject
+\listoffigures\eject
+\listoftables\eject
+\listofillustration
+
+\pagestyle{fancy}
 
 \include{01-introduction/main}
 \include{02-context/main}

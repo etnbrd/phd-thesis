@@ -33,7 +33,7 @@ The two are indispensable for efficiency.
 \cit{No matter how great the talent or efforts, some things just take time. You can't produce a baby in one month by getting nine women pregnant.}
 {Warren Buffett\ftnt{http://bit.ly/warren-buffet-quote}}
 
-\illustration{feu rouge et rond point}
+% \illustration{TODO feu rouge et rond point}
 Concurrent programming provides the mechanisms to assure atomicity of concurrent operations.
 They define the causal scheduling of execution and assure the invariance of the global memory.
 There are two scheduling strategies to execute concurrent tasks on a single processing unit, cooperative scheduling and preemptive scheduling.
@@ -89,12 +89,13 @@ This heavy need for synchronization leads to bad performances, and is difficult 
 
 \paragraph{Hybrid Models}
 
-Hybrid models join the productivity advantage of synchronous execution from thread, with the efficiency advantage of asynchronous execution from events-driven models.
+Hybrid models intends to join the productivity advantage of synchronous execution from thread, with the efficiency advantage of asynchronous execution from events-driven models.
 The implementations of hybrid models are \ImplementationsOf{Hybrid Models}.
 For example, cooperative threads, or fibers, avoid splitting the execution into atomic tasks nor use protection mechanisms to assure exclusivity.
 A fiber yields the execution to another fiber to avoid blocking the execution during a long-waiting operation, and recovers it at the same point when the operation finishes.
+However, it wasn't adopted in practice.
 Hiding the yielding points effectively hide the preemption.
-Developers cannot protect atomicity of operations, which increase the likeliness of race conditions \ftnt{http://bit.ly/deciphering-glyph-unyielding}.
+Developers cannot protect atomicity of operations, which increases the likeliness of race conditions \ftnt{http://bit.ly/deciphering-glyph-unyielding}.
 
 \paragraph{Limitation of Concurrent Programming}
 
@@ -129,7 +130,7 @@ The Actor model takes these physical limitations in account \cite{Hewitt1977a}.
 \paragraph{Communicating Sequential Processes}
 
 Similar works include the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}, and the Kahn Networks \cite{Kahn1974, Kahn1976}.
-Similarly, coroutines are autonomous programs which communicate with adjacent modules as if they were input and output subroutines \cite{Conway1963}.
+Coroutines are autonomous programs which communicate with adjacent modules as if they were input and output subroutines \cite{Conway1963}.
 It defines a pipeline to implement multi-pass algorithms.
 
 The difference between Actors and Coroutines lie in the definition of the communication.
@@ -157,9 +158,10 @@ If the industry really needs a platform, it will commit the required development
 
 \marginfig{10}{0.6\textwidth}{
   \includegraphics[width=0.4\textwidth]{../resources/marsrover.png}
+  \illustration{Justin Mezzell \url{http://bit.ly/justin-mezzell-curiosity}}
 }
 
-The platforms for the Mars Rover or some banking systems are about 30 years old, yet the industry continues to maintain them.
+The platforms for the Mars Rovers or some banking systems are about 30 years old, yet the industry continues to maintain them.
 The platform presented in this section emerged from the academia and the industry but are often barely known by the larger community of developers.
 The more the platform trades productivity for efficiency, the less support it receives from the community.
 
@@ -205,8 +207,8 @@ Some examples of SOA platforms are \ImplementationsOf{Service Oriented Architect
 It allows to adjust the granularity of tasks to help developers to better fit the tasks organization with the modular organization \cite{Adam2008}.
 
 More recently, Microservices are tackling the same challenge on the web, with a finer granularity \cite{Fernandez-Villamor2010,Fowler2014,Namiot2014}.
-Some examples of Microservices are \ImplementationsOf{Microservices}.
-They are very recent, and it is difficult to asses their usage in the community nor the industry.
+AN example of Microservice platform is \ImplementationsOf{Microservices}.
+Microservices are very recent, and it is difficult to asses their usage in the community nor the industry.
 But they seem to be increasingly adopted, both in the industry and in the community.
 
 \separator

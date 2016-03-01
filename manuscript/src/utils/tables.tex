@@ -1,6 +1,8 @@
 \DTLsetseparator{ | }
 \DTLloaddb{platforms}{../../data/csv/platforms-analysis.csv}
 
+\setlength{\tabcolsep}{3pt}
+
 \newcommand{\ExtractGroup}[2]{% Name of the group, Headers
 \hspace{0pt}%
 \DTLforeach*[%
@@ -38,17 +40,17 @@
 % MAINTAINABILITY
 \newcommand{\ProductivityCol}    {4}
 \newcommand{\ProductivityHeader} { Model &  Implementations &   \lab{Composition} &   \lab{Encapsulation} & $\to$ &   \lab{Productivity} \\ \tabucline[.5pt]{-}}
-\newcommand{\ProductivityRow}    {\Model & \Implementations & \rate{\Composition} & \rate{\Encapsulation} &&        \rate{\Productivity}}
+\newcommand{\ProductivityRow}    {\Model & \Implementations & \rate{\Composition} & \rate{\Encapsulation} &       & \rate{\Productivity}}
 
 % PERFORMANCE
 \newcommand{\EfficiencyCol}        {4}
-\newcommand{\EfficiencyHeader}     { Model &  Implementations & \lab{Fine-grain level synchronization} & \lab{Coarse-grain level message passing} & $\to$ & \lab{Efficiency} \\ \tabucline[.5pt]{-}}
-\newcommand{\EfficiencyRow}        {\Model & \Implementations & \rate{\Synchronization}                & \rate{\Message}                          &&      \rate{\Efficiency}}
+\newcommand{\EfficiencyHeader}     { Model &  Implementations & \lab{Fine-grain level synchronization} & \lab{Coarse-grain level message passing} & $\to$ &   \lab{Efficiency} \\ \tabucline[.5pt]{-}}
+\newcommand{\EfficiencyRow}        {\Model & \Implementations & \rate{\Synchronization}                & \rate{\Message}                          &       & \rate{\Efficiency}}
 
 % ADOPTION
 \newcommand{\AdoptionCol}           {4}
 \newcommand{\AdoptionHeader}        { Model &  Implementations &   \lab{Community support} &   \lab{Industrial need} & $\to$ &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
-\newcommand{\AdoptionRow}           {\Model & \Implementations & \rate{\Community}         & \rate{\Industry}        &&        \rate{\Adoption}}
+\newcommand{\AdoptionRow}           {\Model & \Implementations & \rate{\Community}         & \rate{\Industry}        &       & \rate{\Adoption}}
 
 % SUMMARY
 \newcommand{\SummaryCol}            {3}
@@ -56,9 +58,9 @@
 \newcommand{\SummaryRow}            {\Model & \Implementations & \rate{\Productivity} & \rate{\Efficiency} & \rate{\Adoption}}
 
 % CONCLUSION PROPOSITION / PERSPECTIVE
-\newcommand{\ConclusionCol}            {4}
-\newcommand{\ConclusionHeader}         { Model &   \lab{Productivity} &   \lab{Efficiency} & - &   \lab{Adoption} \\ \tabucline[.5pt]{-}}
-\newcommand{\ConclusionRow}            {\Model & \rate{\Productivity} & \rate{\Efficiency} & - & \rate{\Adoption}}
+\newcommand{\ConclusionCol}            {3}
+\newcommand{\ConclusionHeader}         { Model &   \lab{Composition} &   \lab{Encapsulation} & \lab{$\to$ Productivity} & \lab{Fine-grain level synchronization} & \lab{Coarse-grain level message passing} & \lab{$\to$ Efficiency} &   \lab{Community support} &   \lab{Industrial need} & \lab{$\to$ Adoption} \\ \tabucline[.5pt]{-}}
+\newcommand{\ConclusionRow}            {\Model & \rate{\Composition} & \rate{\Encapsulation} &     \rate{\Productivity} & \rate{\Synchronization}                & \rate{\Message}                          &     \rate{\Efficiency} & \rate{\Community}         & \rate{\Industry}        &     \rate{\Adoption}}
 
 %% -------------------------------------------------------------------------------------------
 %%                                       EXTRACTIONS
@@ -299,6 +301,7 @@
 %% Summary
 
 \newcommand{\TableSummary}[1]{ \tikzexternaldisable
+\needspace{6\baselineskip}
 \begin{longtabu} to \linewidth {@{} X[2,l] X[3,l] *{\the\numexpr\SummaryCol}{c} @{}}
 \SummaryHeader%
 \ModularSummary%
@@ -354,7 +357,7 @@
 \newcommand{\TablePropositionSummary}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[2,l] *{\the\numexpr\SummaryCol}{c} @{}}
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\ConclusionCol}{c} @{\hskip 1.5em} *{\the\numexpr\ConclusionCol}{c} @{\hskip 1.5em} *{\the\numexpr\ConclusionCol}{c} @{}}
   \ConclusionHeader%
   \PropositionConclusion%
   \end{tabu}
@@ -405,9 +408,9 @@
 \newcommand{\TablePerspectiveSummary}[1]{
   \begin{table}[H]
   \tikzexternaldisable
-  \begin{tabu} to \linewidth {@{} X[2,l] *{\the\numexpr\SummaryCol}{c} @{}}
-\ConclusionHeader%
-\PerspectiveConclusion%
+  \begin{tabu} to \linewidth {@{} X[l] *{\the\numexpr\ConclusionCol}{c} @{\hskip 1.5em} *{\the\numexpr\ConclusionCol}{c} @{\hskip 1.5em} *{\the\numexpr\ConclusionCol}{c} @{}}
+  \ConclusionHeader%
+  \PerspectiveConclusion%
   \end{tabu}
   \tikzexternalenable
   \caption{Summary of the perspective}

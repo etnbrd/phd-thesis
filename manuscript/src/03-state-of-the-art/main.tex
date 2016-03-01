@@ -1,3 +1,4 @@
+\renewcommand{\glyph}{\iconfont{\XeTeXglyph190}}
 \chapter{Software Design, State Of The Art} \label{chapter3}
 \minitoc
 \eject
@@ -22,7 +23,7 @@ Efficiency relies on a combination of synchronization at a fine-grain level, and
 This combination breaks the modularity, hence the productivity of an application.
 A company has no choice but to commit huge development efforts to get efficient performances.
 
-\illustration{virtuous circle between community and industry}
+% \illustration{TODO virtuous circle between community and industry}
 Moreover, a balance between productivity and efficiency is required for a platform to enter a virtuous circle of adoption.
 The productivity is required to be appealing to gather a community to support the ecosystem around the platform.
 This community is appealing for the industry as a hiring pool.
@@ -41,6 +42,11 @@ It then analyzes different platforms according to their focus. platforms focusin
 
 \section{Discontinuous Developments}
 
+\marginfig{22}{0.55\textwidth}{
+  \includegraphics[width=0.35\textwidth]{../resources/insights.pdf}
+}
+
+
 The previous sections presented a broad view of platforms and their balance between productivity and efficiency.
 It established that the platforms favoring one eventually sacrifice the other.
 Moreover, the adoption of these platforms proves that none of these compromises are sustainable.
@@ -50,11 +56,7 @@ Indeed, as presented in table \ref{tab:summary}, no platforms provides productiv
 
 \separator
 
-\marginfig{22}{0.55\textwidth}{
-  \includegraphics[width=0.35\textwidth]{../resources/insights.pdf}
-}
-
-This chapter concludes on the similar ground than the 1972 paper from D. Parnas \cite{Parnas1972}.
+This chapter concludes on similar ground than the 1972 paper from D. Parnas \cite{Parnas1972}.
 Productivity requires modularity through encapsulation and composition.
 It requires higher-order programming which relies on a global memory abstraction as explained in section \ref{chapter3:software-productivity:efficiency-limitations}.
 Whereas efficiency requires a balance between fine-grain level shared state with synchronization and coarse-grain level independence with message-passing.

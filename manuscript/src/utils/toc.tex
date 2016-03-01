@@ -1,0 +1,41 @@
+\usepackage{framed}
+
+% \definecolor{myred}{RGB}{127,0,0}
+% \secfont\fontsize{20pt}{20pt}\selectfont
+
+\renewenvironment{leftbar}{%
+  \def\FrameCommand{{\color{RED}\vrule width 2pt depth 6pt} \hspace{10pt}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+
+\makeatletter
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+                       \if@mainmatter
+                         \refstepcounter{chapter}%
+                         \typeout{\@chapapp\space\thechapter.}%
+                         \addtocontents{toc}%
+                                   {%
+                                       {\protect\parbox{3.5em}{\hfill\secfont\fontsize{25pt}{25pt}\selectfont\color{RED}\bfseries\thepage}}%
+                                         \protect\hspace*{.5em}
+                                        \protect\parbox{\dimexpr\linewidth-4em\relax}{%
+                                           \protect\begin{leftbar}
+                                              {\secfont\fontsize{10pt}{20pt}\selectfont\MakeUppercase{\chaptername~\thechapter}}\\%
+                                               \secfont\fontsize{17pt}{17pt}\selectfont\MakeUppercase{#1}%
+                                           \protect\end{leftbar}}\par\noindent
+                                    }%
+                       \else
+                         \addcontentsline{toc}{chapter}{#1}%
+                       \fi
+                    \else
+                      \addcontentsline{toc}{chapter}{#1}%
+                    \fi
+                    \chaptermark{#1}%
+                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                    \if@twocolumn
+                      \@topnewpage[\@makechapterhead{#2}]%
+                    \else
+                      \@makechapterhead{#2}%
+                      \@afterheading
+                    \fi}
+\makeatother

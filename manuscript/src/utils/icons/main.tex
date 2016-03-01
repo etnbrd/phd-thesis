@@ -1,0 +1,52 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+\documentclass[12pt]{report}
+
+\newlength{\alphabet}
+\settowidth{\alphabet}{\normalfont abcdefghijklmnopqrstuvwxyz}
+
+\usepackage[top=15mm, bottom=20mm, textwidth=2.4\alphabet, hmarginratio={1:1}]{geometry}
+
+\usepackage[french, english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\usepackage{tikz}
+
+\newfontfamily\iconfont{FontAwesome}
+
+\begin{document}
+
+\foreach \x in {0,...,10000}{%
+  % \x\thinspace\iconfont{\XeTeXglyph\x}
+  \iffontchar\font\x%
+    \makebox[3em][l]{\x}%
+    \iconfont{\XeTeXglyph\x}\endgraf%
+  \fi%
+}
+
+\end{document}
+
+
+% \documentclass[landscape]{article}
+% \usepackage{geometry}
+% \usepackage{fontspec}
+% \setmainfont{FontAwesome}
+% \usepackage{multicol}
+% \setlength{\columnseprule}{0.4pt}
+% \usepackage{multido}
+% \setlength{\parindent}{0pt}
+% \begin{document}
+
+% \newfontfamily\iconfont{FontAwesome}
+
+% \begin{multicols}{10}
+% \multido{\i=0+1}{"10000}{% from U+0000 to U+FFFF
+%   \iffontchar\iconfont\i
+%     \makebox[3em][l]{\i}%
+%     \iconfont{\XeTeXglyph\x}\endgraf
+%   \fi
+% }
+% \end{multicols}
+
+% \end{document}

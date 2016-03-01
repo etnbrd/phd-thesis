@@ -9,8 +9,9 @@ The productivity of a platform is the degree to which developers can quickly pro
 To support productivity, a platform needs to enforce modularity directly in the design of applications.
 Productivity leads to maintainability.
 
-Still, measuring productivity precisely to infer the improvement brought by a platform is highly difficult.
+Measuring productivity precisely is highly difficult.
 The measurement varies more between developers than between platforms \cite{Sackman1968}.
+Instead of measuring directly the productivity of a platform, this thesis infer productivity by measuring modularity.
 
 \subsubsection{Modularity} \label{chapter3:definitions:productivity:modularity}
 
@@ -42,31 +43,29 @@ The next paragraphs define these requirements.
 
 \subsubsection{Encapsulation} \label{chapter3:definitions:productivity:encapsulation}
 
-% \begin{wrapfigure}{R}{0.2\textwidth}
-%   \centering
-%   \includegraphics[height=0.1\textwidth]{../resources/italian-software-architecture.png}
-% \end{wrapfigure}
+\marginfig{22}{0.7\textwidth}{
+  \includegraphics[width=0.5\textwidth]{../resources/italian-software-architecture.png}
+  \illustration{Benoit Hediard \url{http://bit.ly/benoit-hediard-software}}
+}
 
-\paragraph{Boundary Definition}
-\illustration{spaghetti programming}%
+% \paragraph{Boundary Definition}
 Modular Programming draws clear interfaces around a piece of implementation so that the execution remains enclosed inside \cite{Dijkstra1970}.
 At a fine level, it helps avoid spaghetti code \cite{Dijkstra1968a}, and at a coarser level, it structures the implementation \cite{Dijkstra1968} into modules, or layers.
 
-\paragraph{Data Protection}
-\illustration{lasagna programming}%
+% \paragraph{Data Protection}
 Modular programming encapsulates a specific design choice in each module, so that it is responsible for one and only one concern.
 It isolates its evolution from impacting the rest of the implementation \cite{Parnas1972, Tarr1999, Hursch1995}.
 Examples of such separation of concerns are the separation of the form and the content in HTML / CSS, or the OSI model for the network stack.
 
 \subsubsection{Composition} \label{chapter3:definitions:productivity:composition}
 
-\paragraph{Higher-Order Programming}
+% \paragraph{Higher-Order Programming}
 Higher-order programming introduces lambda expressions, functions manipulable like any other primary value.
 They can be stored in variables, or be passed as arguments.
 It replaces the need for most modern object oriented programming design patterns \ftnt{http://bit.ly/oop-patterns} with Inversion of Control \cite{Johnson}, the Hollywood Principle \cite{Sweet1985}, or Monads \cite{Wadler1992}.
 Higher-order programming help loosen coupling, thus improve productivity \cite{Haynes1984}.
 
-\paragraph{Closures}
+% \paragraph{Closures}
 In languages allowing mutable state, lambda expressions are implemented with closure to preserve the lexical scope \cite{Sussman1998}.
 A closure is the association of a function and a reference to the lexical context from its creation.
 It allows this function to access variable from this context, even when invoked outside the scope of this context.
@@ -93,7 +92,7 @@ Commutativity assures the independence of operations.
 
 \subsubsection{Independence} \label{chapter3:definitions:efficiency:independence}
 
-\illustration{Synchronization vs Message-passing}
+% \illustration{TODO Synchronization vs Message-passing}
 The independence, and commutativity of an operation depends on its accesses to shared state.
 If the operation doesn't rely on any shared state, it is independent.
 The independence of operations allows to execute them in parallel, hence to increase performance proportionally to occupied resources \cite{Amdahl1967,Gunther1993}.
@@ -168,6 +167,7 @@ This figure is used throughout this chapter to graphically represent all the pla
 \dotcircled{3} references section \ref{chapter3:software-efficiency:concurrency}, the efficiency focused platforms.\\
 \dotcircled{4} references section \ref{chapter3:software-efficiency:adoption}, their steering back toward productivity.\\
 \dotcircled{5} references section \ref{chapter3:software-adoption}, the platforms with a balance between productivity and efficiency.
+Moreover, the platforms are rated for each criterion on a scale from \rate{0} to \rate{5}: \rate{0}, \rate{1}, \rate{2}, \rate{3}, \rate{4}, \rate{5}.
 
 \begin{figure}[h!]
 \textfig{%

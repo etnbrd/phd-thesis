@@ -5,20 +5,20 @@ The next paragraphs dive into the details of each execution model in regard of t
 
 \subsection{Event-Driven Execution Model} \label{chapter4:event-driven}
 
-The event-driven execution model processes a queue of asynchronous events by cooperatively scheduling handlers.
+The event-driven execution model processes a queue of asynchronous events by scheduling handlers cooperatively.
 To respond to an event, the associated handler can directly respond to the source of the event.
 Or it can request an external resource, and chain another handler to later process the initial event with the resource response, as illustred in figure \ref{fig:cont-chain}.
 The developer defines each handler as a continuation and defines their causality using the continuation passing style \cite{Wand1980,Haynes1984}.
 
 
-% \begin{figure}
-%   % \centering
-%   \textfig{%
-%     \includegraphics[width=0.8\linewidth]{../resources/cont-chain.pdf}%
-%     \caption{Chain of continuations}%
-%     \label{fig:cont-chain}%
-%   }
-% \end{figure}
+\begin{figure}
+  % \centering
+  \textfig{%
+    \includegraphics[width=0.8\linewidth]{../resources/cont-chain.pdf}%
+    \caption{Chain of continuations}%
+    \label{fig:cont-chain}%
+  }
+\end{figure}
 
 \subsubsection{Continuation Passing Style} \label{chapter4:event-loop:continuation}
 
@@ -229,8 +229,3 @@ The fluxions that need this synchronization are grouped with the same tag, and l
 There are two types of streams, \textit{start} and \textit{post}, which correspond to the nature of the rupture point producing the stream.
 A \textit{start} rupture point starts a chain of continuations, while a \textit{post} rupture point is a continuation in a chain.
 \textit{Start} streams are indicated with a double arrow (\texttt{>}\texttt{>}) and \textit{post} streams with a simple arrow (\texttt{->}).
-
-The variables defined before the \textit{start} are available for the whole chain, and require synchronization for concurrent execution of the same chain.
-Whereas the variables defined inside the chain are available only in this chain, and don't require synchronization.
-% A variable created within a chain of \textit{post} streams requires more synchronization than a variable created upstream a \textit{start} stream.
-The two types and implications of rupture points are further detailed in section \ref{chapter5:flx:compiler}.

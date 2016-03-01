@@ -85,16 +85,19 @@ They describe the further implementation of the equivalence, as if I were to con
 
 \subsection{Evaluation of the perspective}
 
-This second evaluation admits that the JIT compilation allows to resolve all the indirections in the memory.
-Which is left unknown after this thesis.
-The fluxional JIT compiler then doesn't need to rely on human interaction.
+This second evaluation admits that the JIT compilation resolves all the indirections in the memory.
+% Which is left unknown after this thesis.
+Then, the fluxional JIT compiler doesn't need to rely on human interaction.
 Therefore, the expected productivity is the same as the productivity language used as source. %, as illustrated in table \ref{tab:perspective-productivity}.
 
 % \TablePerspectiveProductivity{tab:perspective-productivity}
 
-Naturally, the performance efficiency of the implementation is the same of this productivity language, at first, as the development is focused on productivity.
-And some development efforts are required to improve the efficiency.
-But due to this compilation, they are expected to be less than the current required effort. %, as illustrated in table \ref{tab:perspective-efficiency}.
+Naturally, the performance efficiency of the implementation is, at first, the same of this productivity language, as the development is focused on productivity.
+Some development efforts are required to improve the efficiency.
+% But the result of the compilation helps in this shift.
+The result from the compiler helps the developer find the bottle necks, and reduce the effort for this shift.
+With the help from the compiler, the effort for this shift is expected to be less than the current required effort.
+% The effort for this shift are expected to be less than the current required effort. %, as illustrated in table \ref{tab:perspective-efficiency}.
 Instead of redesigning the architecture of the application to immediately isolate components, it is possible to modify them to progressively loosen their dependencies.
 As illustrated in table \ref{tab:perspective-summary}, this envisioned platform is expected to yield both productivity and efficiency, not at the same time, but when they are required the most.
 
@@ -112,3 +115,58 @@ But it requires to be observed in real conditions before drawing this conclusion
 % \separator
 
 \TablePerspectiveSummary{tab:perspective-summary}
+
+\subsection{Final Thoughts}
+
+As I studied for this thesis, I progressively saw the world differently.
+And as a final note in this thesis, I want to share this view.
+
+\paragraph{Economic Considerations}
+
+The IT industry understood that trading efficiency for productivity could reduce development time and cost, and hardware performance could compensate.
+This thesis intends to bring a reconciliation between two economical concerns in the development of a web application, the efficiency of execution and the productivity of development.
+I believe that it is time to take into account both productivity and efficiency.
+
+The IT industry has an important impact on the environment with its increasing carbon footprint.
+As the digitalization permeates into every aspects of our lives, it is of crucial importance to consider this impact.
+Therefore, it is time to reduce the efficiency to the minimum required.
+Yet, with the increasing importance of the IT, development cannot be reserved to experts anymore.
+Productivity cannot be traded back for efficiency.
+
+% I leave for future works the reconciliation of the efficiency of energy consumption with the two concerns addresses in this thesis.
+% Like with ThinkAir and Maui, whete the code offloading can helps to save energy on the mobile \cite{Kosta2012,Cuervo2010a}.
+
+\paragraph{Accessible And Omnipresent Development}
+
+This epoch feels like developers are the scribes and the monks after the invention of writing.
+I believe that in the time to come, development will be made available for everybody.
+And additionally as reading and writing, developing will be a prerequisite to communicate with peers.
+It will allow to express dynamic behaviors, and not only static ones, as Bret Viktor already envisioned\ftnt{https://vimeo.com/115154289}.
+
+This shift might come with the increasing importance of machine learning.
+Indeed, it allows to define complex dynamic behaviors without specifically describing every corner cases.
+It feels like the composition of general case behavior that can seamlessly meld at corner cases.
+If machine learning can become parts of our daily means of communication, it will radically change our interactions with peers, and with the world.
+
+Moreover, with the advent of the smart contracts based on block chain technology, and the Internet of things, it is not far-fetched to imagine our everyday world infused with behaviors defined by others.
+I believe the difference between a person and its environment will start to dissolve.
+A limited preview can be drawn in our dependence to Internet, smart-phones and other connected objects.
+But the possibilities are beyond our current imagination.
+
+\paragraph{Scalability}
+
+At the light of this thesis, I understand that scalability boils down to the choice of an organization.
+The chosen organization determines what should be kept local, versus, what should be spread globally.
+I believe the same problematic applies to many different everyday organizations, such as economical and social organizations.
+
+For example, in economy, it is important for certain markets to spread globally.
+The different international markets, such as stocks and foreign currency exchange market, are crucial to spread economical informations worldwide.
+The variations of prices on these markets yields the informations to direct the consumption and production of every product and raw materials for the entire population.
+It avoids spoiling resources.
+On the contrary, the uncontrolled variations of this global economy can be destructive at a wide scale, and must somehow be contained.
+Local citizen currency is an example of such containment.
+It contains the scope of these variations within a local region.
+
+To concludes this thesis, I yield the following problematic.
+How to layout the organizations composing our everyday world for it to be efficient.
+Economically, socially, and in many other aspect of our everyday lives, I believe designing an efficient organization boils down to choosing which piece of information shall be kept locally, or spread globally.

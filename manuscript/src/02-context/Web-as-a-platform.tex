@@ -8,6 +8,8 @@
 
 \marginfig{16}{0.45\textwidth}{
   \includegraphics[width=0.25\textwidth]{../resources/Mac-PC.png}
+  \illustration{XKCD 934 \url{https://xkcd.com/934/}}
+  \label{ill:macvspc}
 }
 
 Similarly to operating systems, the Web browser started as a software product with extension capabilities that transformed it into a platform. % with scripts and applications.
@@ -30,7 +32,7 @@ The economical gain in development time brought by productive languages compensa
 Most of the now popular programming languages were released at this time, Python in 1991, Ruby in 1993, Java in 1994, PHP and Javascript in 1995.
 
 With the democratisation of programming, the involvement of a community became critical for the adoption, evolution and maturation of a language.
-Communities adopt a language because it allows to quickly experiment and enter businesses sectors.
+Communities adopt a language because it allows to quickly experiment and enter business sectors.
 The industry adopts a language because it responds to business needs and its community represents a hiring pool.
 The community support and the industrial needs are reinforcing each other in a loop.
 
@@ -47,12 +49,10 @@ The Wordpress publishing platform is another example of an economical success wi
 
 The web acts as a catalyst in the interaction between the community and the industry.
 Because of its position in the web, Javascript is slowly becoming the main language for web development.
-The next paragraph present its evolution in the industry and the community.
+% The next paragraph presents its evolution in the industry and the community.
 
 
 \subsubsection{The Ugly Duckling}
-
-\illustration{the ugly duckling}
 
 \cit{There are only two kinds of languages: the ones people complain about and the ones nobody uses}%
 {B. Stroustrup\ftnt{http://bit.ly/stroustrup-quote}}
@@ -118,6 +118,7 @@ Prototype\ftnt{http://prototypejs.org/} and DOJO\ftnt{https://dojotoolkit.org/} 
 
 \marginfig{10}{0.8\textwidth}{
   \includegraphics[width=0.6\textwidth]{../resources/superman.png}%
+  \illustration{Dennis Salvatier \url{http://bit.ly/dennis-salvatier-superman}}
 }
 
 Since 2004, the Web Hypertext Application Technology Working Group\ftnt{https://whatwg.org/} worked on the fifth version of the HTML standard.
@@ -128,9 +129,11 @@ Javascript became the \textit{de facto} programming language to develop on this 
 The main events in the history of Javascript presented in the previous chapters are summariezed in figure \ref{fig:js-timeline}.
 
 \begin{figure}
-  \bigfig{\includegraphics[width=\figurewidth]{../resources/javascript-timeline.pdf}}
-  \caption{Javascript timeline}
-  \label{fig:js-timeline}
+  \bigfig{
+    \includegraphics[width=\figurewidth]{../resources/javascript-timeline.pdf}
+    \caption{Javascript timeline}
+    \label{fig:js-timeline}
+  }
 \end{figure}
 
 
@@ -207,6 +210,7 @@ Since the web allows an application to scale world wide with near zero latency, 
 
 \marginfig{13}{0.7\textwidth}{
   \includegraphics[width=0.5\textwidth]{../resources/server.pdf}%
+  \illustration{Martin David \url{http://bit.ly/martin-david-server}}
 }
 
 % \subsubsection{Scalable Concurrency}
@@ -228,7 +232,7 @@ This paradigm proved to be very efficient as well for a web application to react
 In 2009, Joyent released Node.js to build real-time web applications with this paradigm.
 % This section presents the event-loop execution model, and the advantages of Javascript for this paradigm.
 
-\begin{figure}[h!]
+\begin{figure}
   \textfig{
     \includegraphics[width=0.7\linewidth]{../resources/event-loop.pdf}
     \caption{Event-driven execution model}
@@ -240,7 +244,7 @@ The event-driven execution model is presented in figure \ref{fig:event-loop}.
 At reception, each request from a client queues an event waiting to be processed.
 A loop unqueues these events one at a time, and runs the appropriate handler to process them.
 To process an event, a handler can query external resources, which respond asynchronously by queuing additional events.
-For each query, the querying handler specifies a new handler - called continuation - to process the additional event.
+For each query, the querying handler specifies a new handler - called a continuation - to process the additional event.
 Alternatively, a handler can respond directly to the client, ending this chain of asynchronous events.
 
 % The event-loop efficiency comes from non-blocking communications, asynchronous execution, and cooperative scheduling.
@@ -290,7 +294,7 @@ It is well suited for streaming application, as the stream of data flows from st
 Each stage has an independent memory to hold its own state.
 As the stages are independent, the state coordination between the stages are communicated along with the stream of data.
 
-\begin{figure}[h!]
+\begin{figure}
   \textfig{
     \includegraphics[width=0.8\linewidth]{../resources/pipeline.pdf}
     \caption{Pipeline execution model}
@@ -311,16 +315,16 @@ Whereas the pipeline execution model assures the isolation between the tasks to 
 The former presents limited scalability, whereas the latter does not.
 % The event-loop is constrained within time-slicing concurrency to assure this coordination.
 This thesis argues that there exists an equivalence between the event-driven model and the pipeline execution model.
-Before drawing this equivalence, the next section details further the incompatibility between the two programming model and the resulting economical consequences.
+Before introducing this equivalence, the next section details further the incompatibility between the two programming model and the resulting economical consequences.
 
-% \begin{figure}[h!]
+% \begin{figure}
 %   \centering
 %   \includegraphics[width=0.8\linewidth]{../resources/models-difference.pdf}
 %   \caption{Comparison of the two memory models}
 %   \label{fig:models-difference}
 % \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}
   \centering\dualfig{
     \includegraphics[page=1]{../resources/models-difference.pdf}}{
     \includegraphics[page=2]{../resources/models-difference.pdf}}{
@@ -330,7 +334,7 @@ Before drawing this equivalence, the next section details further the incompatib
 \end{figure}
 
 
-% \begin{figure}[h!]
+% \begin{figure}
 %   \centering
 %   \begin{minipage}{0.49\textwidth}
 %     \centering

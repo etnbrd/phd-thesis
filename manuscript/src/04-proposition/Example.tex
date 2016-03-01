@@ -4,9 +4,10 @@
 
 \marginfig{9}{0.4\textwidth}{
   \includegraphics[height=0.2\textwidth]{../resources/grumpy.png}
+  \illustration{Grumpy Cat coffee company \url{http://drinkgrumpycat.com}}
 }
 
-Even if the fluxional execution model is not designed to directly develop applications, a first application was develop directly with it, to test it.
+Even if the fluxional execution model is not designed to directly develop applications, a first application was developed with it, to test it.
 This application doesn't use the transformation, nor the continuous development advocated in this thesis.
 Nonetheless, it is related here to illustrate the basic functioning of the fluxional execution model.
 
@@ -14,7 +15,7 @@ The application is accessible online at \url{http://grumpy.etnbrd.com}, and the 
 And the network of fluxions structuring the applications can be monitored in realtime at \url{http://grumpy.etnbrd.com/console}, as illustrated in figure \ref{fig:grumpy-screenshot}.
 The application allows to post anonymous grumbles into chat rooms.
 Additionally, a room can subscribe to the grumbles from another room.
-The reader is invited to play with this application and the monitoring console to maybe quickly grasp an understanding of the fluxional execution model \footnote{The reader might want to keep in mind that crude languages might be present on the platform. It is available freely on the internet for anyone to express itself.}.
+The reader is invited to play with this application and the monitoring console to quickly grasp an understanding of the fluxional execution model \footnote{The reader might want to keep in mind that crude languages might be present on the platform. It is available freely on the internet for anyone to express itself.}.
 
 \begin{figure}
   \bigfig{
@@ -122,8 +123,9 @@ The system loops through steps \circled{3} to \circled{6} until the queue is emp
 This cycle starts again for each new incoming request causing another \texttt{start} message.
 
 \begin{figure}[h!]%
-  \textfig{%
-    \includegraphics[width=0.7\linewidth]{../resources/schema-message.pdf}%
+  \bigfig{%
+    \centering
+    \includegraphics[width=1.35\textwidth]{../resources/schema-message.pdf}%
     \caption{The fluxional execution model in details}%
     \label{fig:MesSys}%
   }%
@@ -141,7 +143,7 @@ It doesn't prevent the whole group from being replicated.
 However, the fluxion \texttt{reply} depends on the variable \texttt{count} created upstream the \textit{start} stream, which prevents this replication.
 If it did not rely on this variable, the group \texttt{grp\_res} would be stateless, and could be replicated to cope with the incoming traffic.
 
-\separator
+% \separator
 
 This execution model allows to parallelize the execution of an application as a pipeline, as with the fluxion \texttt{handler}.
 And some parts are replicated, as could be the group \texttt{grp\_res}.
