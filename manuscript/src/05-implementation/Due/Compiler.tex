@@ -4,7 +4,7 @@ The Due compiler automates the application of this equivalence on existing Javas
 The compilation process is made of two important steps, the identification of the continuations, and the generation of chains.
 The compiler is available online to reproduce the tests at \url{compiler-due.apps.zone52.org}, and the code is available online at \url{https://github.com/etnbrd/due-compiler}.
 
-\subsubsection{Identification of continuations}
+\paragraph{Identification of continuations}
 
 The first compilation step is to identify the continuations and their imbrications.
 The compiler transforms only \textit{in situ} continuations - these are lambdas.
@@ -48,7 +48,7 @@ The compiler identifies callbacks and leaves the identification of compatible co
 % After the compilation, it sends back the identification corrected by the developer to refine the future estimations.
 % In future works, we would like to study the possibility for such a service to assist, and ease the compilation process.
 
-\subsubsection{Generation of chains}
+\paragraph{Generation of chains}
 
 % The compositions of continuations and Dues are arranged differently.
 Continuations structure the execution flow as a tree, whereas a chain of Dues arranges it sequentially.

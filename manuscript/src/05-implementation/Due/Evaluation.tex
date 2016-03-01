@@ -8,7 +8,7 @@
 
 The Due compiler was evaluated against a set of Javascript projects likely to contain continuations.
 Because the compilation requires user interaction to detect continuations, the test set was limited to a minimum of about \num{50} projects to conduct the test in a reasonable time.
-All the projects in the set were selected from the \textit{Node Package Manager} (\textit{npm}\ftnt{https://www.npmjs.com/})  database to restrict the set to \textit{Node.js} projects \footnote{At the time of this work, \textit{npm} was still restrained on \textit{Node.js} packages. It is now open to every Javascript packages.}.
+All the projects in the set were selected from the \textit{Node Package Manager} (\textit{npm}\ftnt{https://www.npmjs.com/})  database to restrict the set to \textit{Node.js} projects \footnote{At the time of this work, \textit{npm} was still exclusive to \textit{Node.js} packages. It is now open to every Javascript packages.}.
 They all depends on the web framework \textit{express}, but not on the most common Promises libraries such as \textit{Bluebird}, \textit{Q} or \textit{Async}.
 They use the test frameworks \textit{mocha} in its default configuration.
 These tests are used to validate the compilation results.
@@ -40,7 +40,7 @@ Listeners represent the initiation of stream of data, and are addressed in the n
 
 One project contains \num{20} continuations, the others contains between \num{1} and \num{9} continuations each.
 On the \num{56} continuations, \num{36} are single. %, and 20 continuations are involved in an imbrication.
-The others \num{20} continuations belong to imbrications of 2 to 4 continuations.
+The other \num{20} continuations belong to imbrications of 2 to 4 continuations.
 % There are 5 imbrications of 2 continuations, 2 imbrications of 3 continuations, and 1 imbrication of 4 continuations.
 The result of this evaluation prove the compiler to be able to successfully transform imbrications of continuations.
 

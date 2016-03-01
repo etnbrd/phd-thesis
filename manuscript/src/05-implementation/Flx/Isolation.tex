@@ -33,13 +33,13 @@ We present these three alternatives in figure \ref{fig:states}.
 
 \end{figure}
 
-\subsubsection{Scope}
+\paragraph{Scope}
 If a variable is modified inside only one application part in the current \textit{post} chain, then the pipeliner adds it to the context of its fluxion.
 
 In figure \ref{fig:states}, the variable \texttt{a} is updated in the function \texttt{add}.
 The pipeliner step stores this variable in the context of the fluxion \texttt{add}.
 
-\subsubsection{Stream}
+\paragraph{Stream}
 If a modified variable is read by some downstream application parts, then the pipeliner makes the upstream fluxion add this variable to the message stream to be sent to the downstream fluxions.
 It is impossible to send variables to upstream flux\-ions, without causing inconsistencies.
 If the fluxion retro propagates the variable for an upstream fluxion to read, the upstream fluxion might use the old version while the new version is on its way.
@@ -51,7 +51,7 @@ Exceptionally, if a variable is defined inside a \textit{post} chain, like \text
 Indeed, in the current \textit{post} chain, the execution of the upstream fluxion is assured to end before the execution of the downstream fluxion, because of their causality.
 Therefore, no reading of the variable by the upstream fluxion happens after the modification by the downstream fluxion.
 
-\subsubsection{Share}
+\paragraph{Share}
 If a variable is needed for modification by several application parts, or is read by an upstream application part, then it needs to be synchronized between the fluxions.
 % To respect the semantics of the source application, we cannot tolerate inconsistencies.
 The pipeliner groups all the fluxions sharing this variable with the same tag.

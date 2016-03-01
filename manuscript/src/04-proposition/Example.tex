@@ -15,7 +15,7 @@ The application is accessible online at \url{http://grumpy.etnbrd.com}, and the 
 And the network of fluxions structuring the applications can be monitored in realtime at \url{http://grumpy.etnbrd.com/console}, as illustrated in figure \ref{fig:grumpy-screenshot}.
 The application allows to post anonymous grumbles into chat rooms.
 Additionally, a room can subscribe to the grumbles from another room.
-The reader is invited to play with this application and the monitoring console to quickly grasp an understanding of the fluxional execution model \footnote{The reader might want to keep in mind that crude languages might be present on the platform. It is available freely on the internet for anyone to express itself.}.
+The reader is invited to play with this application and the monitoring console to quickly grasp an understanding of the fluxional execution model. % \footnote{The reader might want to keep in mind that crude languages might be present on the platform. It is available freely on the internet for anyone to express itself.}.
 
 \begin{figure}
   \bigfig{
@@ -82,9 +82,9 @@ The \texttt{handler} function, line \ref{lst:source-handler} to \ref{lst:source-
 The \texttt{count} variable at line \ref{lst:source-counter} counts the requests, and needs to be saved between two messages receptions.
 The \texttt{template} function formats the output stream to be sent back to the client.
 The \texttt{app.get} and \texttt{res.send} functions, lines \ref{lst:source-handler} and \ref{lst:source-send}, interface the application with the clients.
-Between these two interface functions, there is a chain of three functions to process the client requests : \texttt{app.get} $\to$ \hspace{-1.4em} $\to$ \texttt{handler} $\to$ \texttt{reply}.
+Between these two interface functions, there is a chain of three functions to process the client requests : \texttt{app.get {>}> handler -> reply}.
 This chain of functions is transformed into a pipeline, expressed in the high-level fluxional language in listing \ref{lst:fluxional}.
-The transformation process between the source and the fluxional code is explained in chapter \ref{chapter5}, in section \ref{chapter5:flx:compiler}.
+The transformation process between the source and the fluxional code is explained in chapter \ref{chapter5}, section \ref{chapter5:flx:compiler}.
 
 \begin{code}[flx, caption={Example application expressed in the high-level fluxional language}, label={lst:fluxional}]
 flx main & grp_res
@@ -110,16 +110,23 @@ flx reply & grp_res {count, template}
   }
 \end{code}
 
+% \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont1}
+% \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont2}
+% \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont3}
+% \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont4}
+% \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont5}
+% \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont6}
+
 The execution is illustrated in figure \ref{fig:MesSys}.
 The dashed arrows between fluxions represent the message streams as seen in the fluxional application.
 The plain arrows represent the operations of the messaging system during the execution.
 These steps are indicated by numeroted circles.
-The \textit{program} registers its fluxions in the messageing system, \circled{1}.
+The \textit{program} registers its fluxions in the messageing system, \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont1}.
 The fluxion \textit{reply} has a context containing the variable \texttt{count} and \texttt{tem\-plate}.
-When the application receives a request, the first fluxion in the stream, \textit{main}, queues a \texttt{start} message containing the request, \circled{2}.
-This first message is to be received by the next fluxion \textit{handler}, \circled{3}, and triggers its execution, \circled{4}.
-The fluxion \textit{handler} sends back a message, \circled{5}, to be enqueued, \circled{6}.
-The system loops through steps \circled{3} to \circled{6} until the queue is empty.
+When the application receives a request, the first fluxion in the stream, \textit{main}, queues a \texttt{start} message containing the request, \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont2}.
+This first message is to be received by the next fluxion \textit{handler}, \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont3}, and triggers its execution, \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont4}.
+The fluxion \textit{handler} sends back a message, \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont5}, to be enqueued, \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont6}.
+The system loops through steps \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont3} to \circled{\fontsize{10pt}{10pt}\selectfont\figcapfont6} until the queue is empty.
 This cycle starts again for each new incoming request causing another \texttt{start} message.
 
 \begin{figure}[h!]%

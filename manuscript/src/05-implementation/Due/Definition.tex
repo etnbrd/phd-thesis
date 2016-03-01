@@ -14,7 +14,7 @@ The implementation of Dues and its tests are available online\ftnt{https://www.n
 % \footnotemark{\ref{ftn:error-conventions}}
 % \footnotemark{\ref{ftn:error-first}}.
 
-\subsubsection{Usage}
+\paragraph{Usage}
 
 \begin{code}[js, %
              caption={Example of a due}, %
@@ -38,7 +38,9 @@ The \texttt{then} method of the due allows to define a continuation to continue 
 If the deferred operation is synchronous, the Due settles during its creation and the \texttt{then} method immediately calls this continuation.
 If the deferred operation is asynchronous, this continuation is called during the Due settlement.
 
-\subsubsection{Creation} \label{chapter5:due:definition:creation}
+\vspace{\baselineskip}
+
+\paragraph{Creation} \label{chapter5:due:definition:creation}
 
 \begin{code}[js, %
              caption={Creation of a due}, %
@@ -80,7 +82,9 @@ This outcome can then be retrieved with the continuation provided by the \texttt
 % Dues expose a \texttt{then} method expecting a continuation to continue the execution after its settlement.
 
 
-\subsubsection{Composition}
+\vspace{\baselineskip}
+
+\paragraph{Composition}
 
 Dues arrange the execution flow as a chain of actions to carry on inputs.
 The composition of Dues in a chain is illustrated in listing~\ref{lst:dues-sequence}.

@@ -82,13 +82,13 @@ The variables \texttt{req} and \texttt{next} are appended to this message stream
 
 When \texttt{anony\-mous\_\-1000} is not isolated from the \texttt{main} fluxion, as if they belong to the same group, the compilation result works as expected.
 The variables used in the fluxion, \texttt{req} and \texttt{next}, are still shared between the two fluxions.
-In this situation fluxions are quite similar to Dues regarding memory shareing.
+In this situation fluxions are quite similar to Dues regarding memory sharing.
 Our goal is to isolate the two fluxions, to be able to safely parallelize their executions.
 
 \subsubsection{Isolation} \label{chapter5:flx:evaluation:isolation}
 
 In listing \ref{lst:flx-gifsocket}, the fluxion \texttt{anony\-mous\_\-1000} modifies the object \texttt{req}, line \ref{lst:flx-gifsocket:buffer}, to store the text of the received request, and it calls \texttt{next} to continue the execution, line \ref{lst:flx-gifsocket:next}.
-\texttt{req} is an alias to a memory location used in multiple palces in code.
+\texttt{req} is an alias to a memory location used in multiple places in code.
 Therefore, these operations produce side-effects that should propagate in the whole application, but the isolation prevents this propagation.
 Isolating the fluxion \texttt{anony\-mous\_\-1000} produces runtime exceptions.
 The next paragraph details how this situation is handled to allow the application to be parallelized.
@@ -146,7 +146,7 @@ It is unable to analyze code with dynamic behaviors.
 Higher-order programming leads to more productivity partly beacuse it rely on such dynamic behavior to extend expressivity.
 Precisely, it allows more levels of indirections.
 
-\subsubsection{Levels of Indirections}
+\paragraph{Levels of Indirections}
 
 The indirection is an abstraction between the value, and its manipulation.
 In listing \ref{lst:indirection}, the variables \texttt{a} and \texttt{b} point both to the same memory object.
@@ -167,14 +167,14 @@ fn(b) {
 fn(a);
 \end{code}
 
-\subsubsection{Uncertainties}
+\paragraph{Uncertainties}
 
 The indirection is trivial to resolve in listing \ref{lst:indirection}.
 It only needs to have access to the definition of \texttt{a} and of \texttt{fn}.
 %A very simple static analysis could resolve it.
 However, in listing \ref{lst:indirections}, the array \texttt{handlers} introduces a new level of indirection.
 The static analysis now needs to have access to the definition of \texttt{i} and of the \texttt{handlers}.
-If this definition is provided by an external input, it is not available statically, hence, it adds an uncertainty during the analysis. 
+If these definition are provided by an external input, they are not available statically, hence, they add uncertainties during the analysis. 
 
 \begin{code}[js,
   caption={Two levels of indirection},
@@ -200,7 +200,7 @@ Moreover, it leads the compiler to ignore the rupture points not defined \textit
 The reason for this precaution, is that the compiler is unable to assure where the function is used, and the scope of its variables.
 Therefore, it is unable to assure that the modification will conserve the semantic.
 
-\subsubsection{Dynamic Resolution}
+\paragraph{Dynamic Resolution}
 
 In a web application, this variable \texttt{i} might be part of the user request, which is available only at runtime.
 It eventually introduces an uncertainty.

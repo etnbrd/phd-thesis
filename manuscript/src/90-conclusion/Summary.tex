@@ -8,7 +8,7 @@ The second compiler, stemming from the first one, identifies the entry points of
 
 With these two contributions, it is possible to transform the modular representation of an application into a pipeline representation.
 The modular representation allows development productivity, while the pipeline representation executes efficiently.
-A development team shall then use these two representations to continuously iterate over the implementation of an application, and reach the best compromise between productivity and efficiency.
+A development team shall then use these two representations to continuously iterate over the implementation of an application, and reach the most satisfying compromise between productivity and efficiency.
 
 The next paragraphs summarizes the two execution models, and the steps of this equivalence from one model to the other.
 
@@ -20,8 +20,8 @@ The event-driven execution model is targeted by productive programming languages
 It processes a queue of asynchronous events by scheduling handlers cooperatively.
 Each handler can asynchronously request resources and define handlers to receive the resource response. 
 The handlers are chained by these asynchronous requests using continuation passing style.
-Apart from the resource response, the communication between tow handlers is done via closures.
-The downstream handler gets access to the environment of its creation through a closure.
+%the communication between tow handlers is done via closures.
+Apart from the resource response, the downstream handler gets access to the environment of its creation through a closure.
 
 They are organized similarly to a pipeline, each handler being a stage, with the data flowing from one stage to the other.
 However, the handlers still share a common memory store.
@@ -29,9 +29,16 @@ It allows the higher-order programming required for productivity.
 But it also avoids the parallelism required for efficiency.
 
 \begin{figure}
-  \centering
-  \textfig{\includegraphics[width=0.8\linewidth]{../resources/cont-chain.pdf}}
+  \centering\dualfig{
+    \includegraphics[page=1]{../resources/models-difference.pdf}}{
+    \includegraphics[page=2]{../resources/models-difference.pdf}}{
+  }
 \end{figure}
+
+% \begin{figure}
+%   \centering
+%   \textfig{\includegraphics[width=0.8\linewidth]{../resources/cont-chain.pdf}}
+% \end{figure}
 
 \paragraph{Fluxional execution model}
 
@@ -82,7 +89,7 @@ Their executions are not parallelized to avoid conflicting accesses.
 \end{itemize}
 
 The difficulty in this step is to identify the memory dependencies between stages.
-The dynamic behaviors of Javascript, it is impossible to statically identify the aliasing in the memory.
+The dynamic behaviors of Javascript makes it impossible to statically identify aliasing in the memory.
 The compiler implemented from the equivalence is currently unable identify these interdependencies.
 It relies on manual manipulations to complete the transformation.
 

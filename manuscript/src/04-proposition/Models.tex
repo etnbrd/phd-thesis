@@ -171,6 +171,8 @@ Promises allow to easily arrange the execution flow in parallel or in sequence a
 % This control over the execution leads to a modification of the control over the data flow.
 Programmers are encouraged to arrange the computation as series of steps to process incoming events and yield outcoming events.
 In this sense, Promises are an intermediate step toward the pipeline execution model.
+The first implementation of this equivalence is a compiler to encapsulate continuations into Promises.
+It actually identifies and extract the pipeline underlying the continuation passing style.
 
 
 
