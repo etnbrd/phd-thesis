@@ -36,7 +36,7 @@ function midAngle(d){
   return d.startAngle + (d.endAngle - d.startAngle)/2;
 }
 
-var lightgray = '#FAFAFA';
+var lightgray = '#FDFBF7';
 
 var dueEvalDict = {
   nocont: 'No Detected Continuations',
