@@ -5,7 +5,7 @@
 \newlength{\alphabet}
 \settowidth{\alphabet}{\normalfont abcdefghijklmnopqrstuvwxyz}
 
-\usepackage[top=15mm, bottom=20mm, textwidth=2.4\alphabet, hmarginratio={1:1}]{geometry}
+\usepackage[top=15mm, bottom=15mm, textwidth=2.4\alphabet, hmarginratio={1:1}]{geometry}
 
 \usepackage[french, english]{babel}
 \usepackage[utf8]{inputenc}
@@ -90,7 +90,16 @@
 % \title{Operating Systems mutations, how and why integrate the user in the digital era ?\\\comment{TODO change title ?}}
 % \title{Automatic pipeline distribution for monolithic web applications : Toward a better compromise between development scalability and performance scalability \comment{not definitive}}
 % \title{Liquid IT : Toward a better compromise between development scalability and performance scalability \comment{not definitive}}
-\title{Fluxional compiler : seamless shift from development productivity to performance efficiency, in the case of real-time web applications}
+\title{%
+\parbox{\linewidth}{%
+\titleline%
+\vspace{46pt}
+\secfont\fontsize{20pt}{25pt}\selectfont%
+\MakeUppercase{Fluxional compiler : seamless shift from development productivity to performance efficiency, in the case of real-time web applications}%
+\vspace{46pt}%
+\titleline%
+\color{black}%
+}}
 
 \author{Etienne Brodu}
 
@@ -124,5 +133,7 @@
 \include{90-conclusion/main}
 
 \printbibliography[]
+
+\include{91-appendix/main}
 
 \end{document}

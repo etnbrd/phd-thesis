@@ -1,0 +1,45 @@
+
+\begin{abstract}
+
+Most of the now popular web services started as small projects created by few individuals, and grew exponentially.
+Internet supports this growth because it extends the reach of our communications world wide, while reducing their latency.
+During its development, an application must grow exponentially, otherwise the risk is to be outpaced by the competition.
+
+In the beginning, it is important to verify quickly that the service can respond to the user needs: \textit{Fail fast}.
+Languages like Ruby or Java became popular because they propose a productive approach to iterate quickly on user feedbacks.
+A web application that correctly responds to user needs can become viral.
+Eventually, the application needs to be efficient to cope with the traffic increase.
+
+But it is difficult for an application to be at once productive and efficient.
+When the user base become too important, it is often required to switch the development approach from productivity to efficiency.
+No platform conciliates these two objectives, so it implies to rewrite the application into an efficient execution model, such as a pipeline.
+It is a risk as it is a huge and uncertain amount of work.
+To avoid this risk, this thesis proposes to maintain the productive representation of an application with the efficient one.
+
+Javascript is a productive language with a significant community.
+It is the execution engine the most deployed, as it is present in every browser, and on some servers as well with \textit{Node.js}.
+It is now considered as the main language of the web, ousting Ruby or Java.
+Moreover, the Javascript event-loop is similar to a pipeline.
+Both execution models process a stream of requests by chaining independent functions.
+Though, the event-loop supports the needs in development productivity with its global memory, while the pipeline representation allows an efficient executions by allowing parallelization.
+
+This thesis studies the possibility for an equivalence to transform an implementation from one representation to the other.
+With this equivalence, the development team can follow the two approaches concurrently.
+It can continuously iterate the development to take advantage of their conflicting objectives.
+
+This thesis presents a compiler that allows to identify the pipeline from a Javascript application, and isolate its stages into fluxions.
+A fluxion is named after the contraction between function and flux.
+It executes a function for each datum on a stream.
+Fluxions are independent, and can be moved from one machine to the other, so as to cope with the increasing traffic.
+The development team can begin with the  productivity of the event-loop representation.
+And with the transformation, it can progressively iterate to reach the efficiency of the pipeline representation.
+
+% By transforming a Javascript application into a fluxional pipeline, 
+% And it probably can make it efficient with significantly less effort than the current rewrite required.
+
+% This work was done in collaboration between the company Atos Worldline, and the DICE team from CITI laboratory, INSA de Lyon.
+% The goal for Worldline was to develop the state of the art in the field of web application development and hosting.
+% The goal for the DICE team was to conduct a research activity within an industrial context to be in contact with its economic constraints.
+
+
+\end{abstract}

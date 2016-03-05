@@ -1,0 +1,99 @@
+% \rule{2cm}{0.1pt}
+\begin{otherlanguage}{french}%
+% \rule{2cm}{0.1pt}
+\begin{abstract}%
+% {\centering\textbf{Résumé}}
+
+La plupart des grands services web commencèrent comme de simple projets, et grossirent exponentiellement.
+Internet supporte cette croissance en étendant les communications et réduisant leur latence.
+Pendant son développement, une application dois croitre exponentiellement, sans quoi elle risque de se faire dépasser par la compétition.
+
+Dès le début, il est important de s'assurer de répondre aux besoin du marché : \textit{Fail fast}.
+Des langages comme Ruby ou Java sont devenu populaire en proposant la productivité  nécessaire pour itérer rapidement sur les retours utilisateurs.
+Une application web qui répond correctement au besoins des utilisateur peut être adopté de manière virale.
+Mais à terme, une application dois être efficace pour traiter cette augmentation de trafic.
+
+Il est difficile pour une application d'être à la fois productive et efficace.
+Quand l'audience deviens trop importante, il est souvent nécessaire de remplacer l'approche productive pour un modèle plus efficace.
+Aucune plateforme de développement ne permet de concilier ces deux objectifs, il est donc nécessaire de réécrire l'application vers un modèle plus efficace, tel qu'un pipeline.
+Ce changement représente un risque.
+Il implique une quantité de travail conséquente et incertaine.
+Pour éviter ce risque, cette thèse propose de maintenir conjointement les représentations productive et efficace d'une même application.
+
+Javascript est un langage productif avec une communauté importante.
+C'est l’environnement d’exécution le plus largement déployé puisqu'il est omniprésent dans les navigateurs, et également sur certains serveurs avec \textit{Node.js}.
+Il est maintenant considéré comme le langage principale du web, détrônant Ruby ou Java.
+De plus, sa boucle évènementielle est similaire à un pipeline.
+Ces deux modèles d’exécution traitent un flux de requêtes en chainant des fonctions les unes après les autres.
+Cependant, la boucle évènementielle permet une approche productive grâce à sa mémoire globale, tandis que le pipeline permet une exécution efficace du fait de sa parallélisation.
+
+Cette thèse étudie la possibilité pour une équivalence de transformer une implémentation d'une représentation vers l'autre.
+Avec cette équivalence, l'équipe de développement peut suivre les deux approches simultanément.
+Elle peut itérer continuellement pour prendre en compte les avantages des deux approches.
+
+Cette thèse présente un compilateur qui permet d'identifier un pipeline dans une application Javascript, et d'isoler chaque étape dans une fluxion.
+Une fluxion est nommée par contraction entre fonction et flux.
+Elle exécute une fonction pour chaque datum sur le flux.
+Les fluxions sont indépendantes, et peuvent être déplacé d'une machine à l'autre pour amortir l'augmentation du trafic.
+L'équipe de développement peut commencer à développer avec la productivité de la boucle évènementielle.
+Et avec la transformation, elle peut itérer pour progressivement atteindre l’efficacité du pipeline.
+
+\end{abstract}
+\end{otherlanguage}
+\endinput
+
+% Internet étend l'économie à une échelle spatiale et temporelle sans précédent.
+Internet démultiplie nos moyens de communications.
+Tout en réduisant leur latence de manière à développer l'économie à l’échelle planétaire.
+% Il permet de mettre un service à disposition de milliards d'utilisateurs en seulement quelques heures.
+La plupart des grands services web actuels ont commencé comme de simples applications créées dans un garage par une poignée de personnes.
+C'est cette promesse qui a permis jusqu'à maintenant une telle croissance sur le web.
+Google, Facebook ou Twitter en sont quelques exemples.
+Au cours du développement d'une application, il est important de suivre cette croissance, au risque de se faire rattraper par la concurrence.
+Ce développement est guidé par les besoins en terme de fonctionnalités, afin de vérifier rapidement si le service peut satisfaire l'audience.
+On parle d'approche modulaire des fonctionnalités.
+Des langages tel que Ruby ou Java se sont imposés comme les langages du web parce qu'ils intégrent cette approche et permettent d'intégrer facilement de nouvelles fonctionnalités.
+
+Une application qui répond correctement aux besoins atteindra de manière virale un nombre important d'utilisateurs.
+Son audience peut prendre plusieurs ordres de grandeurs en quelques jours voire en quelques heures si elle est correctement relayée.
+Une application est dite \textit{scalable} si elle peut absorber ces augmentations d'audience.
+Or il est difficile pour une application d'être à la fois modulaire et \textit{scalable}.
+
+Au moment où l'audience devient très importante, il est souvent nécessaire de modifier l'approche de développement de l'application.
+Le plus souvent cela implique de la réécrire complètement en utilisant des infrastructures \textit{scalables} qui imposent des modèles de programmation et des API spécifiques.
+Cela représentent une charge de travail conséquente et incertaine.
+De plus, l'équipe de développement doit concilier cette nouvelle approche de développement \textit{scalable}, avec la demande en fonctionnalités.
+Aucun langage ne concilie ces deux objectifs.
+La maitrise de ces enjeux est clé pour la pérennité de l'application.
+
+% Pour ces raisons, ce changement est un risque pour la pérennité de l'application.
+% D'autant plus que le cadre économique accorde peu de marges d'erreurs, comme c'est le cas dans la plupart des start-up, mais également dans de plus grandes structures.
+Cette thèse est source de propositions pour écarter ce risque.
+Elle repose sur les deux observations suivantes.
+D'une part, Javascript est un langage qui a gagné en popularité ces dernières années.
+Il est omniprésent sur les clients, et commence à s'imposer également sur les serveurs avec Node.js.
+Il a accumulé une communauté de développeurs importante, et constitue l'environnement d’exécution le plus largement déployé.
+De ce fait, il se place maintenant de plus en plus comme le langage principal du web, détrônant Ruby ou Java.
+D'autre part, l'exécution de Javascript s'assimile à un pipeline.
+La boucle événementielle de Javascript exécute une suite de fonctions dont l’exécution est indépendante, mais qui s’exécutent sur un seul cœur pour profiter d'une mémoire globale.
+% On observe le même flux de messages traversant cette boucle événementielle que dans un pipeline.
+
+L'objectif de cette thèse est de maintenir une double représentation d'un code Javascript grâce à une équivalence entre l'approche modulaire, et l'approche pipeline d'un même programme.
+% L'objectif de cette thèse est d'étudier une équivalence entre l'approche modulaire, et l'approche pipeline d'un même programme.
+La première répondant aux besoins en fonctionnalités, et favorise les bonnes pratiques de développement pour une meilleure maintenabilité.
+La seconde propose une exécution plus efficace que la première en permettant de rendre certaines parties du code relocalisables en cours d’exécution.
+
+Cette thèse étudie la possibilité pour cette équivalence de transformer un code d'une approche vers l'autre.
+% Pour cela nous avons développé un compilateur.
+Grâce à cette transition, l'équipe de développement peut continuellement itérer le développement de l'application en suivant les deux approches à la fois, sans être cloisonné dans une, et coupé de l'autre.
+
+Cette thèse présente un compilateur permettant d'identifier les fonctions et de les isoler dans ce que nous appelons des Fluxions, contraction entre fonctions et flux.
+Un conteneur qui peut exécuter une fonction à la réception d'un message, et envoyer des messages pour continuer le flux vers d'autres fluxions.
+Les fluxions sont indépendantes, elles peuvent être déplacées d'une machine à l'autre.
+
+Cette thèse montre qu'il existe une correspondance entre le programme initial, purement fonctionnel, et le programme pivot fluxionnel afin de maintenir deux versions équivalentes du code source.
+En ajoutant à un programme écrit en Javascript son expression en Fluxions, l'équipe de développement peut le rendre \textit{scalable} sans effort, tout en étant capable de répondre à la demande en fonctionnalités.
+
+Ce travail s'est fait dans le cadre d'une thèse CIFRE dans la société Worldline.
+L'objectif pour Worldline est de se maintenir à la pointe dans le domaine du développement et de l'hébergement logiciel à travers une activité de recherche.
+L'objectif pour l'équipe Dice est de conduire une activité de recherche en partenariat avec un acteur industriel.

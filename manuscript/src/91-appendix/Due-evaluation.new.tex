@@ -1,3 +1,18 @@
+\section{Due Evaluation results} \label{section:results}
+
+On the 64 projects composing the test set
+\begin{description}
+\item[29] (45.3\%) do not contain any compatible continuations,
+\item[10] (15.6\%) are not compilable because they contain \texttt{with} or \texttt{eval} statements,
+\item[5] (7.8\%) use less common asynchronous libraries we didn't filter previously,
+\item[4] (6.3\%) are not syntactically correct,
+\item[4] (6.3\%) fail their tests before the compilation,
+\item[3] (4.7\%) are not tested, and
+\item[10] (14.0\%) compile successfully.
+\end{description}
+The compiler do not fail to compile any project.
+
+
 The following tables details the results of the evaluation.
 
 29 projects contain no compatible continuation.
