@@ -1,0 +1,81 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+\documentclass[11pt]{letter}
+
+\usepackage[top=2cm, bottom=1cm]{geometry}
+\usepackage{fontspec}
+
+\usepackage[english, french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{eso-pic}
+\usepackage{graphicx}
+\usepackage{bold-extra}
+
+\AddToShipoutPictureBG{%
+  \AtPageUpperLeft{\raisebox{-1.3\height}{%
+    \parbox{21cm}{%
+      \hspace{8pt}%
+      \includegraphics[height=.6in]{insa}%
+      % \hfill%
+      \includegraphics[height=.6in]{citi}
+      \includegraphics[height=.6in]{inria}%
+      \includegraphics[height=.6in]{worldline}%
+    }%
+  }}%
+}
+
+%\defaultfontfeatures{Ligatures=TeX}
+
+% \signature{\raggedright Pr. Stéphane Frénot}
+
+\begin{document}
+\begin{letter}{\textbf{Objet} : Justification du choix du jury pour la soutenance de thèse de E. Brodu}
+
+Prof. Stéphane Frénot\\
+Laboratoire CITI – INSA-Lyon / INRIA\\
+06 17 67 17 14 / stephane.frenot@insa-lyon.fr\\
+
+\opening{~}
+Je suis encadrant de la thèse CIFRE d'Etienne Brodu menée en collaboration
+avec la société WorldLine. Son travail porte sur la transformation de code
+Javascript afin de le rendre parallélisable tout en conservant une bonne
+expression de fonctions pour les développeurs. 
+Le mémoire de thèse est rédigé et nous espérons soumettre ce dernier aux
+rapporteurs pour une soutenance fin-juin. Nous avons contacté les
+personnes mentionnées, et ils ont donné leur accord de principe.
+
+\begin{description}
+  \item[Gael \bfseries{\scshape{Thomas}}] (rapporteur) est professeur à Télécom SudParis.
+  Il est membre de l'équipe Calcul Haute Performance (H2P) du laboratoire
+  Samovar du département Informatique.
+  Ses thématiques de recherche sont situées dans le domaine des systèmes d'exploitation
+  sur les aspects de performances, de sureté et de sécurité de
+  fonctionnement, avec une focalisation spécifique sur les systèmes
+  concurrents et les langages d'exécution.
+  Ces aspects sont tout à fait centraux dans la thèse d'Etienne, aussi le choix de Gaël Thomas comme rapporteur nous parait pertinent.
+  \item[Frederic \bfseries{\scshape{Loulergue}}] (rapporteur) est professeur d'informatique à l'université d'Orléans et responsable de l'équipe Logique, Modélisation, Vérification du LIFO. Il travaille sur les outils d'analyse statique pour la preuve de programmes avec la prise en compte du parallélisme, et la vérification de compilateurs. Cette expertise plutôt théorique nous semble pertinente pour l'évaluation des travaux d'Etienne.
+  \item[Floréal \bfseries{\scshape{Morandat}}] (examinateur) est maitre de conférence à l'ENSEIRB-MATMECA, chercheur dans le groupe Genie Logiciel du Labri.
+  Ses thèmes de recherche concernent les langages de programmation.
+  Il a travaillé sur l'évaluation des langages de programmation, ainsi que
+  la conception de machines virtuelles pour les langages typés
+  dynamiquement comme Javascript. Son expertise dans le génie logiciel
+  pour le développement d'applications nous semble adapté au sujet traité
+  par Etienne. 
+  \item[Frederic \scshape{Oblé}] (examinateur) est titulaire d'un doctorat en Mécanique des Fluides.
+  Il est directeur de l'équipe R\&D High Processing and Volumes (HPV) chez WorldLine.
+  Il a suivi les travaux d'Etienne dans le cadre du partenariat CIFRE.
+\end{description}
+Pour toutes les raisons ci-dessus, nous pensons que cette
+proposition de jury est pertinente pour évaluer le travail de thèse de M.
+Brodu.\\[2\baselineskip]
+
+\parbox{\linewidth}{\hfill Pr. Stéphane Frénot}
+
+% \closing{~}
+
+\end{letter}
+\end{document}

@@ -8,17 +8,17 @@
 With the growth of Software as a Service (SaaS) on the web, the same company carries both development and exploitation of an application at scale of unprecedented size.
 It revealed the importance of previously unknown economic constraints.
 To assure the continuous growth and sustainability of an application, it needs to address two contradictory goals : development productivity and performance efficiency.
-These goals needs to be enforced by the platform supporting the application to build good development habits for the developers.
+These goals need to be enforced by the platform supporting the application to build good development habits for the developers.
 A platform designates any solution that allows to build an application on top of it, including programming languages, compilers, interpreters, frameworks, runtime libraries and so on.
 
 The productivity of a platform is the degree to which developers can quickly produce new and modify existing softwares.
 It impacts the maintainability of the applications and relies on the modularity enforced by its platform.
 \textit{75\% of your budget is dedicated to software maintenance.}\ftnt{http://www.castsoftware.com/glossary/software-maintainability}
 Especially, higher order programming is crucial to build and compose modules productively.
-It relies either on mutable states, or immutable states, but hardly on a combination of both.
+It relies either on mutable state, or immutable state, but hardly on a combination of both.
 
-However, neither mutable nor immutable states allows performance efficiency.
-Mutable states leads to synchronization overhead at a coarser-grain level, while immutable states leads to communication overhead at a finer-grain level.
+However, neither mutable nor immutable state allows performance efficiency.
+Mutable state leads to synchronization overhead at a coarser-grain level, while immutable state leads to communication overhead at a finer-grain level.
 Efficiency relies on a combination of synchronization at a fine-grain level, and immutable message passing at a coarse-grain level.
 This combination breaks the modularity, hence the productivity of an application.
 A company has no choice but to commit huge development efforts to get efficient performances.
@@ -63,12 +63,12 @@ Whereas efficiency requires a balance between fine-grain level shared state with
 This discontinuity between fine-grain level and coarse-grain level avoids the global memory abstraction, hence productivity.
 The absence of a global memory abstraction reserves efficient platforms for an elite of developers.
 No platform can support simultaneously productivity and efficiency.
-Nonetheless, a platforms needs to be adopted both by the industry and the community to be sustainable.
+Nonetheless, a platform needs to be adopted both by the industry and the community to be sustainable.
 D. Parnas then suggested the use of compilation techniques to bridge the gap between these two extremes.
 
 However, more than this problem of immediate incompatibility, the problem holds on the evolution of the implementation.
 No platform is able to follow a project from the early beginning until the industrial maturation of the project.
-All the platforms tends to be stuck in a compromise between these two goals, and cannot follow the evolution required for this compromise.
+All the platforms tend to be stuck in a compromise between these two goals, and cannot follow the evolution required for this compromise.
 These compromises are rigidly defined, while the need of the application is constantly evolving.
 They lack the possibility to follow the organic evolution of a project.
 Therefore, a project needs to change platform to change its priority, which leads to economical consequences.

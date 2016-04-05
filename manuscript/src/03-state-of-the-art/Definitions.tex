@@ -1,6 +1,6 @@
 \section{Definitions} \label{chapter3:definitions}
 
-The continuous growth and sustainability of a platform relies on three criteria, Productivity, Efficiency and Adoption.
+The continuous growth and sustainability of a platform relies on three criteria: Productivity, Efficiency and Adoption.
 This section defines these tree criteria and their underlying concepts.
 
 \subsection{Productivity} \label{chapter3:definitions:productivity}
@@ -11,7 +11,7 @@ Productivity leads to maintainability.
 
 Measuring productivity precisely is highly difficult.
 The measurement varies more between developers than between platforms \cite{Sackman1968}.
-Instead of measuring directly the productivity of a platform, this thesis infer productivity by measuring modularity.
+Instead of measuring directly the productivity of a platform, this thesis infers productivity by measuring modularity.
 
 \subsubsection{Modularity} \label{chapter3:definitions:productivity:modularity}
 
@@ -63,7 +63,7 @@ Examples of such separation of concerns are the separation of the form and the c
 Higher-order programming introduces lambda expressions, functions manipulable like any other primary value.
 They can be stored in variables, or be passed as arguments.
 It replaces the need for most modern object oriented programming design patterns \ftnt{http://bit.ly/oop-patterns} with Inversion of Control \cite{Johnson}, the Hollywood Principle \cite{Sweet1985}, or Monads \cite{Wadler1992}.
-Higher-order programming help loosen coupling, thus improve productivity \cite{Haynes1984}.
+Higher-order programming helps loosen coupling, thus improves productivity \cite{Haynes1984}.
 
 % \paragraph{Closures}
 In languages allowing mutable state, lambda expressions are implemented with closure to preserve the lexical scope \cite{Sussman1998}.
@@ -108,7 +108,7 @@ Because of the latency associated with message-passing, the atomicity of operati
 \subsubsection{Atomicity} \label{chapter3:definitions:efficiency:atomicity}
 
 An operation is atomic if it happens in a single bulk.
-The beginning and end are indistinguishable for an external observer.
+Beginning and end are indistinguishable for an external observer.
 It assures the developer of the invariance of the memory during the operation.
 It relies either on the causal scheduling of operations -- synchronization -- or exclusivity of their memory accesses -- message-passing.
 

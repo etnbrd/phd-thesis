@@ -1,6 +1,6 @@
 \section{Efficiency Focused Platforms} \label{chapter3:software-efficiency}
 
-To cope with the limitations the previous section concludes on, both the academia and the industry proposed solutions discarding productivity to focus on efficiency.
+To cope with the limitations the previous section concludes on, both the academia and the industry suggested solutions discarding productivity to focus on efficiency.
 Among these solutions, the concurrent and parallel programming paradigms are presented in section \ref{chapter3:software-efficiency:concurrency}
 They are evaluated against the same criteria than the previous section - Productivity, Efficiency and Adoption.
 This evaluation illustrates the impact of this shift of focus on the adoption of these platforms, as presented in section \ref{chapter3:software-efficiency:adoption}.
@@ -53,7 +53,7 @@ The event-driven programing model relies on cooperative scheduling, and the mult
 
 In the event-driven execution model, developers explicitely split the application into several concurrent tasks called handlers.
 The execution model schedules these handlers sequentially with the queue of events, to assure exclusivity on shared resources, and cooperatively to assure atomicity.
-Moreover, they communicates with the resources asynchronously to avoid waiting.
+Moreover, they communicate with the resources asynchronously to avoid waiting.
 A handler yields execution to the next handler to complete the communication.
 
 Promises were introduced as an help to nicely chain these concurrent handlers \cite{Liskov1988}.
@@ -89,7 +89,7 @@ This heavy need for synchronization leads to bad performances, and is difficult 
 
 \paragraph{Hybrid Models}
 
-Hybrid models intends to join the productivity advantage of synchronous execution from thread, with the efficiency advantage of asynchronous execution from events-driven models.
+Hybrid models intend to join the productivity advantage of synchronous execution from thread, with the efficiency advantage of asynchronous execution from events-driven models.
 The implementations of hybrid models are \ImplementationsOf{Hybrid Models}.
 For example, cooperative threads, or fibers, avoid splitting the execution into atomic tasks nor use protection mechanisms to assure exclusivity.
 A fiber yields the execution to another fiber to avoid blocking the execution during a long-waiting operation, and recovers it at the same point when the operation finishes.
@@ -101,7 +101,7 @@ Developers cannot protect atomicity of operations, which increases the likelines
 
 The presented concurrent programming paradigms assure sequentiality of execution within a task and the causal ordering between tasks.
 Multi-threading imposes heavy protection mechanisms and fails to avoid contention because of the preemptive scheduling.
-Hybrid models tries to improve over multi-threading using cooperative scheduling.
+Hybrid models try to improve over multi-threading using cooperative scheduling.
 But the synchronous execution imposed by these two models is excessive.
 It impacts performance, and is difficult to manage efficiently.
 
@@ -125,8 +125,8 @@ The two major theoretical models for MPMD parallel programming are the Actor Mod
 
 The Actor Model allows to express the causal ordering of computation as a set of parallel actors communicating by asynchronous messages \cite{Hewitt1973a, Hewitt1977, Clinger1981}.
 In reaction to a received message, an actor can create other actors, send messages, and choose how to respond to the next message.
-In reality, the communication are too slow compared to execution to be synchronous, and are subject to various faults and attacks \cite{Lamport1982}.
-The Actor model takes these physical limitations in account \cite{Hewitt1977a}.
+In reality, communications are too slow compared to execution to be synchronous, and are subject to various faults and attacks \cite{Lamport1982}.
+The Actor model takes these physical limitations into account \cite{Hewitt1977a}.
 \paragraph{Communicating Sequential Processes}
 
 Similar works include the Communicating Sequential Processes (CSP) \cite{Hoare1978, Brookes1984}, and the Kahn Networks \cite{Kahn1974, Kahn1976}.
@@ -154,7 +154,7 @@ Hence the parallel programming models are more efficient than the concurrent pro
 \end{figure*}
 
 When the need for efficiency is higher than the need for productivity, the adoption is steered by the industry more than the community.
-If the industry really needs a platform, it will commit the required development effort despite a low productivity.
+If the industry really needs a platform, it will commit the required development effort despite low productivity.
 
 \marginfig{10}{0.6\textwidth}{
   \includegraphics[width=0.4\textwidth]{../resources/marsrover.png}
@@ -168,7 +168,7 @@ The more the platform trades productivity for efficiency, the less support it re
 
 \subsubsection{Concurrent Programming}
 
-Most programming language implementations supports concurrent programming.
+Most programming language implementations support concurrent programming.
 Either with multi-threading or event-driven programming.
 These two are highly adopted by both the industry and the community, as presented in table \ref{tab:efficiency-adoption}.
 
@@ -176,13 +176,13 @@ On the other hand, lock-free data structures and cooperative threads comes from 
 
 \subsubsection{Parallel Programming}
 
-There exists several platforms directly inspired by the actors model, like \ImplementationsOf{Actor Model}.
+Several platforms were directly inspired by the actors model, like \ImplementationsOf{Actor Model}.
 Scala is a programming language unifying the object model and functional programming.
 Akka is a framework based on Scala, following the actor model to build highly scalable and resilient applications.
 Play is a web framework based on top of Akka.
 And Erlang is a functional language designed by Ericsson to operate networks of telecommunication devices \cite{Armstrong1993,Nelson2004,Armstrong2014}
 
-There are as well other platforms inspired by other theoretical model, like \ImplementationsOf{Communicating Sequential Processes}, inspired by Coroutines and CSP.
+Other platforms were inspired by other theoretical model, like \ImplementationsOf{Communicating Sequential Processes}, inspired by Coroutines and CSP.
 Go is an open source language initiated by Google to build highly concurrent services.
 
 These examples of implementation are largely used in the industry, but are almost unknown outside of it.
@@ -207,7 +207,7 @@ Some examples of SOA platforms are \ImplementationsOf{Service Oriented Architect
 It allows to adjust the granularity of tasks to help developers to better fit the tasks organization with the modular organization \cite{Adam2008}.
 
 More recently, Microservices are tackling the same challenge on the web, with a finer granularity \cite{Fernandez-Villamor2010,Fowler2014,Namiot2014}.
-AN example of Microservice platform is \ImplementationsOf{Microservices}.
+An example of Microservice platform is \ImplementationsOf{Microservices}.
 Microservices are very recent, and it is difficult to asses their usage in the community nor the industry.
 But they seem to be increasingly adopted, both in the industry and in the community.
 
@@ -223,7 +223,7 @@ This requirement imposes specific challenges for the platforms.
 
 Database Management Systems (DBMS) historically processed large volumes of data, and they naturally evolved into Data-stream Management System (DSMS) to process data streams as well.
 Because of this legacy, they are in rupture with MPMD platforms presented until now.
-They borrows the syntax from SQL to run requests in parallel on continuous data streams.
+They borrow the syntax from SQL to run requests in parallel on continuous data streams.
 The computation of these requests spread over a distributed architecture.
 Some recent examples are \ImplementationsOf{Data Stream System Management}.
 
@@ -242,7 +242,7 @@ Parallel programming emerges mainly from industrial needs and academic research 
 The implementations improve efficiency.
 But their weak productivity prevents their adoption by the community.
 As summarized in table \ref{tab:efficiency-adoption}, the event-driven programming model is the best candidate for a concurrent programming model regarding adoption.
-It is supported by the community, and respond to concrete needs in the industry.
+It is supported by the community, and responds to concrete needs in the industry.
 
 \ParallelAdoptionTable{tab:efficiency-adoption}
 
@@ -265,7 +265,7 @@ The parallel programming platforms presented in this section focus more on effic
 Whereas the concurrent programming platforms feature better productivity.
 But no platform features both productivity and efficiency, as presented in table \ref{tab:efficiency-synthesis}.
 Moreover, this lack of versatility impacts adoption.
-These platforms remains inaccessible for the community.
+These platforms remain inaccessible for the community.
 Exception for Event-driven and Multi-threading programming which are among the productive ways to achieve concurrency.
 
 \EfficiencySummaryTable{tab:efficiency-synthesis}

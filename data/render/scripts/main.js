@@ -275,7 +275,7 @@ d3.csv('csv/visit-count-service-1.csv')
       visits: row.visits
     }
   })
-  .get(lineChartFactory(parent, 'visists', {
+  .get(lineChartFactory(parent, 'visits', {
     yLabel: 'Visits',
     yLabelPaddin: 30
   }));

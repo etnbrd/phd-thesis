@@ -13,9 +13,9 @@ Then, they continuously transform their implementation to target the more effici
 % Because of these features, it is very productive.
 % It makes Javascript a language of choice to develop web applications.
 
-\textit{Node.js} implements Javascript swith an event driven execution model to implement web applications with decent performances.
+\textit{Node.js} implements Javascript with an event driven execution model to implement web applications with decent performances.
 However, the performance of this execution model is limited by the sequentiality of execution required to preserve exclusivity of memory accesses.
-The pipeline execution model overstep this performance limitation.
+The pipeline execution model oversteps this performance limitation.
 It enforces memory isolation between stages allowing the parallel execution required for efficiency.
 But this isolation limits the productivity because it avoids higher-order programming.
 % The figure \ref{fig:models-difference} from chapter \ref{chapter2} 
@@ -70,7 +70,7 @@ The execution resulting from the transformation is as efficient as the original 
   }%
 }
 
-During the maturation of the application, the focus continuously shift towards efficiency.
+During the maturation of the application, the focus continuously shifts towards efficiency.
 The transformation distributes the global memory into isolated stages as much as possible.
 It allows developers to identify the dependencies in this global memory avoiding the distribution.
 They can identify these dependencies, and arrange the implementation accordingly to allow parallelism.
