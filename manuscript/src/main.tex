@@ -35,7 +35,8 @@
 \usepackage{xparse}
 \usepackage{datatool}
 \usepackage[group-separator={,}]{siunitx}
-
+\usepackage{eso-pic}
+\usepackage{framed}
 
 % \pagestyle{myheadings}
 
@@ -116,10 +117,13 @@
 
 \input{00-abstract/main}
 
-% \foreach \x in {0,...,646}
-%    {\x\thinspace\iconfont{\XeTeXglyph\x} }
+\foreach \x in {0,...,646}
+   {\x\thinspace\iconfont{\XeTeXglyph\x} }
+\eject
 
-TODO remerciements
+\input{acknowledgement}
+\input{ecole-doctorales}
+\input{folio}
 
 \dominitoc
 \tableofcontents\eject

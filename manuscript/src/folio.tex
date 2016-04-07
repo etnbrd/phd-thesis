@@ -1,0 +1,68 @@
+\newgeometry{top=1cm, left=1cm, right=1cm, bottom=1cm}
+\begin{center}
+  \includegraphics[height=.6in]{../resources/univ-lyon}%
+  % \vrule%
+  \includegraphics[height=.6in]{../resources/insa}\\[3pt]%
+  \fontsize{14pt}{14pt}\selectfont%
+  \MakeUppercase{FOLIO ADMINISTRATIF}\\[3pt]%
+  \MakeUppercase{Thèse de l'Université de Lyon opérée au sein de l'Insa Lyon}
+\end{center}
+
+\begin{framed}
+\noindent %
+Nom : \textbf{\MakeUppercase{Brodu}} \hfill Date de soutenance : \textbf{23/06/2016}\\[3pt]
+Prénoms : \textbf{Etienne}\\[3pt]
+Titre :\\
+\textbf{\MakeUppercase{Fluxional compiler : seamless shift from development productivity to performance efficiency, in the case of real-time web applications}}
+\\
+
+\noindent %
+Nature : \textbf{\MakeUppercase{Doctorat}} \hfill Numéro d'ordre :  \textbf{AAAALYSEIXXXX}\\[3pt]
+Ecole doctorale : \textbf{INFOMATHS}\\[3pt]
+Spécialité : \textbf{Informatique}\\[3pt]
+Résumé : \\
+{\fontsize{11pt}{12pt}\selectfont%
+La plupart des grands services web commencèrent comme de simples projets, et grossirent exponentiellement.
+Dès le début, il est important de s'assurer de répondre aux besoins du marché.
+Des langages comme Ruby ou Java sont devenus populaires en proposant la productivité  nécessaire pour itérer rapidement sur les retours utilisateurs.
+Une application web qui répond correctement aux besoins des utilisateurs peut être adoptée de manière virale.
+Cela lui demande d'être efficace pour traiter cette augmentation de trafic
+
+Il est difficile pour une application d'être à la fois productive et efficace.
+Quand l'audience devient trop importante, il deviens nécessaire de réécrire l'application vers un modèle plus efficace, tel qu'un pipeline.
+Cette transformation représente un risque.
+Pour éviter ce risque, cette thèse propose de maintenir conjointement les représentations productives et efficaces d'une même application.
+
+Javascript est un langage productif avec une communauté importante.
+Sa boucle évènementielle est similaire à un pipeline.
+Ces deux modèles d’exécution traitent un flux de requêtes en chaînant des fonctions les unes après les autres.
+Cependant, la boucle évènementielle permet une approche productive grâce à sa mémoire globale, tandis que le pipeline permet une exécution efficace du fait de sa parallélisation.
+
+Cette thèse étudie la possibilité pour une équivalence de transformer une implémentation d'une représentation vers l'autre.
+Avec cette équivalence, l'équipe de développement peut suivre les deux approches simultanément.
+Elle peut itérer continuellement pour prendre en compte les avantages des deux approches.
+
+Cette thèse présente un compilateur qui permet d'identifier un pipeline dans une application Javascript, et d'isoler chaque étape dans une fluxion.
+Elle exécute une fonction pour chaque datum sur le flux.
+Les fluxions sont indépendantes, et peuvent être déplacées d'une machine à l'autre pour amortir l'augmentation du trafic.
+L'équipe de développement peut commencer à développer avec productivité.
+Et avec la transformation, elle peut itérer pour progressivement atteindre l’efficacité.
+
+~
+}
+
+\noindent %
+Mots-clés : \textbf{Javascript, Web, Fluxions}\\[3pt]
+Laboratoire (s) de recherche : \textbf{CITI}\\[3pt]
+Directeur de thèse: \textbf{Stéphane \MakeUppercase{Frénot}}\\[3pt]
+Président de jury : \textbf{Gaël \MakeUppercase{Thomas}} ou \textbf{Frédéric \MakeUppercase{Loulergue}~}\\[3pt]
+Composition du jury :\\
+\textbf{Gaël \MakeUppercase{Thomas}}\\
+\textbf{Frédéric \MakeUppercase{Loulergue}}\\
+\textbf{Floréal \MakeUppercase{Morandat}}\\
+\textbf{Frédéric \MakeUppercase{Oblé}}\\   
+\textbf{Stéphane \MakeUppercase{Frénot}}
+\end{framed}
+
+\restoregeometry
+\eject
