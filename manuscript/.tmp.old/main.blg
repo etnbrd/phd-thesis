@@ -1,0 +1,125 @@
+[1] Config.pm:327> INFO - This is Biber 2.2
+[1] Config.pm:330> INFO - Logfile is 'main.blg'
+[41] biber:286> INFO - === Thu Apr  7, 2016, 19:16:26
+[42] Biber.pm:334> INFO - Reading 'main.bcf'
+[150] Biber.pm:677> INFO - Found 188 citekeys in bib section 0
+[164] Biber.pm:3054> INFO - Processing section 0
+[176] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Bitcoin.bib' for section 0
+[176] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[177] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Bitcoin.bib'
+[179] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Bitcoin.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[180] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/CCN.bib' for section 0
+[180] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[182] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/CCN.bib'
+[184] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/CCN.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[184] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Cloud.bib' for section 0
+[186] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[188] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Cloud.bib'
+[190] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Cloud.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[191] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Code Optimization.bib' for section 0
+[191] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[192] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Code Optimization.bib'
+[220] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Code Optimization.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[220] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Concurrency.bib' for section 0
+[255] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[289] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Concurrency.bib'
+[306] Utils.pm:147> WARN - Duplicate entry key: 'Catanzaro2009' in file '../src/bib/Concurrency.bib', skipping ...
+[322] Utils.pm:147> WARN - ISBN '1389-1286' in entry 'Gribble2001' is invalid - run biber with '--validate_datamodel' for details.
+[402] Utils.pm:147> WARN - ISBN '978-931971-92-8' in entry 'Zaharia2012a' is invalid - run biber with '--validate_datamodel' for details.
+[436] Utils.pm:147> WARN - ISBN '1070-9924 VO - 5' in entry 'Dagum1998' is invalid - run biber with '--validate_datamodel' for details.
+[456] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Concurrency.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[457] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Continuation Passing Style.bib' for section 0
+[457] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[458] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Continuation Passing Style.bib'
+[461] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Continuation Passing Style.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[462] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Functional Programming.bib' for section 0
+[465] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[469] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Functional Programming.bib'
+[482] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Functional Programming.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[482] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Javascript.bib' for section 0
+[486] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[489] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Javascript.bib'
+[506] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Javascript.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[507] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Microservices.bib' for section 0
+[509] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[510] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Microservices.bib'
+[514] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Microservices.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[515] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Migration.bib' for section 0
+[515] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[516] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Migration.bib'
+[516] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Migration.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[516] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Misc.bib' for section 0
+[519] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[521] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Misc.bib'
+[522] Utils.pm:147> WARN - Duplicate entry key: 'NoseRub' in file '../src/bib/Misc.bib', skipping ...
+[522] Utils.pm:147> WARN - Duplicate entry key: 'Lockr' in file '../src/bib/Misc.bib', skipping ...
+[522] Utils.pm:147> WARN - Duplicate entry key: 'ThinkUp' in file '../src/bib/Misc.bib', skipping ...
+[524] Utils.pm:147> WARN - Duplicate entry key: 'International2009' in file '../src/bib/Misc.bib', skipping ...
+[524] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Misc.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[524] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/MyPublications.bib' for section 0
+[525] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[526] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/MyPublications.bib'
+[530] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/MyPublications.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[531] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/OS.bib' for section 0
+[532] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[532] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/OS.bib'
+[533] Utils.pm:147> WARN - Duplicate entry key: 'Gude2008' in file '../src/bib/OS.bib', skipping ...
+[533] Utils.pm:147> WARN - Duplicate entry key: 'Polvi' in file '../src/bib/OS.bib', skipping ...
+[533] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/OS.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[533] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Programming languages.bib' for section 0
+[535] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[537] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Programming languages.bib'
+[537] Utils.pm:147> WARN - Duplicate entry key: 'Liskov1988' in file '../src/bib/Programming languages.bib', skipping ...
+[547] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Programming languages.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[547] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Security.bib' for section 0
+[547] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[548] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Security.bib'
+[548] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Security.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[548] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Static Analysis.bib' for section 0
+[552] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[556] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Static Analysis.bib'
+[557] Utils.pm:147> WARN - Duplicate entry key: 'Jensen2009' in file '../src/bib/Static Analysis.bib', skipping ...
+[557] Utils.pm:147> WARN - Duplicate entry key: 'Jensen2011' in file '../src/bib/Static Analysis.bib', skipping ...
+[557] Utils.pm:147> WARN - Duplicate entry key: 'Hackett2012' in file '../src/bib/Static Analysis.bib', skipping ...
+[558] Utils.pm:147> WARN - Duplicate entry key: 'Thiemann2005' in file '../src/bib/Static Analysis.bib', skipping ...
+[558] Utils.pm:147> WARN - Duplicate entry key: 'Anderson2005' in file '../src/bib/Static Analysis.bib', skipping ...
+[558] Utils.pm:147> WARN - Duplicate entry key: 'Gardner2012' in file '../src/bib/Static Analysis.bib', skipping ...
+[558] Utils.pm:147> WARN - Duplicate entry key: 'Maffeis2008' in file '../src/bib/Static Analysis.bib', skipping ...
+[559] Utils.pm:147> WARN - Duplicate entry key: 'Richards2010' in file '../src/bib/Static Analysis.bib', skipping ...
+[559] Utils.pm:147> WARN - Duplicate entry key: 'Jensen2012' in file '../src/bib/Static Analysis.bib', skipping ...
+[559] Utils.pm:147> WARN - Duplicate entry key: 'Richards2011' in file '../src/bib/Static Analysis.bib', skipping ...
+[559] Utils.pm:147> WARN - Duplicate entry key: 'Jang2009' in file '../src/bib/Static Analysis.bib', skipping ...
+[559] Utils.pm:147> WARN - Duplicate entry key: 'Sridharan2012' in file '../src/bib/Static Analysis.bib', skipping ...
+[559] Utils.pm:147> WARN - Duplicate entry key: 'Wei2014' in file '../src/bib/Static Analysis.bib', skipping ...
+[559] Utils.pm:147> WARN - Duplicate entry key: 'Gardner2013' in file '../src/bib/Static Analysis.bib', skipping ...
+[560] Utils.pm:147> WARN - Duplicate entry key: 'Bodin2014' in file '../src/bib/Static Analysis.bib', skipping ...
+[560] Utils.pm:147> WARN - Duplicate entry key: 'Maffeis2009a' in file '../src/bib/Static Analysis.bib', skipping ...
+[560] Utils.pm:147> WARN - Duplicate entry key: 'Maffeis2009' in file '../src/bib/Static Analysis.bib', skipping ...
+[560] Utils.pm:147> WARN - Duplicate entry key: 'Smith2011' in file '../src/bib/Static Analysis.bib', skipping ...
+[560] Utils.pm:147> WARN - Duplicate entry key: 'Disney2014' in file '../src/bib/Static Analysis.bib', skipping ...
+[560] Utils.pm:147> WARN - Duplicate entry key: 'Andreasen' in file '../src/bib/Static Analysis.bib', skipping ...
+[565] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Static Analysis.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[565] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/System design.bib' for section 0
+[571] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[576] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/System design.bib'
+[576] Utils.pm:147> WARN - Duplicate entry key: 'Parnas2002' in file '../src/bib/System design.bib', skipping ...
+[577] Utils.pm:147> WARN - Duplicate entry key: 'Parnas1972' in file '../src/bib/System design.bib', skipping ...
+[577] Utils.pm:147> WARN - Duplicate entry key: 'Wong2009' in file '../src/bib/System design.bib', skipping ...
+[577] Utils.pm:147> WARN - Duplicate entry key: 'Adam2008' in file '../src/bib/System design.bib', skipping ...
+[578] Utils.pm:147> WARN - Duplicate entry key: 'Goldberg1984' in file '../src/bib/System design.bib', skipping ...
+[579] Utils.pm:147> WARN - Duplicate entry key: 'Hughes1989' in file '../src/bib/System design.bib', skipping ...
+[591] Utils.pm:147> WARN - ISBN '1066-033X' in entry 'Simon1962' is invalid - run biber with '--validate_datamodel' for details.
+[592] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/System design.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[592] Biber.pm:3193> INFO - Looking for bibtex format file '../src/bib/Web & Social Networks.bib' for section 0
+[595] bibtex.pm:1072> INFO - Decoding LaTeX character macros into UTF-8
+[597] bibtex.pm:935> INFO - Found BibTeX data source '../src/bib/Web & Social Networks.bib'
+[598] Utils.pm:147> WARN - Duplicate entry key: 'Jang' in file '../src/bib/Web & Social Networks.bib', skipping ...
+[599] Utils.pm:147> WARN - ISBN '1095-9203' in entry 'Hilbert2011' is invalid - run biber with '--validate_datamodel' for details.
+[600] Utils.pm:147> WARN - BibTeX subsystem: /tmp/ZoiDNVutjs/Web & Social Networks.bib_7987.utf8, line 6, warning: 175 characters of junk seen at toplevel
+[2616] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[2616] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[2616] Biber.pm:2931> INFO - Sorting list 'nty' of type 'entry' with scheme 'nty' and locale 'en-US'
+[2616] Biber.pm:2935> INFO - No sort tailoring available for locale 'en-US'
+[3368] bbl.pm:505> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[3401] bbl.pm:596> INFO - Output to main.bbl
+[3401] Biber.pm:107> INFO - WARNINGS: 58

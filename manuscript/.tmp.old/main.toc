@@ -1,0 +1,157 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {english}
+\select@language {french}
+\select@language {english}
+{\parbox {3.5em}{\hfill \secfont \fontsize {25pt}{25pt}\selectfont \color {RED}\bfseries 10}}\hspace *{.5em} \parbox {\dimexpr \linewidth -4em\relax }{\begin {leftbar} {\secfont \fontsize {10pt}{20pt}\selectfont \MakeUppercase {Chapter~1}}\\\secfont \fontsize {17pt}{17pt}\selectfont \MakeUppercase {Introduction}\end {leftbar}}\par \noindent 
+\contentsline {section}{\numberline {1.1}Web development}{11}{section.1.1}
+\contentsline {section}{\numberline {1.2}Performance requirements}{11}{section.1.2}
+\contentsline {section}{\numberline {1.3}Problematic and proposal}{12}{section.1.3}
+\contentsline {section}{\numberline {1.4}Thesis organization}{12}{section.1.4}
+{\parbox {3.5em}{\hfill \secfont \fontsize {25pt}{25pt}\selectfont \color {RED}\bfseries 14}}\hspace *{.5em} \parbox {\dimexpr \linewidth -4em\relax }{\begin {leftbar} {\secfont \fontsize {10pt}{20pt}\selectfont \MakeUppercase {Chapter~2}}\\\secfont \fontsize {17pt}{17pt}\selectfont \MakeUppercase {Context And Objectives}\end {leftbar}}\par \noindent 
+\contentsline {section}{\numberline {2.1}The Web as a Platform}{15}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}The Language of the Web}{15}{subsection.2.1.1}
+\contentsline {subsubsection}{The Ugly Duckling}{16}{figure.caption.2}
+\contentsline {subsubsection}{The Rise of Java\-script}{17}{figure.caption.2}
+\contentsline {subsection}{\numberline {2.1.2}Highly Concurrent Web Servers}{19}{subsection.2.1.2}
+\contentsline {subsubsection}{Event-driven Execution Model}{19}{subsection.2.1.2}
+\contentsline {paragraph}{Scalability}{20}{figure.caption.5}
+\contentsline {paragraph}{Time-slicing and Parallelism}{20}{illustration.3}
+\contentsline {subsubsection}{Pipeline Execution Model}{20}{illustration.3}
+\contentsline {section}{\numberline {2.2}An Economical Problem}{22}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Disrupted Web Development}{22}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Seamless Web Development}{23}{subsection.2.2.2}
+{\parbox {3.5em}{\hfill \secfont \fontsize {25pt}{25pt}\selectfont \color {RED}\bfseries 25}}\hspace *{.5em} \parbox {\dimexpr \linewidth -4em\relax }{\begin {leftbar} {\secfont \fontsize {10pt}{20pt}\selectfont \MakeUppercase {Chapter~3}}\\\secfont \fontsize {17pt}{17pt}\selectfont \MakeUppercase {Software Design, State Of The Art}\end {leftbar}}\par \noindent 
+\contentsline {section}{\numberline {3.1}Definitions}{28}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Productivity}{28}{subsection.3.1.1}
+\contentsline {subsubsection}{Modularity}{28}{subsection.3.1.1}
+\contentsline {subsubsection}{Encapsulation}{29}{subsection.3.1.1}
+\contentsline {subsubsection}{Composition}{29}{illustration.5}
+\contentsline {subsection}{\numberline {3.1.2}Efficiency}{29}{subsection.3.1.2}
+\contentsline {subsubsection}{Independence}{30}{subsection.3.1.2}
+\contentsline {subsubsection}{Atomicity}{30}{subsection.3.1.2}
+\contentsline {subsubsection}{Granularity}{30}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Adoption}{31}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Productivity Focused Platforms}{32}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Modular Programming}{32}{subsection.3.2.1}
+\contentsline {subsubsection}{Imperative Programming}{32}{figure.caption.12}
+\contentsline {subsubsection}{Object Oriented Programming}{33}{DTLrowi.1.1}
+\contentsline {subsubsection}{Functional Programming}{33}{DTLrowi.2.1}
+\contentsline {subsubsection}{Multi-Paradigm}{33}{DTLrowi.3.1}
+\contentsline {subsection}{\numberline {3.2.2}Steering Back Toward Efficiency}{34}{subsection.3.2.2}
+\contentsline {subsubsection}{Community}{35}{figure.caption.14}
+\contentsline {subsubsection}{Industry}{37}{figure.caption.18}
+\contentsline {subsection}{\numberline {3.2.3}Efficiency Limitations}{38}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Summary}{39}{subsection.3.2.4}
+\contentsline {section}{\numberline {3.3}Efficiency Focused Platforms}{40}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Concurrency}{40}{subsection.3.3.1}
+\contentsline {subsubsection}{Concurrent Programming}{41}{figure.caption.22}
+\contentsline {paragraph}{Event-Driven Programming}{42}{figure.caption.22}
+\contentsline {paragraph}{Lock-Free Data-Structures}{42}{DTLrowi.9.1}
+\contentsline {paragraph}{Multi-Threading Programming}{42}{DTLrowi.10.1}
+\contentsline {paragraph}{Hybrid Models}{43}{DTLrowi.11.1}
+\contentsline {paragraph}{Limitation of Concurrent Programming}{43}{DTLrowi.12.1}
+\contentsline {subsubsection}{Parallel Programming}{43}{DTLrowi.12.1}
+\contentsline {paragraph}{Actor Model}{44}{DTLrowi.12.1}
+\contentsline {paragraph}{Communicating Sequential Processes}{44}{DTLrowi.12.1}
+\contentsline {subsubsection}{Summary of Concurrent and Parallel Programming Models}{45}{DTLrowi.12.1}
+\contentsline {subsection}{\numberline {3.3.2}Steering Back Toward Producitivity}{45}{subsection.3.3.2}
+\contentsline {subsubsection}{Concurrent Programming}{46}{illustration.6}
+\contentsline {subsubsection}{Parallel Programming}{46}{illustration.6}
+\contentsline {paragraph}{Tasks Organization and Communications}{47}{DTLrowi.16.1}
+\contentsline {paragraph}{Tasks Granularity}{47}{DTLrowi.16.1}
+\contentsline {subsubsection}{Stream Processing Systems}{48}{DTLrowi.18.1}
+\contentsline {paragraph}{Data-stream Management Systems}{48}{DTLrowi.18.1}
+\contentsline {paragraph}{Pipeline Stream Processing}{48}{DTLrowi.19.1}
+\contentsline {subsection}{\numberline {3.3.3}Productivity Limitations}{49}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Summary}{52}{subsection.3.3.4}
+\contentsline {section}{\numberline {3.4}Compromise Between Productivity And Efficiency}{54}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Abstraction of Tasks Organization}{54}{subsection.3.4.1}
+\contentsline {subsubsection}{Compilers}{54}{subsection.3.4.1}
+\contentsline {paragraph}{Parallelism Extraction}{54}{subsection.3.4.1}
+\contentsline {paragraph}{Static analysis}{55}{DTLrowi.30.1}
+\contentsline {paragraph}{Annotations}{55}{DTLrowi.30.1}
+\contentsline {paragraph}{Compilation Limitations}{55}{DTLrowi.31.1}
+\contentsline {subsubsection}{Runtimes}{55}{DTLrowi.31.1}
+\contentsline {paragraph}{Partitioned Global Address Space}{56}{DTLrowi.31.1}
+\contentsline {paragraph}{Dynamic Distribution of Execution}{56}{DTLrowi.32.1}
+\contentsline {subsubsection}{Productivity and Efficiency}{56}{DTLrowi.32.1}
+\contentsline {subsection}{\numberline {3.4.2}Limitation}{59}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Summary}{59}{subsection.3.4.3}
+\contentsline {section}{\numberline {3.5}Discontinuous Developments}{60}{section.3.5}
+{\parbox {3.5em}{\hfill \secfont \fontsize {25pt}{25pt}\selectfont \color {RED}\bfseries 64}}\hspace *{.5em} \parbox {\dimexpr \linewidth -4em\relax }{\begin {leftbar} {\secfont \fontsize {10pt}{20pt}\selectfont \MakeUppercase {Chapter~4}}\\\secfont \fontsize {17pt}{17pt}\selectfont \MakeUppercase {Seamless Shift From Productivity To Efficiency}\end {leftbar}}\par \noindent 
+\contentsline {section}{\numberline {4.1}Proposition}{65}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Continuous Development}{66}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Equivalence}{66}{subsection.4.1.2}
+\contentsline {subsubsection}{Execution Independence}{66}{subsection.4.1.2}
+\contentsline {subsubsection}{Rupture points}{67}{subsection.4.1.2}
+\contentsline {paragraph}{Callbacks, Listeners and Continuations}{67}{subsection.4.1.2}
+\contentsline {subsubsection}{Invariance}{67}{subsection.4.1.2}
+\contentsline {subsubsection}{Transformation Rules}{68}{figure.caption.37}
+\contentsline {paragraph}{Scope}{68}{figure.caption.38}
+\contentsline {paragraph}{Stream}{68}{figure.caption.38}
+\contentsline {paragraph}{Share}{69}{figure.caption.38}
+\contentsline {section}{\numberline {4.2}Execution Models}{70}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Event-Driven Execution Model}{70}{subsection.4.2.1}
+\contentsline {subsubsection}{Continuation Passing Style}{70}{figure.caption.40}
+\contentsline {subsubsection}{Promise}{71}{lstnumber.4.2.14}
+\contentsline {subsection}{\numberline {4.2.2}Fluxional Execution Model}{72}{subsection.4.2.2}
+\contentsline {subsubsection}{Fluxion}{73}{figure.caption.41}
+\contentsline {subsubsection}{Streams}{73}{figure.caption.41}
+\contentsline {subsection}{\numberline {4.2.3}Examples}{73}{subsection.4.2.3}
+\contentsline {subsubsection}{Illustration Of The Fluxional Exection Model}{73}{subsection.4.2.3}
+\contentsline {subsubsection}{Illustration Of The Application Transformation}{74}{figure.caption.43}
+\contentsline {section}{\numberline {4.3}Conclusion}{77}{section.4.3}
+{\parbox {3.5em}{\hfill \secfont \fontsize {25pt}{25pt}\selectfont \color {RED}\bfseries 78}}\hspace *{.5em} \parbox {\dimexpr \linewidth -4em\relax }{\begin {leftbar} {\secfont \fontsize {10pt}{20pt}\selectfont \MakeUppercase {Chapter~5}}\\\secfont \fontsize {17pt}{17pt}\selectfont \MakeUppercase {Implementations}\end {leftbar}}\par \noindent 
+\contentsline {section}{\numberline {5.1}Step 1 - Due Compiler}{79}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Dues}{79}{subsection.5.1.1}
+\contentsline {paragraph}{Usage}{80}{subsection.5.1.1}
+\contentsline {paragraph}{Creation}{80}{lstnumber.5.1.11}
+\contentsline {paragraph}{Composition}{80}{lstnumber.5.2.11}
+\contentsline {subsection}{\numberline {5.1.2}From Continuations to Dues}{81}{subsection.5.1.2}
+\contentsline {paragraph}{Execution order}{81}{subsection.5.1.2}
+\contentsline {paragraph}{Execution linearity}{82}{figure.caption.46}
+\contentsline {paragraph}{Variable scope}{82}{figure.caption.47}
+\contentsline {subsection}{\numberline {5.1.3}Due Compiler}{83}{subsection.5.1.3}
+\contentsline {paragraph}{Identification of continuations}{83}{subsection.5.1.3}
+\contentsline {paragraph}{Generation of chains}{84}{subsection.5.1.3}
+\contentsline {subsubsection}{Evaluation}{85}{figure.caption.48}
+\contentsline {section}{\numberline {5.2}Step 2 - Fluxional Compiler}{86}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Fluxions Compiler}{86}{subsection.5.2.1}
+\contentsline {subsubsection}{Detection}{87}{figure.caption.50}
+\contentsline {subsection}{\numberline {5.2.2}Fluxions Isolation}{88}{subsection.5.2.2}
+\contentsline {paragraph}{Scope}{88}{figure.caption.52}
+\contentsline {paragraph}{Stream}{89}{figure.caption.52}
+\contentsline {paragraph}{Share}{89}{figure.caption.52}
+\contentsline {subsection}{\numberline {5.2.3}Real test case}{89}{subsection.5.2.3}
+\contentsline {subsubsection}{Compilation}{90}{lstnumber.5.6.19}
+\contentsline {subsubsection}{Isolation}{91}{lstnumber.5.7.25}
+\contentsline {paragraph}{Variable \texttt {req}}{91}{lstnumber.5.7.25}
+\contentsline {paragraph}{Closure \texttt {next}}{91}{lstnumber.5.7.25}
+\contentsline {subsection}{\numberline {5.2.4}Limitations}{92}{subsection.5.2.4}
+\contentsline {paragraph}{Levels of Indirections}{92}{subsection.5.2.4}
+\contentsline {paragraph}{Uncertainties}{93}{lstnumber.5.9.9}
+\contentsline {paragraph}{Dynamic Resolution}{93}{lstnumber.5.10.10}
+{\parbox {3.5em}{\hfill \secfont \fontsize {25pt}{25pt}\selectfont \color {RED}\bfseries 94}}\hspace *{.5em} \parbox {\dimexpr \linewidth -4em\relax }{\begin {leftbar} {\secfont \fontsize {10pt}{20pt}\selectfont \MakeUppercase {Chapter~6}}\\\secfont \fontsize {17pt}{17pt}\selectfont \MakeUppercase {Conclusion}\end {leftbar}}\par \noindent 
+\contentsline {section}{\numberline {6.1}Summary}{95}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Models}{95}{subsection.6.1.1}
+\contentsline {paragraph}{Event-driven execution model}{95}{subsection.6.1.1}
+\contentsline {paragraph}{Fluxional execution model}{96}{figure.caption.53}
+\contentsline {subsection}{\numberline {6.1.2}Equivalence}{96}{subsection.6.1.2}
+\contentsline {paragraph}{Stage Extraction}{97}{subsection.6.1.2}
+\contentsline {paragraph}{Stage Isolation}{97}{subsection.6.1.2}
+\contentsline {section}{\numberline {6.2}Overall Evaluation}{98}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Trading Productivity for Efficiency}{98}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Adoption}{99}{subsection.6.2.2}
+\contentsline {section}{\numberline {6.3}Perspectives}{99}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Just-in-time Compilation}{100}{subsection.6.3.1}
+\contentsline {paragraph}{Rupture point detection}{100}{subsection.6.3.1}
+\contentsline {paragraph}{Dominator Tree}{100}{subsection.6.3.1}
+\contentsline {paragraph}{Closure Serialization}{100}{subsection.6.3.1}
+\contentsline {paragraph}{Dynamic Grouping}{100}{subsection.6.3.1}
+\contentsline {paragraph}{Safe-Checking}{101}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Evaluation of the perspective}{101}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}Final Thoughts}{102}{subsection.6.3.3}
+{\parbox {3.5em}{\hfill \secfont \fontsize {25pt}{25pt}\selectfont \color {RED}\bfseries 121}}\hspace *{.5em} \parbox {\dimexpr \linewidth -4em\relax }{\begin {leftbar} {\secfont \fontsize {10pt}{20pt}\selectfont \MakeUppercase {Chapter~A}}\\\secfont \fontsize {17pt}{17pt}\selectfont \MakeUppercase {Appendices}\end {leftbar}}\par \noindent 
+\contentsline {section}{\numberline {A.1}Due evaluation results}{121}{section.A.1}
+\contentsline {section}{\numberline {A.2}Fluxion Compiler Evaluation results}{125}{section.A.2}

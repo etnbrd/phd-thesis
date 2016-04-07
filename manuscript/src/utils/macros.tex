@@ -27,6 +27,8 @@
 \newlength{\figuremargin}
 \setlength\figuremargin{(\linewidth-\figurewidth)/2}
 
+\newcommand{\blank}{\newpage\null\pagestyle{empty}\newpage}
+
 \newcommand{\ind }{%
   \hspace{4ex}%
 }
@@ -54,9 +56,9 @@
 \newcommand{\cit}[2]{%
   \vskip \baselineskip%
   \textit{%
-    \llap{\hfill\secfont\fontsize{45pt}{45pt}\selectfont\textcolor{red}{{`}`}\hspace{15pt}}%
+    \llap{\hfill\quotefont\fontsize{45pt}{45pt}\selectfont\textcolor{red}{“}\hspace{15pt}}%
     \vskip -2.2\baselineskip%
-    \noindent\Large{#1}{\textcolor{red}{''}}%
+    \noindent\Large{#1}{\quotefont\textcolor{red}{”}}%
   }%
   \begin{flushright}%
   --- #2%
@@ -143,3 +145,29 @@
             \colorlet{tmpcolor}{GREEN!\the\numexpr#1*20!RED}%
             \fi%
             \node[shape=circle,inner sep=0.8pt, fill=tmpcolor] (char) {\textcolor{white}{\ifnum#1=6\textbf?\else\textbf#1\fi}};}}
+
+
+
+\newcommand \redlineglyph {%
+\par\noindent\raisebox{.8ex}{%
+\makebox[\linewidth]{%
+\color{RED}%
+\Rulefill%
+\hspace{1ex}%
+\raisebox{-.5ex}{\glyph}%
+\hspace{1ex}%
+\Rulefill%
+\color{TITLE}%
+}%
+}%
+}
+
+\newcommand \redline {%
+\par\noindent\raisebox{.8ex}{%
+\makebox[\linewidth]{%
+\color{RED}%
+\Rulefill%
+\color{TITLE}%
+}%
+}%
+}

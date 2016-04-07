@@ -1,0 +1,19 @@
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {6.1}Summary}{\reset@font\mtcSfont 94}{section.6.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.1.1}Models}{\reset@font\mtcSSfont 94}{subsection.6.1.1}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Event-driven execution model}{\reset@font\mtcPfont 94}{subsection.6.1.1}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Fluxional execution model}{\reset@font\mtcPfont 95}{figure.caption.53}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.1.2}Equivalence}{\reset@font\mtcSSfont 95}{subsection.6.1.2}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Stage Extraction}{\reset@font\mtcPfont 96}{subsection.6.1.2}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Stage Isolation}{\reset@font\mtcPfont 96}{subsection.6.1.2}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {6.2}Overall Evaluation}{\reset@font\mtcSfont 97}{section.6.2}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.1}Trading Productivity for Efficiency}{\reset@font\mtcSSfont 97}{subsection.6.2.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.2}Adoption}{\reset@font\mtcSSfont 98}{subsection.6.2.2}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {6.3}Perspectives}{\reset@font\mtcSfont 98}{section.6.3}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.3.1}Just-in-time Compilation}{\reset@font\mtcSSfont 99}{subsection.6.3.1}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Rupture point detection}{\reset@font\mtcPfont 99}{subsection.6.3.1}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Dominator Tree}{\reset@font\mtcPfont 99}{subsection.6.3.1}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Closure Serialization}{\reset@font\mtcPfont 99}{subsection.6.3.1}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Dynamic Grouping}{\reset@font\mtcPfont 99}{subsection.6.3.1}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Safe-Checking}{\reset@font\mtcPfont 100}{subsection.6.3.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.3.2}Evaluation of the perspective}{\reset@font\mtcSSfont 100}{subsection.6.3.2}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.3.3}Final Thoughts}{\reset@font\mtcSSfont 101}{subsection.6.3.3}}
