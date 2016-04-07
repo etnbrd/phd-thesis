@@ -103,7 +103,9 @@
 
 \author{Etienne Brodu}
 
-\maketitle
+\include{front}
+
+% \maketitle
 
 % \chapter{Test}
 % \section{Test}
@@ -114,8 +116,10 @@
 
 \input{00-abstract/main}
 
-% \foreach \x in {0,...,1000}
+% \foreach \x in {0,...,646}
 %    {\x\thinspace\iconfont{\XeTeXglyph\x} }
+
+TODO remerciements
 
 \dominitoc
 \tableofcontents\eject
@@ -132,6 +136,7 @@
 \include{05-implementation/main}
 \include{90-conclusion/main}
 
+\renewcommand{\glyph}{\iconfont{\XeTeXglyph69}}
 \printbibliography[]
 
 \include{91-appendix/main}

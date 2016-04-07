@@ -28,7 +28,7 @@ The reader is invited to play with this application and the monitoring console t
 
 The network of fluxions is organized into five layers of stages, traversed by the stream of request from left to right.
 The first and last layers are the input and output, connecting the application with the clients.
-The second layer contains the fluxions receiving and formatting the request, before passing them to the next layer.
+The second layer contains the fluxions receiving and formating the request, before passing them to the next layer.
 The fluxion in the third layer is a simple filter before posting grumbles.
 It is an example of a fluxion modifying a message from the stream.
 Finally, each room is instantiated as a new fluxion in the fourth layer, storing the received grumbles in its context.

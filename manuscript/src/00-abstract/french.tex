@@ -4,27 +4,27 @@
 \begin{abstract}%
 % {\centering\textbf{Résumé}}
 
-La plupart des grands services web commencèrent comme de simple projets, et grossirent exponentiellement.
+La plupart des grands services web commencèrent comme de simples projets, et grossirent exponentiellement.
 Internet supporte cette croissance en étendant les communications et réduisant leur latence.
-Pendant son développement, une application dois croitre exponentiellement, sans quoi elle risque de se faire dépasser par la compétition.
+Pendant son développement, une application doit croître exponentiellement, sans quoi elle risque de se faire dépasser par la compétition.
 
-Dès le début, il est important de s'assurer de répondre aux besoin du marché : \textit{Fail fast}.
-Des langages comme Ruby ou Java sont devenu populaire en proposant la productivité  nécessaire pour itérer rapidement sur les retours utilisateurs.
-Une application web qui répond correctement au besoins des utilisateur peut être adopté de manière virale.
-Mais à terme, une application dois être efficace pour traiter cette augmentation de trafic.
+Dès le début, il est important de s'assurer de répondre aux besoins du marché : \textit{Fail fast}.
+Des langages comme Ruby ou Java sont devenus populaires en proposant la productivité  nécessaire pour itérer rapidement sur les retours utilisateurs.
+Une application web qui répond correctement aux besoins des utilisateurs peut être adoptée de manière virale.
+Mais à terme, une application doit être efficace pour traiter cette augmentation de trafic.
 
 Il est difficile pour une application d'être à la fois productive et efficace.
-Quand l'audience deviens trop importante, il est souvent nécessaire de remplacer l'approche productive pour un modèle plus efficace.
+Quand l'audience devient trop importante, il est souvent nécessaire de remplacer l'approche productive pour un modèle plus efficace.
 Aucune plateforme de développement ne permet de concilier ces deux objectifs, il est donc nécessaire de réécrire l'application vers un modèle plus efficace, tel qu'un pipeline.
 Ce changement représente un risque.
 Il implique une quantité de travail conséquente et incertaine.
-Pour éviter ce risque, cette thèse propose de maintenir conjointement les représentations productive et efficace d'une même application.
+Pour éviter ce risque, cette thèse propose de maintenir conjointement les représentations productives et efficaces d'une même application.
 
 Javascript est un langage productif avec une communauté importante.
 C'est l’environnement d’exécution le plus largement déployé puisqu'il est omniprésent dans les navigateurs, et également sur certains serveurs avec \textit{Node.js}.
-Il est maintenant considéré comme le langage principale du web, détrônant Ruby ou Java.
+Il est maintenant considéré comme le langage principal du web, détrônant Ruby ou Java.
 De plus, sa boucle évènementielle est similaire à un pipeline.
-Ces deux modèles d’exécution traitent un flux de requêtes en chainant des fonctions les unes après les autres.
+Ces deux modèles d’exécution traitent un flux de requêtes en chaînant des fonctions les unes après les autres.
 Cependant, la boucle évènementielle permet une approche productive grâce à sa mémoire globale, tandis que le pipeline permet une exécution efficace du fait de sa parallélisation.
 
 Cette thèse étudie la possibilité pour une équivalence de transformer une implémentation d'une représentation vers l'autre.
@@ -34,7 +34,7 @@ Elle peut itérer continuellement pour prendre en compte les avantages des deux 
 Cette thèse présente un compilateur qui permet d'identifier un pipeline dans une application Javascript, et d'isoler chaque étape dans une fluxion.
 Une fluxion est nommée par contraction entre fonction et flux.
 Elle exécute une fonction pour chaque datum sur le flux.
-Les fluxions sont indépendantes, et peuvent être déplacé d'une machine à l'autre pour amortir l'augmentation du trafic.
+Les fluxions sont indépendantes, et peuvent être déplacées d'une machine à l'autre pour amortir l'augmentation du trafic.
 L'équipe de développement peut commencer à développer avec la productivité de la boucle évènementielle.
 Et avec la transformation, elle peut itérer pour progressivement atteindre l’efficacité du pipeline.
 
