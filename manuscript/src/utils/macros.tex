@@ -66,6 +66,19 @@
   \vskip 30pt%
 }
 
+\newcommand{\citi}[2]{%
+  \vskip \baselineskip%
+  \textit{%
+    \llap{\hfill\quotefont\fontsize{45pt}{45pt}\selectfont\textcolor{red}{“}\hspace{25pt}}%
+    \vskip -2.2\baselineskip%
+    \noindent\Large{#1}{\quotefont\textcolor{red}{”}}%
+  }%
+  \begin{flushright}%
+  --- #2%
+  \end{flushright}%
+  \vskip 30pt%
+}
+
 
 % \newenvironment{atomic}{%
 % \begin{minipage}{\linewidth}%

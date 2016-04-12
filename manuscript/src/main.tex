@@ -48,6 +48,7 @@
 \usepackage{caption}
 \usepackage{fancyhdr}
 \usepackage{minitoc}
+\nomtcrule
 
 \defaultfontfeatures{Ligatures=TeX}
 
@@ -76,43 +77,24 @@
 
 \defaultfontfeatures{Ligatures=TeX}
 
-% \title{%
-% \parbox{\linewidth}{%
-% % \titleline%
-% \vspace{46pt}
-% \secfont\fontsize{20pt}{25pt}\selectfont%
-% \MakeUppercase{Fluxional compiler : seamless shift from development productivity to performance efficiency, in the case of real-time web applications}%
-% \vspace{46pt}%
-% % \titleline%
-% \color{black}%
-% }}
-
-% \author{Etienne Brodu}
-
 \includepdf{front.pdf} \blank%
 \input{front} \blank%
 
-% \maketitle
-
-% \chapter{Test}
-% \section{Test}
-% \subsection{Test}
-% \subsubsection{Test}
-% \paragraph{Test}
-% Test
-
 \input{00-abstract/main}
 
-iconfont\\
-\foreach \x in {0,...,646}
-   {\x\thinspace\iconfont{\XeTeXglyph\x} }\\
-typicons\\
-\foreach \x in {0,...,336}
-   {\x\thinspace\typicons{\XeTeXglyph\x} }\\
-elusive\\
-\foreach \x in {0,...,300}
-   {\x\thinspace\elusive{\XeTeXglyph\x} }\\
-\eject
+% iconfont\\
+% \foreach \x in {0,...,646}
+%    {\x\thinspace\iconfont{\XeTeXglyph\x} }\\
+% typicons\\
+% \foreach \x in {0,...,336}
+%    {\x\thinspace\typicons{\XeTeXglyph\x} }\\
+% elusive\\
+% \foreach \x in {0,...,300}
+%    {\x\thinspace\elusive{\XeTeXglyph\x} }\\
+% linecons\\
+% \foreach \x in {0,...,50}
+%    {\x\thinspace\linecons{\XeTeXglyph\x} }\\
+% \eject
 
 \input{acknowledgement}
 
@@ -131,7 +113,7 @@ elusive\\
 \input{05-implementation/main}
 \input{90-conclusion/main}
 
-\renewcommand{\glyph}{\iconfont{\XeTeXglyph69}}
+\renewcommand{\glyph}{\linecons{\XeTeXglyph39}}
 \printbibliography[]
 
 \input{91-appendix/main}
