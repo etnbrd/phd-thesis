@@ -1,2 +1,16 @@
 \section{Fluxion Compiler Evaluation results} \label{section:flx-results}
 
+The following listings shows the complete modifications operated on the test application \texttt{gifsockets-server}.
+The whole code is available online\ftnt{https://github.com/etnbrd/flx-compiler/tree/master/test-set/gifsockets-server-master}.
+
+\subsection{Original}
+
+\includecode{js}{../../../flx-compiler/test-set/gifsockets-server-master/server/app-vanilla.js}{Original application file\\(\texttt{gifsockets-server-master/server/app-vanilla.js})}
+
+\subsection{Modified}
+
+The modified code is the low-level javascript code compiled and modified from the high-level fluxionnal language.
+It is not meant to be written nor read directly as is, and is related here only to acknowledge the modifications.
+
+\includecode{js}{../../../flx-compiler/test-set/gifsockets-server-master/server/app.js}{Modified application file\\(\texttt{gifsockets-server-master/server/app.js})}
+\includecode{js}{../../../flx-compiler/test-set/gifsockets-server-master/node_modules/express/lib/router/index.js}{Modified express router file\\(\texttt{gifsockets-server-master/node\_modules/express/lib/router/index.js})}

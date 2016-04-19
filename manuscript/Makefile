@@ -15,7 +15,10 @@ bib: _bib
 pdf: _pre
 
 clean:
-	rm -rf .tmp
+	rm -rf .tmp/*.aux
+
+purge:
+	rm -rf .tmp/
 
 import:
 	rsync -r ~/Documents/PhD/Bib/* ./src/bib

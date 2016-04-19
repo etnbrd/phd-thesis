@@ -85,12 +85,12 @@ The common memory is replaced by message-passing, following some rules to preser
 \item If a stage needs to hold a variable from one request to the other, this variable is stored in its context.
 \item If a downstream stage needs to read a variable from an upstream stage, the variable is sent as part of the message communication.
 \item If two stages needs to share a variable, they are grouped on the same execution node to safely share parts of their context.
-Their executions are not parallelized to avoid conflicting accesses.
+Their are executed sequentially to avoid conflicting accesses.
 \end{itemize}
 
 The difficulty in this step is to identify the memory dependencies between stages.
 The dynamic behaviors of Javascript makes it impossible to statically identify aliasing in the memory.
-The compiler implemented from the equivalence is currently unable identify these interdependencies.
+The compiler implemented from the equivalence is currently unable to identify these interdependencies.
 It relies on manual manipulations to complete the transformation.
 
 \separator

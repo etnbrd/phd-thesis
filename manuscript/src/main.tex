@@ -21,7 +21,7 @@
 \input{utils/macros}
 \input{utils/fonts}
 \input{utils/titlesec}
-\input{utils/toc}
+% \input{utils/toc}
 \input{utils/tables}
 
 \usepackage{algorithm}
@@ -47,8 +47,30 @@
 \usepackage{pdfpages}
 \usepackage{caption}
 \usepackage{fancyhdr}
-\usepackage{minitoc}
-\nomtcrule
+% \usepackage{minitoc}
+% \nomtcrule
+% \usepackage{titletoc}
+
+\usepackage{tocloft}
+\usepackage{etoc}
+
+
+% \usepackage{etoolbox}
+
+% \makeatletter
+% \patchcmd{\l@chapter}
+%   {\cftchapfont #1}%   search pattern
+%   {\cftchapfont {#1}}% replace by
+%   {}%                  success
+%   {}%                  failure
+% \makeatother
+
+
+% \etocmulticolstyle{\noindent\bfseries\footnotesize
+% \leaders\hrule height1pt\hfill
+% \MakeUppercase{Contents}}
+% \etocsettocstyle{\bigskip\hrule\medskip}{\medskip\hrule\vfill}
+
 
 \defaultfontfeatures{Ligatures=TeX}
 
@@ -69,7 +91,7 @@
 
 \setcounter{secnumdepth}{2}
 \setcounter{tocdepth}{2}
-\setcounter{minitocdepth}{2}
+% \setcounter{minitocdepth}{2}
 
 \pagestyle{empty}
 
@@ -77,8 +99,9 @@
 
 \defaultfontfeatures{Ligatures=TeX}
 
-\includepdf{front.pdf} \blank%
+% \includepdf{front.pdf} \blank%
 \input{front} \blank%
+\input{ecole-doctorales} \blank%
 
 \input{00-abstract/main}
 
@@ -98,12 +121,22 @@
 
 \input{acknowledgement}
 
-\dominitoc%
+% \dominitoc%
+% \etocsettocstyle{Content}{}%
+
+% \renewcommand{\cfttoctitlefont}{\normalfont\Large\bfseries\MakeUppercase}
+% \renewcommand{\contentsname}{Contents}
+% \renewcommand{\cftchapfont}{\secfont\fontsize{17pt}{17pt}\selectfont\MakeUppercase}
+% \renewcommand{\cftchapfont}{\secfont\fontsize{20pt}{20pt}\selectfont}
+
 \tableofcontents\newpage%\eject
 \listoffigures\newpage%\eject
 \listoftables\newpage%\eject
 \listofillustration%
 
+\etocsettocstyle{}{}%
+\cftsecindent 0pt
+% \cftsubsecindent 25pt
 \pagestyle{fancy}
 
 \input{01-introduction/main}
@@ -122,6 +155,5 @@
 \newpage
 \pagestyle{empty}
 \input{folio}
-\input{ecole-doctorales}
 
 \end{document}

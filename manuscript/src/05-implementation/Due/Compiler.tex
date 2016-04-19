@@ -124,10 +124,10 @@ caller1([args])
 % They are placeholders for the outcome of a deferred operation.
 % They are not able to compose pipeline of streaming data.
 
-Because Dues are a placeholder for a single outcome, it doesn't allow to express the recurrence of streaming data.
+Because Dues are placeholders for a single outcome, they don't allow to express the recurrence of streaming data.
 Concretely, % in the case of streaming data,
 a Due is created for each datum in the stream.
-Therefore, continuations doesn't represent the whole streaming pipeline underlying in the application.
+Therefore, continuations don't represent the whole streaming pipeline underlying in the application.
 Listeners are the callbacks starting the streaming pipeline.
 There is a need for an abstraction for both continuations and listeners.
 % and the extracted pipeline of Dues
