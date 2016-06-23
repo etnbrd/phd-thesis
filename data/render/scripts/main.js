@@ -77,208 +77,210 @@ var languageDict = {
 
 var parent = d3.select('#charts');
 
-d3.csv('csv/blackduck-alltime.csv')
-  .row(typeLanguage)
-  .get(pieChartFactory(parent, 'blackduck-alltime'));
+// d3.csv('csv/blackduck-alltime.csv')
+//   .row(typeLanguage)
+//   .get(pieChartFactory(parent, 'blackduck-alltime'));
 
-d3.csv('csv/blackduck-2015.csv')
-  .row(typeLanguage)
-  .get(pieChartFactory(parent, 'blackduck-2015'));
+// d3.csv('csv/blackduck-2015.csv')
+//   .row(typeLanguage)
+//   .get(pieChartFactory(parent, 'blackduck-2015'));
 
-d3.csv('csv/stackoverflow-mostwanted.csv')
-  .row(typeLanguage)
-  .get(pieChartFactory(parent, 'stackoverflow-mostwanted'));
+// d3.csv('csv/stackoverflow-mostwanted.csv')
+//   .row(typeLanguage)
+//   .get(pieChartFactory(parent, 'stackoverflow-mostwanted'));
 
-d3.csv('csv/due-evaluation.csv')
-  .row(typeStatus)
-  .get(pieChartFactory(parent, 'due-evaluation', {dict: dueEvalDict}));
+// d3.csv('csv/due-evaluation.csv')
+//   .row(typeStatus)
+//   .get(pieChartFactory(parent, 'due-evaluation', {dict: dueEvalDict}));
 
-d3.csv('csv/blackduck-languages.csv')
-  .row(function(row) {
-    return {
-      date: parseDate('%Y',row.date),
-      C: +row['C'],
-      Cplusplus: +row['C++'],
-      Java: +row['Java'],
-      Javascript: +row['Javascript'],
-      PHP: +row['PHP'],
-      XMLSchema: +row['XML Schema'],
-      Shell: +row['Shell'],
-      Autoconf: +row['Autoconf'],
-      Python: +row['Python'],
-      Ruby: +row['Ruby'],
-      Assembler: +row['Assembler'],
-      Perl: +row['Perl'],
-      Csharp: +row['C#'],
-      SQL: +row['SQL'],
-      Make: +row['Make']
-    };
-  })
-  .get(lineChartFactory(parent, 'blackduck-languages', {
-    yLabel: 'Tags',
-    yLabelPadding: 40,
-    dict: languageDict
-  }));
+// d3.csv('csv/blackduck-languages.csv')
+//   .row(function(row) {
+//     return {
+//       date: parseDate('%Y',row.date),
+//       C: +row['C'],
+//       Cplusplus: +row['C++'],
+//       Java: +row['Java'],
+//       Javascript: +row['Javascript'],
+//       PHP: +row['PHP'],
+//       XMLSchema: +row['XML Schema'],
+//       Shell: +row['Shell'],
+//       Autoconf: +row['Autoconf'],
+//       Python: +row['Python'],
+//       Ruby: +row['Ruby'],
+//       Assembler: +row['Assembler'],
+//       Perl: +row['Perl'],
+//       Csharp: +row['C#'],
+//       SQL: +row['SQL'],
+//       Make: +row['Make']
+//     };
+//   })
+//   .get(lineChartFactory(parent, 'blackduck-languages', {
+//     yLabel: 'Tags',
+//     yLabelPadding: 40,
+//     dict: languageDict
+//   }));
 
-d3.csv('csv/modulecounts.csv')
-  .row(function(row) {
-    return {
-      date: parseDate('%Y\/%m\/%d',row.date),
-      npm: +row['npm (node.js)'],
-      Maven: +row['Maven Central (Java)'],
-      Rubygems: +row['Rubygems.org'],
-      GoDoc: +row['GoDoc (Go)'],
-      Packagist: +row['Packagist (PHP)'],
-      PyPI: +row['PyPI'],
-      nugets: +row['nuget (.NET)'],
-      CPAN: +row['CPAN'],
-      // Bower: +row['Bower (JS)'],
-      // Clojares: +row['Clojars (Clojure)'],
-      // CPAN_Search: +row['CPAN (search)'],
-      // CRAN: +row['CRAN (R)'],
-      // Crates: +row['Crates.io (Rust)'],
-      // Drupal: +row['Drupal (php)'],
-      // Hackage: +row['Hackage (Haskell)'],
-      // Hex: +row['Hex.pm (Elixir/Erlang)'],
-      // LuaRocks: +row['LuaRocks (Lua)'],
-      // MELPA: +row['MELPA (Emacs)'],
-      // Pear: +row['Pear (PHP)'],
-      // Perl: +row['Perl 6 Ecosystem (perl 6)'],
-    };
-  })
-  .get(lineChartFactory(parent, 'modulecounts', {
-    yLabel: 'Modules',
-    yLabelPadding: 50,
-    dict: languageDict
-  }));
+// d3.csv('csv/modulecounts.csv')
+//   .row(function(row) {
+//     return {
+//       date: parseDate('%Y\/%m\/%d',row.date),
+//       npm: +row['npm (node.js)'],
+//       Maven: +row['Maven Central (Java)'],
+//       Rubygems: +row['Rubygems.org'],
+//       GoDoc: +row['GoDoc (Go)'],
+//       Packagist: +row['Packagist (PHP)'],
+//       PyPI: +row['PyPI'],
+//       nugets: +row['nuget (.NET)'],
+//       CPAN: +row['CPAN'],
+//       // Bower: +row['Bower (JS)'],
+//       // Clojares: +row['Clojars (Clojure)'],
+//       // CPAN_Search: +row['CPAN (search)'],
+//       // CRAN: +row['CRAN (R)'],
+//       // Crates: +row['Crates.io (Rust)'],
+//       // Drupal: +row['Drupal (php)'],
+//       // Hackage: +row['Hackage (Haskell)'],
+//       // Hex: +row['Hex.pm (Elixir/Erlang)'],
+//       // LuaRocks: +row['LuaRocks (Lua)'],
+//       // MELPA: +row['MELPA (Emacs)'],
+//       // Pear: +row['Pear (PHP)'],
+//       // Perl: +row['Perl 6 Ecosystem (perl 6)'],
+//     };
+//   })
+//   .get(lineChartFactory(parent, 'modulecounts', {
+//     yLabel: 'Modules',
+//     yLabelPadding: 50,
+//     dict: languageDict
+//   }));
 
-d3.csv('csv/github-languages.csv')
-  .row(function(row) {
-    return {
-      date: parseDate('%Y',row.date),
-      Javascript: row['Javascript'],
-      Java: row['Java'],
-      Ruby: row['Ruby'],
-      PHP: row['PHP'],
-      Python: row['Python'],
-      CSS: row['CSS'],
-      Cplusplus: row['C++'],
-      Csharp: row['C#'],
-      C: row['C'],
-      ObjectiveC: row['Objective-C'],
-      Perl: row['Perl']
-      // HTML: row['HTML'],
-      // Shell: row['Shell'],
-      // VimL: row['VimL'],
-      // EmacsLisp: row['Emacs Lisp'],
-    };
-  })
-  .get(lineChartFactory(parent, 'github-languages', {
-    yLabel: 'Rank',
-    yLabelPadding: 10,
-    dict: languageDict,
-    inverse: true,
-    yDomain: [1, 10]
-  }));
+// d3.csv('csv/github-languages.csv')
+//   .row(function(row) {
+//     return {
+//       date: parseDate('%Y',row.date),
+//       Javascript: row['Javascript'],
+//       Java: row['Java'],
+//       Ruby: row['Ruby'],
+//       PHP: row['PHP'],
+//       Python: row['Python'],
+//       CSS: row['CSS'],
+//       Cplusplus: row['C++'],
+//       Csharp: row['C#'],
+//       C: row['C'],
+//       ObjectiveC: row['Objective-C'],
+//       Perl: row['Perl']
+//       // HTML: row['HTML'],
+//       // Shell: row['Shell'],
+//       // VimL: row['VimL'],
+//       // EmacsLisp: row['Emacs Lisp'],
+//     };
+//   })
+//   .get(lineChartFactory(parent, 'github-languages', {
+//     yLabel: 'Rank',
+//     yLabelPadding: 10,
+//     dict: languageDict,
+//     inverse: true,
+//     yDomain: [1, 10]
+//   }));
 
-var lastRow = {
-  Javascript: 0,
-  C: 0,
-  Cplusplus: 0,
-  Java: 0,
-  PHP: 0,
-  Ruby: 0,
-  Python: 0,
-  SQL: 0,
-};
+// var lastRow = {
+//   Javascript: 0,
+//   C: 0,
+//   Cplusplus: 0,
+//   Java: 0,
+//   PHP: 0,
+//   Ruby: 0,
+//   Python: 0,
+//   SQL: 0,
+// };
 
-d3.csv('csv/stackoverflow-tags.csv')
-  .row(function(row) {
-    return lastRow = {
-      date: parseDate('%Y%m',row.date),
-      Javascript: lastRow.Javascript + +row['Javascript'],
-      C: lastRow.C + +row['C'],
-      Cplusplus: lastRow.Cplusplus + +row['C++'],
-      Java: lastRow.Java + +row['Java'],
-      PHP: lastRow.PHP + +row['PHP'],
-      Ruby: lastRow.Ruby + +row['Ruby'],
-      Python: lastRow.Python + +row['Python'],
-      SQL: lastRow.SQL + +row['SQL']
-    };
-  })
-  .get(lineChartFactory(parent, 'stackoverflow-tags', {
-    yLabel: 'Tags',
-    yLabelPadding: 60,
-    dict: languageDict
-  }));
+// d3.csv('csv/stackoverflow-tags.csv')
+//   .row(function(row) {
+//     return lastRow = {
+//       date: parseDate('%Y%m',row.date),
+//       Javascript: lastRow.Javascript + +row['Javascript'],
+//       C: lastRow.C + +row['C'],
+//       Cplusplus: lastRow.Cplusplus + +row['C++'],
+//       Java: lastRow.Java + +row['Java'],
+//       PHP: lastRow.PHP + +row['PHP'],
+//       Ruby: lastRow.Ruby + +row['Ruby'],
+//       Python: lastRow.Python + +row['Python'],
+//       SQL: lastRow.SQL + +row['SQL']
+//     };
+//   })
+//   .get(lineChartFactory(parent, 'stackoverflow-tags', {
+//     yLabel: 'Tags',
+//     yLabelPadding: 60,
+//     dict: languageDict
+//   }));
 
-d3.csv('csv/stackoverflow-languages.csv')
-  .row(function(row) {
-    return {
-      date: parseDate('%Y',row.date),
-      Javascript: +row['Javascript'],
-      SQL: +row['SQL'],
-      Java: +row['Java'],
-      Csharp: +row['C#'],
-      PHP: +row['PHP'],
-      Python: +row['Python'],
-      Cplusplus: +row['C'],
-      C: +row['C'],
-      Nodejs: +row['Node.js'],
-      AngularJS: +row['AngularJS'],
-      Ruby: +row['Ruby'],
-      ObjectiveC: +row['Objective-C']
-    };
-  })
-  .get(lineChartFactory(parent, 'stackoverflow-languages', {
-    yLabel: 'Percentage',
-    yLabelPadding: 40,
-    dict: languageDict
-  }));
+// d3.csv('csv/stackoverflow-languages.csv')
+//   .row(function(row) {
+//     return {
+//       date: parseDate('%Y',row.date),
+//       Javascript: +row['Javascript'],
+//       SQL: +row['SQL'],
+//       Java: +row['Java'],
+//       Csharp: +row['C#'],
+//       PHP: +row['PHP'],
+//       Python: +row['Python'],
+//       Cplusplus: +row['C'],
+//       C: +row['C'],
+//       Nodejs: +row['Node.js'],
+//       AngularJS: +row['AngularJS'],
+//       Ruby: +row['Ruby'],
+//       ObjectiveC: +row['Objective-C']
+//     };
+//   })
+//   .get(lineChartFactory(parent, 'stackoverflow-languages', {
+//     yLabel: 'Percentage',
+//     yLabelPadding: 40,
+//     dict: languageDict
+//   }));
 
-d3.csv('csv/tiobe.csv')
-  .row(function(row) {
-    return {
-      date: parseDate('%Y%m%d',row.date),
-      Javascript: +row['JavaScript'],
-      Java: +row['Java'],
-      C: +row['C'],
-      Cplusplus: +row['C++'],
-      Csharp: +row['C#'],
-      Python: +row['Python'],
-      PHP: +row['PHP'],
-      VisualBasicNET: +row['Visual Basic .NET'],
-      Assembler: +row['Assembly language'],
-      Ruby: +row['Ruby']
-    };
-  })
-  .get(lineChartFactory(parent, 'tiobe', {
-    yLabel: 'Percentages',
-    yLabelPadding: 10,
-    dict: languageDict
-  }));
+// d3.csv('csv/tiobe.csv')
+//   .row(function(row) {
+//     return {
+//       date: parseDate('%Y%m%d',row.date),
+//       Javascript: +row['JavaScript'],
+//       Java: +row['Java'],
+//       C: +row['C'],
+//       Cplusplus: +row['C++'],
+//       Csharp: +row['C#'],
+//       Python: +row['Python'],
+//       PHP: +row['PHP'],
+//       VisualBasicNET: +row['Visual Basic .NET'],
+//       Assembler: +row['Assembly language'],
+//       Ruby: +row['Ruby']
+//     };
+//   })
+//   .get(lineChartFactory(parent, 'tiobe', {
+//     yLabel: 'Percentages',
+//     yLabelPadding: 10,
+//     dict: languageDict
+//   }));
 
-d3.csv('csv/Javascript-timeline.csv')
-  .row(function(row) {
-    return {
-      date: parseDate('%d\/%m\/%Y',row.date),
-      event: row.event
-    };
-  })
-  .get(timelineFactory(parent, 'javascript-timeline', {
-  }));
+// d3.csv('csv/Javascript-timeline.csv')
+//   .row(function(row) {
+//     return {
+//       date: parseDate('%d\/%m\/%Y',row.date),
+//       event: row.event
+//     };
+//   })
+//   .get(timelineFactory(parent, 'javascript-timeline', {
+//   }));
 
-d3.csv('csv/visit-count-service-1.csv')
-  .row(function(row) {
-    return {
-      date: parseDate('%m-%Y', row.date),
-      visits: row.visits
-    }
-  })
-  .get(lineChartFactory(parent, 'visits', {
-    yLabel: 'Visits',
-    yLabelPaddin: 30
-  }));
+// d3.csv('csv/visit-count-service-1.csv')
+//   .row(function(row) {
+//     return {
+//       date: parseDate('%m-%Y', row.date),
+//       visits: row.visits
+//     }
+//   })
+//   .get(lineChartFactory(parent, 'visits', {
+//     yLabel: 'Visits',
+//     yLabelPaddin: 30
+//   }));
+
+d3.csv('')
 
 /////////////////////////////////////////////////////////////////////
 //   Pie Chart
@@ -656,6 +658,145 @@ function timelineFactory(parent, name, options) {
 }
 
 function timeline(svg, data, options) {
+
+  var x = d3.time.scale()
+      .range([0, options.width]);
+
+  var y = d3.scale.linear()
+      .range(options.inverse ? [0, options.height] : [options.height, 0]);
+
+
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient('bottom')
+      .tickPadding(8)
+      .ticks(d3.time.month)
+
+  x.domain(options.xDomain || d3.extent(data, function(d) { return d.date; }));
+
+  svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + options.height + ')')
+      .call(xAxis);
+
+  svg.selectAll('.tick text')
+      .attr('dy', '3pt')
+      .style('font-family', 'Gotham Rounded')
+      .style('font-wieght', '100')
+
+  svg.selectAll('.x .tick text')
+      .filter(function(d){
+        return !(d.getYear()%2 === 0 && d.getMonth() === 0);
+      })
+      .remove()
+
+  svg.selectAll(".x .tick line")
+      .attr("y2", function(d){
+        return d.getMonth() === 0 ? 10 : 6;
+      })
+      .attr("stroke-width", function(d){
+        return d.getMonth() === 0 ? '1pt' : '0.4pt';
+      })
+      .attr('stroke-linecap', 'round');
+
+  var events = svg.selectAll('.events')
+    .data(data.reverse())
+    .enter()
+    .append('g')
+      .attr('class', 'event')
+      .attr('transform', function(d) {
+        return 'translate(' + x(d.date) + ',' + options.height + ')';
+      })
+
+   // var lastd = 0;
+   // var lastt = options.width + 100;
+
+  data.reduce(function(last, event) {
+    var c = Math.cos(Math.PI/4),
+        t = x(event.date),
+        dt = last.t - t;
+    // If the space between the current and previous text line is less than the interline
+    // Pull up the current text line so that it fit the interline.
+    event.y = (c*(dt - last.d) < options.interline) ? options.interline / c - dt + last.d : 0;
+
+    return {d: event.y, t: t}
+  }, {d: 0, t: options.width + 100})
+
+  events.append('g')
+      .attr('transform', function (d) {
+        return 'translate(5,' + (-25 - d.y) + ') rotate(-45)';
+      })
+      .append('text')
+      .style('text-anchor', 'left')
+      .style('font-family', 'Gotham Rounded')
+      .style('font-wieght', '100')
+      .text(function(d) {
+        return d.event;
+      });
+
+  events.append('circle')
+      .attr('cy','0')
+      .attr('cx','0')
+      .attr('r','1.5pt')
+
+  events.append('line')
+      // .attr('class', 'line')
+      .attr('x1', 0)
+      .attr('x2', 0)
+      .attr('y1', function(d) { return - 20 - d.y })
+      .attr('y2', -7)
+      .attr('stroke-width', '1px')
+      .attr('stroke', 'black')
+      .attr('stroke-linecap', 'round');
+      // .attr('fill', 'none') // The default value seems to be black
+
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////
+//   SpanTimeline
+/////////////////////////////////////////////////////////////////////
+
+function spanTimelineFactory(parent, name, options) {
+
+  var options = options || {};
+  options.margin = options.margin || {top: 20, right: 20, bottom: 20, left: 20};
+  options.width = 600 - options.margin.left - options.margin.right;
+  options.height = 300 - options.margin.top - options.margin.bottom;
+  options.dict = options.dict || {};
+  options.interline = options.interline || 30;
+  // options.xDomain = function() {return undefined};
+  // options.yDomain = function() {return undefined};
+
+  return function (error, data) {
+      if (error) throw error;
+
+      var svg = parent
+        .append('svg')
+        .attr('width', options.width + options.margin.left + options.margin.right)
+        .attr('height', options.height + options.margin.top + options.margin.bottom)
+        .attr('class', 'chart')
+        .attr('filename', name + '.svg')
+
+        var ratio = 1.11; 
+        var margin = 356;
+
+        svg.append('rect')
+        .attr('x', -margin * ratio / 2)
+        .attr('y', 20)
+        .attr('width', options.width + options.margin.left + optionTimelineTimelines.margin.right + margin)
+        .attr('height', options.height + options.margin.top + options.margin.bottom - 20)
+        .attr('fill', lightgray)
+
+        svg.append('g');
+
+      timeline(svg, data, options);
+    }
+}
+
+function spanTimeline(svg, data, options) {
 
   var x = d3.time.scale()
       .range([0, options.width]);
